@@ -1,52 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
-  <!-- Main page — highest priority -->
   <url>
     <loc>https://loancalc.app/</loc>
     <lastmod>2026-05-02</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-  </url>
-
-  <!-- Loan calculator section -->
-  <url>
-    <loc>https://loancalc.app/#calculator</loc>
-    <lastmod>2026-05-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-
-  <!-- Compound interest / savings calculator -->
-  <url>
-    <loc>https://loancalc.app/#compound</loc>
-    <lastmod>2026-05-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Refinance calculator -->
-  <url>
-    <loc>https://loancalc.app/#refinance</loc>
-    <lastmod>2026-05-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- Currency converter, gold price, oil price -->
-  <url>
-    <loc>https://loancalc.app/#currency</loc>
-    <lastmod>2026-05-02</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.8</priority>
-  </url>
-
-  <!-- FAQ -->
-  <url>
-    <loc>https://loancalc.app/#faq</loc>
-    <lastmod>2026-05-02</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
   </url>
 
 </urlset>
