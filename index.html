@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<!-- ═══════════════════════════════════════════════
+     SEO: PRIMARY META TAGS
+     Replace loanlens.com with your actual domain
+═══════════════════════════════════════════════ -->
+<title>Free Loan Calculator — Mortgage, Car, Personal & Student Loans | LoanLens</title>
+<meta name="description" content="Calculate your exact monthly loan payment in seconds. Free loan calculator for mortgage, car loan, personal loan and student loan. See full amortization schedule, total interest paid, and payment breakdown. No signup required.">
+<meta name="keywords" content="loan calculator,mortgage calculator,car loan calculator,personal loan calculator,student loan calculator,monthly payment calculator,amortization schedule,loan interest calculator,free loan calculator,home loan calculator">
+<meta name="author" content="LoanLens">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#0A1628">
+<link rel="canonical" href="https://loanlens.com/">
+
+<!-- ═══════════════════════════════════════════════
+     SEO: OPEN GRAPH (Facebook, LinkedIn)
+═══════════════════════════════════════════════ -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://loanlens.com/">
+<meta property="og:title" content="Free Loan Calculator — Mortgage, Car & Personal | LoanLens">
+<meta property="og:description" content="Calculate your monthly loan payment instantly. Works for mortgage, car loan, personal and student loans. Free, no signup, instant results.">
+<meta property="og:site_name" content="LoanLens">
+
+<!-- ═══════════════════════════════════════════════
+     SEO: TWITTER CARD
+═══════════════════════════════════════════════ -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Free Loan Calculator — LoanLens">
+<meta name="twitter:description" content="Calculate monthly payments for any loan. Instant, free, no signup needed.">
+
+<!-- ═══════════════════════════════════════════════
+     SEO: SCHEMA.ORG — WebApplication
+═══════════════════════════════════════════════ -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"WebApplication",
+  "name":"LoanLens — Free Loan Calculator",
+  "description":"Free loan payment calculator for mortgage, car loan, personal loan and student loan with full amortization schedule and payment breakdown chart.",
+  "url":"https://loanlens.com",
+  "applicationCategory":"FinanceApplication",
+  "operatingSystem":"Web",
+  "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
+  "featureList":["Mortgage Calculator","Car Loan Calculator","Personal Loan Calculator","Student Loan Calculator","Amortization Schedule","Payment Breakdown Chart","No Signup Required"]
+}
+</script>
+
+<!-- ═══════════════════════════════════════════════
+     SEO: SCHEMA.ORG — FAQ (boosts search snippet)
+═══════════════════════════════════════════════ -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {
+      "@type":"Question",
+      "name":"How is the monthly loan payment calculated?",
+      "acceptedAnswer":{"@type":"Answer","text":"Monthly Payment = P × [r(1+r)^n] ÷ [(1+r)^n − 1], where P is the principal loan amount, r is the monthly interest rate (annual rate divided by 12), and n is the total number of monthly payments (years × 12)."}
+    },
+    {
+      "@type":"Question",
+      "name":"What is an amortization schedule?",
+      "acceptedAnswer":{"@type":"Answer","text":"An amortization schedule shows how each payment is split between principal and interest over the full loan term. Early payments are mostly interest; later payments are mostly principal. LoanLens generates a complete year-by-year schedule for any loan."}
+    },
+    {
+      "@type":"Question",
+      "name":"Does this calculator work for all countries?",
+      "acceptedAnswer":{"@type":"Answer","text":"Yes. You enter your own loan amount, interest rate, and term in years. The formula is the same worldwide and works for any currency. No country-specific tax data is needed."}
+    },
+    {
+      "@type":"Question",
+      "name":"How can I lower my monthly loan payment?",
+      "acceptedAnswer":{"@type":"Answer","text":"You can lower your monthly payment by increasing the loan term (spreading payments over more years), making a larger down payment to reduce the principal, or improving your credit score to qualify for a lower interest rate."}
+    },
+    {
+      "@type":"Question",
+      "name":"Is this loan calculator free?",
+      "acceptedAnswer":{"@type":"Answer","text":"Yes. LoanLens is completely free with no account or signup required. There are no hidden fees, no premium tiers, and no data collection."}
+    }
+  ]
+}
+</script>
+
+<!-- ═══════════════════════════════════════════════
+     PERFORMANCE: Preconnect for fast font & CDN loading
+═══════════════════════════════════════════════ -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
+<!-- ═══════════════════════════════════════════════
+     ALL STYLES INLINED — Zero render-blocking CSS
+═══════════════════════════════════════════════ -->
+<style>
+:root{
+  --navy:#0A1628;--navy-mid:#162040;--navy-soft:#1B3FA3;
+  --gold:#C8973A;--gold-light:#FDF4E3;--gold-deep:#96700A;
+  --bg:#F0F4FF;--card:#FFFFFF;--card2:#F8FAFF;
+  --text:#0A1628;--muted:#5B6278;--border:#D5DCF0;
+  --green:#0B7C4E;--green-light:#E9F7F0;
+  --blue-light:#EEF2FF;
+  --r:12px;--rLg:20px;--rXl:28px;
+  --shadow:0 2px 16px rgba(10,22,40,0.08);
+  --shadowMd:0 4px 32px rgba(10,22,40,0.12);
+  --ff-display:'Playfair Display',Georgia,serif;
+  --ff-body:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  --ff-mono:'Courier New',Courier,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:var(--ff-body);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.container{max-width:1100px;margin:0 auto;padding:0 20px}
+
+/* ── HEADER ── */
+header{background:var(--navy);position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,0.06)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo-link{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-text{font-family:var(--ff-display);font-size:20px;font-weight:700;color:#fff;letter-spacing:-0.02em}
+.logo-text span{color:var(--gold)}
+header nav{display:flex;gap:6px}
+header nav a{color:rgba(255,255,255,0.65);text-decoration:none;font-size:13px;font-weight:400;padding:6px 12px;border-radius:6px;transition:all .15s}
+header nav a:hover{color:#fff;background:rgba(255,255,255,0.08)}
+
+/* ── HERO ── */
+.hero{background:var(--navy);padding:64px 0 72px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(200,151,58,0.12) 0%,transparent 70%);pointer-events:none}
+.hero h1{font-family:var(--ff-display);font-size:clamp(32px,5vw,54px);font-weight:700;color:#fff;line-height:1.15;letter-spacing:-0.025em;margin-bottom:16px}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero-sub{font-size:17px;color:rgba(255,255,255,0.65);max-width:520px;margin:0 auto 28px;font-weight:300;line-height:1.7}
+.trust-badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.trust-badge{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.8);font-size:12px;padding:5px 14px;border-radius:99px;font-weight:400;letter-spacing:0.02em}
+
+/* ── TABS ── */
+.tab-wrap{background:var(--navy);padding-bottom:0}
+.tab-nav{display:flex;justify-content:center;gap:0;padding:0 20px;max-width:700px;margin:0 auto;border-bottom:1px solid rgba(255,255,255,0.08)}
+.tab-btn{flex:1;padding:14px 8px;background:transparent;border:none;border-bottom:2px solid transparent;color:rgba(255,255,255,0.45);font-size:14px;font-weight:400;cursor:pointer;font-family:var(--ff-body);transition:all .2s;white-space:nowrap}
+.tab-btn:hover{color:rgba(255,255,255,0.75)}
+.tab-btn.active{color:#fff;border-bottom-color:var(--gold);font-weight:500}
+
+/* ── CALCULATOR ── */
+.calc-section{background:var(--bg);padding:48px 0 0}
+.calc-card{background:var(--card);border-radius:var(--rXl);box-shadow:var(--shadowMd);overflow:hidden;border:1px solid var(--border)}
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;min-height:400px}
+@media(max-width:720px){.calc-grid{grid-template-columns:1fr}}
+
+/* Inputs panel */
+.inputs-panel{padding:36px 40px;border-right:1px solid var(--border)}
+@media(max-width:720px){.inputs-panel{padding:28px 24px;border-right:none;border-bottom:1px solid var(--border)}}
+.input-group{margin-bottom:28px}
+.input-group:last-of-type{margin-bottom:0}
+.ig-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.ig-label{font-size:13px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em}
+.ig-val{display:flex;align-items:center;gap:2px;background:var(--card2);border:1.5px solid var(--border);border-radius:8px;padding:4px 10px;transition:border-color .15s}
+.ig-val:focus-within{border-color:var(--navy-soft)}
+.ig-sym{font-size:14px;color:var(--muted);font-weight:500}
+.ig-input{width:80px;border:none;background:transparent;font-size:15px;font-weight:500;color:var(--text);font-family:var(--ff-body);text-align:right;outline:none}
+.ig-unit{font-size:14px;color:var(--muted);font-weight:400}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:99px;outline:none;cursor:pointer;margin-bottom:6px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--navy);border:3px solid #fff;box-shadow:0 2px 8px rgba(10,22,40,0.25);cursor:pointer;transition:transform .1s}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--navy);border:3px solid #fff;cursor:pointer}
+.range-ends{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+.helper-note{margin-top:24px;padding:12px 16px;background:var(--gold-light);border-radius:10px;border-left:3px solid var(--gold);font-size:12px;color:var(--gold-deep);line-height:1.5}
+.helper-note strong{display:block;margin-bottom:2px;font-size:13px;color:var(--navy)}
+
+/* Results panel */
+.results-panel{padding:36px 40px;background:var(--navy);display:flex;flex-direction:column;gap:20px;justify-content:center}
+@media(max-width:720px){.results-panel{padding:28px 24px}}
+.monthly-card{text-align:center;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.1)}
+.monthly-label{font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.45);margin-bottom:8px;font-weight:400}
+.monthly-amount{font-family:var(--ff-display);font-size:clamp(40px,7vw,62px);font-weight:700;color:#fff;letter-spacing:-0.03em;line-height:1}
+.monthly-sub{font-size:13px;color:rgba(255,255,255,0.45);margin-top:6px}
+.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.res-box{background:rgba(255,255,255,0.06);border-radius:10px;padding:12px 14px;border:1px solid rgba(255,255,255,0.08)}
+.res-lbl{font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.4);margin-bottom:4px}
+.res-val{font-size:17px;font-weight:500;color:#fff;font-family:var(--ff-body)}
+.res-val.gold{color:var(--gold)}
+.breakdown-row{margin-top:4px}
+.breakdown-label{display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:6px}
+.breakdown-bar{height:6px;background:rgba(255,255,255,0.1);border-radius:99px;overflow:hidden;display:flex}
+.bar-p{height:100%;background:rgba(255,255,255,0.7);border-radius:99px 0 0 99px;transition:width .4s cubic-bezier(.4,0,.2,1)}
+.bar-i{height:100%;background:var(--gold);border-radius:0 99px 99px 0;transition:width .4s cubic-bezier(.4,0,.2,1)}
+
+/* ── CHART SECTION ── */
+.chart-section{padding:48px 0}
+.section-title{font-family:var(--ff-display);font-size:26px;font-weight:600;color:var(--navy);margin-bottom:6px}
+.section-sub{font-size:14px;color:var(--muted);margin-bottom:28px}
+.chart-wrap{background:var(--card);border-radius:var(--rLg);border:1px solid var(--border);box-shadow:var(--shadow);padding:32px;display:grid;grid-template-columns:280px 1fr;gap:40px;align-items:center}
+@media(max-width:720px){.chart-wrap{grid-template-columns:1fr;gap:24px}}
+.chart-canvas-wrap{position:relative;height:240px;width:240px;margin:0 auto}
+.chart-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none}
+.chart-center-num{font-family:var(--ff-display);font-size:22px;font-weight:600;color:var(--navy)}
+.chart-center-lbl{font-size:11px;color:var(--muted);margin-top:2px}
+.chart-stats{display:flex;flex-direction:column;gap:20px}
+.chart-stat-item{display:flex;align-items:center;gap:14px}
+.stat-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
+.stat-dot.navy{background:var(--navy)}
+.stat-dot.gold{background:var(--gold)}
+.stat-info .stat-lbl{font-size:12px;color:var(--muted)}
+.stat-info .stat-val{font-size:20px;font-weight:500;color:var(--text);font-family:var(--ff-body)}
+.stat-info .stat-pct{font-size:13px;color:var(--muted);margin-left:6px}
+.chart-divider{height:1px;background:var(--border);margin:8px 0}
+.payoff-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0}
+.po-label{font-size:13px;color:var(--muted)}
+.po-val{font-size:16px;font-weight:500;color:var(--navy)}
+
+/* ── AMORTIZATION TABLE ── */
+.amort-section{padding:0 0 48px}
+.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+.toggle-btn{padding:8px 18px;background:transparent;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;font-family:var(--ff-body);transition:all .15s}
+.toggle-btn:hover{border-color:var(--navy);color:var(--navy)}
+.table-wrap{background:var(--card);border-radius:var(--rLg);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden}
+.table-scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:14px}
+thead{background:var(--navy)}
+thead th{padding:14px 18px;text-align:right;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.55);white-space:nowrap}
+thead th:first-child{text-align:left}
+tbody tr{border-top:1px solid var(--border);transition:background .1s}
+tbody tr:hover{background:var(--card2)}
+tbody td{padding:12px 18px;text-align:right;color:var(--text);font-size:14px;font-family:var(--ff-body)}
+tbody td:first-child{text-align:left;font-weight:500;color:var(--navy)}
+tbody td.red{color:#C0392B}
+tbody td.green{color:var(--green)}
+.table-more{text-align:center;padding:16px;background:var(--card2);border-top:1px solid var(--border);font-size:13px;color:var(--muted);cursor:pointer}
+.table-more:hover{color:var(--navy)}
+
+/* ── HOW IT WORKS ── */
+.how-section{background:var(--navy);padding:64px 0;color:#fff}
+.how-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
+@media(max-width:720px){.how-grid{grid-template-columns:1fr;gap:32px}}
+.how-section h2{font-family:var(--ff-display);font-size:28px;font-weight:600;color:#fff;margin-bottom:16px}
+.how-section h3{font-family:var(--ff-display);font-size:19px;font-weight:600;color:#fff;margin:24px 0 10px}
+.how-section p{font-size:15px;color:rgba(255,255,255,0.65);line-height:1.75;margin-bottom:14px}
+.formula-box{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:18px 22px;font-family:var(--ff-mono);font-size:14px;color:rgba(255,255,255,0.85);line-height:1.8;margin:16px 0}
+.formula-vars{display:flex;flex-direction:column;gap:6px}
+.formula-var{display:flex;gap:10px;font-size:13px}
+.formula-var strong{color:var(--gold);font-family:var(--ff-mono);min-width:16px}
+.formula-var span{color:rgba(255,255,255,0.6)}
+.tips-list{list-style:none;display:flex;flex-direction:column;gap:12px}
+.tips-list li{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:rgba(255,255,255,0.65);line-height:1.6}
+.tips-list li::before{content:'→';color:var(--gold);flex-shrink:0;margin-top:2px;font-size:14px}
+
+/* ── FAQ ── */
+.faq-section{padding:64px 0}
+.faq-section h2{font-family:var(--ff-display);font-size:28px;font-weight:600;color:var(--navy);margin-bottom:28px}
+.faq-list{display:flex;flex-direction:column;gap:2px}
+.faq-item{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:box-shadow .15s}
+.faq-item:hover{box-shadow:var(--shadow)}
+.faq-q{width:100%;padding:18px 22px;background:transparent;border:none;text-align:left;font-size:15px;font-weight:500;color:var(--navy);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;font-family:var(--ff-body);line-height:1.4}
+.faq-q .chevron{width:20px;height:20px;border-radius:50%;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:var(--muted);transition:transform .2s}
+.faq-item.open .chevron{transform:rotate(180deg)}
+.faq-a{display:none;padding:0 22px 18px;font-size:14px;color:var(--muted);line-height:1.7}
+.faq-item.open .faq-a{display:block}
+
+/* ── ADSENSE PLACEHOLDERS ── */
+.ad-slot{background:var(--card2);border:1px dashed var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;text-align:center}
+.ad-leaderboard{height:90px;margin:32px 0}
+.ad-rectangle{height:250px;margin:20px 0}
+
+/* ── FOOTER ── */
+footer{background:var(--navy-mid);border-top:1px solid rgba(255,255,255,0.06);padding:40px 0 32px;text-align:center}
+.footer-logo{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px}
+.footer-logo-text{font-family:var(--ff-display);font-size:18px;font-weight:600;color:#fff}
+.footer-logo-text span{color:var(--gold)}
+footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-height:1.6}
+.footer-disclaimer{font-size:12px;color:rgba(255,255,255,0.25);max-width:560px;margin:16px auto 0;line-height:1.6}
+.footer-links{display:flex;justify-content:center;gap:20px;margin:16px 0}
+.footer-links a{font-size:13px;color:rgba(255,255,255,0.4);text-decoration:none;transition:color .15s}
+.footer-links a:hover{color:rgba(255,255,255,0.75)}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.calc-card,.chart-wrap,.table-wrap{animation:fadeUp .4s ease both}
+
+/* ── RESPONSIVE ── */
+@media(max-width:520px){
+  .header-inner nav{display:none}
+  .trust-badges{gap:8px}
+  .results-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+
+<body>
+
+<!-- ═══════════════════════════════════════════════
+     HEADER
+═══════════════════════════════════════════════ -->
+<header role="banner">
+  <div class="container header-inner">
+    <a href="/" class="logo-link" aria-label="LoanLens — Free Loan Calculator">
+      <!-- LOGO SVG — inline for zero HTTP request -->
+      <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <rect width="36" height="36" rx="9" fill="#0A1628"/>
+        <path d="M7 20 C7 20 11 13 18 13 C25 13 29 20 29 20 C29 20 25 27 18 27 C11 27 7 20 7 20Z" stroke="rgba(200,151,58,0.35)" stroke-width="1.5" fill="none"/>
+        <circle cx="18" cy="20" r="3.5" stroke="rgba(200,151,58,0.5)" stroke-width="1.5" fill="none"/>
+        <polyline points="9,22 14,17 18,20 24,13" stroke="#C8973A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="24" cy="13" r="2" fill="#C8973A"/>
+      </svg>
+      <span class="logo-text">Loan<span>Lens</span></span>
+    </a>
+    <nav role="navigation" aria-label="Main navigation">
+      <a href="#calculator">Calculator</a>
+      <a href="#schedule">Schedule</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ═══════════════════════════════════════════════
+     HERO
+═══════════════════════════════════════════════ -->
+<section class="hero" aria-labelledby="hero-h1">
+  <div class="container">
+    <h1 id="hero-h1">Calculate Your <em>Exact</em><br>Monthly Loan Payment</h1>
+    <p class="hero-sub">Mortgage, car loan, personal loan, or student loan — get your monthly payment, total interest, and full amortization schedule in seconds.</p>
+    <div class="trust-badges">
+      <span class="trust-badge">Free forever</span>
+      <span class="trust-badge">No signup required</span>
+      <span class="trust-badge">Works for any country</span>
+      <span class="trust-badge">Zero ads on results</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     LOAN TYPE TABS
+═══════════════════════════════════════════════ -->
+<div class="tab-wrap">
+  <div class="tab-nav" role="tablist" aria-label="Choose loan type">
+    <button class="tab-btn active" data-tab="mortgage" role="tab" aria-selected="true">Mortgage</button>
+    <button class="tab-btn" data-tab="car" role="tab" aria-selected="false">Car Loan</button>
+    <button class="tab-btn" data-tab="personal" role="tab" aria-selected="false">Personal</button>
+    <button class="tab-btn" data-tab="student" role="tab" aria-selected="false">Student</button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     CALCULATOR
+═══════════════════════════════════════════════ -->
+<section class="calc-section" id="calculator" aria-label="Loan calculator">
+  <div class="container">
+
+    <!-- ADSENSE SLOT 1: Leaderboard — replace comment with your AdSense code -->
+    <!-- <ins class="adsbygoogle ad-leaderboard" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
+    <div class="ad-slot ad-leaderboard" aria-hidden="true">Advertisement</div>
+
+    <div class="calc-card">
+      <div class="calc-grid">
+
+        <!-- INPUTS -->
+        <div class="inputs-panel" role="tabpanel" aria-label="Loan inputs">
+
+          <!-- Loan Amount -->
+          <div class="input-group">
+            <div class="ig-head">
+              <label class="ig-label" for="s-amount">Loan amount</label>
+              <div class="ig-val">
+                <span class="ig-sym">$</span>
+                <input type="number" id="i-amount" class="ig-input" aria-label="Loan amount in dollars" min="1000" max="2000000" step="1000">
+              </div>
+            </div>
+            <input type="range" id="s-amount" aria-label="Adjust loan amount" min="1000" max="2000000" step="1000" value="300000">
+            <div class="range-ends"><span id="amount-min-lbl">$1,000</span><span id="amount-max-lbl">$2,000,000</span></div>
+          </div>
+
+          <!-- Interest Rate -->
+          <div class="input-group">
+            <div class="ig-head">
+              <label class="ig-label" for="s-rate">Annual interest rate</label>
+              <div class="ig-val">
+                <input type="number" id="i-rate" class="ig-input" aria-label="Annual interest rate percent" min="0.1" max="30" step="0.1" style="width:55px">
+                <span class="ig-unit">%</span>
+              </div>
+            </div>
+            <input type="range" id="s-rate" aria-label="Adjust interest rate" min="0.1" max="30" step="0.1" value="6.5">
+            <div class="range-ends"><span>0.1%</span><span>30%</span></div>
+          </div>
+
+          <!-- Loan Term -->
+          <div class="input-group">
+            <div class="ig-head">
+              <label class="ig-label" for="s-term">Loan term</label>
+              <div class="ig-val">
+                <input type="number" id="i-term" class="ig-input" aria-label="Loan term in years" min="1" max="30" step="1" style="width:45px">
+                <span class="ig-unit" id="term-unit-lbl">years</span>
+              </div>
+            </div>
+            <input type="range" id="s-term" aria-label="Adjust loan term" min="1" max="30" step="1" value="30">
+            <div class="range-ends"><span id="term-min-lbl">1 yr</span><span id="term-max-lbl">30 yrs</span></div>
+          </div>
+
+          <!-- Helper note -->
+          <div class="helper-note" id="helper-note" aria-live="polite">
+            <strong id="helper-title">Typical 30-year US mortgage</strong>
+            <span id="helper-text">Rates vary by lender and credit score. Enter your own numbers above for a personalized estimate.</span>
+          </div>
+
+        </div>
+
+        <!-- RESULTS -->
+        <div class="results-panel" role="region" aria-label="Calculation results" aria-live="polite">
+
+          <div class="monthly-card">
+            <p class="monthly-label">Monthly payment</p>
+            <p class="monthly-amount" id="result-monthly" aria-label="Monthly payment amount">$1,896</p>
+            <p class="monthly-sub" id="result-loan-label">30-year fixed mortgage</p>
+          </div>
+
+          <div class="results-grid">
+            <div class="res-box">
+              <p class="res-lbl">Principal</p>
+              <p class="res-val" id="result-principal">$300,000</p>
+            </div>
+            <div class="res-box">
+              <p class="res-lbl">Total interest</p>
+              <p class="res-val gold" id="result-interest">—</p>
+            </div>
+            <div class="res-box">
+              <p class="res-lbl">Total cost</p>
+              <p class="res-val" id="result-total">—</p>
+            </div>
+            <div class="res-box">
+              <p class="res-lbl">Payoff year</p>
+              <p class="res-val" id="result-year">—</p>
+            </div>
+          </div>
+
+          <div class="breakdown-row">
+            <div class="breakdown-label">
+              <span>Principal <span id="pct-p">—</span></span>
+              <span>Interest <span id="pct-i">—</span></span>
+            </div>
+            <div class="breakdown-bar">
+              <div class="bar-p" id="bar-p" style="width:50%"></div>
+              <div class="bar-i" id="bar-i" style="width:50%"></div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     CHART SECTION
+═══════════════════════════════════════════════ -->
+<section class="chart-section" aria-label="Payment breakdown chart">
+  <div class="container">
+    <h2 class="section-title">Payment breakdown</h2>
+    <p class="section-sub">How your total cost is split between the amount borrowed and interest paid to the lender.</p>
+    <div class="chart-wrap">
+      <div class="chart-canvas-wrap">
+        <canvas id="loanChart" role="img" aria-label="Donut chart showing proportion of principal versus total interest paid over the loan term"></canvas>
+        <div class="chart-center">
+          <div class="chart-center-num" id="chart-center-pct">—</div>
+          <div class="chart-center-lbl">principal</div>
+        </div>
+      </div>
+      <div class="chart-stats">
+        <div class="chart-stat-item">
+          <div class="stat-dot navy"></div>
+          <div class="stat-info">
+            <div class="stat-lbl">Principal borrowed</div>
+            <div><span class="stat-val" id="c-principal">—</span><span class="stat-pct" id="c-principal-pct"></span></div>
+          </div>
+        </div>
+        <div class="chart-divider"></div>
+        <div class="chart-stat-item">
+          <div class="stat-dot gold"></div>
+          <div class="stat-info">
+            <div class="stat-lbl">Total interest paid</div>
+            <div><span class="stat-val" id="c-interest">—</span><span class="stat-pct" id="c-interest-pct"></span></div>
+          </div>
+        </div>
+        <div class="chart-divider"></div>
+        <div class="payoff-row">
+          <span class="po-label">Total amount repaid</span>
+          <span class="po-val" id="c-total">—</span>
+        </div>
+        <div class="payoff-row" style="padding-top:0">
+          <span class="po-label">Loan fully paid off</span>
+          <span class="po-val" id="c-year">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADSENSE SLOT 2: Rectangle — replace comment with your AdSense code -->
+    <!-- <ins class="adsbygoogle ad-rectangle" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="rectangle"></ins> -->
+    <div class="ad-slot ad-rectangle" aria-hidden="true">Advertisement</div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     AMORTIZATION SCHEDULE
+═══════════════════════════════════════════════ -->
+<section class="amort-section" id="schedule" aria-label="Loan amortization schedule">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <h2 class="section-title">Amortization schedule</h2>
+        <p class="section-sub" style="margin-bottom:0">Year-by-year breakdown of every payment.</p>
+      </div>
+      <button class="toggle-btn" id="toggle-rows" aria-expanded="false">Show all years</button>
+    </div>
+    <div class="table-wrap">
+      <div class="table-scroll">
+        <table aria-label="Loan amortization schedule showing principal and interest by year">
+          <thead>
+            <tr>
+              <th scope="col">Year</th>
+              <th scope="col">Starting balance</th>
+              <th scope="col">Principal paid</th>
+              <th scope="col">Interest paid</th>
+              <th scope="col">Ending balance</th>
+            </tr>
+          </thead>
+          <tbody id="amort-body">
+            <!-- populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     HOW IT WORKS — SEO CONTENT
+═══════════════════════════════════════════════ -->
+<section class="how-section" aria-labelledby="how-h2">
+  <div class="container">
+    <div class="how-grid">
+      <div>
+        <h2 id="how-h2">How loan payments are calculated</h2>
+        <p>Every fixed-rate loan uses the same standard amortization formula. Your monthly payment is calculated so that equal instalments cover both the interest accruing on the remaining balance and a portion of the original principal — fully paying off the loan by the final month.</p>
+        <h3>The formula</h3>
+        <div class="formula-box">M = P × [ r(1+r)ⁿ ] ÷ [ (1+r)ⁿ − 1 ]</div>
+        <div class="formula-vars">
+          <div class="formula-var"><strong>M</strong><span>Monthly payment</span></div>
+          <div class="formula-var"><strong>P</strong><span>Principal (the loan amount)</span></div>
+          <div class="formula-var"><strong>r</strong><span>Monthly rate (annual rate ÷ 12)</span></div>
+          <div class="formula-var"><strong>n</strong><span>Total payments (years × 12)</span></div>
+        </div>
+      </div>
+      <div>
+        <h3>How to lower your monthly payment</h3>
+        <p>Three levers control your monthly payment. Adjusting any one of them immediately changes what you owe each month:</p>
+        <ul class="tips-list">
+          <li>A larger down payment reduces the principal directly — less borrowed means lower monthly payments and less total interest paid.</li>
+          <li>A longer loan term spreads payments over more months. Your monthly bill drops, but total interest paid over the life of the loan increases.</li>
+          <li>A lower interest rate has a compounding effect — even 0.5% difference on a $300,000 mortgage saves over $30,000 in total interest.</li>
+          <li>Improving your credit score before applying typically qualifies you for better rates. Check your score 3–6 months before borrowing.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     FAQ — SEO + Schema Markup (see JSON-LD above)
+═══════════════════════════════════════════════ -->
+<section class="faq-section" id="faq" aria-labelledby="faq-h2">
+  <div class="container">
+    <h2 id="faq-h2">Frequently asked questions</h2>
+
+    <!-- ADSENSE SLOT 3: Rectangle — replace comment with your AdSense code -->
+    <!-- <ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX"></ins> -->
+
+    <div class="faq-list" role="list">
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" aria-expanded="false">
+          How is the monthly loan payment calculated?
+          <span class="chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="faq-a">The standard loan payment formula is: Monthly Payment = P × [r(1+r)^n] ÷ [(1+r)^n − 1], where P is the loan principal, r is the monthly interest rate (annual rate divided by 12), and n is the total number of monthly payments. This formula ensures equal payments every month that fully repay the loan including interest over the agreed term.</div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" aria-expanded="false">
+          What is an amortization schedule?
+          <span class="chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="faq-a">An amortization schedule shows how each payment is divided between principal and interest over the full loan term. In the early years, most of each payment goes toward interest. Over time, a greater portion reduces the principal balance. LoanLens generates a complete year-by-year schedule showing exactly how your balance decreases with each passing year.</div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" aria-expanded="false">
+          Does this calculator work for all countries?
+          <span class="chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="faq-a">Yes. The loan payment formula is the same worldwide. You enter your own loan amount (in any currency), your own interest rate, and your own loan term. LoanLens never fetches external data — all calculations happen in your browser. There is no country-specific data, no tax law dependency, and no requirement to be connected to anything.</div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" aria-expanded="false">
+          How can I reduce the total interest I pay?
+          <span class="chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="faq-a">Three strategies reduce total interest: (1) Choose a shorter loan term — a 15-year mortgage versus a 30-year mortgage at the same rate roughly halves the total interest paid. (2) Make extra principal payments whenever possible — even small additional amounts each month significantly reduce the final total. (3) Secure a lower interest rate through a stronger credit score, comparison shopping across multiple lenders, or refinancing when rates fall.</div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" aria-expanded="false">
+          Is LoanLens completely free?
+          <span class="chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="faq-a">Yes, completely free. No account required. No signup. No email collection. No premium features behind a paywall. The calculator, amortization schedule, and payment breakdown chart are all fully accessible at no cost. LoanLens is supported by display advertising — the calculator itself will always remain free.</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     FOOTER
+═══════════════════════════════════════════════ -->
+<footer role="contentinfo">
+  <div class="container">
+    <div class="footer-logo" aria-label="LoanLens">
+      <svg width="28" height="28" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+        <rect width="36" height="36" rx="9" fill="rgba(255,255,255,0.08)"/>
+        <polyline points="9,22 14,17 18,20 24,13" stroke="#C8973A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <circle cx="24" cy="13" r="2" fill="#C8973A"/>
+      </svg>
+      <span class="footer-logo-text">Loan<span>Lens</span></span>
+    </div>
+    <div class="footer-links">
+      <a href="#calculator">Calculator</a>
+      <a href="#schedule">Amortization</a>
+      <a href="#faq">FAQ</a>
+    </div>
+    <p>Free loan payment calculator — no account required.</p>
+    <p class="footer-disclaimer">LoanLens provides estimates for informational purposes only. Results are based on the inputs you provide and assume fixed interest rates with equal monthly payments. This is not financial advice. Consult a licensed financial advisor or lender before making borrowing decisions. Actual loan terms, rates, and payments will vary based on your lender's requirements and your creditworthiness.</p>
+    <p style="margin-top:16px">© <span id="copy-year">2026</span> LoanLens. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════
+     CHART.JS — Deferred: does NOT block page render
+═══════════════════════════════════════════════ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js" defer></script>
+
+<!-- ═══════════════════════════════════════════════
+     APPLICATION JAVASCRIPT
+═══════════════════════════════════════════════ -->
+<script>
+(function(){
+'use strict';
+
+/* ── LOAN TYPE CONFIGURATIONS ── */
+var CONFIGS = {
+  mortgage:{
+    amount:300000, rate:6.5, term:30,
+    amountMin:50000, amountMax:2000000, amountStep:5000,
+    rateMin:0.5, rateMax:15, termMin:5, termMax:30,
+    label:'30-year fixed mortgage',
+    helperTitle:'Typical 30-year US mortgage',
+    helperText:'Average 30-year fixed rate is around 6.5–7%. Enter your actual loan amount and rate for a personalised estimate.'
+  },
+  car:{
+    amount:25000, rate:7.0, term:5,
+    amountMin:1000, amountMax:200000, amountStep:500,
+    rateMin:1, rateMax:25, termMin:1, termMax:8,
+    label:'5-year auto loan',
+    helperTitle:'Typical car loan',
+    helperText:'Average new car loan rate is 6–8%. Used car loans typically carry slightly higher rates. Dealers often have promotional rates.'
+  },
+  personal:{
+    amount:10000, rate:11.0, term:3,
+    amountMin:500, amountMax:100000, amountStep:500,
+    rateMin:1, rateMax:36, termMin:1, termMax:7,
+    label:'3-year personal loan',
+    helperTitle:'Typical personal loan',
+    helperText:'Personal loan rates range from 6% (excellent credit) to 36% (fair credit). Online lenders often offer competitive rates for qualified borrowers.'
+  },
+  student:{
+    amount:35000, rate:5.5, term:10,
+    amountMin:1000, amountMax:250000, amountStep:1000,
+    rateMin:1, rateMax:15, termMin:5, termMax:25,
+    label:'10-year student loan',
+    helperTitle:'Federal student loan (US)',
+    helperText:'Federal undergraduate loan rates are set annually by Congress. Graduate and private loans carry higher rates. Income-driven repayment plans may lower payments.'
+  }
+};
+
+var currentTab = 'mortgage';
+var chartInstance = null;
+var showAllRows = false;
+var fullSchedule = [];
+
+/* ── ELEMENTS ── */
+var sAmount = document.getElementById('s-amount');
+var sRate   = document.getElementById('s-rate');
+var sTerm   = document.getElementById('s-term');
+var iAmount = document.getElementById('i-amount');
+var iRate   = document.getElementById('i-rate');
+var iTerm   = document.getElementById('i-term');
+
+/* ── FORMAT HELPERS ── */
+function fmt(n){ return '$' + new Intl.NumberFormat('en-US').format(Math.round(n)); }
+function fmtN(n){ return new Intl.NumberFormat('en-US').format(Math.round(n)); }
+function fmtDec(n,d){ return new Intl.NumberFormat('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}).format(n); }
+function pct(n){ return Math.round(n) + '%'; }
+
+/* ── CORE CALCULATION ── */
+function calcLoan(principal, annualRate, years){
+  var r = annualRate / 100 / 12;
+  var n = years * 12;
+  if(r === 0){ return {monthly:principal/n, total:principal, interest:0}; }
+  var factor = Math.pow(1 + r, n);
+  var monthly = principal * (r * factor) / (factor - 1);
+  var total   = monthly * n;
+  return {monthly:monthly, total:total, interest:total - principal};
+}
+
+/* ── AMORTIZATION TABLE ── */
+function buildSchedule(principal, annualRate, years){
+  var r = annualRate / 100 / 12;
+  var n = years * 12;
+  var res = calcLoan(principal, annualRate, years);
+  var monthly = res.monthly;
+  var balance = principal;
+  var rows = [];
+  for(var y = 1; y <= years; y++){
+    var paidP = 0, paidI = 0;
+    var start = balance;
+    var months = Math.min(12, n - (y-1)*12);
+    for(var m = 0; m < months; m++){
+      var interest = balance * r;
+      var prin = monthly - interest;
+      paidI += interest;
+      paidP += prin;
+      balance -= prin;
+      if(balance < 0.005) balance = 0;
+    }
+    rows.push({year:y, start:start, paidP:paidP, paidI:paidI, end:Math.max(0,balance)});
+  }
+  return rows;
+}
+
+/* ── RENDER AMORTIZATION TABLE ── */
+function renderTable(rows, max){
+  var tbody = document.getElementById('amort-body');
+  var html = '';
+  var lim = max || rows.length;
+  for(var i = 0; i < Math.min(lim, rows.length); i++){
+    var r = rows[i];
+    var endCls = r.end < 1 ? ' class="green"' : '';
+    html += '<tr>' +
+      '<td>' + r.year + '</td>' +
+      '<td>' + fmt(r.start) + '</td>' +
+      '<td class="green">' + fmt(r.paidP) + '</td>' +
+      '<td class="red">' + fmt(r.paidI) + '</td>' +
+      '<td' + endCls + '>' + (r.end < 1 ? '$0' : fmt(r.end)) + '</td>' +
+    '</tr>';
+  }
+  tbody.innerHTML = html;
+  var btn = document.getElementById('toggle-rows');
+  if(rows.length <= 5){
+    btn.style.display = 'none';
+  } else {
+    btn.style.display = '';
+    btn.textContent = showAllRows ? 'Show less' : 'Show all ' + rows.length + ' years';
+  }
+}
+
+/* ── RENDER CHART ── */
+function renderChart(principal, interest){
+  if(!window.Chart){ return; }
+  var canvas = document.getElementById('loanChart');
+  var pPct = Math.round(principal / (principal + interest) * 100);
+  var iPct = 100 - pPct;
+  document.getElementById('chart-center-pct').textContent = pPct + '%';
+  if(chartInstance){
+    chartInstance.data.datasets[0].data = [principal, interest];
+    chartInstance.update('none');
+    return;
+  }
+  chartInstance = new Chart(canvas, {
+    type: 'doughnut',
+    data:{
+      labels:['Principal','Interest'],
+      datasets:[{
+        data:[principal, interest],
+        backgroundColor:['#0A1628','#C8973A'],
+        borderWidth:0,
+        hoverOffset:6
+      }]
+    },
+    options:{
+      responsive:true,
+      maintainAspectRatio:true,
+      cutout:'68%',
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          callbacks:{
+            label:function(ctx){
+              return ctx.label + ': ' + fmt(ctx.raw) + ' (' + Math.round(ctx.raw/(principal+interest)*100) + '%)';
+            }
+          }
+        }
+      },
+      animation:{duration:400}
+    }
+  });
+}
+
+/* ── UPDATE SLIDER FILL ── */
+function updateSliderFill(slider){
+  var min = parseFloat(slider.min) || 0;
+  var max = parseFloat(slider.max) || 100;
+  var val = parseFloat(slider.value) || 0;
+  var pct = ((val - min) / (max - min)) * 100;
+  slider.style.background = 'linear-gradient(to right,var(--navy) 0%,var(--navy) ' + pct + '%,var(--border) ' + pct + '%,var(--border) 100%)';
+}
+
+/* ── MAIN UPDATE FUNCTION ── */
+function update(){
+  var principal = parseFloat(sAmount.value) || 0;
+  var rate      = parseFloat(sRate.value)   || 0;
+  var years     = parseInt(sTerm.value)     || 0;
+
+  /* Sync inputs */
+  iAmount.value = principal;
+  iRate.value   = fmtDec(rate, 1);
+  iTerm.value   = years;
+  updateSliderFill(sAmount);
+  updateSliderFill(sRate);
+  updateSliderFill(sTerm);
+
+  if(!principal || !rate || !years){ return; }
+
+  var res = calcLoan(principal, rate, years);
+
+  /* Results panel */
+  document.getElementById('result-monthly').textContent = fmt(res.monthly);
+  document.getElementById('result-principal').textContent = fmt(principal);
+  document.getElementById('result-interest').textContent = fmt(res.interest);
+  document.getElementById('result-total').textContent = fmt(res.total);
+  var payoffYear = new Date().getFullYear() + years;
+  document.getElementById('result-year').textContent = payoffYear;
+
+  /* Breakdown bar */
+  var pPct = (principal / res.total) * 100;
+  var iPct = 100 - pPct;
+  document.getElementById('bar-p').style.width = pPct + '%';
+  document.getElementById('bar-i').style.width = iPct + '%';
+  document.getElementById('pct-p').textContent = Math.round(pPct) + '%';
+  document.getElementById('pct-i').textContent = Math.round(iPct) + '%';
+
+  /* Chart section stats */
+  document.getElementById('c-principal').textContent = fmt(principal);
+  document.getElementById('c-interest').textContent  = fmt(res.interest);
+  document.getElementById('c-total').textContent     = fmt(res.total);
+  document.getElementById('c-year').textContent      = payoffYear;
+  document.getElementById('c-principal-pct').textContent = '(' + Math.round(pPct) + '%)';
+  document.getElementById('c-interest-pct').textContent  = '(' + Math.round(iPct) + '%)';
+
+  /* Chart */
+  renderChart(principal, res.interest);
+
+  /* Amortization */
+  fullSchedule = buildSchedule(principal, rate, years);
+  renderTable(fullSchedule, showAllRows ? null : 5);
+}
+
+/* ── TAB SWITCHING ── */
+function switchTab(tab){
+  currentTab = tab;
+  var cfg = CONFIGS[tab];
+
+  /* Update tab buttons */
+  document.querySelectorAll('.tab-btn').forEach(function(b){
+    var active = b.dataset.tab === tab;
+    b.classList.toggle('active', active);
+    b.setAttribute('aria-selected', active);
+  });
+
+  /* Apply config to sliders */
+  sAmount.min = cfg.amountMin; sAmount.max = cfg.amountMax; sAmount.step = cfg.amountStep; sAmount.value = cfg.amount;
+  sRate.min   = cfg.rateMin;   sRate.max   = cfg.rateMax;   sRate.value  = cfg.rate;
+  sTerm.min   = cfg.termMin;   sTerm.max   = cfg.termMax;   sTerm.value  = cfg.term;
+
+  /* Labels */
+  document.getElementById('amount-min-lbl').textContent = '$' + fmtN(cfg.amountMin);
+  document.getElementById('amount-max-lbl').textContent = '$' + fmtN(cfg.amountMax);
+  document.getElementById('term-min-lbl').textContent   = cfg.termMin + ' yr';
+  document.getElementById('term-max-lbl').textContent   = cfg.termMax + ' yrs';
+  document.getElementById('result-loan-label').textContent = cfg.label;
+  document.getElementById('helper-title').textContent   = cfg.helperTitle;
+  document.getElementById('helper-text').textContent    = cfg.helperText;
+
+  showAllRows = false;
+  update();
+}
+
+/* ── EVENT LISTENERS ── */
+/* Sliders */
+[sAmount, sRate, sTerm].forEach(function(el){
+  el.addEventListener('input', update);
+});
+
+/* Number inputs */
+iAmount.addEventListener('input', function(){
+  var v = parseFloat(this.value);
+  if(!isNaN(v) && v >= parseFloat(sAmount.min) && v <= parseFloat(sAmount.max)){
+    sAmount.value = v; update();
+  }
+});
+iRate.addEventListener('input', function(){
+  var v = parseFloat(this.value);
+  if(!isNaN(v) && v >= 0.1 && v <= 30){
+    sRate.value = v; update();
+  }
+});
+iTerm.addEventListener('input', function(){
+  var v = parseInt(this.value);
+  if(!isNaN(v) && v >= 1 && v <= 30){
+    sTerm.value = v; update();
+  }
+});
+
+/* Tabs */
+document.querySelectorAll('.tab-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){ switchTab(this.dataset.tab); });
+});
+
+/* Toggle amortization rows */
+document.getElementById('toggle-rows').addEventListener('click', function(){
+  showAllRows = !showAllRows;
+  renderTable(fullSchedule, showAllRows ? null : 5);
+  this.setAttribute('aria-expanded', showAllRows);
+});
+
+/* FAQ accordion */
+document.querySelectorAll('.faq-q').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var item = this.parentElement;
+    var isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); i.querySelector('.faq-q').setAttribute('aria-expanded','false'); });
+    if(!isOpen){ item.classList.add('open'); this.setAttribute('aria-expanded','true'); }
+  });
+});
+
+/* Copyright year */
+document.getElementById('copy-year').textContent = new Date().getFullYear();
+
+/* ── INIT: Load mortgage by default ── */
+switchTab('mortgage');
+
+/* ── Wait for Chart.js to be ready ── */
+function tryChart(){
+  if(window.Chart){ update(); }
+  else { setTimeout(tryChart, 150); }
+}
+setTimeout(tryChart, 200);
+
+})();
+</script>
+
+</body>
+</html>
