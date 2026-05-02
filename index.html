@@ -8,9 +8,9 @@
      SEO: PRIMARY META TAGS
      Replace loancalc.app with your actual domain
 ═══════════════════════════════════════════════ -->
-<title>Free Loan Calculator — Mortgage, Car, Personal &amp; Student Loans | LoanCalc</title>
-<meta name="description" content="Calculate your exact monthly loan payment in seconds. Free loan calculator for mortgage, car loan, personal loan and student loan. See full amortization schedule, total interest paid, and payment breakdown. No signup required.">
-<meta name="keywords" content="loan calculator,mortgage calculator,car loan calculator,personal loan calculator,student loan calculator,monthly payment calculator,amortization schedule,loan interest calculator,free loan calculator,home loan calculator">
+<title>Loan, Savings &amp; Refinance Calculator + Live Rates | LoanCalc</title>
+<meta name="description" content="Free calculators for loans, mortgages, compound interest, refinancing, currency exchange, live gold and oil prices. Instant amortization schedule. No signup. Works for any country.">
+<meta name="keywords" content="loan calculator,mortgage calculator,car loan calculator,compound interest calculator,refinance calculator,currency converter,gold price today,oil price today,savings calculator,amortization schedule,free financial calculator">
 <meta name="author" content="LoanCalc">
 <meta name="robots" content="index,follow">
 <meta name="theme-color" content="#0A1628">
@@ -21,16 +21,16 @@
 ═══════════════════════════════════════════════ -->
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://loancalc.app/">
-<meta property="og:title" content="Free Loan Calculator — Mortgage, Car & Personal | LoanCalc">
-<meta property="og:description" content="Calculate your monthly loan payment instantly. Works for mortgage, car loan, personal and student loans. Free, no signup, instant results.">
+<meta property="og:title" content="Free Loan, Savings & Currency Calculator | LoanCalc">
+<meta property="og:description" content="Loan calculator, compound interest, refinance savings, live currency converter, gold price and oil price — all free, no signup, works for any country.">
 <meta property="og:site_name" content="LoanCalc">
 
 <!-- ═══════════════════════════════════════════════
      SEO: TWITTER CARD
 ═══════════════════════════════════════════════ -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Free Loan Calculator — LoanCalc">
-<meta name="twitter:description" content="Calculate monthly payments for any loan. Instant, free, no signup needed.">
+<meta name="twitter:title" content="Free Loan, Savings &amp; Currency Calculator | LoanCalc">
+<meta name="twitter:description" content="Loan calculator, compound interest, refinance, live currency rates, gold and oil prices. Free, instant, no signup.">
 
 <!-- ═══════════════════════════════════════════════
      SEO: SCHEMA.ORG — WebApplication
@@ -39,13 +39,22 @@
 {
   "@context":"https://schema.org",
   "@type":"WebApplication",
-  "name":"LoanCalc — Free Loan Calculator",
-  "description":"Free loan payment calculator for mortgage, car loan, personal loan and student loan with full amortization schedule and payment breakdown chart.",
+  "name":"LoanCalc — Free Financial Calculators",
+  "description":"Free online calculators for loan payments, mortgage, compound interest, refinance savings, currency exchange, live gold price, and live oil price. No signup required.",
   "url":"https://loancalc.app",
   "applicationCategory":"FinanceApplication",
   "operatingSystem":"Web",
   "offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},
-  "featureList":["Mortgage Calculator","Car Loan Calculator","Personal Loan Calculator","Student Loan Calculator","Amortization Schedule","Payment Breakdown Chart","No Signup Required"]
+  "featureList":[
+    "Loan Payment Calculator","Mortgage Calculator","Car Loan Calculator",
+    "Personal Loan Calculator","Student Loan Calculator","Amortization Schedule",
+    "Compound Interest Calculator","Savings Growth Calculator",
+    "Refinance Savings Calculator","Break-Even Calculator",
+    "Live Currency Converter","Currency Exchange Rates",
+    "Live Gold Price","Gold Price Per Gram","Gold Price Per Ounce",
+    "Live Oil Price","WTI Crude Oil Price",
+    "No Signup Required","Works For Any Country"
+  ]
 }
 </script>
 
@@ -81,7 +90,55 @@
       "@type":"Question",
       "name":"Is this loan calculator free?",
       "acceptedAnswer":{"@type":"Answer","text":"Yes. LoanCalc is completely free with no account or signup required. There are no hidden fees, no premium tiers, and no data collection."}
+    },
+    {
+      "@type":"Question",
+      "name":"How does the refinance calculator work?",
+      "acceptedAnswer":{"@type":"Answer","text":"Enter your current loan balance, interest rate, and remaining term, then enter the new rate and estimated closing costs. The calculator shows your monthly savings, the break-even month when savings exceed closing costs, and the total lifetime savings from refinancing."}
+    },
+    {
+      "@type":"Question",
+      "name":"How is the gold price calculated on this site?",
+      "acceptedAnswer":{"@type":"Answer","text":"LoanCalc fetches the live gold spot price (XAU) in USD from a financial data source and converts it to your local currency using live exchange rates. The price is cached hourly so it updates frequently without excessive API calls. Prices shown are per troy ounce, per gram, and per kilogram."}
+    },
+    {
+      "@type":"Question",
+      "name":"Which currencies does the converter support?",
+      "acceptedAnswer":{"@type":"Answer","text":"The LoanCalc currency converter supports 30 major world currencies including USD, EUR, GBP, JPY, EGP, AED, SAR, CAD, AUD, CHF, CNY, INR, and more. Exchange rates are sourced from the Frankfurter API and updated every 24 hours. The converter automatically defaults to your local currency based on your browser settings."}
     }
+  ]
+}
+</script>
+
+
+<!-- ═══════════════════════════════════════════════
+     SEO: SCHEMA.ORG — Organization
+═══════════════════════════════════════════════ -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Organization",
+  "name":"LoanCalc",
+  "url":"https://loancalc.app",
+  "description":"Free financial calculators including loan payment, compound interest, refinance savings, live currency converter, gold price, and oil price.",
+  "foundingDate":"2026",
+  "sameAs":[]
+}
+</script>
+
+<!-- ═══════════════════════════════════════════════
+     SEO: SCHEMA.ORG — BreadcrumbList (section anchors)
+═══════════════════════════════════════════════ -->
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BreadcrumbList",
+  "itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Loan Calculator","item":"https://loancalc.app/#calculator"},
+    {"@type":"ListItem","position":2,"name":"Savings Calculator","item":"https://loancalc.app/#compound"},
+    {"@type":"ListItem","position":3,"name":"Refinance Calculator","item":"https://loancalc.app/#refinance"},
+    {"@type":"ListItem","position":4,"name":"Currency Converter","item":"https://loancalc.app/#currency"},
+    {"@type":"ListItem","position":5,"name":"FAQ","item":"https://loancalc.app/#faq"}
   ]
 }
 </script>
@@ -321,13 +378,15 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
 ═══════════════════════════════════════════════ -->
 <section class="hero" aria-labelledby="hero-h1">
   <div class="container">
-    <h1 id="hero-h1">Calculate Your <em>Exact</em><br>Monthly Loan Payment</h1>
-    <p class="hero-sub">Mortgage, car loan, personal loan, or student loan — get your monthly payment, total interest, and full amortization schedule in seconds.</p>
+    <h1 id="hero-h1">Free <em>Financial</em><br>Calculator Suite</h1>
+    <p class="hero-sub">Loan calculator, compound interest, refinance savings, live currency converter, gold price and oil price — all free, instant, no signup required.</p>
     <div class="trust-badges">
       <span class="trust-badge">Free forever</span>
       <span class="trust-badge">No signup required</span>
       <span class="trust-badge">Works for any country</span>
       <span class="trust-badge">Zero ads on results</span>
+      <span class="trust-badge">Live gold &amp; oil prices</span>
+      <span class="trust-badge">30 currencies</span>
     </div>
   </div>
 </section>
@@ -453,6 +512,15 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
   </div>
 </section>
 
+
+<!-- SEO CONTENT: Loan calculator description -->
+<section style="padding:0 0 32px;background:var(--bg)" aria-label="About the loan calculator">
+  <div class="container">
+    <div style="max-width:780px;font-size:15px;color:var(--muted);line-height:1.8">
+      <p>Use this free loan payment calculator to find your exact monthly payment for any mortgage, car loan, personal loan, or student loan. Enter your loan amount, annual interest rate, and term in years — the calculator instantly shows your monthly payment, total interest paid over the life of the loan, and a full year-by-year amortization schedule showing how your balance decreases with every payment. The formula used is the standard loan amortization equation and works identically for any currency and any country worldwide. No account or signup is required.</p>
+    </div>
+  </div>
+</section>
 <!-- ═══════════════════════════════════════════════
      CHART SECTION
 ═══════════════════════════════════════════════ -->
@@ -573,7 +641,7 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
 ═══════════════════════════════════════════════ -->
 <section class="faq-section" id="faq" aria-labelledby="faq-h2">
   <div class="container">
-    <h2 id="faq-h2">Frequently asked questions</h2>
+    <h2 id="faq-h2">Frequently asked questions about loans, savings, currency and gold</h2>
 
     <!-- ADSENSE SLOT 3: Rectangle — replace comment with your AdSense code -->
     <!-- <ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX"></ins> -->
@@ -620,6 +688,30 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
         <div class="faq-a">Yes, completely free. No account required. No signup. No email collection. No premium features behind a paywall. The calculator, amortization schedule, and payment breakdown chart are all fully accessible at no cost. LoanCalc is supported by display advertising — the calculator itself will always remain free.</div>
       </div>
 
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" aria-expanded="false">
+          How does the refinance calculator work?
+          <span class="chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="faq-a">Enter your current loan balance, interest rate, and remaining term, then enter the new rate and estimated closing costs. The refinance calculator shows your new monthly payment, the exact break-even month when your cumulative savings exceed the closing costs, and the total lifetime saving over the remaining loan term. As a general rule, refinancing is worthwhile if you plan to keep the loan longer than the break-even period and the rate reduction is at least 0.5%.</div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" aria-expanded="false">
+          How is the gold price calculated and updated?
+          <span class="chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="faq-a">LoanCalc fetches the live gold spot price in USD from a financial market data source and converts it to your local currency using live exchange rates. The gold price is cached in your browser for one hour, so it refreshes frequently without making excessive API calls. Prices are displayed per troy ounce (the standard trading unit), per gram, and per kilogram for everyday reference.</div>
+      </div>
+
+      <div class="faq-item" role="listitem">
+        <button class="faq-q" aria-expanded="false">
+          Which currencies does the converter support?
+          <span class="chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="faq-a">The LoanCalc currency converter supports 30 major world currencies including USD, EUR, GBP, JPY, EGP, AED, SAR, CAD, AUD, CHF, CNY, INR, SGD, HKD, TRY, KRW, and more. Exchange rates are sourced from the Frankfurter open exchange rates API and updated every 24 hours. The converter automatically defaults the "to" currency based on your browser's locale settings.</div>
+      </div>
+
     </div>
   </div>
 </section>
@@ -629,8 +721,8 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
 ═══════════════════════════════════════════════ -->
 <section id="compound" style="padding:64px 0;background:var(--bg)" aria-labelledby="compound-h2">
   <div class="container">
-    <h2 class="section-title" id="compound-h2">Compound interest calculator</h2>
-    <p class="section-sub">See how your savings or investment grows over time. No live data — you supply your own expected return rate.</p>
+    <h2 class="section-title" id="compound-h2">Compound interest &amp; savings growth calculator</h2>
+    <p class="section-sub">See exactly how your savings or investment grows year by year with compound interest. Enter your own expected return rate — no live data needed, works for any bank or investment account.</p>
     <div class="ad-slot ad-leaderboard" aria-hidden="true">Advertisement</div>
     <div class="calc-card" style="margin-top:24px">
       <div class="calc-grid">
@@ -705,13 +797,22 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
   </div>
 </section>
 
+
+<!-- SEO CONTENT: Compound interest description -->
+<div style="padding:0 0 32px;background:var(--bg)">
+  <div class="container">
+    <div style="max-width:780px;font-size:15px;color:var(--muted);line-height:1.8">
+      <p>The compound interest calculator shows how an initial deposit grows over time when interest is earned on both the original principal and the accumulated interest. Enter a starting amount, monthly contribution, annual return rate, and investment period to see the future value of your savings or investment portfolio. The S&amp;P 500 has historically returned approximately 7% annually after inflation — use this as a realistic baseline for diversified index fund investments. The year-by-year chart clearly shows the exponential effect of compounding, particularly over 20 or 30 year periods.</p>
+    </div>
+  </div>
+</div>
 <!-- ═══════════════════════════════════════════════
      REFINANCE CALCULATOR
 ═══════════════════════════════════════════════ -->
 <section id="refinance" style="padding:64px 0;background:var(--navy)" aria-labelledby="refi-h2">
   <div class="container">
-    <h2 style="font-family:var(--ff-display);font-size:26px;font-weight:600;color:#fff;margin-bottom:6px" id="refi-h2">Refinance savings calculator</h2>
-    <p style="font-size:14px;color:rgba(255,255,255,0.55);margin-bottom:28px">Find out how much you save by refinancing to a lower rate. Includes break-even analysis.</p>
+    <h2 style="font-family:var(--ff-display);font-size:26px;font-weight:600;color:#fff;margin-bottom:6px" id="refi-h2">Refinance calculator — how much will you save?</h2>
+    <p style="font-size:14px;color:rgba(255,255,255,0.55);margin-bottom:28px">Enter your current loan details and the new rate you've been offered. The refinance calculator shows your monthly savings, the break-even month, and your total lifetime saving after closing costs.</p>
     <div class="calc-card">
       <div class="calc-grid">
         <div class="inputs-panel">
@@ -779,13 +880,22 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
   </div>
 </section>
 
+
+<!-- SEO CONTENT: Refinance description -->
+<div style="padding:32px 0;background:var(--navy)">
+  <div class="container">
+    <div style="max-width:780px;font-size:15px;color:rgba(255,255,255,0.55);line-height:1.8">
+      <p>The refinance savings calculator helps you decide whether it is worth refinancing your existing loan to a lower interest rate. Enter your current remaining loan balance, your current rate, and the new rate you have been offered, along with estimated closing costs. The calculator outputs your new monthly payment, the exact number of months until your savings exceed the closing costs (the break-even point), and the total lifetime saving over the remaining loan term. As a general rule, refinancing is worthwhile if you plan to stay in the loan longer than the break-even period and the new rate is at least 0.5% lower.</p>
+    </div>
+  </div>
+</div>
 <!-- ═══════════════════════════════════════════════
      CURRENCY CONVERTER
 ═══════════════════════════════════════════════ -->
 <section id="currency" style="padding:64px 0;background:var(--bg)" aria-labelledby="cur-h2">
   <div class="container">
-    <h2 class="section-title" id="cur-h2">Currency, gold &amp; oil</h2>
-    <p class="section-sub">Live rates updated every hour. All data is cached in your browser — the API is only called once per hour per visitor regardless of site traffic.</p>
+    <h2 class="section-title" id="cur-h2">Live currency converter, gold price &amp; oil price today</h2>
+    <p class="section-sub">Convert between 30 major currencies with live exchange rates. Also shows the live gold price per gram, ounce and kilogram, plus the current WTI crude oil price per barrel — all converted to your local currency automatically. Rates cached hourly.</p>
 
     <!-- CURRENCY CONVERTER CARD -->
     <div class="calc-card">
@@ -898,6 +1008,9 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
     </div>
 
     <div class="ad-slot ad-rectangle" aria-hidden="true">Advertisement</div>
+    <div style="max-width:780px;margin-top:24px;font-size:15px;color:var(--muted);line-height:1.8">
+      <p>The LoanCalc currency converter supports 30 major world currencies and uses live exchange rates updated every 24 hours via the Frankfurter open exchange rates API. The gold price shown is the live XAU spot price per troy ounce, converted from USD into your selected currency in real time. The oil price reflects the current WTI (West Texas Intermediate) crude oil futures price per barrel, which is the global benchmark used by traders and governments worldwide. All commodity and currency data is cached hourly in your browser — no excessive API calls, no account required, no data stored on any server.</p>
+    </div>
   </div>
 </section>
 
