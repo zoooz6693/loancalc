@@ -336,6 +336,39 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .calc-card,.chart-wrap,.table-wrap{animation:fadeUp .4s ease both}
 
+/* ── SETTINGS PANEL ── */
+.settings-btn{width:36px;height:36px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);transition:all .15s;flex-shrink:0}
+.settings-btn:hover{background:rgba(255,255,255,0.1);color:#fff}
+.settings-btn svg{width:16px;height:16px}
+.settings-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:999;cursor:pointer}
+.settings-overlay.open{display:block}
+.settings-drawer{position:fixed;top:0;right:-340px;width:320px;height:100vh;background:var(--navy-mid);border-left:1px solid rgba(255,255,255,0.08);z-index:1000;transition:right .25s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column}
+.settings-drawer.open{right:0}
+.settings-head{padding:20px 24px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between}
+.settings-title{font-size:15px;font-weight:500;color:#fff}
+.settings-close{width:28px;height:28px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);background:transparent;cursor:pointer;color:rgba(255,255,255,0.6);font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .15s}
+.settings-close:hover{background:rgba(255,255,255,0.1);color:#fff}
+.settings-body{padding:24px;display:flex;flex-direction:column;gap:24px;flex:1}
+.settings-group{display:flex;flex-direction:column;gap:8px}
+.settings-label{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.45);font-weight:500}
+.settings-select{width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06);color:#fff;font-size:14px;font-family:var(--ff-body);cursor:pointer;outline:none;transition:border-color .15s;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
+.settings-select:focus{border-color:var(--gold)}
+.settings-select option{background:#162040;color:#fff}
+.settings-note{font-size:12px;color:rgba(255,255,255,0.35);line-height:1.6}
+.settings-save{margin:0 24px 24px;padding:11px;border-radius:8px;background:var(--gold);border:none;color:var(--navy);font-size:14px;font-weight:500;cursor:pointer;font-family:var(--ff-body);transition:opacity .15s}
+.settings-save:hover{opacity:.88}
+.pref-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(200,151,58,0.15);border:1px solid rgba(200,151,58,0.3);border-radius:6px;padding:4px 10px;font-size:12px;color:var(--gold);margin-top:4px}
+
+/* ── RTL SUPPORT (Arabic) ── */
+[dir="rtl"] .header-inner{flex-direction:row-reverse}
+[dir="rtl"] .settings-drawer{right:auto;left:-340px;border-left:none;border-right:1px solid rgba(255,255,255,0.08)}
+[dir="rtl"] .settings-drawer.open{left:0;right:auto}
+[dir="rtl"] .ig-head{flex-direction:row-reverse}
+[dir="rtl"] .breakdown-label{flex-direction:row-reverse}
+[dir="rtl"] .results-grid{direction:rtl}
+[dir="rtl"] .faq-q{flex-direction:row-reverse;text-align:right}
+[dir="rtl"] .how-grid{direction:rtl}
+
 /* ── RESPONSIVE ── */
 @media(max-width:520px){
   .header-inner nav{display:none}
@@ -364,14 +397,65 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
       <span class="logo-text">Loan<span>Calc</span></span>
     </a>
     <nav role="navigation" aria-label="Main navigation">
-      <a href="#calculator">Loans</a>
-      <a href="#compound">Savings</a>
-      <a href="#refinance">Refinance</a>
-      <a href="#currency">Currency</a>
+      <a href="#calculator" data-i18n="nav-loans">Loans</a>
+      <a href="#compound" data-i18n="nav-savings">Savings</a>
+      <a href="#refinance" data-i18n="nav-refinance">Refinance</a>
+      <a href="#currency" data-i18n="nav-currency">Currency</a>
       <a href="#faq">FAQ</a>
     </nav>
+    <button class="settings-btn" id="settings-open-btn" aria-label="Open preferences">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="8" cy="8" r="2.5"/><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.1 3.1l1.1 1.1M11.8 11.8l1.1 1.1M3.1 12.9l1.1-1.1M11.8 4.2l1.1-1.1"/></svg>
+    </button>
   </div>
 </header>
+
+<!-- ═══════════════════════════════════════════════
+     SETTINGS DRAWER
+═══════════════════════════════════════════════ -->
+<div class="settings-overlay" id="settings-overlay"></div>
+<aside class="settings-drawer" id="settings-drawer" role="dialog" aria-modal="true" aria-label="Preferences">
+  <div class="settings-head">
+    <p class="settings-title" data-i18n="pref-title">Preferences</p>
+    <button class="settings-close" id="settings-close-btn" aria-label="Close preferences">✕</button>
+  </div>
+  <div class="settings-body">
+
+    <div class="settings-group">
+      <p class="settings-label" data-i18n="pref-language">Display language</p>
+      <select class="settings-select" id="pref-lang">
+        <option value="en">English</option>
+        <option value="ar">العربية (Arabic)</option>
+        <option value="fr">Français (French)</option>
+        <option value="es">Español (Spanish)</option>
+        <option value="de">Deutsch (German)</option>
+        <option value="zh">中文 (Chinese)</option>
+        <option value="hi">हिन्दी (Hindi)</option>
+        <option value="pt">Português (Portuguese)</option>
+        <option value="tr">Türkçe (Turkish)</option>
+        <option value="id">Bahasa Indonesia</option>
+      </select>
+      <p class="settings-note" data-i18n="pref-lang-note">Changes labels and number formatting throughout the site.</p>
+    </div>
+
+    <div class="settings-group">
+      <p class="settings-label" data-i18n="pref-currency">Preferred currency</p>
+      <select class="settings-select" id="pref-currency" style="background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 12px center">
+        <!-- populated by JS -->
+      </select>
+      <p class="settings-note" data-i18n="pref-currency-note">Sets the default "convert to" currency and the local price shown for gold and oil.</p>
+    </div>
+
+    <div class="settings-group">
+      <p class="settings-label" data-i18n="pref-current">Current settings</p>
+      <div id="pref-current-display">
+        <span class="pref-tag" id="pref-cur-tag">USD</span>
+        <span class="pref-tag" style="margin-left:6px" id="pref-lang-tag">EN</span>
+      </div>
+    </div>
+
+  </div>
+  <button class="settings-save" id="settings-save-btn" data-i18n="pref-save">Save preferences</button>
+</aside>
 
 <!-- ═══════════════════════════════════════════════
      HERO
@@ -1544,16 +1628,500 @@ calcRF();
 })();
 
 /* ═══════════════════════════════════════════════
-   CURRENCY, GOLD & OIL — all cached in localStorage
+   PREFERENCES — language + currency, persisted
+═══════════════════════════════════════════════ */
+(function(){
+'use strict';
+var PREF_KEY = 'loancalc_prefs';
+
+/* ── ALL WORLD CURRENCIES (ISO 4217) with names ── */
+window.ALL_CURRENCIES = [
+  {c:'AED',n:'UAE Dirham'},{c:'AFN',n:'Afghan Afghani'},{c:'ALL',n:'Albanian Lek'},
+  {c:'AMD',n:'Armenian Dram'},{c:'ANG',n:'Netherlands Antillean Guilder'},
+  {c:'AOA',n:'Angolan Kwanza'},{c:'ARS',n:'Argentine Peso'},{c:'AUD',n:'Australian Dollar'},
+  {c:'AWG',n:'Aruban Florin'},{c:'AZN',n:'Azerbaijani Manat'},{c:'BAM',n:'Bosnian Mark'},
+  {c:'BBD',n:'Barbadian Dollar'},{c:'BDT',n:'Bangladeshi Taka'},{c:'BGN',n:'Bulgarian Lev'},
+  {c:'BHD',n:'Bahraini Dinar'},{c:'BIF',n:'Burundian Franc'},{c:'BMD',n:'Bermudan Dollar'},
+  {c:'BND',n:'Brunei Dollar'},{c:'BOB',n:'Bolivian Boliviano'},{c:'BRL',n:'Brazilian Real'},
+  {c:'BSD',n:'Bahamian Dollar'},{c:'BTN',n:'Bhutanese Ngultrum'},{c:'BWP',n:'Botswanan Pula'},
+  {c:'BYN',n:'Belarusian Ruble'},{c:'BZD',n:'Belize Dollar'},{c:'CAD',n:'Canadian Dollar'},
+  {c:'CDF',n:'Congolese Franc'},{c:'CHF',n:'Swiss Franc'},{c:'CLP',n:'Chilean Peso'},
+  {c:'CNY',n:'Chinese Yuan'},{c:'COP',n:'Colombian Peso'},{c:'CRC',n:'Costa Rican Colón'},
+  {c:'CUP',n:'Cuban Peso'},{c:'CVE',n:'Cape Verdean Escudo'},{c:'CZK',n:'Czech Koruna'},
+  {c:'DJF',n:'Djiboutian Franc'},{c:'DKK',n:'Danish Krone'},{c:'DOP',n:'Dominican Peso'},
+  {c:'DZD',n:'Algerian Dinar'},{c:'EGP',n:'Egyptian Pound'},{c:'ERN',n:'Eritrean Nakfa'},
+  {c:'ETB',n:'Ethiopian Birr'},{c:'EUR',n:'Euro'},{c:'FJD',n:'Fijian Dollar'},
+  {c:'FKP',n:'Falkland Islands Pound'},{c:'GBP',n:'British Pound'},{c:'GEL',n:'Georgian Lari'},
+  {c:'GHS',n:'Ghanaian Cedi'},{c:'GIP',n:'Gibraltar Pound'},{c:'GMD',n:'Gambian Dalasi'},
+  {c:'GNF',n:'Guinean Franc'},{c:'GTQ',n:'Guatemalan Quetzal'},{c:'GYD',n:'Guyanese Dollar'},
+  {c:'HKD',n:'Hong Kong Dollar'},{c:'HNL',n:'Honduran Lempira'},{c:'HTG',n:'Haitian Gourde'},
+  {c:'HUF',n:'Hungarian Forint'},{c:'IDR',n:'Indonesian Rupiah'},{c:'ILS',n:'Israeli Shekel'},
+  {c:'INR',n:'Indian Rupee'},{c:'IQD',n:'Iraqi Dinar'},{c:'IRR',n:'Iranian Rial'},
+  {c:'ISK',n:'Icelandic Króna'},{c:'JMD',n:'Jamaican Dollar'},{c:'JOD',n:'Jordanian Dinar'},
+  {c:'JPY',n:'Japanese Yen'},{c:'KES',n:'Kenyan Shilling'},{c:'KGS',n:'Kyrgyzstani Som'},
+  {c:'KHR',n:'Cambodian Riel'},{c:'KMF',n:'Comorian Franc'},{c:'KRW',n:'South Korean Won'},
+  {c:'KWD',n:'Kuwaiti Dinar'},{c:'KYD',n:'Cayman Islands Dollar'},{c:'KZT',n:'Kazakhstani Tenge'},
+  {c:'LAK',n:'Laotian Kip'},{c:'LBP',n:'Lebanese Pound'},{c:'LKR',n:'Sri Lankan Rupee'},
+  {c:'LRD',n:'Liberian Dollar'},{c:'LSL',n:'Lesotho Loti'},{c:'LYD',n:'Libyan Dinar'},
+  {c:'MAD',n:'Moroccan Dirham'},{c:'MDL',n:'Moldovan Leu'},{c:'MGA',n:'Malagasy Ariary'},
+  {c:'MKD',n:'Macedonian Denar'},{c:'MMK',n:'Myanmar Kyat'},{c:'MNT',n:'Mongolian Tögrög'},
+  {c:'MOP',n:'Macanese Pataca'},{c:'MRU',n:'Mauritanian Ouguiya'},{c:'MUR',n:'Mauritian Rupee'},
+  {c:'MVR',n:'Maldivian Rufiyaa'},{c:'MWK',n:'Malawian Kwacha'},{c:'MXN',n:'Mexican Peso'},
+  {c:'MYR',n:'Malaysian Ringgit'},{c:'MZN',n:'Mozambican Metical'},{c:'NAD',n:'Namibian Dollar'},
+  {c:'NGN',n:'Nigerian Naira'},{c:'NIO',n:'Nicaraguan Córdoba'},{c:'NOK',n:'Norwegian Krone'},
+  {c:'NPR',n:'Nepalese Rupee'},{c:'NZD',n:'New Zealand Dollar'},{c:'OMR',n:'Omani Rial'},
+  {c:'PAB',n:'Panamanian Balboa'},{c:'PEN',n:'Peruvian Sol'},{c:'PGK',n:'Papua New Guinean Kina'},
+  {c:'PHP',n:'Philippine Peso'},{c:'PKR',n:'Pakistani Rupee'},{c:'PLN',n:'Polish Złoty'},
+  {c:'PYG',n:'Paraguayan Guaraní'},{c:'QAR',n:'Qatari Riyal'},{c:'RON',n:'Romanian Leu'},
+  {c:'RSD',n:'Serbian Dinar'},{c:'RUB',n:'Russian Ruble'},{c:'RWF',n:'Rwandan Franc'},
+  {c:'SAR',n:'Saudi Riyal'},{c:'SBD',n:'Solomon Islands Dollar'},{c:'SCR',n:'Seychellois Rupee'},
+  {c:'SDG',n:'Sudanese Pound'},{c:'SEK',n:'Swedish Krona'},{c:'SGD',n:'Singapore Dollar'},
+  {c:'SHP',n:'Saint Helena Pound'},{c:'SOS',n:'Somali Shilling'},{c:'SRD',n:'Surinamese Dollar'},
+  {c:'STN',n:'São Tomé Dobra'},{c:'SZL',n:'Swazi Lilangeni'},{c:'THB',n:'Thai Baht'},
+  {c:'TJS',n:'Tajikistani Somoni'},{c:'TMT',n:'Turkmenistan Manat'},{c:'TND',n:'Tunisian Dinar'},
+  {c:'TOP',n:'Tongan Paʻanga'},{c:'TRY',n:'Turkish Lira'},{c:'TTD',n:'Trinidad Dollar'},
+  {c:'TWD',n:'New Taiwan Dollar'},{c:'TZS',n:'Tanzanian Shilling'},{c:'UAH',n:'Ukrainian Hryvnia'},
+  {c:'UGX',n:'Ugandan Shilling'},{c:'USD',n:'US Dollar'},{c:'UYU',n:'Uruguayan Peso'},
+  {c:'UZS',n:'Uzbekistani Som'},{c:'VES',n:'Venezuelan Bolívar'},{c:'VND',n:'Vietnamese Dong'},
+  {c:'VUV',n:'Vanuatu Vatu'},{c:'WST',n:'Samoan Tala'},{c:'XAF',n:'Central African Franc'},
+  {c:'XCD',n:'East Caribbean Dollar'},{c:'XOF',n:'West African Franc'},{c:'XPF',n:'CFP Franc'},
+  {c:'YER',n:'Yemeni Rial'},{c:'ZAR',n:'South African Rand'},{c:'ZMW',n:'Zambian Kwacha'},
+  {c:'ZWL',n:'Zimbabwean Dollar'}
+];
+
+/* ── TRANSLATIONS ── */
+var I18N = {
+  en:{
+    'nav-loans':'Loans','nav-savings':'Savings','nav-refinance':'Refinance','nav-currency':'Currency',
+    'pref-title':'Preferences','pref-language':'Display language','pref-lang-note':'Changes labels and number formatting.',
+    'pref-currency':'Preferred currency','pref-currency-note':'Default currency for converter and commodity prices.',
+    'pref-current':'Current settings','pref-save':'Save preferences',
+    'hero-sub':'Loan calculator, compound interest, refinance savings, live currency converter, gold price and oil price — all free, instant, no signup required.',
+    'trust-1':'Free forever','trust-2':'No signup required','trust-3':'Works for any country',
+    'ci-label-principal':'Initial deposit','ci-label-monthly':'Monthly contribution','ci-label-rate':'Annual return rate','ci-label-years':'Investment period',
+    'ci-result-label':'Total portfolio after','ci-deposited':'Total deposited','ci-earned':'Interest earned','ci-mult':'Growth multiple','ci-year':'Target year',
+    'rf-current':'Current loan','rf-new':'New loan offer',
+    'cur-amount-label':'Amount','cur-to-label':'Converted to','cur-quick':'Quick reference — common amounts',
+    'gold-per':'per troy ounce','gold-local':'Price in your currency',
+    'oil-per':'per barrel','oil-local':'Price in your currency',
+    'faq-heading':'Frequently asked questions about loans, savings, currency and gold'
+  },
+  ar:{
+    'nav-loans':'القروض','nav-savings':'المدخرات','nav-refinance':'إعادة التمويل','nav-currency':'العملات',
+    'pref-title':'التفضيلات','pref-language':'لغة العرض','pref-lang-note':'يغير التسميات وتنسيق الأرقام.',
+    'pref-currency':'العملة المفضلة','pref-currency-note':'العملة الافتراضية للمحول وأسعار السلع.',
+    'pref-current':'الإعدادات الحالية','pref-save':'حفظ التفضيلات',
+    'hero-sub':'حاسبة القروض، الفائدة المركبة، توفير إعادة التمويل، محول العملات المباشر، سعر الذهب والنفط — مجاناً، فورياً، دون تسجيل.',
+    'trust-1':'مجاني دائماً','trust-2':'لا يلزم تسجيل','trust-3':'يعمل في أي دولة',
+    'cur-amount-label':'المبلغ','cur-to-label':'يُحوَّل إلى','cur-quick':'مرجع سريع — المبالغ الشائعة',
+    'gold-per':'لكل أونصة تروي','gold-local':'السعر بعملتك',
+    'oil-per':'للبرميل','oil-local':'السعر بعملتك',
+    'faq-heading':'أسئلة شائعة حول القروض والمدخرات والعملات والذهب'
+  },
+  fr:{
+    'nav-loans':'Prêts','nav-savings':'Épargne','nav-refinance':'Refinancement','nav-currency':'Devises',
+    'pref-title':'Préférences','pref-language':'Langue d\'affichage','pref-lang-note':'Modifie les libellés et le formatage.',
+    'pref-currency':'Devise préférée','pref-currency-note':'Devise par défaut pour le convertisseur.',
+    'pref-current':'Paramètres actuels','pref-save':'Enregistrer',
+    'hero-sub':'Calculateur de prêts, intérêts composés, économies de refinancement, convertisseur de devises en direct, prix de l\'or et du pétrole — gratuit, instantané.',
+    'trust-1':'Toujours gratuit','trust-2':'Sans inscription','trust-3':'Fonctionne partout',
+    'cur-amount-label':'Montant','cur-to-label':'Converti en','cur-quick':'Référence rapide',
+    'gold-per':'par once troy','gold-local':'Prix dans votre devise',
+    'oil-per':'par baril','oil-local':'Prix dans votre devise',
+    'faq-heading':'Questions fréquentes sur les prêts, l\'épargne et les devises'
+  },
+  es:{
+    'nav-loans':'Préstamos','nav-savings':'Ahorros','nav-refinance':'Refinanciación','nav-currency':'Divisas',
+    'pref-title':'Preferencias','pref-language':'Idioma de visualización','pref-lang-note':'Cambia etiquetas y formato de números.',
+    'pref-currency':'Moneda preferida','pref-currency-note':'Moneda predeterminada para el conversor.',
+    'pref-current':'Configuración actual','pref-save':'Guardar preferencias',
+    'hero-sub':'Calculadora de préstamos, interés compuesto, ahorro en refinanciación, conversor de divisas en vivo, precio del oro y del petróleo — gratis, instantáneo.',
+    'trust-1':'Siempre gratis','trust-2':'Sin registro','trust-3':'Funciona en todo el mundo',
+    'cur-amount-label':'Cantidad','cur-to-label':'Convertido a','cur-quick':'Referencia rápida',
+    'gold-per':'por onza troy','gold-local':'Precio en tu moneda',
+    'oil-per':'por barril','oil-local':'Precio en tu moneda',
+    'faq-heading':'Preguntas frecuentes sobre préstamos, ahorros y divisas'
+  },
+  de:{
+    'nav-loans':'Kredite','nav-savings':'Ersparnisse','nav-refinance':'Refinanzierung','nav-currency':'Währungen',
+    'pref-title':'Einstellungen','pref-language':'Anzeigesprache','pref-lang-note':'Ändert Beschriftungen und Zahlenformatierung.',
+    'pref-currency':'Bevorzugte Währung','pref-currency-note':'Standardwährung für den Konverter.',
+    'pref-current':'Aktuelle Einstellungen','pref-save':'Einstellungen speichern',
+    'hero-sub':'Kreditrechner, Zinseszins, Refinanzierungsersparnis, Live-Währungsrechner, Goldpreis und Ölpreis — kostenlos, sofort, ohne Anmeldung.',
+    'trust-1':'Für immer kostenlos','trust-2':'Keine Anmeldung','trust-3':'Weltweit nutzbar',
+    'cur-amount-label':'Betrag','cur-to-label':'Umgerechnet in','cur-quick':'Schnellreferenz',
+    'gold-per':'pro Feinunze','gold-local':'Preis in Ihrer Währung',
+    'oil-per':'pro Barrel','oil-local':'Preis in Ihrer Währung',
+    'faq-heading':'Häufige Fragen zu Krediten, Ersparnissen und Währungen'
+  },
+  zh:{'nav-loans':'贷款','nav-savings':'储蓄','nav-refinance':'再融资','nav-currency':'货币','pref-title':'偏好设置','pref-save':'保存设置','cur-amount-label':'金额','cur-to-label':'兑换为','cur-quick':'快速参考','pref-language':'显示语言','pref-lang-note':'更改标签和数字格式。','pref-currency':'首选货币','pref-currency-note':'转换器和商品价格的默认货币。','pref-current':'当前设置','gold-per':'每金衡盎司','gold-local':'您的货币价格','oil-per':'每桶','oil-local':'您的货币价格','trust-1':'永久免费','trust-2':'无需注册','trust-3':'全球通用','hero-sub':'贷款计算器、复利、再融资节省、实时货币转换器、黄金和石油价格——免费、即时、无需注册。','faq-heading':'关于贷款、储蓄和货币的常见问题'},
+  hi:{'nav-loans':'ऋण','nav-savings':'बचत','nav-refinance':'पुनर्वित्त','nav-currency':'मुद्रा','pref-title':'प्राथमिकताएं','pref-save':'प्राथमिकताएं सहेजें','cur-amount-label':'राशि','cur-to-label':'में परिवर्तित','cur-quick':'त्वरित संदर्भ','pref-language':'प्रदर्शन भाषा','pref-lang-note':'लेबल और संख्या स्वरूपण बदलता है।','pref-currency':'पसंदीदा मुद्रा','pref-currency-note':'कनवर्टर के लिए डिफ़ॉल्ट मुद्रा।','pref-current':'वर्तमान सेटिंग्स','gold-per':'प्रति ट्रॉय औंस','gold-local':'आपकी मुद्रा में मूल्य','oil-per':'प्रति बैरल','oil-local':'आपकी मुद्रा में मूल्य','trust-1':'हमेशा मुफ़्त','trust-2':'साइनअप नहीं','trust-3':'किसी भी देश के लिए','hero-sub':'ऋण कैलकुलेटर, चक्रवृद्धि ब्याज, पुनर्वित्त बचत, लाइव मुद्रा कनवर्टर, सोने और तेल की कीमत — सब मुफ़्त।','faq-heading':'ऋण, बचत और मुद्राओं के बारे में सामान्य प्रश्न'},
+  pt:{'nav-loans':'Empréstimos','nav-savings':'Poupança','nav-refinance':'Refinanciamento','nav-currency':'Moedas','pref-title':'Preferências','pref-save':'Salvar preferências','cur-amount-label':'Valor','cur-to-label':'Convertido para','cur-quick':'Referência rápida','pref-language':'Idioma de exibição','pref-lang-note':'Altera rótulos e formatação.','pref-currency':'Moeda preferida','pref-currency-note':'Moeda padrão para o conversor.','pref-current':'Configurações atuais','gold-per':'por onça troy','gold-local':'Preço na sua moeda','oil-per':'por barril','oil-local':'Preço na sua moeda','trust-1':'Sempre gratuito','trust-2':'Sem cadastro','trust-3':'Funciona em qualquer país','hero-sub':'Calculadora de empréstimos, juros compostos, refinanciamento, conversor de moedas ao vivo, preço do ouro e petróleo — gratuito, instantâneo.','faq-heading':'Perguntas frequentes sobre empréstimos, poupança e moedas'},
+  tr:{'nav-loans':'Krediler','nav-savings':'Tasarruf','nav-refinance':'Refinansman','nav-currency':'Para Birimi','pref-title':'Tercihler','pref-save':'Tercihleri kaydet','cur-amount-label':'Miktar','cur-to-label':'Dönüştürüldü','cur-quick':'Hızlı referans','pref-language':'Görüntüleme dili','pref-lang-note':'Etiketleri ve sayı biçimini değiştirir.','pref-currency':'Tercih edilen para birimi','pref-currency-note':'Dönüştürücü için varsayılan para birimi.','pref-current':'Mevcut ayarlar','gold-per':'troy ons başına','gold-local':'Para biriminizde fiyat','oil-per':'varil başına','oil-local':'Para biriminizde fiyat','trust-1':'Her zaman ücretsiz','trust-2':'Kayıt gerekmez','trust-3':'Her ülkede çalışır','hero-sub':'Kredi hesaplayıcı, bileşik faiz, refinansman tasarrufları, canlı döviz çevirici, altın ve petrol fiyatları — ücretsiz, anında.','faq-heading':'Krediler, tasarruf ve döviz hakkında sık sorulan sorular'},
+  id:{'nav-loans':'Pinjaman','nav-savings':'Tabungan','nav-refinance':'Refinansi','nav-currency':'Mata Uang','pref-title':'Preferensi','pref-save':'Simpan preferensi','cur-amount-label':'Jumlah','cur-to-label':'Dikonversi ke','cur-quick':'Referensi cepat','pref-language':'Bahasa tampilan','pref-lang-note':'Mengubah label dan format angka.','pref-currency':'Mata uang pilihan','pref-currency-note':'Mata uang default untuk konverter.','pref-current':'Pengaturan saat ini','gold-per':'per troy ounce','gold-local':'Harga dalam mata uang Anda','oil-per':'per barel','oil-local':'Harga dalam mata uang Anda','trust-1':'Selalu gratis','trust-2':'Tanpa daftar','trust-3':'Berlaku di semua negara','hero-sub':'Kalkulator pinjaman, bunga majemuk, penghematan refinansi, konverter mata uang langsung, harga emas dan minyak — gratis, instan.','faq-heading':'Pertanyaan umum tentang pinjaman, tabungan, dan mata uang'}
+};
+
+/* ── LOAD / SAVE PREFS ── */
+function loadPrefs(){
+  try{ return JSON.parse(localStorage.getItem(PREF_KEY)) || {}; } catch(e){ return {}; }
+}
+function savePrefs(prefs){
+  try{ localStorage.setItem(PREF_KEY, JSON.stringify(prefs)); } catch(e){}
+}
+
+/* ── APPLY LANGUAGE ── */
+function applyLang(lang){
+  var t = I18N[lang] || I18N['en'];
+  var dir = lang === 'ar' ? 'rtl' : 'ltr';
+  document.documentElement.setAttribute('dir', dir);
+  document.documentElement.setAttribute('lang', lang);
+  document.querySelectorAll('[data-i18n]').forEach(function(el){
+    var key = el.getAttribute('data-i18n');
+    if(t[key]) el.textContent = t[key];
+  });
+  /* Update nav links */
+  var navLinks = document.querySelectorAll('header nav a[data-i18n]');
+  navLinks.forEach(function(a){
+    var key = a.getAttribute('data-i18n');
+    if(t[key]) a.textContent = t[key];
+  });
+  /* Hero subtitle */
+  var sub = document.querySelector('.hero-sub');
+  if(sub && t['hero-sub']) sub.textContent = t['hero-sub'];
+  /* Trust badges */
+  var badges = document.querySelectorAll('.trust-badge');
+  if(badges[0] && t['trust-1']) badges[0].textContent = t['trust-1'];
+  if(badges[1] && t['trust-2']) badges[1].textContent = t['trust-2'];
+  if(badges[2] && t['trust-3']) badges[2].textContent = t['trust-3'];
+  /* FAQ heading */
+  var faqH = document.getElementById('faq-h2');
+  if(faqH && t['faq-heading']) faqH.textContent = t['faq-heading'];
+  /* Currency labels */
+  var amtLbl = document.querySelector('label[for="cur-from"]');
+  if(amtLbl && t['cur-amount-label']) amtLbl.textContent = t['cur-amount-label'];
+  /* Gold/oil labels */
+  ['gold','oil'].forEach(function(type){
+    var perEl = document.getElementById(type + '-per-label');
+    if(perEl && t[type+'-per']) perEl.textContent = t[type+'-per'];
+    var locEl = document.getElementById(type + '-local-label');
+    if(locEl && t[type+'-local']) locEl.textContent = t[type+'-local'];
+  });
+  /* Commodity page header labels */
+  var quickEl = document.getElementById('cur-quick-label');
+  if(quickEl && t['cur-quick']) quickEl.textContent = t['cur-quick'];
+}
+
+/* ── POPULATE PREF CURRENCY SELECT ── */
+function populatePrefCurrencySelect(currentCur){
+  var sel = document.getElementById('pref-currency');
+  sel.innerHTML = '';
+  window.ALL_CURRENCIES.forEach(function(cur){
+    var opt = document.createElement('option');
+    opt.value = cur.c;
+    opt.textContent = cur.c + ' — ' + cur.n;
+    if(cur.c === currentCur) opt.selected = true;
+    sel.appendChild(opt);
+  });
+}
+
+/* ── SETTINGS DRAWER OPEN/CLOSE ── */
+function openSettings(){
+  var prefs = loadPrefs();
+  document.getElementById('pref-lang').value = prefs.lang || 'en';
+  populatePrefCurrencySelect(prefs.currency || window._prefCurrency || 'EUR');
+  document.getElementById('settings-drawer').classList.add('open');
+  document.getElementById('settings-overlay').classList.add('open');
+}
+function closeSettings(){
+  document.getElementById('settings-drawer').classList.remove('open');
+  document.getElementById('settings-overlay').classList.remove('open');
+}
+
+document.getElementById('settings-open-btn').addEventListener('click', openSettings);
+document.getElementById('settings-close-btn').addEventListener('click', closeSettings);
+document.getElementById('settings-overlay').addEventListener('click', closeSettings);
+
+document.getElementById('settings-save-btn').addEventListener('click', function(){
+  var lang = document.getElementById('pref-lang').value;
+  var currency = document.getElementById('pref-currency').value;
+  savePrefs({lang:lang, currency:currency});
+  window._prefCurrency = currency;
+  applyLang(lang);
+  /* Update currency selects */
+  if(window._setCurrencyPref) window._setCurrencyPref(currency);
+  /* Update tags */
+  document.getElementById('pref-cur-tag').textContent = currency;
+  document.getElementById('pref-lang-tag').textContent = lang.toUpperCase();
+  closeSettings();
+});
+
+/* ── INIT: apply saved prefs on load ── */
+var _prefs = loadPrefs();
+var _initLang = _prefs.lang || (navigator.language && navigator.language.split('-')[0]) || 'en';
+var _initCur  = _prefs.currency || null;
+window._prefCurrency = _initCur;
+applyLang(_initLang);
+document.getElementById('pref-cur-tag').textContent  = _initCur || '—';
+document.getElementById('pref-lang-tag').textContent = _initLang.toUpperCase();
+})();
+
+/* ═══════════════════════════════════════════════
+   CURRENCY, GOLD & OIL — expanded + cached
 ═══════════════════════════════════════════════ */
 (function(){
 'use strict';
 
-var CURRENCIES = [
-  'USD','EUR','GBP','JPY','CAD','AUD','CHF','CNY','INR','SGD',
-  'HKD','NOK','SEK','DKK','NZD','MXN','BRL','ZAR','EGP','AED',
-  'SAR','TRY','KRW','THB','IDR','MYR','PKR','NGN','QAR','KWD'
-];
+/* ── REGION → CURRENCY MAP ── */
+var REGION_MAP = {
+  'US':'USD','GB':'GBP','AU':'AUD','CA':'CAD','CH':'CHF','CN':'CNY',
+  'JP':'JPY','IN':'INR','SG':'SGD','HK':'HKD','NO':'NOK','SE':'SEK',
+  'DK':'DKK','NZ':'NZD','MX':'MXN','BR':'BRL','ZA':'ZAR','EG':'EGP',
+  'AE':'AED','SA':'SAR','TR':'TRY','KR':'KRW','TH':'THB','ID':'IDR',
+  'MY':'MYR','PK':'PKR','NG':'NGN','QA':'QAR','KW':'KWD','NG':'NGN',
+  'MA':'MAD','TN':'TND','DZ':'DZD','LY':'LYD','SD':'SDG','ET':'ETB',
+  'KE':'KES','GH':'GHS','TZ':'TZS','UG':'UGX','RW':'RWF','ZM':'ZMW',
+  'UA':'UAH','PL':'PLN','CZ':'CZK','HU':'HUF','RO':'RON','RS':'RSD',
+  'BG':'BGN','IS':'ISK','HR':'HRK','CL':'CLP','CO':'COP','AR':'ARS',
+  'PE':'PEN','VN':'VND','PH':'PHP','BD':'BDT','LK':'LKR','NP':'NPR',
+  'KZ':'KZT','UZ':'UZS','AZ':'AZN','GE':'GEL','AM':'AMD','BY':'BYN',
+  'DE':'EUR','FR':'EUR','IT':'EUR','ES':'EUR','PT':'EUR','NL':'EUR',
+  'BE':'EUR','AT':'EUR','FI':'EUR','IE':'EUR','GR':'EUR','LU':'EUR',
+  'SK':'EUR','SI':'EUR','EE':'EUR','LV':'EUR','LT':'EUR','MT':'EUR','CY':'EUR'
+};
+
+function detectLocaleCurrency(){
+  /* First check saved preference */
+  if(window._prefCurrency) return window._prefCurrency;
+  try{
+    var lang = (navigator.languages && navigator.languages[0]) || navigator.language || 'en-US';
+    var parts = lang.split('-');
+    var region = parts.length > 1 ? parts[1].toUpperCase() : parts[0].toUpperCase();
+    var detected = REGION_MAP[region];
+    if(detected && detected !== 'USD') return detected;
+  } catch(e){}
+  return 'EUR';
+}
+
+var rates    = null;
+var rateDate = '';
+var fromCur  = 'USD';
+var toCur    = detectLocaleCurrency();
+var CACHE_FX  = 'loancalc_fx';
+var CACHE_CMD = 'loancalc_cmd';
+var goldUSD   = null;
+var oilUSD    = null;
+
+/* ── HELPERS ── */
+function fmtUSD(n){ return '$' + n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function fmtLocal(n, cur){ if(!n) return '—'; return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' ' + cur; }
+function setDot(id, ok){ var el=document.getElementById(id); if(el) el.style.background = ok ? '#0B7C4E' : '#C8973A'; }
+
+/* ── POPULATE CURRENCY SELECTS with all world currencies ── */
+function populateSelects(){
+  ['cur-from','cur-to'].forEach(function(id){
+    var sel = document.getElementById(id);
+    if(!sel) return;
+    var currentVal = sel.value;
+    sel.innerHTML = '';
+    window.ALL_CURRENCIES.forEach(function(cur){
+      /* Only show currencies that have a rate or are USD */
+      var opt = document.createElement('option');
+      opt.value = cur.c;
+      opt.textContent = cur.c + ' — ' + cur.n;
+      sel.appendChild(opt);
+    });
+    sel.value = currentVal || (id === 'cur-from' ? fromCur : toCur);
+  });
+  document.getElementById('cur-from').value = fromCur;
+  document.getElementById('cur-to').value   = toCur;
+}
+
+function setStatus(ok, msg){
+  setDot('cur-dot', ok);
+  var el = document.getElementById('cur-status-text');
+  if(el) el.textContent = msg;
+}
+
+/* ── CONVERT ── */
+function convert(){
+  if(!rates) return;
+  var amount   = parseFloat(document.getElementById('cur-amount').value) || 0;
+  fromCur = document.getElementById('cur-from').value;
+  toCur   = document.getElementById('cur-to').value;
+  var fromRate = rates[fromCur] || null;
+  var toRate   = rates[toCur]   || null;
+  if(!fromRate || !toRate){
+    document.getElementById('cur-result').textContent = 'Rate unavailable';
+    document.getElementById('cur-rate-display').textContent = 'Not in live feed';
+    return;
+  }
+  var rate   = toRate / fromRate;
+  var result = amount * rate;
+  document.getElementById('cur-result').textContent        = result.toLocaleString('en-US',{maximumFractionDigits:4}) + ' ' + toCur;
+  document.getElementById('cur-rate-display').textContent  = '1 ' + fromCur + ' = ' + rate.toFixed(6) + ' ' + toCur;
+  document.getElementById('cur-rate-inv').textContent      = '1 ' + toCur   + ' = ' + (1/rate).toFixed(6) + ' ' + fromCur;
+  document.getElementById('cur-rate-date').textContent     = rateDate || 'today';
+  buildQuickGrid(fromCur, toCur, rate);
+  updateCommodityLocal();
+}
+
+function buildQuickGrid(from, to, rate){
+  var amounts = [1,5,10,50,100,250,500,1000,5000,10000];
+  var grid = document.getElementById('cur-quick-grid');
+  if(!grid) return;
+  grid.innerHTML = '';
+  amounts.forEach(function(a){
+    var div = document.createElement('div');
+    div.style.cssText = 'background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 12px';
+    div.innerHTML = '<div style="font-size:11px;color:var(--muted)">' + a.toLocaleString() + ' ' + from + '</div>' +
+      '<div style="font-size:13px;font-weight:500;color:var(--navy)">' + (a*rate).toLocaleString('en-US',{maximumFractionDigits:2}) + ' ' + to + '</div>';
+    grid.appendChild(div);
+  });
+}
+
+/* ── UPDATE COMMODITY LOCAL CURRENCY ── */
+function updateCommodityLocal(){
+  if(!rates) return;
+  var localCur = toCur || detectLocaleCurrency();
+  var usdToLocal = (rates[localCur] || 1) / (rates['USD'] || 1);
+  var el;
+  el = document.getElementById('gold-local-cur'); if(el) el.textContent = localCur;
+  el = document.getElementById('oil-local-cur');  if(el) el.textContent = localCur;
+  if(goldUSD){
+    var gG = goldUSD / 31.1035;
+    el=document.getElementById('gold-usd');  if(el) el.textContent = fmtUSD(goldUSD) + ' /oz';
+    el=document.getElementById('gold-gram'); if(el) el.textContent = fmtUSD(gG);
+    el=document.getElementById('gold-10g');  if(el) el.textContent = fmtUSD(gG*10);
+    el=document.getElementById('gold-kg');   if(el) el.textContent = fmtUSD(gG*1000);
+    el=document.getElementById('gold-local');if(el) el.textContent = fmtLocal(goldUSD*usdToLocal, localCur) + ' /oz';
+  }
+  if(oilUSD){
+    el=document.getElementById('oil-usd');  if(el) el.textContent = fmtUSD(oilUSD) + ' /bbl';
+    el=document.getElementById('oil-5');    if(el) el.textContent = fmtUSD(oilUSD*5);
+    el=document.getElementById('oil-10');   if(el) el.textContent = fmtUSD(oilUSD*10);
+    el=document.getElementById('oil-100');  if(el) el.textContent = fmtUSD(oilUSD*100);
+    el=document.getElementById('oil-local');if(el) el.textContent = fmtLocal(oilUSD*usdToLocal, localCur) + ' /bbl';
+  }
+}
+
+/* ── EXPOSE PREF SETTER so settings panel can update currency live ── */
+window._setCurrencyPref = function(newCur){
+  toCur = newCur;
+  var sel = document.getElementById('cur-to');
+  if(sel) sel.value = newCur;
+  convert();
+  updateCommodityLocal();
+};
+
+/* ── FETCH CURRENCIES — open.er-api.com supports 161 currencies ── */
+function loadRates(){
+  try{
+    var cached = localStorage.getItem(CACHE_FX);
+    if(cached){
+      var obj = JSON.parse(cached);
+      if((Date.now()-obj.ts)/3600000 < 24){
+        rates=obj.rates; rateDate=obj.date;
+        setStatus(true,'Rates from '+rateDate+' · cached · updates every 24h');
+        populateSelects(); convert(); return;
+      }
+    }
+  } catch(e){}
+  fetchRates();
+}
+
+function fetchRates(){
+  setStatus(false,'Fetching exchange rates…');
+  fetch('https://open.er-api.com/v6/latest/USD')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      if(data.result !== 'success') throw new Error('API error');
+      rates = data.rates;
+      rates['USD'] = 1;
+      rateDate = data.time_last_update_utc ? data.time_last_update_utc.slice(0,16) : new Date().toISOString().slice(0,10);
+      try{ localStorage.setItem(CACHE_FX, JSON.stringify({rates:rates,date:rateDate,ts:Date.now()})); } catch(e){}
+      setStatus(true,'Live rates · '+rateDate+' · 161 currencies · updates every 24h');
+      populateSelects(); convert();
+    })
+    .catch(function(){
+      /* Fallback to frankfurter */
+      fetch('https://api.frankfurter.app/latest?base=USD')
+        .then(function(r){ return r.json(); })
+        .then(function(data){
+          data.rates['USD']=1; rates=data.rates; rateDate=data.date;
+          try{ localStorage.setItem(CACHE_FX,JSON.stringify({rates:rates,date:rateDate,ts:Date.now()})); } catch(e){}
+          setStatus(true,'Rates loaded · '+rateDate+' (33 currencies)');
+          populateSelects(); convert();
+        })
+        .catch(function(){
+          rates={'USD':1,'EUR':0.92,'GBP':0.79,'JPY':149.5,'CAD':1.36,'AUD':1.53,
+                 'EGP':48.9,'AED':3.67,'SAR':3.75,'CHF':0.9,'CNY':7.24,'INR':83.5,
+                 'TRY':32.1,'BRL':4.97,'MXN':17.2,'ZAR':18.8,'KWD':0.31,'QAR':3.64};
+          rateDate='offline';
+          setStatus(false,'Offline rates — limited currencies available');
+          populateSelects(); convert();
+        });
+    });
+}
+
+/* ── FETCH GOLD & OIL ── */
+function loadCommodities(){
+  try{
+    var cached = localStorage.getItem(CACHE_CMD);
+    if(cached){
+      var obj=JSON.parse(cached);
+      if((Date.now()-obj.ts)/3600000 < 1){
+        goldUSD=obj.gold; oilUSD=obj.oil;
+        setDot('gold-dot',true); var gs=document.getElementById('gold-status'); if(gs) gs.textContent='Live · '+obj.date;
+        setDot('oil-dot',true);  var os=document.getElementById('oil-status');  if(os) os.textContent='Live · '+obj.date;
+        updateCommodityLocal(); return;
+      }
+    }
+  } catch(e){}
+  fetchCommodity('GC=F','gold');
+  fetchCommodity('CL=F','oil');
+}
+
+function fetchCommodity(ticker, type){
+  var statusEl = document.getElementById(type+'-status');
+  if(statusEl) statusEl.textContent='Fetching…';
+  fetch('https://query2.finance.yahoo.com/v8/finance/chart/'+ticker+'?interval=1d&range=1d',{mode:'cors'})
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      var price=data.chart.result[0].meta.regularMarketPrice;
+      var dateTs=data.chart.result[0].meta.regularMarketTime;
+      var dateStr=new Date(dateTs*1000).toLocaleDateString('en-US',{month:'short',day:'numeric'});
+      if(type==='gold'){goldUSD=price; setDot('gold-dot',true); if(statusEl) statusEl.textContent='Live · '+dateStr;}
+      if(type==='oil') {oilUSD=price;  setDot('oil-dot',true);  if(statusEl) statusEl.textContent='Live · '+dateStr;}
+      saveCommodityCache(dateStr);
+      updateCommodityLocal();
+    })
+    .catch(function(){
+      if(type==='gold'){goldUSD=3300; setDot('gold-dot',false); if(statusEl) statusEl.textContent='Approx · check live data';}
+      if(type==='oil') {oilUSD=72;   setDot('oil-dot',false);  if(statusEl) statusEl.textContent='Approx · check live data';}
+      updateCommodityLocal();
+    });
+}
+
+function saveCommodityCache(dateStr){
+  if(!goldUSD||!oilUSD) return;
+  try{ localStorage.setItem(CACHE_CMD,JSON.stringify({gold:goldUSD,oil:oilUSD,date:dateStr,ts:Date.now()})); } catch(e){}
+}
+
+/* ── EVENTS ── */
+document.getElementById('cur-amount').addEventListener('input', convert);
+document.getElementById('cur-from').addEventListener('change', convert);
+document.getElementById('cur-to').addEventListener('change', function(){ convert(); updateCommodityLocal(); });
+document.getElementById('cur-swap').addEventListener('click', function(){
+  var tmp=document.getElementById('cur-from').value;
+  document.getElementById('cur-from').value=document.getElementById('cur-to').value;
+  document.getElementById('cur-to').value=tmp;
+  convert();
+});
+
+/* ── INIT ── */
+loadRates();
+loadCommodities();
+})();
 
 /* ── LOCALE → CURRENCY MAP ── */
 var REGION_MAP = {
