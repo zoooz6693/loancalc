@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2392401188548335"
-     crossorigin="anonymous"></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
@@ -309,8 +307,10 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
       <span class="logo-text">Loan<span>Calc</span></span>
     </a>
     <nav role="navigation" aria-label="Main navigation">
-      <a href="#calculator">Calculator</a>
-      <a href="#schedule">Schedule</a>
+      <a href="#calculator">Loans</a>
+      <a href="#compound">Savings</a>
+      <a href="#refinance">Refinance</a>
+      <a href="#currency">Currency</a>
       <a href="#faq">FAQ</a>
     </nav>
   </div>
@@ -625,6 +625,288 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
 </section>
 
 <!-- ═══════════════════════════════════════════════
+     COMPOUND INTEREST CALCULATOR
+═══════════════════════════════════════════════ -->
+<section id="compound" style="padding:64px 0;background:var(--bg)" aria-labelledby="compound-h2">
+  <div class="container">
+    <h2 class="section-title" id="compound-h2">Compound interest calculator</h2>
+    <p class="section-sub">See how your savings or investment grows over time. No live data — you supply your own expected return rate.</p>
+    <div class="ad-slot ad-leaderboard" aria-hidden="true">Advertisement</div>
+    <div class="calc-card" style="margin-top:24px">
+      <div class="calc-grid">
+        <div class="inputs-panel">
+          <div class="input-group">
+            <div class="ig-head">
+              <label class="ig-label" for="ci-s-principal">Initial deposit</label>
+              <div class="ig-val"><span class="ig-sym">$</span><input type="number" id="ci-i-principal" class="ig-input" min="100" max="1000000" step="100"></div>
+            </div>
+            <input type="range" id="ci-s-principal" min="100" max="1000000" step="100" value="10000">
+            <div class="range-ends"><span>$100</span><span>$1,000,000</span></div>
+          </div>
+          <div class="input-group">
+            <div class="ig-head">
+              <label class="ig-label" for="ci-s-monthly">Monthly contribution</label>
+              <div class="ig-val"><span class="ig-sym">$</span><input type="number" id="ci-i-monthly" class="ig-input" min="0" max="10000" step="50"></div>
+            </div>
+            <input type="range" id="ci-s-monthly" min="0" max="10000" step="50" value="200">
+            <div class="range-ends"><span>$0</span><span>$10,000/mo</span></div>
+          </div>
+          <div class="input-group">
+            <div class="ig-head">
+              <label class="ig-label" for="ci-s-rate">Annual return rate</label>
+              <div class="ig-val"><input type="number" id="ci-i-rate" class="ig-input" min="0.1" max="30" step="0.1" style="width:55px"><span class="ig-unit">%</span></div>
+            </div>
+            <input type="range" id="ci-s-rate" min="0.1" max="30" step="0.1" value="7">
+            <div class="range-ends"><span>0.1%</span><span>30%</span></div>
+          </div>
+          <div class="input-group">
+            <div class="ig-head">
+              <label class="ig-label" for="ci-s-years">Investment period</label>
+              <div class="ig-val"><input type="number" id="ci-i-years" class="ig-input" min="1" max="50" step="1" style="width:45px"><span class="ig-unit">years</span></div>
+            </div>
+            <input type="range" id="ci-s-years" min="1" max="50" step="1" value="20">
+            <div class="range-ends"><span>1 yr</span><span>50 yrs</span></div>
+          </div>
+          <div class="helper-note">
+            <strong>S&amp;P 500 historical average</strong>
+            The US stock market has returned ~7% annually after inflation over the long term. Use 7% as a realistic baseline for diversified index funds.
+          </div>
+        </div>
+        <div class="results-panel" aria-live="polite">
+          <div class="monthly-card">
+            <p class="monthly-label">Future value</p>
+            <p class="monthly-amount" id="ci-result-fv">—</p>
+            <p class="monthly-sub">Total portfolio after <span id="ci-result-years-lbl">20</span> years</p>
+          </div>
+          <div class="results-grid">
+            <div class="res-box"><p class="res-lbl">Total deposited</p><p class="res-val" id="ci-result-deposited">—</p></div>
+            <div class="res-box"><p class="res-lbl">Interest earned</p><p class="res-val gold" id="ci-result-earned">—</p></div>
+            <div class="res-box"><p class="res-lbl">Growth multiple</p><p class="res-val" id="ci-result-mult">—</p></div>
+            <div class="res-box"><p class="res-lbl">Target year</p><p class="res-val" id="ci-result-year">—</p></div>
+          </div>
+          <div class="breakdown-row">
+            <div class="breakdown-label">
+              <span>Deposits <span id="ci-pct-d">—</span></span>
+              <span>Growth <span id="ci-pct-g">—</span></span>
+            </div>
+            <div class="breakdown-bar">
+              <div class="bar-p" id="ci-bar-d" style="width:50%"></div>
+              <div class="bar-i" id="ci-bar-g" style="width:50%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="background:var(--card);border-radius:var(--rLg);border:1px solid var(--border);box-shadow:var(--shadow);padding:32px;margin-top:24px">
+      <h3 style="font-family:var(--ff-display);font-size:18px;font-weight:600;color:var(--navy);margin-bottom:6px">Year-by-year growth</h3>
+      <p style="font-size:13px;color:var(--muted);margin-bottom:20px">Balance at end of each year, split between your deposits and compound growth.</p>
+      <div style="position:relative;height:280px"><canvas id="ciChart" role="img" aria-label="Bar chart showing compound interest growth year by year, split between total deposited and interest earned"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     REFINANCE CALCULATOR
+═══════════════════════════════════════════════ -->
+<section id="refinance" style="padding:64px 0;background:var(--navy)" aria-labelledby="refi-h2">
+  <div class="container">
+    <h2 style="font-family:var(--ff-display);font-size:26px;font-weight:600;color:#fff;margin-bottom:6px" id="refi-h2">Refinance savings calculator</h2>
+    <p style="font-size:14px;color:rgba(255,255,255,0.55);margin-bottom:28px">Find out how much you save by refinancing to a lower rate. Includes break-even analysis.</p>
+    <div class="calc-card">
+      <div class="calc-grid">
+        <div class="inputs-panel">
+          <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);font-weight:500;margin-bottom:16px">Current loan</p>
+          <div class="input-group">
+            <div class="ig-head">
+              <label class="ig-label" for="rf-s-balance">Remaining balance</label>
+              <div class="ig-val"><span class="ig-sym">$</span><input type="number" id="rf-i-balance" class="ig-input" min="1000" max="2000000" step="1000"></div>
+            </div>
+            <input type="range" id="rf-s-balance" min="1000" max="2000000" step="1000" value="250000">
+            <div class="range-ends"><span>$1,000</span><span>$2,000,000</span></div>
+          </div>
+          <div class="input-group">
+            <div class="ig-head">
+              <label class="ig-label" for="rf-s-oldrate">Current interest rate</label>
+              <div class="ig-val"><input type="number" id="rf-i-oldrate" class="ig-input" min="0.5" max="20" step="0.1" style="width:55px"><span class="ig-unit">%</span></div>
+            </div>
+            <input type="range" id="rf-s-oldrate" min="0.5" max="20" step="0.1" value="7.5">
+            <div class="range-ends"><span>0.5%</span><span>20%</span></div>
+          </div>
+          <div class="input-group">
+            <div class="ig-head">
+              <label class="ig-label" for="rf-s-remaining">Years remaining</label>
+              <div class="ig-val"><input type="number" id="rf-i-remaining" class="ig-input" min="1" max="30" step="1" style="width:45px"><span class="ig-unit">years</span></div>
+            </div>
+            <input type="range" id="rf-s-remaining" min="1" max="30" step="1" value="25">
+            <div class="range-ends"><span>1 yr</span><span>30 yrs</span></div>
+          </div>
+          <div style="border-top:1px solid var(--border);padding-top:20px;margin-top:4px">
+            <p style="font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);font-weight:500;margin-bottom:16px">New loan offer</p>
+          </div>
+          <div class="input-group">
+            <div class="ig-head">
+              <label class="ig-label" for="rf-s-newrate">New interest rate</label>
+              <div class="ig-val"><input type="number" id="rf-i-newrate" class="ig-input" min="0.5" max="20" step="0.1" style="width:55px"><span class="ig-unit">%</span></div>
+            </div>
+            <input type="range" id="rf-s-newrate" min="0.5" max="20" step="0.1" value="6.0">
+            <div class="range-ends"><span>0.5%</span><span>20%</span></div>
+          </div>
+          <div class="input-group" style="margin-bottom:0">
+            <div class="ig-head">
+              <label class="ig-label" for="rf-s-costs">Closing costs</label>
+              <div class="ig-val"><span class="ig-sym">$</span><input type="number" id="rf-i-costs" class="ig-input" min="0" max="20000" step="100"></div>
+            </div>
+            <input type="range" id="rf-s-costs" min="0" max="20000" step="100" value="3000">
+            <div class="range-ends"><span>$0</span><span>$20,000</span></div>
+          </div>
+        </div>
+        <div class="results-panel" aria-live="polite">
+          <div class="monthly-card">
+            <p class="monthly-label">Monthly savings</p>
+            <p class="monthly-amount" id="rf-result-monthly">—</p>
+            <p class="monthly-sub">Per month with the new rate</p>
+          </div>
+          <div class="results-grid">
+            <div class="res-box"><p class="res-lbl">Old payment</p><p class="res-val" id="rf-result-old">—</p></div>
+            <div class="res-box"><p class="res-lbl">New payment</p><p class="res-val gold" id="rf-result-new">—</p></div>
+            <div class="res-box"><p class="res-lbl">Break-even</p><p class="res-val" id="rf-result-breakeven">—</p></div>
+            <div class="res-box"><p class="res-lbl">Total lifetime savings</p><p class="res-val" id="rf-result-total">—</p></div>
+          </div>
+          <div id="rf-verdict" style="margin-top:8px;padding:12px 16px;border-radius:10px;font-size:13px;line-height:1.5;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.75)">Enter your loan details to see if refinancing makes sense.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════
+     CURRENCY CONVERTER
+═══════════════════════════════════════════════ -->
+<section id="currency" style="padding:64px 0;background:var(--bg)" aria-labelledby="cur-h2">
+  <div class="container">
+    <h2 class="section-title" id="cur-h2">Currency, gold &amp; oil</h2>
+    <p class="section-sub">Live rates updated every hour. All data is cached in your browser — the API is only called once per hour per visitor regardless of site traffic.</p>
+
+    <!-- CURRENCY CONVERTER CARD -->
+    <div class="calc-card">
+      <div style="padding:36px 40px">
+        <div id="cur-status" style="font-size:12px;color:var(--muted);margin-bottom:20px;display:flex;align-items:center;gap:8px">
+          <span id="cur-dot" style="width:8px;height:8px;border-radius:50%;background:var(--border);display:inline-block"></span>
+          <span id="cur-status-text">Loading exchange rates…</span>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:16px;margin-bottom:28px">
+          <div>
+            <label style="font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);font-weight:500;display:block;margin-bottom:8px">Amount</label>
+            <div style="display:flex;gap:8px;align-items:center">
+              <select id="cur-from" style="border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;font-size:15px;font-family:var(--ff-body);color:var(--text);background:var(--card);cursor:pointer;flex-shrink:0"></select>
+              <input type="number" id="cur-amount" value="1000" min="0" step="1" style="flex:1;border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;font-size:18px;font-weight:500;font-family:var(--ff-body);color:var(--text);background:var(--card);width:100%;outline:none">
+            </div>
+          </div>
+          <button id="cur-swap" title="Swap currencies" style="width:40px;height:40px;border-radius:50%;border:1.5px solid var(--border);background:var(--card);cursor:pointer;font-size:18px;color:var(--muted);display:flex;align-items:center;justify-content:center;margin-bottom:2px;transition:all .15s">⇄</button>
+          <div>
+            <label style="font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);font-weight:500;display:block;margin-bottom:8px">Converted to</label>
+            <div style="display:flex;gap:8px;align-items:center">
+              <select id="cur-to" style="border:1.5px solid var(--border);border-radius:8px;padding:10px 12px;font-size:15px;font-family:var(--ff-body);color:var(--text);background:var(--card);cursor:pointer;flex-shrink:0"></select>
+              <div id="cur-result" style="flex:1;border:1.5px solid var(--navy-soft);border-radius:8px;padding:10px 12px;font-size:18px;font-weight:500;font-family:var(--ff-display);color:var(--navy);background:var(--blue-light)">—</div>
+            </div>
+          </div>
+        </div>
+        <div id="cur-rate-row" style="display:flex;gap:24px;flex-wrap:wrap;padding:14px 16px;background:var(--card2);border-radius:10px;border:1px solid var(--border);font-size:13px;color:var(--muted)">
+          <span>Rate: <strong id="cur-rate-display" style="color:var(--text)">—</strong></span>
+          <span>Inverse: <strong id="cur-rate-inv" style="color:var(--text)">—</strong></span>
+          <span>Updated: <strong id="cur-rate-date" style="color:var(--text)">—</strong></span>
+        </div>
+        <div style="margin-top:24px">
+          <p style="font-size:12px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:12px">Quick reference — common amounts</p>
+          <div id="cur-quick-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMMODITY PRICES ROW -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px" class="commodity-grid">
+
+      <!-- GOLD -->
+      <div class="calc-card" style="padding:24px 28px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <div style="width:36px;height:36px;border-radius:8px;background:var(--gold-light);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">&#x1F947;</div>
+          <div>
+            <p style="font-size:13px;font-weight:500;color:var(--navy)">Gold (XAU)</p>
+            <p style="font-size:11px;color:var(--muted)">Price per troy ounce</p>
+          </div>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:5px">
+            <span id="gold-dot" style="width:7px;height:7px;border-radius:50%;background:var(--border);display:inline-block"></span>
+            <span id="gold-status" style="font-size:11px;color:var(--muted)">Loading…</span>
+          </div>
+        </div>
+        <p style="font-family:var(--ff-display);font-size:32px;font-weight:600;color:var(--navy);margin-bottom:4px" id="gold-usd">—</p>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:14px">per oz in USD</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+          <div style="background:var(--card2);border-radius:8px;padding:8px 10px;border:1px solid var(--border)">
+            <p style="font-size:10px;color:var(--muted);margin-bottom:2px">1g</p>
+            <p style="font-size:13px;font-weight:500;color:var(--navy)" id="gold-gram">—</p>
+          </div>
+          <div style="background:var(--card2);border-radius:8px;padding:8px 10px;border:1px solid var(--border)">
+            <p style="font-size:10px;color:var(--muted);margin-bottom:2px">10g</p>
+            <p style="font-size:13px;font-weight:500;color:var(--navy)" id="gold-10g">—</p>
+          </div>
+          <div style="background:var(--card2);border-radius:8px;padding:8px 10px;border:1px solid var(--border)">
+            <p style="font-size:10px;color:var(--muted);margin-bottom:2px">1 kg</p>
+            <p style="font-size:13px;font-weight:500;color:var(--navy)" id="gold-kg">—</p>
+          </div>
+        </div>
+        <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
+          <p style="font-size:11px;color:var(--muted);margin-bottom:4px">Price in your currency (<span id="gold-local-cur">—</span>)</p>
+          <p style="font-size:18px;font-weight:500;color:var(--navy)" id="gold-local">—</p>
+        </div>
+      </div>
+
+      <!-- OIL -->
+      <div class="calc-card" style="padding:24px 28px">
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
+          <div style="width:36px;height:36px;border-radius:8px;background:#EAF3DE;border:1px solid #639922;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">&#x1F6E2;&#xFE0F;</div>
+          <div>
+            <p style="font-size:13px;font-weight:500;color:var(--navy)">Crude Oil (WTI)</p>
+            <p style="font-size:11px;color:var(--muted)">Price per barrel</p>
+          </div>
+          <div style="margin-left:auto;display:flex;align-items:center;gap:5px">
+            <span id="oil-dot" style="width:7px;height:7px;border-radius:50%;background:var(--border);display:inline-block"></span>
+            <span id="oil-status" style="font-size:11px;color:var(--muted)">Loading…</span>
+          </div>
+        </div>
+        <p style="font-family:var(--ff-display);font-size:32px;font-weight:600;color:var(--navy);margin-bottom:4px" id="oil-usd">—</p>
+        <p style="font-size:13px;color:var(--muted);margin-bottom:14px">per barrel in USD</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
+          <div style="background:var(--card2);border-radius:8px;padding:8px 10px;border:1px solid var(--border)">
+            <p style="font-size:10px;color:var(--muted);margin-bottom:2px">5 bbls</p>
+            <p style="font-size:13px;font-weight:500;color:var(--navy)" id="oil-5">—</p>
+          </div>
+          <div style="background:var(--card2);border-radius:8px;padding:8px 10px;border:1px solid var(--border)">
+            <p style="font-size:10px;color:var(--muted);margin-bottom:2px">10 bbls</p>
+            <p style="font-size:13px;font-weight:500;color:var(--navy)" id="oil-10">—</p>
+          </div>
+          <div style="background:var(--card2);border-radius:8px;padding:8px 10px;border:1px solid var(--border)">
+            <p style="font-size:10px;color:var(--muted);margin-bottom:2px">100 bbls</p>
+            <p style="font-size:13px;font-weight:500;color:var(--navy)" id="oil-100">—</p>
+          </div>
+        </div>
+        <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
+          <p style="font-size:11px;color:var(--muted);margin-bottom:4px">Price in your currency (<span id="oil-local-cur">—</span>)</p>
+          <p style="font-size:18px;font-weight:500;color:var(--navy)" id="oil-local">—</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="ad-slot ad-rectangle" aria-hidden="true">Advertisement</div>
+  </div>
+</section>
+
+<style>
+#cur-swap:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+@media(max-width:600px){.commodity-grid{grid-template-columns:1fr!important}}
+</style>
+
+<!-- ═══════════════════════════════════════════════
      FOOTER
 ═══════════════════════════════════════════════ -->
 <footer role="contentinfo">
@@ -638,11 +920,13 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
       <span class="footer-logo-text">Loan<span>Calc</span></span>
     </div>
     <div class="footer-links">
-      <a href="#calculator">Calculator</a>
-      <a href="#schedule">Amortization</a>
+      <a href="#calculator">Loans</a>
+      <a href="#compound">Savings</a>
+      <a href="#refinance">Refinance</a>
+      <a href="#currency">Currency</a>
       <a href="#faq">FAQ</a>
     </div>
-    <p>Free loan payment calculator — no account required.</p>
+    <p>Free financial calculators — loan, savings, refinance, currency. No account required.</p>
     <p class="footer-disclaimer">LoanCalc provides estimates for informational purposes only. Results are based on the inputs you provide and assume fixed interest rates with equal monthly payments. This is not financial advice. Consult a licensed financial advisor or lender before making borrowing decisions. Actual loan terms, rates, and payments will vary based on your lender's requirements and your creditworthiness.</p>
     <p style="margin-top:16px">© <span id="copy-year">2026</span> LoanCalc. All rights reserved.</p>
   </div>
@@ -665,7 +949,7 @@ var CONFIGS = {
   mortgage:{
     amount:300000, rate:6.5, term:30,
     amountMin:50000, amountMax:2000000, amountStep:5000,
-    rateMin:0.5, rateMax:15, termMin:5, termMax:30,
+    rateMin:0.5, rateMax:15, termMin:1, termMax:30,
     label:'30-year fixed mortgage',
     helperTitle:'Typical 30-year US mortgage',
     helperText:'Average 30-year fixed rate is around 6.5–7%. Enter your actual loan amount and rate for a personalised estimate.'
@@ -689,7 +973,7 @@ var CONFIGS = {
   student:{
     amount:35000, rate:5.5, term:10,
     amountMin:1000, amountMax:250000, amountStep:1000,
-    rateMin:1, rateMax:15, termMin:5, termMax:25,
+    rateMin:1, rateMax:15, termMin:1, termMax:25,
     label:'10-year student loan',
     helperTitle:'Federal student loan (US)',
     helperText:'Federal undergraduate loan rates are set annually by Congress. Graduate and private loans carry higher rates. Income-driven repayment plans may lower payments.'
@@ -964,11 +1248,416 @@ switchTab('mortgage');
 
 /* ── Wait for Chart.js to be ready ── */
 function tryChart(){
-  if(window.Chart){ update(); }
+  if(window.Chart){ update(); initCIChart(); }
   else { setTimeout(tryChart, 150); }
 }
 setTimeout(tryChart, 200);
 
+})();
+
+/* ═══════════════════════════════════════════════
+   COMPOUND INTEREST CALCULATOR
+═══════════════════════════════════════════════ */
+(function(){
+'use strict';
+var ciChart = null;
+
+function fmtCI(n){ return '$' + new Intl.NumberFormat('en-US').format(Math.round(n)); }
+function fillCI(id,el){ document.getElementById(id).value = el.value; }
+
+function calcCI(){
+  var P = parseFloat(document.getElementById('ci-s-principal').value) || 0;
+  var M = parseFloat(document.getElementById('ci-s-monthly').value) || 0;
+  var r = (parseFloat(document.getElementById('ci-s-rate').value) || 0) / 100 / 12;
+  var years = parseInt(document.getElementById('ci-s-years').value) || 0;
+  var n = years * 12;
+
+  var fv = P * Math.pow(1+r,n);
+  if(r > 0){ fv += M * (Math.pow(1+r,n) - 1) / r; }
+  else { fv += M * n; }
+
+  var deposited = P + M * n;
+  var earned = fv - deposited;
+  var mult = deposited > 0 ? (fv / deposited) : 0;
+  var targetYear = new Date().getFullYear() + years;
+
+  document.getElementById('ci-result-fv').textContent = fmtCI(fv);
+  document.getElementById('ci-result-deposited').textContent = fmtCI(deposited);
+  document.getElementById('ci-result-earned').textContent = fmtCI(earned);
+  document.getElementById('ci-result-mult').textContent = mult.toFixed(2) + '×';
+  document.getElementById('ci-result-year').textContent = targetYear;
+  document.getElementById('ci-result-years-lbl').textContent = years;
+
+  var dPct = Math.round(deposited / fv * 100);
+  var gPct = 100 - dPct;
+  document.getElementById('ci-bar-d').style.width = dPct + '%';
+  document.getElementById('ci-bar-g').style.width = gPct + '%';
+  document.getElementById('ci-pct-d').textContent = dPct + '%';
+  document.getElementById('ci-pct-g').textContent = gPct + '%';
+
+  updateCIChart(P, M, r, years);
+}
+
+function updateCIChart(P, M, r, years){
+  if(!window.Chart) return;
+  var labels=[], depositsData=[], growthData=[];
+  for(var y=1; y<=years; y++){
+    var n = y*12;
+    var fv = P * Math.pow(1+r,n);
+    if(r>0){ fv += M*(Math.pow(1+r,n)-1)/r; } else { fv += M*n; }
+    var dep = P + M*n;
+    labels.push(y === 1 ? 'Yr 1' : (y % 5 === 0 ? 'Yr '+y : ''));
+    depositsData.push(Math.round(dep));
+    growthData.push(Math.round(Math.max(0, fv-dep)));
+  }
+  if(!ciChart){
+    ciChart = new Chart(document.getElementById('ciChart'),{
+      type:'bar',
+      data:{
+        labels:labels,
+        datasets:[
+          {label:'Deposits',data:depositsData,backgroundColor:'#162040',borderWidth:0,stack:'s'},
+          {label:'Growth',data:growthData,backgroundColor:'#C8973A',borderWidth:0,stack:'s'}
+        ]
+      },
+      options:{
+        responsive:true,maintainAspectRatio:false,
+        plugins:{legend:{display:false},tooltip:{callbacks:{label:function(c){return c.dataset.label+': $'+c.raw.toLocaleString();}}}},
+        scales:{
+          x:{stacked:true,grid:{display:false},ticks:{color:'#5B6278',font:{size:11},maxRotation:0}},
+          y:{stacked:true,grid:{color:'rgba(0,0,0,0.05)'},ticks:{color:'#5B6278',font:{size:11},callback:function(v){return v>=1000000?'$'+(v/1000000).toFixed(1)+'M':v>=1000?'$'+(v/1000).toFixed(0)+'k':'$'+v;}}}
+        }
+      }
+    });
+  } else {
+    ciChart.data.labels = labels;
+    ciChart.data.datasets[0].data = depositsData;
+    ciChart.data.datasets[1].data = growthData;
+    ciChart.update('none');
+  }
+}
+
+function initCIChart(){ calcCI(); }
+window.initCIChart = initCIChart;
+
+['ci-s-principal','ci-s-monthly','ci-s-rate','ci-s-years'].forEach(function(id){
+  var slider = document.getElementById(id);
+  var inputId = id.replace('ci-s-','ci-i-');
+  slider.addEventListener('input', function(){ document.getElementById(inputId).value = this.value; calcCI(); });
+});
+['ci-i-principal','ci-i-monthly','ci-i-rate','ci-i-years'].forEach(function(id){
+  document.getElementById(id).addEventListener('input', function(){
+    var sliderId = id.replace('ci-i-','ci-s-');
+    var slider = document.getElementById(sliderId);
+    if(parseFloat(this.value) >= parseFloat(slider.min) && parseFloat(this.value) <= parseFloat(slider.max)){
+      slider.value = this.value; calcCI();
+    }
+  });
+});
+document.getElementById('ci-i-principal').value = document.getElementById('ci-s-principal').value;
+document.getElementById('ci-i-monthly').value = document.getElementById('ci-s-monthly').value;
+document.getElementById('ci-i-rate').value = document.getElementById('ci-s-rate').value;
+document.getElementById('ci-i-years').value = document.getElementById('ci-s-years').value;
+})();
+
+/* ═══════════════════════════════════════════════
+   REFINANCE CALCULATOR
+═══════════════════════════════════════════════ */
+(function(){
+'use strict';
+function fmtRF(n){ return '$' + new Intl.NumberFormat('en-US').format(Math.round(Math.abs(n))); }
+
+function calcMonthly(bal, rate, years){
+  var r = rate/100/12;
+  var n = years*12;
+  if(r===0) return bal/n;
+  var f = Math.pow(1+r,n);
+  return bal*(r*f)/(f-1);
+}
+
+function calcRF(){
+  var bal      = parseFloat(document.getElementById('rf-s-balance').value)   || 0;
+  var oldRate  = parseFloat(document.getElementById('rf-s-oldrate').value)   || 0;
+  var remaining= parseInt(document.getElementById('rf-s-remaining').value)   || 0;
+  var newRate  = parseFloat(document.getElementById('rf-s-newrate').value)   || 0;
+  var costs    = parseFloat(document.getElementById('rf-s-costs').value)     || 0;
+
+  var oldPayment = calcMonthly(bal, oldRate, remaining);
+  var newPayment = calcMonthly(bal, newRate, remaining);
+  var monthlySavings = oldPayment - newPayment;
+  var totalSavings = monthlySavings * remaining * 12 - costs;
+  var breakEvenMonths = monthlySavings > 0 ? Math.ceil(costs / monthlySavings) : Infinity;
+
+  document.getElementById('rf-result-old').textContent = fmtRF(oldPayment);
+  document.getElementById('rf-result-new').textContent = fmtRF(newPayment);
+  document.getElementById('rf-result-monthly').textContent = (monthlySavings >= 0 ? '' : '-') + fmtRF(monthlySavings);
+  document.getElementById('rf-result-total').textContent   = (totalSavings >= 0 ? '' : '-') + fmtRF(totalSavings);
+
+  if(breakEvenMonths === Infinity || breakEvenMonths < 0){
+    document.getElementById('rf-result-breakeven').textContent = 'Never';
+  } else if(breakEvenMonths > remaining*12){
+    document.getElementById('rf-result-breakeven').textContent = '>' + remaining + ' yrs';
+  } else {
+    var beYears = Math.floor(breakEvenMonths/12);
+    var beMos = breakEvenMonths % 12;
+    document.getElementById('rf-result-breakeven').textContent = beYears > 0 ? beYears + 'y ' + beMos + 'm' : beMos + ' months';
+  }
+
+  var verdict = document.getElementById('rf-verdict');
+  if(monthlySavings <= 0){
+    verdict.textContent = 'The new rate is not lower than your current rate — refinancing would increase your payment. Try a lower new rate.';
+    verdict.style.background = 'rgba(194,57,48,0.15)';
+    verdict.style.color = '#F4A7A3';
+  } else if(breakEvenMonths > remaining*12){
+    verdict.textContent = 'You save $' + Math.round(monthlySavings) + '/mo but closing costs mean you\'d break even after ' + breakEvenMonths + ' months — longer than your remaining term. Not recommended.';
+    verdict.style.background = 'rgba(200,151,58,0.15)';
+    verdict.style.color = '#F5C475';
+  } else {
+    verdict.textContent = 'You save $' + Math.round(monthlySavings) + '/mo and break even in ' + (breakEvenMonths < 12 ? breakEvenMonths + ' months' : Math.ceil(breakEvenMonths/12) + ' years') + '. Total lifetime saving: $' + new Intl.NumberFormat('en-US').format(Math.round(totalSavings)) + '. Refinancing looks worthwhile.';
+    verdict.style.background = 'rgba(11,124,78,0.2)';
+    verdict.style.color = '#7DE0B8';
+  }
+}
+
+var rfIds = ['balance','oldrate','remaining','newrate','costs'];
+rfIds.forEach(function(k){
+  var s = document.getElementById('rf-s-'+k);
+  var i = document.getElementById('rf-i-'+k);
+  s.addEventListener('input', function(){ i.value = this.value; calcRF(); });
+  i.addEventListener('input', function(){ if(parseFloat(this.value)>=parseFloat(s.min)&&parseFloat(this.value)<=parseFloat(s.max)){s.value=this.value;calcRF();} });
+  i.value = s.value;
+});
+calcRF();
+})();
+
+/* ═══════════════════════════════════════════════
+   CURRENCY, GOLD & OIL — all cached in localStorage
+═══════════════════════════════════════════════ */
+(function(){
+'use strict';
+
+var CURRENCIES = [
+  'USD','EUR','GBP','JPY','CAD','AUD','CHF','CNY','INR','SGD',
+  'HKD','NOK','SEK','DKK','NZD','MXN','BRL','ZAR','EGP','AED',
+  'SAR','TRY','KRW','THB','IDR','MYR','PKR','NGN','QAR','KWD'
+];
+
+/* ── LOCALE → CURRENCY MAP ── */
+var REGION_MAP = {
+  'US':'USD','GB':'GBP','AU':'AUD','CA':'CAD','CH':'CHF','CN':'CNY',
+  'JP':'JPY','IN':'INR','SG':'SGD','HK':'HKD','NO':'NOK','SE':'SEK',
+  'DK':'DKK','NZ':'NZD','MX':'MXN','BR':'BRL','ZA':'ZAR','EG':'EGP',
+  'AE':'AED','SA':'SAR','TR':'TRY','KR':'KRW','TH':'THB','ID':'IDR',
+  'MY':'MYR','PK':'PKR','NG':'NGN','QA':'QAR','KW':'KWD',
+  /* Eurozone */
+  'DE':'EUR','FR':'EUR','IT':'EUR','ES':'EUR','PT':'EUR','NL':'EUR',
+  'BE':'EUR','AT':'EUR','FI':'EUR','IE':'EUR','GR':'EUR','LU':'EUR',
+  'SK':'EUR','SI':'EUR','EE':'EUR','LV':'EUR','LT':'EUR','MT':'EUR','CY':'EUR'
+};
+
+function detectLocaleCurrency(){
+  try {
+    var lang = (navigator.languages && navigator.languages[0]) || navigator.language || 'en-US';
+    var parts = lang.split('-');
+    var region = parts.length > 1 ? parts[1].toUpperCase() : parts[0].toUpperCase();
+    var detected = REGION_MAP[region];
+    if(detected && CURRENCIES.indexOf(detected) !== -1 && detected !== 'USD') return detected;
+  } catch(e){}
+  return 'EUR';
+}
+
+var rates    = null;
+var rateDate = '';
+var fromCur  = 'USD';
+var toCur    = detectLocaleCurrency();
+var CACHE_FX  = 'loancalc_fx';
+var CACHE_CMD = 'loancalc_cmd';
+var goldUSD   = null;
+var oilUSD    = null;
+
+/* ── HELPERS ── */
+function fmtUSD(n){ return '$' + n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function fmtLocal(n, cur){
+  if(!n) return '—';
+  return n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' ' + cur;
+}
+function setDot(id, ok){ document.getElementById(id).style.background = ok ? '#0B7C4E' : '#C8973A'; }
+
+/* ── POPULATE CURRENCY SELECTS ── */
+function populateSelects(){
+  ['cur-from','cur-to'].forEach(function(id){
+    var sel = document.getElementById(id);
+    sel.innerHTML = '';
+    CURRENCIES.forEach(function(c){
+      var opt = document.createElement('option');
+      opt.value = c; opt.textContent = c;
+      sel.appendChild(opt);
+    });
+  });
+  document.getElementById('cur-from').value = fromCur;
+  document.getElementById('cur-to').value   = toCur;
+}
+
+function setStatus(ok, msg){
+  setDot('cur-dot', ok);
+  document.getElementById('cur-status-text').textContent = msg;
+}
+
+/* ── CURRENCY CONVERT ── */
+function convert(){
+  if(!rates) return;
+  var amount   = parseFloat(document.getElementById('cur-amount').value) || 0;
+  fromCur = document.getElementById('cur-from').value;
+  toCur   = document.getElementById('cur-to').value;
+  var fromRate = rates[fromCur] || 1;
+  var toRate   = rates[toCur]   || 1;
+  var rate     = toRate / fromRate;
+  var result   = amount * rate;
+  document.getElementById('cur-result').textContent        = result.toLocaleString('en-US',{maximumFractionDigits:4}) + ' ' + toCur;
+  document.getElementById('cur-rate-display').textContent  = '1 ' + fromCur + ' = ' + rate.toFixed(6) + ' ' + toCur;
+  document.getElementById('cur-rate-inv').textContent      = '1 ' + toCur   + ' = ' + (1/rate).toFixed(6) + ' ' + fromCur;
+  document.getElementById('cur-rate-date').textContent     = rateDate || 'today';
+  buildQuickGrid(fromCur, toCur, rate);
+  updateCommodityLocal();
+}
+
+function buildQuickGrid(from, to, rate){
+  var amounts = [1,5,10,50,100,250,500,1000,5000,10000];
+  var grid = document.getElementById('cur-quick-grid');
+  grid.innerHTML = '';
+  amounts.forEach(function(a){
+    var div = document.createElement('div');
+    div.style.cssText = 'background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 12px';
+    div.innerHTML = '<div style="font-size:11px;color:var(--muted)">' + a.toLocaleString() + ' ' + from + '</div>' +
+      '<div style="font-size:13px;font-weight:500;color:var(--navy)">' + (a*rate).toLocaleString('en-US',{maximumFractionDigits:2}) + ' ' + to + '</div>';
+    grid.appendChild(div);
+  });
+}
+
+/* ── UPDATE COMMODITY LOCAL CURRENCY DISPLAY ── */
+function updateCommodityLocal(){
+  if(!rates) return;
+  var localCur = toCur || detectLocaleCurrency();
+  var usdToLocal = (rates[localCur] || 1) / (rates['USD'] || 1);
+
+  document.getElementById('gold-local-cur').textContent = localCur;
+  document.getElementById('oil-local-cur').textContent  = localCur;
+
+  if(goldUSD){
+    var gOz  = goldUSD;
+    var gG   = goldUSD / 31.1035;
+    document.getElementById('gold-usd').textContent  = fmtUSD(gOz) + ' /oz';
+    document.getElementById('gold-gram').textContent = fmtUSD(gG);
+    document.getElementById('gold-10g').textContent  = fmtUSD(gG * 10);
+    document.getElementById('gold-kg').textContent   = fmtUSD(gG * 1000);
+    document.getElementById('gold-local').textContent = fmtLocal(gOz * usdToLocal, localCur) + ' /oz';
+  }
+
+  if(oilUSD){
+    document.getElementById('oil-usd').textContent  = fmtUSD(oilUSD) + ' /bbl';
+    document.getElementById('oil-5').textContent    = fmtUSD(oilUSD * 5);
+    document.getElementById('oil-10').textContent   = fmtUSD(oilUSD * 10);
+    document.getElementById('oil-100').textContent  = fmtUSD(oilUSD * 100);
+    document.getElementById('oil-local').textContent = fmtLocal(oilUSD * usdToLocal, localCur) + ' /bbl';
+  }
+}
+
+/* ── FETCH CURRENCIES ── */
+function loadRates(){
+  try {
+    var cached = localStorage.getItem(CACHE_FX);
+    if(cached){
+      var obj = JSON.parse(cached);
+      if((Date.now() - obj.ts) / 3600000 < 24){
+        rates = obj.rates; rateDate = obj.date;
+        setStatus(true, 'Rates from ' + rateDate + ' · cached · updates every 24h');
+        populateSelects(); convert(); return;
+      }
+    }
+  } catch(e){}
+  fetchRates();
+}
+
+function fetchRates(){
+  setStatus(false, 'Fetching exchange rates…');
+  fetch('https://api.frankfurter.app/latest?base=USD')
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      data.rates['USD'] = 1;
+      rates = data.rates; rateDate = data.date;
+      try{ localStorage.setItem(CACHE_FX, JSON.stringify({rates:rates, date:rateDate, ts:Date.now()})); } catch(e){}
+      setStatus(true, 'Live rates · ' + rateDate + ' · updates every 24h');
+      populateSelects(); convert();
+    })
+    .catch(function(){
+      rates = {'USD':1,'EUR':0.92,'GBP':0.79,'JPY':149.5,'CAD':1.36,'AUD':1.53,
+               'EGP':48.9,'AED':3.67,'SAR':3.75,'CHF':0.9,'CNY':7.24,'INR':83.5};
+      rateDate = 'offline';
+      setStatus(false, 'Offline rates — reconnect for live data');
+      populateSelects(); convert();
+    });
+}
+
+/* ── FETCH GOLD & OIL via Yahoo Finance (unofficial, no key, CORS-friendly) ── */
+function loadCommodities(){
+  try {
+    var cached = localStorage.getItem(CACHE_CMD);
+    if(cached){
+      var obj = JSON.parse(cached);
+      if((Date.now() - obj.ts) / 3600000 < 1){
+        goldUSD = obj.gold; oilUSD = obj.oil;
+        setDot('gold-dot', true);
+        document.getElementById('gold-status').textContent = 'Live · ' + obj.date;
+        setDot('oil-dot', true);
+        document.getElementById('oil-status').textContent = 'Live · ' + obj.date;
+        updateCommodityLocal(); return;
+      }
+    }
+  } catch(e){}
+  fetchCommodity('GC=F','gold');
+  fetchCommodity('CL=F','oil');
+}
+
+function fetchCommodity(ticker, type){
+  document.getElementById(type + '-status').textContent = 'Fetching…';
+  fetch('https://query2.finance.yahoo.com/v8/finance/chart/' + ticker + '?interval=1d&range=1d', {mode:'cors'})
+    .then(function(r){ return r.json(); })
+    .then(function(data){
+      var price = data.chart.result[0].meta.regularMarketPrice;
+      var dateTs = data.chart.result[0].meta.regularMarketTime;
+      var dateStr = new Date(dateTs * 1000).toLocaleDateString('en-US',{month:'short',day:'numeric'});
+      if(type === 'gold'){ goldUSD = price; setDot('gold-dot',true); document.getElementById('gold-status').textContent = 'Live · ' + dateStr; }
+      if(type === 'oil'){  oilUSD  = price; setDot('oil-dot', true); document.getElementById('oil-status').textContent  = 'Live · ' + dateStr; }
+      saveCommodityCache(dateStr);
+      updateCommodityLocal();
+    })
+    .catch(function(){
+      /* Fallback to approximate values */
+      if(type === 'gold'){ goldUSD = 3300; setDot('gold-dot',false); document.getElementById('gold-status').textContent = 'Approx · check live data'; }
+      if(type === 'oil'){  oilUSD  = 72;   setDot('oil-dot', false); document.getElementById('oil-status').textContent  = 'Approx · check live data'; }
+      updateCommodityLocal();
+    });
+}
+
+function saveCommodityCache(dateStr){
+  if(!goldUSD || !oilUSD) return;
+  try{ localStorage.setItem(CACHE_CMD, JSON.stringify({gold:goldUSD, oil:oilUSD, date:dateStr, ts:Date.now()})); } catch(e){}
+}
+
+/* ── EVENTS ── */
+document.getElementById('cur-amount').addEventListener('input', convert);
+document.getElementById('cur-from').addEventListener('change', convert);
+document.getElementById('cur-to').addEventListener('change', function(){ convert(); updateCommodityLocal(); });
+document.getElementById('cur-swap').addEventListener('click', function(){
+  var tmp = document.getElementById('cur-from').value;
+  document.getElementById('cur-from').value = document.getElementById('cur-to').value;
+  document.getElementById('cur-to').value   = tmp;
+  convert();
+});
+
+/* ── INIT ── */
+loadRates();
+loadCommodities();
 })();
 </script>
 
