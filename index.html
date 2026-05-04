@@ -988,6 +988,7 @@ setTimeout(function(){
   });
 }, 20);}
 window.applyCurrency=applyCurrency;
+window.switchTab=switchTab;
 [sAmount,sRate,sTerm].forEach(function(el){el.addEventListener('input',update);});
 iAmount.addEventListener('input',function(){var v=parseFloat(this.value);if(!isNaN(v)&&v>=parseFloat(sAmount.min)&&v<=parseFloat(sAmount.max)){sAmount.value=v;update();}});
 iRate.addEventListener('input',function(){var v=parseFloat(this.value);if(!isNaN(v)&&v>=0.1&&v<=30){sRate.value=v;update();}});
@@ -1295,7 +1296,7 @@ document.querySelectorAll('.faq-q[data-i18n-question]').forEach(function(btn){
   var v = tx(k); if(v && v!==k) btn.childNodes[0].textContent = v;
 });
 /* Re-run switchTab to update dynamic labels */
-if(window._currentTab) switchTab(window._currentTab);
+if(window._currentTab && window.switchTab) window.switchTab(window._currentTab);
 window._i18n_rf = {'rf-verdict-higher':tx('rf-verdict-higher'),'rf-verdict-long':tx('rf-verdict-long'),'rf-verdict-good':tx('rf-verdict-good')};
 if(window.calcRF) window.calcRF();
 /* en-only elements: always visible, translated below */
