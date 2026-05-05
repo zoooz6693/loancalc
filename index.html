@@ -82,7 +82,7 @@ header nav a:hover{color:#fff;background:rgba(255,255,255,0.08)}
 /* Prevent grid cells from expanding with content */
 .calc-grid > *{min-width:0;overflow:hidden}
 .inputs-panel{padding:36px 40px;border-right:1px solid var(--border)}
-@media(max-width:720px){.inputs-panel{padding:28px 24px;border-right:none;border-bottom:1px solid var(--border)}}
+@media(max-width:720px){.inputs-panel{padding:28px 24px;border-right:none}}
 .input-group{margin-bottom:28px}
 .input-group:last-of-type{margin-bottom:0}
 .ig-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
@@ -100,7 +100,7 @@ input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;bac
 .helper-note{margin-top:24px;padding:12px 16px;background:var(--gold-light);border-radius:10px;border:1px solid rgba(200,151,58,0.35);font-size:12px;color:var(--gold-deep);line-height:1.5}
 .helper-note strong{display:block;margin-bottom:2px;font-size:13px;color:var(--navy)}
 .results-panel{padding:36px 40px;background:var(--navy);display:flex;flex-direction:column;gap:20px;justify-content:center;overflow:hidden;min-width:0}
-@media(max-width:720px){.results-panel{padding:28px 24px}}
+@media(max-width:720px){.results-panel{padding:28px 24px;order:-1;border-bottom:1px solid rgba(255,255,255,0.1)}}
 .monthly-card{text-align:center;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.1)}
 .monthly-label{font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.45);margin-bottom:8px;font-weight:400}
 .monthly-amount{font-family:var(--ff-display);font-size:clamp(18px,4vw,56px);font-weight:700;color:#fff;letter-spacing:-0.03em;line-height:1.1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:100%;display:block;text-align:center}
@@ -221,13 +221,19 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
 @media(max-width:520px){
   .header-inner nav{display:none}
   .results-grid{grid-template-columns:1fr}
+  .tab-nav{overflow-x:auto;justify-content:flex-start;padding:0 8px;scrollbar-width:none;-ms-overflow-style:none}
+  .tab-nav::-webkit-scrollbar{display:none}
+  .tab-nav .tab-btn{flex:0 0 auto;padding:14px 16px}
+}
+@media(max-width:768px){
+  .ig-input,.cur-sel,.cur-search,.settings-select,.settings-search{font-size:16px}
 }
 .en-only{}
 .tool-panel{display:none}
 .tool-panel.active{display:block}
 .tab-btn:focus-visible{outline:2px solid var(--navy-soft);outline-offset:-2px;border-radius:4px}
 .loan-seg{display:flex;border:1.5px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:28px;background:var(--card2)}
-.loan-seg .tab-btn{padding:10px 8px;border-bottom:none;border-bottom-color:transparent;color:var(--muted);font-size:12px;font-weight:500}
+.loan-seg .tab-btn{padding:12px 8px;border-bottom:none;border-bottom-color:transparent;color:var(--muted);font-size:12px;font-weight:500}
 .loan-seg .tab-btn:not(:last-child){border-right:1.5px solid var(--border)}
 .loan-seg .tab-btn:hover:not(.active){color:var(--text);background:var(--bg)}
 .loan-seg .tab-btn.active{background:var(--navy);color:#fff;border-bottom-color:transparent}
@@ -324,7 +330,7 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
 </section>
 
 <!-- TOOL BAR — same style as loan tabs -->
-<div style="background:var(--navy);position:sticky;top:56px;z-index:90">
+<div style="background:var(--navy);position:sticky;top:64px;z-index:90">
   <div class="tab-nav" id="tool-nav" role="tablist" aria-label="Main tools" style="max-width:900px;border-bottom:2px solid rgba(255,255,255,0.08)">
     <button class="tab-btn active" role="tab" aria-selected="true" data-panel="panel-loans" data-i18n="nav-loans">Loans</button>
     <button class="tab-btn" role="tab" aria-selected="false" data-panel="panel-savings" data-i18n="nav-savings">Savings</button>
@@ -748,39 +754,39 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
     <h2 class="section-title" id="cur-h2">Live currency converter, gold price &amp; oil price today</h2>
     <p class="section-sub" id="tx-cur-sub">Convert between 30 major currencies with live exchange rates. Also shows the live gold price per gram, ounce and kilogram, plus the current WTI crude oil price per barrel — all converted to your local currency automatically. Rates cached hourly.</p>
     <div class="calc-card">
-      <div style="padding:32px 36px">
-        <div id="cur-status" style="font-size:12px;color:var(--muted);margin-bottom:18px;display:flex;align-items:center;gap:8px">
-          <span id="cur-dot" style="width:8px;height:8px;border-radius:50%;background:var(--border);display:inline-block"></span>
+      <div class="cur-body">
+        <div id="cur-status" class="cur-status">
+          <span id="cur-dot" class="cur-dot"></span>
           <span id="cur-status-text">Loading exchange rates…</span>
         </div>
-        <div style="margin-bottom:14px">
-          <label for="cur-amount" style="font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);font-weight:500;display:block;margin-bottom:7px" data-i18n="cur-amount-label">Amount</label>
-          <input type="number" id="cur-amount" value="1000" min="0" step="1" style="width:100%;border:1.5px solid var(--border);border-radius:8px;padding:11px 14px;font-size:20px;font-weight:500;font-family:var(--ff-body);color:var(--text);background:var(--card);outline:none">
+        <div class="cur-group">
+          <label for="cur-amount" class="cur-label" data-i18n="cur-amount-label">Amount</label>
+          <input type="number" id="cur-amount" value="1000" min="0" step="1" class="cur-amount-input">
         </div>
-        <div style="display:grid;grid-template-columns:1fr 40px 1fr;align-items:end;gap:10px;margin-bottom:14px">
+        <div class="cur-selects-row">
           <div class="cur-sel-wrap">
             <input type="text" class="cur-search" id="cur-from-search" placeholder="Search…" autocomplete="off" aria-label="Search from currency">
-            <select id="cur-from" style="border:1.5px solid var(--border);border-radius:0 0 8px 8px;padding:10px 11px;font-size:13px;font-family:var(--ff-body);color:var(--text);background:var(--card);cursor:pointer;width:100%;min-width:0"></select>
+            <select id="cur-from" class="cur-sel"></select>
           </div>
-          <button id="cur-swap" title="Swap" aria-label="Swap currencies" style="width:44px;height:44px;min-width:44px;min-height:44px;border-radius:50%;border:1.5px solid var(--border);background:var(--card);cursor:pointer;font-size:16px;color:var(--muted);display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;margin-bottom:1px">⇄</button>
+          <button id="cur-swap" class="cur-swap-btn" title="Swap" aria-label="Swap currencies">⇄</button>
           <div class="cur-sel-wrap">
             <input type="text" class="cur-search" id="cur-to-search" placeholder="Search…" autocomplete="off" aria-label="Search to currency">
-            <select id="cur-to" style="border:1.5px solid var(--border);border-radius:0 0 8px 8px;padding:10px 11px;font-size:13px;font-family:var(--ff-body);color:var(--text);background:var(--card);cursor:pointer;width:100%;min-width:0"></select>
+            <select id="cur-to" class="cur-sel"></select>
           </div>
         </div>
-        <div style="margin-bottom:20px">
-          <label for="cur-to" style="font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);font-weight:500;display:block;margin-bottom:7px" data-i18n="cur-to-label">Converted to</label>
-          <div id="cur-result" role="status" aria-live="polite" aria-atomic="true" style="width:100%;border:2px solid var(--navy-soft);border-radius:8px;padding:13px 16px;font-size:22px;font-weight:600;font-family:var(--ff-display);color:var(--navy);background:var(--blue-light);overflow:hidden;white-space:nowrap;text-overflow:ellipsis">—</div>
+        <div class="cur-group-lg">
+          <label for="cur-to" class="cur-label" data-i18n="cur-to-label">Converted to</label>
+          <div id="cur-result" class="cur-result-box" role="status" aria-live="polite" aria-atomic="true">—</div>
         </div>
 
-        <div id="cur-rate-row" style="display:flex;gap:24px;flex-wrap:wrap;padding:14px 16px;background:var(--card2);border-radius:10px;border:1px solid var(--border);font-size:13px;color:var(--muted)">
-          <span><span data-i18n="cur-rate-lbl">Rate</span>: <strong id="cur-rate-display" style="color:var(--text)">—</strong></span>
-          <span><span data-i18n="cur-inverse-lbl">Inverse</span>: <strong id="cur-rate-inv" style="color:var(--text)">—</strong></span>
-          <span><span data-i18n="cur-updated-lbl">Updated</span>: <strong id="cur-rate-date" style="color:var(--text)">—</strong></span>
+        <div id="cur-rate-row" class="cur-rate-row">
+          <span><span data-i18n="cur-rate-lbl">Rate</span>: <strong id="cur-rate-display" class="cur-rate-val">—</strong></span>
+          <span><span data-i18n="cur-inverse-lbl">Inverse</span>: <strong id="cur-rate-inv" class="cur-rate-val">—</strong></span>
+          <span><span data-i18n="cur-updated-lbl">Updated</span>: <strong id="cur-rate-date" class="cur-rate-val">—</strong></span>
         </div>
-        <div style="margin-top:24px">
-          <p id="cur-quick-lbl" style="font-size:12px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:12px">Quick reference — common amounts</p>
-          <div id="cur-quick-grid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px"></div>
+        <div class="cur-quick">
+          <p id="cur-quick-lbl" class="cur-quick-lbl">Quick reference — common amounts</p>
+          <div id="cur-quick-grid" class="cur-quick-grid"></div>
         </div>
       </div>
     </div>
@@ -841,9 +847,27 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
 </section>
 
 <style>
-#cur-swap:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
-#cur-amount:focus-visible{border-color:var(--navy-soft);outline:none;box-shadow:0 0 0 3px rgba(27,63,163,0.15)}
-#cur-from:focus-visible,#cur-to:focus-visible{border-color:var(--navy-soft);outline:none;box-shadow:0 0 0 3px rgba(27,63,163,0.15)}
+.cur-body{padding:32px 36px}
+.cur-status{font-size:12px;color:var(--muted);margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.cur-dot{width:8px;height:8px;border-radius:50%;background:var(--border);display:inline-block;flex-shrink:0}
+.cur-group{margin-bottom:14px}
+.cur-group-lg{margin-bottom:20px}
+.cur-label{font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);font-weight:500;display:block;margin-bottom:7px}
+.cur-amount-input{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:11px 14px;font-size:20px;font-weight:500;font-family:var(--ff-body);color:var(--text);background:var(--card);outline:none;transition:border-color .15s}
+.cur-selects-row{display:grid;grid-template-columns:1fr 44px 1fr;align-items:end;gap:10px;margin-bottom:14px}
+.cur-sel{border:1.5px solid var(--border);border-radius:0 0 8px 8px;padding:10px 11px;font-size:13px;font-family:var(--ff-body);color:var(--text);background:var(--card);cursor:pointer;width:100%;min-width:0}
+.cur-swap-btn{width:44px;height:44px;min-width:44px;min-height:44px;border-radius:50%;border:1.5px solid var(--border);background:var(--card);cursor:pointer;font-size:16px;color:var(--muted);display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;margin-bottom:1px}
+.cur-result-box{width:100%;border:2px solid var(--navy-soft);border-radius:8px;padding:13px 16px;font-size:22px;font-weight:600;font-family:var(--ff-display);color:var(--navy);background:var(--blue-light);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.cur-rate-row{display:flex;gap:24px;flex-wrap:wrap;padding:14px 16px;background:var(--card2);border-radius:10px;border:1px solid var(--border);font-size:13px;color:var(--muted)}
+.cur-rate-val{color:var(--text)}
+.cur-quick{margin-top:24px}
+.cur-quick-lbl{font-size:12px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:12px}
+.cur-quick-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.cur-swap-btn:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.cur-swap-btn:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(27,63,163,0.15)}
+.cur-amount-input:focus-visible{border-color:var(--navy-soft);outline:none;box-shadow:0 0 0 3px rgba(27,63,163,0.15)}
+.cur-sel:focus-visible{border-color:var(--navy-soft);outline:none;box-shadow:0 0 0 3px rgba(27,63,163,0.15)}
+@media(max-width:720px){.cur-body{padding:28px 24px}}
 @media(max-width:600px){.commodity-grid{grid-template-columns:1fr!important}}
 </style>
 
@@ -1437,12 +1461,15 @@ function switchPanel(panelId){
   var panel = document.getElementById(panelId);
   if(panel) panel.classList.add('active');
   /* Update tool bar active state */
+  var activeTabBtn = null;
   document.querySelectorAll('#tool-nav .tab-btn').forEach(function(b){
     var active = b.dataset.panel === panelId;
     b.classList.toggle('active', active);
     b.setAttribute('aria-selected', active);
+    if(active) activeTabBtn = b;
   });
   window.scrollTo({top:0, behavior:'smooth'});
+  if(activeTabBtn) activeTabBtn.scrollIntoView({behavior:'smooth',block:'nearest',inline:'nearest'});
 }
 window.switchPanel = switchPanel;
 /* Bind tool bar buttons */
