@@ -426,6 +426,10 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
               <div class="bar-i" id="bar-i" style="width:50%"></div>
             </div>
           </div>
+          <button class="copy-link-btn" id="copy-link-btn" aria-label="Copy link to this calculation">
+            <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 9.5a3.536 3.536 0 0 0 5 0l2-2a3.536 3.536 0 0 0-5-5l-1 1"/><path d="M9.5 6.5a3.536 3.536 0 0 0-5 0l-2 2a3.536 3.536 0 0 0 5 5l1-1"/></svg>
+            Copy link
+          </button>
         </div>
       </div>
     </div>
@@ -758,6 +762,7 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
         <div id="cur-status" class="cur-status">
           <span id="cur-dot" class="cur-dot"></span>
           <span id="cur-status-text">Loading exchange rates…</span>
+          <button id="cur-retry-btn" class="cur-retry-btn" style="display:none" aria-label="Retry loading exchange rates">Retry</button>
         </div>
         <div class="cur-group">
           <label for="cur-amount" class="cur-label" data-i18n="cur-amount-label">Amount</label>
@@ -867,6 +872,12 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
 .cur-swap-btn:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(27,63,163,0.15)}
 .cur-amount-input:focus-visible{border-color:var(--navy-soft);outline:none;box-shadow:0 0 0 3px rgba(27,63,163,0.15)}
 .cur-sel:focus-visible{border-color:var(--navy-soft);outline:none;box-shadow:0 0 0 3px rgba(27,63,163,0.15)}
+.cur-retry-btn{padding:3px 10px;font-size:11px;font-family:var(--ff-body);font-weight:500;color:var(--navy-soft);background:transparent;border:1.5px solid var(--border);border-radius:5px;cursor:pointer;transition:all .15s;margin-left:4px;line-height:1.4}
+.cur-retry-btn:hover{background:var(--navy-soft);color:#fff;border-color:var(--navy-soft)}
+.cur-retry-btn:focus-visible{outline:2px solid var(--navy-soft);outline-offset:2px}
+.copy-link-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;background:transparent;border:1px solid rgba(255,255,255,0.2);border-radius:6px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.45);cursor:pointer;font-family:var(--ff-body);transition:all .15s;letter-spacing:0.03em;align-self:flex-end;margin-top:8px}
+.copy-link-btn:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.75);border-color:rgba(255,255,255,0.35)}
+.copy-link-btn:focus-visible{outline:2px solid rgba(255,255,255,0.4);outline-offset:2px}
 @media(max-width:720px){.cur-body{padding:28px 24px}}
 @media(max-width:600px){.commodity-grid{grid-template-columns:1fr!important}}
 </style>
@@ -1433,7 +1444,7 @@ function fmtUSD(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,
 function fmtLocal(n,cur){if(!n)return'—';var cfg=window.CURRENCY_CONFIG&&window.CURRENCY_CONFIG[cur];var loc=cfg?cfg.loc:'en-US';return n.toLocaleString(loc,{minimumFractionDigits:2,maximumFractionDigits:2})+' '+cur;}
 function setDot(id,ok){var el=document.getElementById(id);if(el)el.style.background=ok?'#0B7C4E':'#C8973A';}
 function populateSelects(){['cur-from','cur-to'].forEach(function(id){var sel=document.getElementById(id);if(!sel)return;var currentVal=sel.value;sel.innerHTML='';window.ALL_CURRENCIES.forEach(function(cur){var opt=document.createElement('option');opt.value=cur.c;opt.textContent=cur.c+' — '+cur.n;sel.appendChild(opt);});sel.value=currentVal||(id==='cur-from'?fromCur:toCur);});}
-function setStatus(ok,msg){setDot('cur-dot',ok);var el=document.getElementById('cur-status-text');if(el)el.textContent=msg;}
+function setStatus(ok,msg){setDot('cur-dot',ok);var el=document.getElementById('cur-status-text');if(el)el.textContent=msg;var rb=document.getElementById('cur-retry-btn');if(rb)rb.style.display=ok?'none':'inline-block';}
 function txCur(k,v){var t=window._i18n_current;var e=window._i18n_en;var s=(t&&t[k])||(e&&e[k])||k;return v?s.replace('{date}',v):s;}
 function convert(){if(!rates)return;var amount=parseFloat(document.getElementById('cur-amount').value)||0;fromCur=document.getElementById('cur-from').value;toCur=document.getElementById('cur-to').value;var fromRate=rates[fromCur]||null;var toRate=rates[toCur]||null;if(!fromRate||!toRate){document.getElementById('cur-result').textContent=txCur('cur-rate-unavailable');document.getElementById('cur-rate-display').textContent=txCur('cur-not-in-feed');return;}var rate=toRate/fromRate;var result=amount*rate;var toCfg=window.CURRENCY_CONFIG&&window.CURRENCY_CONFIG[toCur];var toLoc=toCfg?toCfg.loc:'en-US';document.getElementById('cur-result').textContent=result.toLocaleString(toLoc,{maximumFractionDigits:4})+' '+toCur;var _rateLoc=(window.CURRENCY_CONFIG[window.APP_CURRENCY]||{loc:'en-US'}).loc;var fmtRate=function(n){return new Intl.NumberFormat(_rateLoc,{minimumFractionDigits:6,maximumFractionDigits:6}).format(n);};document.getElementById('cur-rate-display').textContent='1 '+fromCur+' = '+fmtRate(rate)+' '+toCur;document.getElementById('cur-rate-inv').textContent='1 '+toCur+' = '+fmtRate(1/rate)+' '+fromCur;document.getElementById('cur-rate-date').textContent=rateDate||txCur('cur-today');buildQuickGrid(fromCur,toCur,rate);updateCommodityLocal();}
 function buildQuickGrid(from,to,rate){var usdEq=(rates['USD']||1)/(rates[from]||1);var amounts=usdEq>=3?[1,10,100]:usdEq>=0.5?[1,100,1000]:usdEq>=0.05?[10,100,1000]:usdEq>=0.005?[100,1000,10000]:usdEq>=0.0005?[1000,10000,100000]:[10000,100000,1000000];var fromCfg=window.CURRENCY_CONFIG&&window.CURRENCY_CONFIG[from];var fromLoc=fromCfg?fromCfg.loc:'en-US';var toCfg=window.CURRENCY_CONFIG&&window.CURRENCY_CONFIG[to];var toLoc=toCfg?toCfg.loc:'en-US';var grid=document.getElementById('cur-quick-grid');if(!grid)return;grid.innerHTML='';amounts.forEach(function(a){var div=document.createElement('div');div.style.cssText='background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 12px';div.innerHTML='<div style="font-size:11px;color:var(--muted)">'+a.toLocaleString(fromLoc)+' '+from+'</div><div style="font-size:13px;font-weight:500;color:var(--navy)">'+(a*rate).toLocaleString(toLoc,{maximumFractionDigits:2})+' '+to+'</div>';grid.appendChild(div);});}
@@ -1451,6 +1462,12 @@ document.getElementById('cur-to').addEventListener('change',function(){convert()
 document.getElementById('cur-swap').addEventListener('click',function(){var tmp=document.getElementById('cur-from').value;document.getElementById('cur-from').value=document.getElementById('cur-to').value;document.getElementById('cur-to').value=tmp;convert();});
 loadRates();
 loadCommodities();
+window._curFetchRates=fetchRates;
+document.getElementById('cur-retry-btn').addEventListener('click',function(){
+  var rb=document.getElementById('cur-retry-btn');
+  if(rb)rb.style.display='none';
+  fetchRates();
+});
 })();
 </script>
 
@@ -1494,6 +1511,8 @@ setTimeout(function(){
     st.textContent = 'Rates unavailable — try refreshing';
     var d = document.getElementById('cur-dot');
     if(d) d.style.background = '#C8973A';
+    var rb = document.getElementById('cur-retry-btn');
+    if(rb) rb.style.display = 'inline-block';
   }
   ['gold','oil'].forEach(function(type){
     var s = document.getElementById(type + '-status');
@@ -1645,6 +1664,30 @@ setTimeout(function(){
     var restored = decodeHash();
     /* If no hash, localStorage restore already ran (previous script block) */
   }, 80);
+
+  /* Copy link button — copies current URL (with hash state) to clipboard */
+  var _copyBtn = document.getElementById('copy-link-btn');
+  if(_copyBtn) _copyBtn.addEventListener('click', function(){
+    var url = window.location.href;
+    var btn = this;
+    function onCopied(){
+      btn.textContent = 'Copied!';
+      setTimeout(function(){
+        btn.innerHTML = '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 9.5a3.536 3.536 0 0 0 5 0l2-2a3.536 3.536 0 0 0-5-5l-1 1"/><path d="M9.5 6.5a3.536 3.536 0 0 0-5 0l-2 2a3.536 3.536 0 0 0 5 5l1-1"/></svg> Copy link';
+      }, 1800);
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(url).then(onCopied).catch(function(){});
+    } else {
+      var ta = document.createElement('textarea');
+      ta.value = url;
+      ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0;width:1px;height:1px';
+      document.body.appendChild(ta);
+      ta.select();
+      try{ document.execCommand('copy'); onCopied(); }catch(e){}
+      document.body.removeChild(ta);
+    }
+  });
 })();
 
 /* ── Currency select search ── */
