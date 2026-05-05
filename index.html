@@ -66,7 +66,7 @@ header nav{display:flex;gap:6px}
 header nav a{color:rgba(255,255,255,0.65);text-decoration:none;font-size:13px;font-weight:400;padding:6px 12px;border-radius:6px;transition:all .15s}
 header nav a:hover{color:#fff;background:rgba(255,255,255,0.08)}
 .hero{background:var(--navy);padding:32px 0 28px;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(200,151,58,0.12) 0%,transparent 70%);pointer-events:none}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(27,63,163,0.18) 0%,transparent 70%);pointer-events:none}
 .hero h1{font-family:var(--ff-display);font-size:clamp(32px,5vw,54px);font-weight:700;color:#fff;line-height:1.15;letter-spacing:-0.025em;margin-bottom:16px}
 .hero h1 em{font-style:normal;color:var(--gold)}
 .hero-sub{font-size:17px;color:rgba(255,255,255,0.65);max-width:520px;margin:0 auto 28px;font-weight:300;line-height:1.7}
@@ -74,7 +74,7 @@ header nav a:hover{color:#fff;background:rgba(255,255,255,0.08)}
 .tab-nav{display:flex;justify-content:center;gap:0;padding:0 20px;max-width:700px;margin:0 auto;border-bottom:1px solid rgba(255,255,255,0.08)}
 .tab-btn{flex:1;padding:14px 8px;background:transparent;border:none;border-bottom:2px solid transparent;color:rgba(255,255,255,0.45);font-size:14px;font-weight:400;cursor:pointer;font-family:var(--ff-body);transition:all .2s;white-space:nowrap}
 .tab-btn:hover{color:rgba(255,255,255,0.75)}
-.tab-btn.active{color:#fff;border-bottom-color:var(--gold);font-weight:500}
+.tab-btn.active{color:#fff;border-bottom-color:rgba(255,255,255,0.92);font-weight:500}
 .calc-section{background:var(--bg);padding:48px 0 0}
 .calc-card{background:var(--card);border-radius:var(--rXl);box-shadow:var(--shadowMd);overflow:hidden;border:1px solid var(--border)}
 .calc-grid{display:grid;grid-template-columns:1fr 1fr;min-height:400px}
@@ -97,7 +97,7 @@ input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;heigh
 input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
 input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--navy);border:3px solid #fff;cursor:pointer}
 .range-ends{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
-.helper-note{margin-top:24px;padding:12px 16px;background:var(--gold-light);border-radius:10px;border-left:3px solid var(--gold);font-size:12px;color:var(--gold-deep);line-height:1.5}
+.helper-note{margin-top:24px;padding:12px 16px;background:var(--gold-light);border-radius:10px;border:1px solid rgba(200,151,58,0.35);font-size:12px;color:var(--gold-deep);line-height:1.5}
 .helper-note strong{display:block;margin-bottom:2px;font-size:13px;color:var(--navy)}
 .results-panel{padding:36px 40px;background:var(--navy);display:flex;flex-direction:column;gap:20px;justify-content:center;overflow:hidden;min-width:0}
 @media(max-width:720px){.results-panel{padding:28px 24px}}
@@ -150,7 +150,7 @@ tbody tr{border-top:1px solid var(--border);transition:background .1s}
 tbody tr:hover{background:var(--card2)}
 tbody td{padding:12px 18px;text-align:right;color:var(--text);font-size:14px;font-family:var(--ff-body)}
 tbody td:first-child{text-align:left;font-weight:500;color:var(--navy)}
-tbody td.red{color:#C0392B}
+tbody td.red{color:var(--loss-red)}
 tbody td.green{color:var(--green)}
 .how-section{background:var(--navy);padding:64px 0;color:#fff}
 .how-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
@@ -176,9 +176,6 @@ tbody td.green{color:var(--green)}
 .faq-item.open .chevron{transform:rotate(180deg)}
 .faq-a{display:none;padding:0 22px 18px;font-size:14px;color:var(--muted);line-height:1.7}
 .faq-item.open .faq-a{display:block}
-.ad-slot{background:var(--card2);border:1px dashed var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--muted);font-size:12px;text-align:center}
-.ad-leaderboard{height:90px;margin:32px 0}
-.ad-rectangle{height:250px;margin:20px 0}
 footer{background:var(--navy-mid);border-top:1px solid rgba(255,255,255,0.06);padding:40px 0 32px;text-align:center}
 .footer-logo{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px}
 .footer-logo-text{font-family:var(--ff-display);font-size:18px;font-weight:600;color:#fff}
@@ -190,7 +187,7 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
 .footer-links a:hover{color:rgba(255,255,255,0.75)}
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
 .calc-card,.chart-wrap,.table-wrap{animation:fadeUp .4s ease both}
-.settings-btn{width:36px;height:36px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);transition:all .15s;flex-shrink:0}
+.settings-btn{width:auto;padding:0 12px 0 8px;gap:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);transition:all .15s;flex-shrink:0;height:36px}
 .settings-btn:hover{background:rgba(255,255,255,0.1);color:#fff}
 .settings-btn svg{width:16px;height:16px}
 .settings-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:999;cursor:pointer}
@@ -205,7 +202,7 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
 .settings-group{display:flex;flex-direction:column;gap:8px}
 .settings-label{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.45);font-weight:500}
 .settings-select{width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06);color:#fff;font-size:14px;font-family:var(--ff-body);cursor:pointer;outline:none;transition:border-color .15s;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
-.settings-select:focus{border-color:var(--gold)}
+.settings-select:focus{border-color:var(--navy-soft)}
 .settings-select option{background:#162040;color:#fff}
 .settings-note{font-size:12px;color:rgba(255,255,255,0.35);line-height:1.6}
 .settings-save{margin:0 24px 24px;padding:11px;border-radius:8px;background:var(--gold);border:none;color:var(--navy);font-size:14px;font-weight:500;cursor:pointer;font-family:var(--ff-body);transition:opacity .15s}
@@ -229,11 +226,33 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
 .tool-panel{display:none}
 .tool-panel.active{display:block}
 .tab-btn:focus-visible{outline:2px solid var(--navy-soft);outline-offset:-2px;border-radius:4px}
+.loan-seg{display:flex;border:1.5px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:28px;background:var(--card2)}
+.loan-seg .tab-btn{padding:10px 8px;border-bottom:none;border-bottom-color:transparent;color:var(--muted);font-size:12px;font-weight:500}
+.loan-seg .tab-btn:not(:last-child){border-right:1.5px solid var(--border)}
+.loan-seg .tab-btn:hover:not(.active){color:var(--text);background:var(--bg)}
+.loan-seg .tab-btn.active{background:var(--navy);color:#fff;border-bottom-color:transparent}
+.loan-seg .tab-btn:focus-visible{border-radius:0}
+[dir="rtl"] .loan-seg .tab-btn:not(:last-child){border-right:none;border-left:1.5px solid var(--border)}
 @media(prefers-reduced-motion:reduce){
   .calc-card,.chart-wrap,.table-wrap{animation:none;opacity:1;transform:none}
   .bar-p,.bar-i,.faq-q .chevron,.settings-drawer{transition:none}
   *{transition-duration:.01ms!important}
+  #pref-toast{transition:none!important}
 }
+.settings-btn-label{font-size:12px;font-weight:400;color:rgba(255,255,255,0.55);letter-spacing:0.03em}
+@media(max-width:480px){.settings-btn-label{display:none}}
+.ig-clamp-note{font-size:11px;color:var(--gold);opacity:0;transition:opacity .2s;min-height:14px;margin-top:3px;padding-left:2px}
+.ig-clamp-note.visible{opacity:1}
+.cur-sel-wrap{display:flex;flex-direction:column}
+.cur-search{width:100%;padding:7px 10px;font-size:12px;border:1.5px solid var(--border);border-radius:6px 6px 0 0;border-bottom:none;background:var(--card);color:var(--text);font-family:var(--ff-body);outline:none;transition:border-color .15s}
+.cur-search::placeholder{color:var(--muted)}
+.cur-search:focus{border-color:var(--navy-soft)}
+.cur-sel-wrap select{border-top-left-radius:0!important;border-top-right-radius:0!important}
+.settings-search{width:100%;padding:8px 10px;font-size:13px;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.06);color:#fff;font-family:var(--ff-body);outline:none;transition:border-color .15s;margin-bottom:6px}
+.settings-search::placeholder{color:rgba(255,255,255,0.3)}
+.settings-search:focus{border-color:var(--navy-soft)}
+#pref-toast{position:fixed;bottom:24px;right:24px;padding:10px 18px;border-radius:8px;background:var(--navy-mid);border:1px solid rgba(200,151,58,0.35);color:var(--gold);font-size:13px;font-weight:500;font-family:var(--ff-body);box-shadow:0 4px 20px rgba(0,0,0,0.35);opacity:0;transform:translateY(8px);transition:opacity .2s,transform .2s;pointer-events:none;z-index:9999}
+#pref-toast.show{opacity:1;transform:translateY(0)}
 </style>
 </head>
 <body>
@@ -251,7 +270,8 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
     </a>
 
     <button class="settings-btn" id="settings-open-btn" aria-label="Open preferences">
-      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="8" cy="8" r="2.5"/><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.1 3.1l1.1 1.1M11.8 11.8l1.1 1.1M3.1 12.9l1.1-1.1M11.8 4.2l1.1-1.1"/></svg>
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="8" cy="8" r="2.5"/><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.1 3.1l1.1 1.1M11.8 11.8l1.1 1.1M3.1 12.9l1.1-1.1M11.8 4.2l1.1-1.1"/></svg>
+      <span class="settings-btn-label">Settings</span>
     </button>
   </div>
 </header>
@@ -281,6 +301,7 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
     </div>
     <div class="settings-group">
       <p class="settings-label" data-i18n="pref-currency">Preferred currency</p>
+      <input type="text" class="settings-search" id="pref-currency-search" placeholder="Search currency…" autocomplete="off">
       <select class="settings-select" id="pref-currency" style="background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 12px center"></select>
       <p class="settings-note" data-i18n="pref-currency-note">Sets the default "convert to" currency and the local price shown for gold and oil.</p>
     </div>
@@ -312,34 +333,29 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
     <button class="tab-btn" role="tab" aria-selected="false" data-panel="panel-faq">FAQ</button>
   </div>
 </div>
-<div id="panel-loans" class="tool-panel active"><!-- LOAN TYPE TABS -->
-<div style="background:var(--navy);padding-bottom:0">
-  <div class="tab-nav" role="tablist" aria-label="Choose loan type" style="display:flex;overflow-x:auto;scrollbar-width:none;max-width:700px;margin:0 auto;border-bottom:1px solid rgba(255,255,255,0.08)">
-    <button class="tab-btn active" data-tab="mortgage" role="tab" aria-selected="true" data-i18n="tab-mortgage">Mortgage</button>
-    <button class="tab-btn" data-tab="car" role="tab" aria-selected="false" data-i18n="tab-car">Car Loan</button>
-    <button class="tab-btn" data-tab="personal" role="tab" aria-selected="false" data-i18n="tab-personal">Personal</button>
-    <button class="tab-btn" data-tab="student" role="tab" aria-selected="false" data-i18n="tab-student">Student</button>
-  </div>
-</div>
-
+<div id="panel-loans" class="tool-panel active">
 <section class="calc-section" id="calculator" aria-label="Loan calculator">
   <div class="container">
-    <!-- ADSENSE SLOT 1: Leaderboard — replace comment with your AdSense code -->
-    <!-- <ins class="adsbygoogle ad-leaderboard" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="auto" data-full-width-responsive="true"></ins> -->
-    <div class="ad-slot ad-leaderboard" aria-hidden="true">Advertisement</div>
     <div class="calc-card">
       <div class="calc-grid">
         <div class="inputs-panel" role="tabpanel" aria-label="Loan inputs">
+          <div class="loan-seg" role="tablist" aria-label="Choose loan type">
+            <button class="tab-btn active" data-tab="mortgage" role="tab" aria-selected="true" data-i18n="tab-mortgage">Mortgage</button>
+            <button class="tab-btn" data-tab="car" role="tab" aria-selected="false" data-i18n="tab-car">Car Loan</button>
+            <button class="tab-btn" data-tab="personal" role="tab" aria-selected="false" data-i18n="tab-personal">Personal</button>
+            <button class="tab-btn" data-tab="student" role="tab" aria-selected="false" data-i18n="tab-student">Student</button>
+          </div>
           <div class="input-group">
             <div class="ig-head">
               <label class="ig-label" for="s-amount" id="lbl-amount-el">Loan amount</label>
               <div class="ig-val">
                 <span class="ig-sym">$</span>
-                <input type="number" id="i-amount" class="ig-input" aria-label="Loan amount in dollars" min="1000" max="2000000" step="1000">
+                <input type="number" id="i-amount" class="ig-input" aria-label="Loan amount" min="1000" max="2000000" step="1000">
               </div>
             </div>
             <input type="range" id="s-amount" aria-label="Adjust loan amount" min="1000" max="2000000" step="1000" value="300000">
             <div class="range-ends"><span id="amount-min-lbl">$1,000</span><span id="amount-max-lbl">$2,000,000</span></div>
+            <div class="ig-clamp-note" id="clamp-amount" aria-live="polite"></div>
           </div>
           <div class="input-group">
             <div class="ig-head">
@@ -351,6 +367,7 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
             </div>
             <input type="range" id="s-rate" aria-label="Adjust interest rate" min="0.1" max="30" step="0.1" value="6.5">
             <div class="range-ends"><span id="rate-min-lbl">0.1%</span><span id="rate-max-lbl">30%</span></div>
+            <div class="ig-clamp-note" id="clamp-rate" aria-live="polite"></div>
           </div>
           <div class="input-group">
             <div class="ig-head">
@@ -362,6 +379,7 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
             </div>
             <input type="range" id="s-term" aria-label="Adjust loan term" min="1" max="30" step="1" value="30">
             <div class="range-ends"><span id="term-min-lbl">1 yr</span><span id="term-max-lbl">30 yrs</span></div>
+            <div class="ig-clamp-note" id="clamp-term" aria-live="polite"></div>
           </div>
           <div class="helper-note en-only" id="helper-note" aria-live="polite">
             <strong id="helper-title">Typical 30-year US mortgage</strong>
@@ -455,9 +473,6 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
         </div>
       </div>
     </div>
-    <!-- ADSENSE SLOT 2: Rectangle — replace comment with your AdSense code -->
-    <!-- <ins class="adsbygoogle ad-rectangle" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX" data-ad-format="rectangle"></ins> -->
-    <div class="ad-slot ad-rectangle" aria-hidden="true">Advertisement</div>
   </div>
 </section>
 
@@ -518,7 +533,7 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
   </div>
 </section>
 
-</div><!-- /panel-currency -->
+</div><!-- /panel-loans -->
 <div id="panel-faq" class="tool-panel"><section class="faq-section" id="faq" aria-labelledby="faq-h2">
   <div class="container">
     <h2 id="faq-h2">Frequently asked questions about loans, savings, currency and gold</h2>
@@ -526,47 +541,46 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
     <!-- <ins class="adsbygoogle" style="display:inline-block;width:336px;height:280px" data-ad-client="ca-pub-XXXXXXXX" data-ad-slot="XXXXXXXX"></ins> -->
     <div class="faq-list" role="list">
       <div class="faq-item" role="listitem">
-        <button class="faq-q" aria-expanded="false" data-i18n-question="faq-q1">How is the monthly loan payment calculated?<span class="chevron" aria-hidden="true">▾</span></button>
-        <div class="faq-a" data-i18n="faq-a1">The standard loan payment formula is: Monthly Payment = P × [r(1+r)^n] ÷ [(1+r)^n − 1], where P is the loan principal, r is the monthly interest rate (annual rate divided by 12), and n is the total number of monthly payments. This formula ensures equal payments every month that fully repay the loan including interest over the agreed term.</div>
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a1" data-i18n-question="faq-q1">How is the monthly loan payment calculated?<span class="chevron" aria-hidden="true">▾</span></button>
+        <div class="faq-a" id="faq-a1" data-i18n="faq-a1">The standard loan payment formula is: Monthly Payment = P × [r(1+r)^n] ÷ [(1+r)^n − 1], where P is the loan principal, r is the monthly interest rate (annual rate divided by 12), and n is the total number of monthly payments. This formula ensures equal payments every month that fully repay the loan including interest over the agreed term.</div>
       </div>
       <div class="faq-item" role="listitem">
-        <button class="faq-q" aria-expanded="false" data-i18n-question="faq-q2">What is an amortization schedule?<span class="chevron" aria-hidden="true">▾</span></button>
-        <div class="faq-a" data-i18n="faq-a2">An amortization schedule shows how each payment is divided between principal and interest over the full loan term. In the early years, most of each payment goes toward interest. Over time, a greater portion reduces the principal balance. LoanCalc generates a complete year-by-year schedule showing exactly how your balance decreases with each passing year.</div>
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a2" data-i18n-question="faq-q2">What is an amortization schedule?<span class="chevron" aria-hidden="true">▾</span></button>
+        <div class="faq-a" id="faq-a2" data-i18n="faq-a2">An amortization schedule shows how each payment is divided between principal and interest over the full loan term. In the early years, most of each payment goes toward interest. Over time, a greater portion reduces the principal balance. LoanCalc generates a complete year-by-year schedule showing exactly how your balance decreases with each passing year.</div>
       </div>
       <div class="faq-item" role="listitem">
-        <button class="faq-q" aria-expanded="false" data-i18n-question="faq-q3">Does this calculator work for all countries?<span class="chevron" aria-hidden="true">▾</span></button>
-        <div class="faq-a" data-i18n="faq-a3">Yes. The loan payment formula is the same worldwide. You enter your own loan amount (in any currency), your own interest rate, and your own loan term. LoanCalc never fetches external data — all calculations happen in your browser. There is no country-specific data, no tax law dependency, and no requirement to be connected to anything.</div>
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a3" data-i18n-question="faq-q3">Does this calculator work for all countries?<span class="chevron" aria-hidden="true">▾</span></button>
+        <div class="faq-a" id="faq-a3" data-i18n="faq-a3">Yes. The loan payment formula is the same worldwide. You enter your own loan amount (in any currency), your own interest rate, and your own loan term. LoanCalc never fetches external data — all calculations happen in your browser. There is no country-specific data, no tax law dependency, and no requirement to be connected to anything.</div>
       </div>
       <div class="faq-item" role="listitem">
-        <button class="faq-q" aria-expanded="false" data-i18n-question="faq-q4">How can I reduce the total interest I pay?<span class="chevron" aria-hidden="true">▾</span></button>
-        <div class="faq-a" data-i18n="faq-a4">Three strategies reduce total interest: (1) Choose a shorter loan term — a 15-year mortgage versus a 30-year mortgage at the same rate roughly halves the total interest paid. (2) Make extra principal payments whenever possible — even small additional amounts each month significantly reduce the final total. (3) Secure a lower interest rate through a stronger credit score, comparison shopping across multiple lenders, or refinancing when rates fall.</div>
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a4" data-i18n-question="faq-q4">How can I reduce the total interest I pay?<span class="chevron" aria-hidden="true">▾</span></button>
+        <div class="faq-a" id="faq-a4" data-i18n="faq-a4">Three strategies reduce total interest: (1) Choose a shorter loan term — a 15-year mortgage versus a 30-year mortgage at the same rate roughly halves the total interest paid. (2) Make extra principal payments whenever possible — even small additional amounts each month significantly reduce the final total. (3) Secure a lower interest rate through a stronger credit score, comparison shopping across multiple lenders, or refinancing when rates fall.</div>
       </div>
       <div class="faq-item" role="listitem">
-        <button class="faq-q" aria-expanded="false" data-i18n-question="faq-q5">Is LoanCalc completely free?<span class="chevron" aria-hidden="true">▾</span></button>
-        <div class="faq-a" data-i18n="faq-a5">Yes, completely free. No account required. No signup. No email collection. No premium features behind a paywall. The calculator, amortization schedule, and payment breakdown chart are all fully accessible at no cost. LoanCalc is supported by display advertising — the calculator itself will always remain free.</div>
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a5" data-i18n-question="faq-q5">Is LoanCalc completely free?<span class="chevron" aria-hidden="true">▾</span></button>
+        <div class="faq-a" id="faq-a5" data-i18n="faq-a5">Yes, completely free. No account required. No signup. No email collection. No premium features behind a paywall. The calculator, amortization schedule, and payment breakdown chart are all fully accessible at no cost. LoanCalc is supported by display advertising — the calculator itself will always remain free.</div>
       </div>
       <div class="faq-item" role="listitem">
-        <button class="faq-q" aria-expanded="false" data-i18n-question="faq-q6">How does the refinance calculator work?<span class="chevron" aria-hidden="true">▾</span></button>
-        <div class="faq-a" data-i18n="faq-a6">Enter your current loan balance, interest rate, and remaining term, then enter the new rate and estimated closing costs. The refinance calculator shows your new monthly payment, the exact break-even month when your cumulative savings exceed the closing costs, and the total lifetime saving over the remaining loan term. As a general rule, refinancing is worthwhile if you plan to keep the loan longer than the break-even period and the rate reduction is at least 0.5%.</div>
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a6" data-i18n-question="faq-q6">How does the refinance calculator work?<span class="chevron" aria-hidden="true">▾</span></button>
+        <div class="faq-a" id="faq-a6" data-i18n="faq-a6">Enter your current loan balance, interest rate, and remaining term, then enter the new rate and estimated closing costs. The refinance calculator shows your new monthly payment, the exact break-even month when your cumulative savings exceed the closing costs, and the total lifetime saving over the remaining loan term. As a general rule, refinancing is worthwhile if you plan to keep the loan longer than the break-even period and the rate reduction is at least 0.5%.</div>
       </div>
       <div class="faq-item" role="listitem">
-        <button class="faq-q" aria-expanded="false" data-i18n-question="faq-q7">How is the gold price calculated and updated?<span class="chevron" aria-hidden="true">▾</span></button>
-        <div class="faq-a" data-i18n="faq-a7">LoanCalc fetches the live gold spot price in USD from a financial market data source and converts it to your local currency using live exchange rates. The gold price is cached in your browser for one hour, so it refreshes frequently without making excessive API calls. Prices are displayed per troy ounce (the standard trading unit), per gram, and per kilogram for everyday reference.</div>
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a7" data-i18n-question="faq-q7">How is the gold price calculated and updated?<span class="chevron" aria-hidden="true">▾</span></button>
+        <div class="faq-a" id="faq-a7" data-i18n="faq-a7">LoanCalc fetches the live gold spot price in USD from a financial market data source and converts it to your local currency using live exchange rates. The gold price is cached in your browser for one hour, so it refreshes frequently without making excessive API calls. Prices are displayed per troy ounce (the standard trading unit), per gram, and per kilogram for everyday reference.</div>
       </div>
       <div class="faq-item" role="listitem">
-        <button class="faq-q" aria-expanded="false" data-i18n-question="faq-q8">Which currencies does the converter support?<span class="chevron" aria-hidden="true">▾</span></button>
-        <div class="faq-a" data-i18n="faq-a8">The LoanCalc currency converter supports 30 major world currencies including USD, EUR, GBP, JPY, EGP, AED, SAR, CAD, AUD, CHF, CNY, INR, SGD, HKD, TRY, KRW, and more. Exchange rates are sourced from the Frankfurter open exchange rates API and updated every 24 hours. The converter automatically defaults the "to" currency based on your browser's locale settings.</div>
+        <button class="faq-q" aria-expanded="false" aria-controls="faq-a8" data-i18n-question="faq-q8">Which currencies does the converter support?<span class="chevron" aria-hidden="true">▾</span></button>
+        <div class="faq-a" id="faq-a8" data-i18n="faq-a8">The LoanCalc currency converter supports 30 major world currencies including USD, EUR, GBP, JPY, EGP, AED, SAR, CAD, AUD, CHF, CNY, INR, SGD, HKD, TRY, KRW, and more. Exchange rates are sourced from the Frankfurter open exchange rates API and updated every 24 hours. The converter automatically defaults the "to" currency based on your browser's locale settings.</div>
       </div>
     </div>
   </div>
 </section>
 
-</div><!-- /panel-loans -->
+</div><!-- /panel-faq -->
 <div id="panel-savings" class="tool-panel"><section id="compound" style="padding:64px 0;background:var(--bg)" aria-labelledby="compound-h2">
   <div class="container">
     <h2 class="section-title" id="compound-h2">Compound interest &amp; savings growth calculator</h2>
     <p class="section-sub" id="tx-ci-sub" data-i18n="ci-section-sub">See exactly how your savings or investment grows year by year with compound interest.</p>
-    <div class="ad-slot ad-leaderboard" aria-hidden="true">Advertisement</div>
     <div class="calc-card" style="margin-top:24px">
       <div class="calc-grid">
         <div class="inputs-panel">
@@ -743,14 +757,20 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
           <label for="cur-amount" style="font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);font-weight:500;display:block;margin-bottom:7px" data-i18n="cur-amount-label">Amount</label>
           <input type="number" id="cur-amount" value="1000" min="0" step="1" style="width:100%;border:1.5px solid var(--border);border-radius:8px;padding:11px 14px;font-size:20px;font-weight:500;font-family:var(--ff-body);color:var(--text);background:var(--card);outline:none">
         </div>
-        <div style="display:grid;grid-template-columns:1fr 40px 1fr;align-items:center;gap:10px;margin-bottom:14px">
-          <select id="cur-from" style="border:1.5px solid var(--border);border-radius:8px;padding:10px 11px;font-size:13px;font-family:var(--ff-body);color:var(--text);background:var(--card);cursor:pointer;width:100%;min-width:0"></select>
-          <button id="cur-swap" title="Swap" style="width:36px;height:36px;border-radius:50%;border:1.5px solid var(--border);background:var(--card);cursor:pointer;font-size:16px;color:var(--muted);display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0">⇄</button>
-          <select id="cur-to" style="border:1.5px solid var(--border);border-radius:8px;padding:10px 11px;font-size:13px;font-family:var(--ff-body);color:var(--text);background:var(--card);cursor:pointer;width:100%;min-width:0"></select>
+        <div style="display:grid;grid-template-columns:1fr 40px 1fr;align-items:end;gap:10px;margin-bottom:14px">
+          <div class="cur-sel-wrap">
+            <input type="text" class="cur-search" id="cur-from-search" placeholder="Search…" autocomplete="off" aria-label="Search from currency">
+            <select id="cur-from" style="border:1.5px solid var(--border);border-radius:0 0 8px 8px;padding:10px 11px;font-size:13px;font-family:var(--ff-body);color:var(--text);background:var(--card);cursor:pointer;width:100%;min-width:0"></select>
+          </div>
+          <button id="cur-swap" title="Swap" aria-label="Swap currencies" style="width:44px;height:44px;min-width:44px;min-height:44px;border-radius:50%;border:1.5px solid var(--border);background:var(--card);cursor:pointer;font-size:16px;color:var(--muted);display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;margin-bottom:1px">⇄</button>
+          <div class="cur-sel-wrap">
+            <input type="text" class="cur-search" id="cur-to-search" placeholder="Search…" autocomplete="off" aria-label="Search to currency">
+            <select id="cur-to" style="border:1.5px solid var(--border);border-radius:0 0 8px 8px;padding:10px 11px;font-size:13px;font-family:var(--ff-body);color:var(--text);background:var(--card);cursor:pointer;width:100%;min-width:0"></select>
+          </div>
         </div>
         <div style="margin-bottom:20px">
           <label for="cur-to" style="font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);font-weight:500;display:block;margin-bottom:7px" data-i18n="cur-to-label">Converted to</label>
-          <div id="cur-result" style="width:100%;border:2px solid var(--navy-soft);border-radius:8px;padding:13px 16px;font-size:22px;font-weight:600;font-family:var(--ff-display);color:var(--navy);background:var(--blue-light);overflow:hidden;white-space:nowrap;text-overflow:ellipsis">—</div>
+          <div id="cur-result" role="status" aria-live="polite" aria-atomic="true" style="width:100%;border:2px solid var(--navy-soft);border-radius:8px;padding:13px 16px;font-size:22px;font-weight:600;font-family:var(--ff-display);color:var(--navy);background:var(--blue-light);overflow:hidden;white-space:nowrap;text-overflow:ellipsis">—</div>
         </div>
 
         <div id="cur-rate-row" style="display:flex;gap:24px;flex-wrap:wrap;padding:14px 16px;background:var(--card2);border-radius:10px;border:1px solid var(--border);font-size:13px;color:var(--muted)">
@@ -814,7 +834,6 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
         </div>
       </div>
     </div>
-    <div class="ad-slot ad-rectangle" aria-hidden="true">Advertisement</div>
     <div style="max-width:780px;margin-top:24px;font-size:15px;color:var(--muted);line-height:1.8" class="en-only">
       <p id="tx-cur-desc" data-i18n="cur-desc">The LoanCalc currency converter supports 30 major world currencies and uses live exchange rates updated every 24 hours via the Frankfurter open exchange rates API. The gold price shown is the live XAU spot price per troy ounce, converted from USD into your selected currency in real time. The oil price reflects the current WTI (West Texas Intermediate) crude oil futures price per barrel, which is the global benchmark used by traders and governments worldwide. All commodity and currency data is cached hourly in your browser — no excessive API calls, no account required, no data stored on any server.</p>
     </div>
@@ -823,6 +842,8 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
 
 <style>
 #cur-swap:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+#cur-amount:focus-visible{border-color:var(--navy-soft);outline:none;box-shadow:0 0 0 3px rgba(27,63,163,0.15)}
+#cur-from:focus-visible,#cur-to:focus-visible{border-color:var(--navy-soft);outline:none;box-shadow:0 0 0 3px rgba(27,63,163,0.15)}
 @media(max-width:600px){.commodity-grid{grid-template-columns:1fr!important}}
 </style>
 
@@ -1360,13 +1381,13 @@ if(window.calcCI) window.calcCI();
 document.querySelectorAll('input[type=range]').forEach(function(s){
   if(window.updateSliderFillGlobal) window.updateSliderFillGlobal(s);
 });}
-function populatePrefCurrencySelect(currentCur){var sel=document.getElementById('pref-currency');sel.innerHTML='';window.ALL_CURRENCIES.filter(function(cur){return !!window.CURRENCY_CONFIG[cur.c];}).forEach(function(cur){var opt=document.createElement('option');opt.value=cur.c;opt.textContent=cur.c+' — '+cur.n;if(cur.c===currentCur)opt.selected=true;sel.appendChild(opt);});if(sel.value!==currentCur)sel.value='USD';}
-function openSettings(){var prefs=loadPrefs();document.getElementById('pref-lang').value=prefs.lang||'en';populatePrefCurrencySelect(prefs.currency||window._prefCurrency||'USD');document.getElementById('settings-drawer').classList.add('open');document.getElementById('settings-overlay').classList.add('open');}
+function populatePrefCurrencySelect(currentCur,filter){var sel=document.getElementById('pref-currency');var list=window.ALL_CURRENCIES.filter(function(cur){return !!window.CURRENCY_CONFIG[cur.c];});if(filter){var q=filter.toLowerCase();list=list.filter(function(cur){return cur.c.toLowerCase().indexOf(q)!==-1||cur.n.toLowerCase().indexOf(q)!==-1;});}sel.innerHTML='';list.forEach(function(cur){var opt=document.createElement('option');opt.value=cur.c;opt.textContent=cur.c+' — '+cur.n;if(cur.c===currentCur)opt.selected=true;sel.appendChild(opt);});if(sel.value!==currentCur&&!filter)sel.value='USD';}
+function openSettings(){var prefs=loadPrefs();document.getElementById('pref-lang').value=prefs.lang||'en';var srch=document.getElementById('pref-currency-search');if(srch)srch.value='';populatePrefCurrencySelect(prefs.currency||window._prefCurrency||'USD');document.getElementById('settings-drawer').classList.add('open');document.getElementById('settings-overlay').classList.add('open');}
 function closeSettings(){document.getElementById('settings-drawer').classList.remove('open');document.getElementById('settings-overlay').classList.remove('open');}
 document.getElementById('settings-open-btn').addEventListener('click',openSettings);
 document.getElementById('settings-close-btn').addEventListener('click',closeSettings);
 document.getElementById('settings-overlay').addEventListener('click',closeSettings);
-document.getElementById('settings-save-btn').addEventListener('click',function(){var lang=document.getElementById('pref-lang').value;var currency=document.getElementById('pref-currency').value;savePrefs({lang:lang,currency:currency});window._prefCurrency=currency;applyLang(lang);if(window.applyCurrency)window.applyCurrency(currency);document.getElementById('pref-cur-tag').textContent=currency;document.getElementById('pref-lang-tag').textContent=lang.toUpperCase();closeSettings();});
+document.getElementById('settings-save-btn').addEventListener('click',function(){var lang=document.getElementById('pref-lang').value;var currency=document.getElementById('pref-currency').value;savePrefs({lang:lang,currency:currency});window._prefCurrency=currency;applyLang(lang);if(window.applyCurrency)window.applyCurrency(currency);document.getElementById('pref-cur-tag').textContent=currency;document.getElementById('pref-lang-tag').textContent=lang.toUpperCase();closeSettings();if(window.showToast)window.showToast('Preferences saved');});
 var _prefs=loadPrefs();
 var _initLang=_prefs.lang||(navigator.language&&navigator.language.split('-')[0])||'en';
 var _initCur=(_prefs.currency&&window.CURRENCY_CONFIG[_prefs.currency])?_prefs.currency:(detectLocaleCurrency()||'USD');
@@ -1445,14 +1466,14 @@ setTimeout(function(){
   if(st && /Loading|Fetching/i.test(st.textContent)){
     st.textContent = 'Rates unavailable — try refreshing';
     var d = document.getElementById('cur-dot');
-    if(d) d.style.background = 'var(--border)';
+    if(d) d.style.background = '#C8973A';
   }
   ['gold','oil'].forEach(function(type){
     var s = document.getElementById(type + '-status');
     if(s && /Loading/i.test(s.textContent)){
       s.textContent = 'Unavailable — try refreshing';
       var d = document.getElementById(type + '-dot');
-      if(d) d.style.background = 'var(--border)';
+      if(d) d.style.background = '#C8973A';
     }
   });
 }, 12000);
@@ -1499,8 +1520,155 @@ setTimeout(function(){
 })();
 </script>
 
+<div id="pref-toast" role="status" aria-live="polite"></div>
 
+<script>
+/* ── Toast notification ── */
+(function(){
+  var _toastTimer = null;
+  window.showToast = function(msg){
+    var el = document.getElementById('pref-toast');
+    if(!el) return;
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(_toastTimer);
+    _toastTimer = setTimeout(function(){ el.classList.remove('show'); }, 2200);
+  };
+})();
 
+/* ── Clamp feedback on loan number inputs ── */
+(function(){
+  var pairs = [
+    {num:'i-amount', note:'clamp-amount', fmt:function(v){ return window.getCurrencySym ? window.getCurrencySym()+v.toLocaleString() : v.toLocaleString(); }},
+    {num:'i-rate',   note:'clamp-rate',   fmt:function(v){ return v+'%'; }},
+    {num:'i-term',   note:'clamp-term',   fmt:function(v){ return v+' yr'+(v===1?'':'s'); }}
+  ];
+  pairs.forEach(function(p){
+    var inp = document.getElementById(p.num);
+    var note = document.getElementById(p.note);
+    if(!inp || !note) return;
+    inp.addEventListener('change', function(){
+      var v = parseFloat(this.value);
+      var mn = parseFloat(this.min);
+      var mx = parseFloat(this.max);
+      if(isNaN(v)) return;
+      if(v < mn){ note.textContent = 'Minimum: '+p.fmt(mn); note.classList.add('visible'); }
+      else if(v > mx){ note.textContent = 'Maximum: '+p.fmt(mx); note.classList.add('visible'); }
+      else { note.textContent = ''; note.classList.remove('visible'); }
+    });
+    inp.addEventListener('input', function(){
+      note.textContent = '';
+      note.classList.remove('visible');
+    });
+  });
+})();
+
+/* ── URL hash state sharing ── */
+(function(){
+  function encodeHash(){
+    var a = document.getElementById('s-amount');
+    var r = document.getElementById('s-rate');
+    var t = document.getElementById('s-term');
+    if(!a||!r||!t) return;
+    var tab = window._currentTab || 'mortgage';
+    var hash = 'tab='+tab+'&a='+a.value+'&r='+r.value+'&t='+t.value;
+    try{ history.replaceState(null,'','#'+hash); }catch(e){}
+  }
+  function decodeHash(){
+    var raw = window.location.hash.slice(1);
+    if(!raw || raw.indexOf('tab=')===-1) return false;
+    var params = {};
+    raw.split('&').forEach(function(part){
+      var kv = part.split('=');
+      if(kv.length===2) params[kv[0]] = decodeURIComponent(kv[1]);
+    });
+    if(params.tab && params.tab!=='mortgage' && window.switchTab) window.switchTab(params.tab);
+    function setBounded(sliderId, val){
+      var s = document.getElementById(sliderId);
+      if(!s||!val) return;
+      var v = parseFloat(val);
+      if(!isNaN(v) && v>=parseFloat(s.min) && v<=parseFloat(s.max)){
+        s.value = v;
+        var numId = sliderId.replace('s-','i-');
+        var num = document.getElementById(numId);
+        if(num) num.value = v;
+        if(window.updateSliderFillGlobal) window.updateSliderFillGlobal(s);
+      }
+    }
+    setBounded('s-amount', params.a);
+    setBounded('s-rate', params.r);
+    setBounded('s-term', params.t);
+    var a = document.getElementById('s-amount');
+    if(a) a.dispatchEvent(new Event('input'));
+    return true;
+  }
+  /* Write hash on slider change */
+  ['s-amount','s-rate','s-term'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.addEventListener('input', encodeHash);
+  });
+  /* Patch switchTab to also write hash */
+  var _origSwitch = window.switchTab;
+  if(_origSwitch) window.switchTab = function(tab){
+    _origSwitch(tab);
+    encodeHash();
+  };
+  /* Restore from hash on load (takes priority over localStorage) */
+  setTimeout(function(){
+    var restored = decodeHash();
+    /* If no hash, localStorage restore already ran (previous script block) */
+  }, 80);
+})();
+
+/* ── Currency select search ── */
+(function(){
+  function makeFilter(searchId, selectId){
+    var searchEl = document.getElementById(searchId);
+    var selEl = document.getElementById(selectId);
+    if(!searchEl || !selEl) return;
+    var _allOpts = null;
+    function rebuildOptions(q){
+      if(!_allOpts || !_allOpts.length) return;
+      var cur = selEl.value;
+      var list = q ? _allOpts.filter(function(c){
+        return c.c.toLowerCase().indexOf(q)!==-1 || c.n.toLowerCase().indexOf(q)!==-1;
+      }) : _allOpts;
+      selEl.innerHTML = '';
+      list.forEach(function(c){
+        var o = document.createElement('option');
+        o.value = c.c;
+        o.textContent = c.n;
+        if(c.c===cur) o.selected = true;
+        selEl.appendChild(o);
+      });
+    }
+    searchEl.addEventListener('input', function(){
+      rebuildOptions(this.value.trim().toLowerCase());
+    });
+    /* Observe when the select is populated, then snapshot the full option list */
+    var observer = new MutationObserver(function(){
+      if(selEl.options.length > 1){
+        observer.disconnect();
+        _allOpts = Array.from(selEl.options).map(function(o){
+          return {c:o.value, n:o.textContent};
+        });
+      }
+    });
+    observer.observe(selEl, {childList:true});
+  }
+  makeFilter('cur-from-search','cur-from');
+  makeFilter('cur-to-search','cur-to');
+
+  /* Settings drawer currency search */
+  var prefSearch = document.getElementById('pref-currency-search');
+  if(prefSearch){
+    prefSearch.addEventListener('input', function(){
+      var prefs = (typeof loadPrefs==='function') ? loadPrefs() : {};
+      populatePrefCurrencySelect(prefs.currency||window._prefCurrency||'USD', this.value.trim());
+    });
+  }
+})();
+</script>
 
 </body>
 </html>
