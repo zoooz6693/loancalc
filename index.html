@@ -38,6 +38,7 @@
 :root{
   --navy:#0A1628;--navy-mid:#162040;--navy-soft:#1B3FA3;
   --gold:#C8973A;--gold-light:#FDF4E3;--gold-deep:#96700A;
+  --loss-red:#C0392B;
   --bg:#F0F4FF;--card:#FFFFFF;--card2:#F8FAFF;
   --text:#0A1628;--muted:#5B6278;--border:#D5DCF0;
   --green:#0B7C4E;--green-light:#E9F7F0;
@@ -69,8 +70,6 @@ header nav a:hover{color:#fff;background:rgba(255,255,255,0.08)}
 .hero h1{font-family:var(--ff-display);font-size:clamp(32px,5vw,54px);font-weight:700;color:#fff;line-height:1.15;letter-spacing:-0.025em;margin-bottom:16px}
 .hero h1 em{font-style:normal;color:var(--gold)}
 .hero-sub{font-size:17px;color:rgba(255,255,255,0.65);max-width:520px;margin:0 auto 28px;font-weight:300;line-height:1.7}
-.trust-badges{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-.trust-badge{background:rgba(255,255,255,0.07);border:1px solid rgba(255,255,255,0.12);color:rgba(255,255,255,0.8);font-size:12px;padding:5px 14px;border-radius:99px;font-weight:400;letter-spacing:0.02em}
 .tab-wrap{background:var(--navy);padding-bottom:0}
 .tab-nav{display:flex;justify-content:center;gap:0;padding:0 20px;max-width:700px;margin:0 auto;border-bottom:1px solid rgba(255,255,255,0.08)}
 .tab-btn{flex:1;padding:14px 8px;background:transparent;border:none;border-bottom:2px solid transparent;color:rgba(255,255,255,0.45);font-size:14px;font-weight:400;cursor:pointer;font-family:var(--ff-body);transition:all .2s;white-space:nowrap}
@@ -212,7 +211,7 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
 .settings-save{margin:0 24px 24px;padding:11px;border-radius:8px;background:var(--gold);border:none;color:var(--navy);font-size:14px;font-weight:500;cursor:pointer;font-family:var(--ff-body);transition:opacity .15s}
 .settings-save:hover{opacity:.88}
 .pref-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(200,151,58,0.15);border:1px solid rgba(200,151,58,0.3);border-radius:6px;padding:4px 10px;font-size:12px;color:var(--gold);margin-top:4px}
-[dir="rtl"] .header-inner{flex-direction:row-reverse}
+[dir="rtl"] .header-inner{flex-direction:row-reverse}[dir="rtl"] .settings-btn{order:-1}
 [dir="rtl"] .settings-drawer{right:auto;left:-340px;border-left:none;border-right:1px solid rgba(255,255,255,0.08)}
 [dir="rtl"] .settings-drawer.open{left:0;right:auto}
 [dir="rtl"] .ig-head{flex-direction:row-reverse}
@@ -224,12 +223,17 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
 [dir="rtl"] thead th:first-child{text-align:right}[dir="rtl"] tbody td:first-child{text-align:right}[dir="rtl"] thead th:not(:first-child){text-align:left}[dir="rtl"] tbody td:not(:first-child){text-align:left}
 @media(max-width:520px){
   .header-inner nav{display:none}
-  .trust-badges{gap:8px}
   .results-grid{grid-template-columns:1fr}
 }
 .en-only{}
 .tool-panel{display:none}
 .tool-panel.active{display:block}
+.tab-btn:focus-visible{outline:2px solid var(--navy-soft);outline-offset:-2px;border-radius:4px}
+@media(prefers-reduced-motion:reduce){
+  .calc-card,.chart-wrap,.table-wrap{animation:none;opacity:1;transform:none}
+  .bar-p,.bar-i,.faq-q .chevron,.settings-drawer{transition:none}
+  *{transition-duration:.01ms!important}
+}
 </style>
 </head>
 <body>
@@ -300,12 +304,12 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
 
 <!-- TOOL BAR — same style as loan tabs -->
 <div style="background:var(--navy);position:sticky;top:56px;z-index:90">
-  <div class="tab-nav" id="tool-nav" style="max-width:900px;border-bottom:2px solid rgba(255,255,255,0.08)">
-    <button class="tab-btn active" data-panel="panel-loans" data-i18n="nav-loans">Loans</button>
-    <button class="tab-btn" data-panel="panel-savings" data-i18n="nav-savings">Savings</button>
-    <button class="tab-btn" data-panel="panel-refinance" data-i18n="nav-refinance">Refinance</button>
-    <button class="tab-btn" data-panel="panel-currency" data-i18n="nav-currency">Currency</button>
-    <button class="tab-btn" data-panel="panel-faq">FAQ</button>
+  <div class="tab-nav" id="tool-nav" role="tablist" aria-label="Main tools" style="max-width:900px;border-bottom:2px solid rgba(255,255,255,0.08)">
+    <button class="tab-btn active" role="tab" aria-selected="true" data-panel="panel-loans" data-i18n="nav-loans">Loans</button>
+    <button class="tab-btn" role="tab" aria-selected="false" data-panel="panel-savings" data-i18n="nav-savings">Savings</button>
+    <button class="tab-btn" role="tab" aria-selected="false" data-panel="panel-refinance" data-i18n="nav-refinance">Refinance</button>
+    <button class="tab-btn" role="tab" aria-selected="false" data-panel="panel-currency" data-i18n="nav-currency">Currency</button>
+    <button class="tab-btn" role="tab" aria-selected="false" data-panel="panel-faq">FAQ</button>
   </div>
 </div>
 <div id="panel-loans" class="tool-panel active"><!-- LOAN TYPE TABS -->
@@ -599,8 +603,8 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
             <div class="range-ends"><span>1 yr</span><span>50 yrs</span></div>
           </div>
           <div class="helper-note">
-            <strong>S&amp;P 500 historical average</strong>
-            The US stock market has returned ~7% annually after inflation over the long term. Use 7% as a realistic baseline for diversified index funds.
+            <strong id="ci-helper-title">S&amp;P 500 historical average</strong>
+            <span id="ci-helper-text">The US stock market has returned ~7% annually after inflation over the long term. Use 7% as a realistic baseline for diversified index funds.</span>
           </div>
         </div>
         <div class="results-panel" aria-live="polite">
@@ -648,7 +652,7 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
 <div id="panel-refinance" class="tool-panel"><section id="refinance" style="padding:64px 0;background:var(--navy)" aria-labelledby="refi-h2">
   <div class="container">
     <h2 style="font-family:var(--ff-display);font-size:26px;font-weight:600;color:#fff;margin-bottom:6px" id="rf-h2">Refinance calculator — how much will you save?</h2>
-    <p style="font-size:14px;color:rgba(255,255,255,0.55);margin-bottom:28px">Enter your current loan details and the new rate you've been offered. The refinance calculator shows your monthly savings, the break-even month, and your total lifetime saving after closing costs.</p>
+    <p id="rf-desc" style="font-size:14px;color:rgba(255,255,255,0.55);margin-bottom:28px">Enter your current loan details and the new rate you've been offered. The refinance calculator shows your monthly savings, the break-even month, and your total lifetime saving after closing costs.</p>
     <div class="calc-card">
       <div class="calc-grid">
         <div class="inputs-panel">
@@ -1175,6 +1179,7 @@ var I18N={
     'rf-verdict-init':'Enter your loan details to see if refinancing makes sense.',
     'loan-desc':'Use this free loan payment calculator to find your exact monthly payment for any mortgage, car loan, personal loan, or student loan. Enter your loan amount, annual interest rate, and term in years — the calculator instantly shows your monthly payment, total interest, and a full year-by-year amortization schedule.',
     'ci-desc':'The compound interest calculator shows how an initial deposit grows over time when interest is earned on both the original principal and accumulated interest. Enter your starting amount, monthly contribution, return rate, and investment period to see your future portfolio value.',
+    'ci-helper-title':'S&P 500 historical average','ci-helper-text':'The US stock market has returned ~7% annually after inflation over the long term. Use 7% as a realistic baseline for diversified index funds.',
     'rf-desc':'The refinance savings calculator helps you decide whether it is worth refinancing your existing loan. Enter your current loan balance, current rate, and the new rate offered, along with closing costs. The calculator shows your monthly savings, break-even month, and total lifetime saving.',
     'cur-desc':'LoanCalc currency converter supports 161 world currencies with live exchange rates updated every 24 hours. Gold price (XAU) and WTI crude oil price are converted to your local currency in real time.',
     'how-p1':'Every fixed-rate loan uses the same standard amortization formula. Equal instalments cover both the interest on the remaining balance and a portion of the principal — fully paying off the loan by the final month.',
@@ -1240,6 +1245,7 @@ var I18N={
     'rf-verdict-init':'أدخل بيانات قرضك لمعرفة ما إذا كانت إعادة التمويل مجدية.','rf-verdict-higher':'المعدل الجديد ليس أقل — إعادة التمويل ستزيد من قسطك.','rf-verdict-long':'توفير شهري موجود لكن نقطة التعادل تتجاوز المدة المتبقية. غير موصى به.','rf-verdict-good':'إعادة التمويل تبدو مجدية.','rf-verdict-summary':'توفر {monthly} شهرياً وتصل لنقطة التعادل خلال {breakeven}. إجمالي التوفير: {total}.','rf-never':'لا يتحقق','rf-over-term':'>{n} سنة','rf-months':'{n} شهر','rf-years-mo':'{y}س {m}ش',
     'loan-desc':'استخدم هذه الحاسبة المجانية لمعرفة قسطك الشهري لأي قرض عقاري أو سيارة أو شخصي أو طلابي. أدخل مبلغ القرض ومعدل الفائدة السنوي ومدة السداد للحصول فوراً على القسط الشهري وإجمالي الفوائد وجدول الأقساط الكامل. المعادلة المستخدمة هي صيغة الإطفاء القياسية وتعمل مع أي عملة وأي دولة حول العالم.',
     'ci-desc':'تُظهر حاسبة الفائدة المركبة كيف يتضاعف الإيداع الأولي مع الوقت عند احتساب الفائدة على الأصل المتراكم. أدخل المبلغ الأولي والمساهمة الشهرية ومعدل العائد وفترة الاستثمار لترى القيمة المستقبلية لمدخراتك.',
+    'ci-helper-title':'المتوسط التاريخي لمؤشر S&P 500','ci-helper-text':'حقق سوق الأسهم الأمريكي عوائد تقارب 7% سنوياً بعد التضخم على المدى الطويل. استخدم 7% كمعدل واقعي لصناديق المؤشرات المتنوعة.',
     'rf-desc':'تساعدك حاسبة إعادة التمويل على معرفة ما إذا كان يستحق إعادة تمويل قرضك بمعدل فائدة أقل. أدخل الرصيد الحالي والمعدل الجديد ورسوم الإغلاق لتحصل على التوفير الشهري ونقطة التعادل وإجمالي التوفير.',
     'cur-desc':'يدعم محول عملات LoanCalc 161 عملة عالمية بأسعار صرف مباشرة محدثة كل 24 ساعة. كما يعرض سعر الذهب (XAU) والنفط الخام (WTI) بعملتك المحلية تلقائياً في الوقت الفعلي.',
     'how-p1':'كل قرض ذو فائدة ثابتة يستخدم نفس معادلة الإطفاء القياسية. تغطي الأقساط المتساوية كلاً من الفائدة على الرصيد المتبقي وجزءاً من أصل القرض.',
@@ -1320,12 +1326,22 @@ pt:{'gold-title':'Ouro (XAU)','oil-title':'Petróleo Bruto (WTI)','gold-sub':'Pr
 tr:{'gold-title':'Altın (XAU)','oil-title':'Ham Petrol (WTI)','gold-sub':'Troy ons başına fiyat','oil-sub':'Varil başına fiyat'},
 id:{'gold-title':'Emas (XAU)','oil-title':'Minyak Mentah (WTI)','gold-sub':'Harga per troy ounce','oil-sub':'Harga per barel'}
 };Object.keys(GT).forEach(function(l){if(I18N[l]){var o=GT[l];for(var k in o)I18N[l][k]=o[k];}});})();
+(function(){var CH={
+fr:{'ci-helper-title':'Moyenne historique du S&P 500','ci-helper-text':'Le marché boursier américain a rapporté ~7% par an après inflation sur le long terme. Utilisez 7% comme référence réaliste pour les fonds indiciels diversifiés.'},
+es:{'ci-helper-title':'Promedio histórico del S&P 500','ci-helper-text':'El mercado bursátil estadounidense ha rentado ~7% anual después de inflación a largo plazo. Use 7% como base realista para fondos indexados diversificados.'},
+de:{'ci-helper-title':'Historischer S&P 500-Durchschnitt','ci-helper-text':'Der US-Aktienmarkt hat langfristig ~7% jährlich nach Inflation erzielt. Verwenden Sie 7% als realistischen Ausgangswert für diversifizierte Indexfonds.'},
+zh:{'ci-helper-title':'S&P 500 历史平均回报','ci-helper-text':'美国股市长期年均通胀后回报率约为7%。以7%作为多元化指数基金的合理基准。'},
+hi:{'ci-helper-title':'S&P 500 ऐतिहासिक औसत','ci-helper-text':'अमेरिकी शेयर बाजार ने दीर्घकाल में मुद्रास्फीति के बाद लगभग 7% वार्षिक रिटर्न दिया है। विविधीकृत इंडेक्स फंड के लिए 7% को यथार्थवादी आधार मानें।'},
+pt:{'ci-helper-title':'Média histórica do S&P 500','ci-helper-text':'O mercado de ações americano retornou ~7% ao ano após a inflação no longo prazo. Use 7% como base realista para fundos de índice diversificados.'},
+tr:{'ci-helper-title':'S&P 500 tarihsel ortalaması','ci-helper-text':'ABD borsası uzun vadede enflasyon sonrası yıllık ~7% getiri sağlamıştır. Çeşitlendirilmiş endeks fonları için 7% gerçekçi bir temel olarak kullanın.'},
+id:{'ci-helper-title':'Rata-rata historis S&P 500','ci-helper-text':'Pasar saham AS telah menghasilkan ~7% per tahun setelah inflasi dalam jangka panjang. Gunakan 7% sebagai tolok ukur realistis untuk reksa dana indeks terdiversifikasi.'}
+};Object.keys(CH).forEach(function(l){if(I18N[l]){var o=CH[l];for(var k in o)I18N[l][k]=o[k];}});})();
 
 function loadPrefs(){try{return JSON.parse(localStorage.getItem(PREF_KEY))||{};}catch(e){return{};}}
 function savePrefs(prefs){try{localStorage.setItem(PREF_KEY,JSON.stringify(prefs));}catch(e){}}
 function applyLang(lang){var t=I18N[lang]||I18N['en'];var e=I18N['en'];function tx(key){return t[key]||e[key]||'';}var dir=lang==='ar'?'rtl':'ltr';document.documentElement.setAttribute('dir',dir);document.documentElement.setAttribute('lang',lang);document.querySelectorAll('[data-i18n]').forEach(function(el){var v=tx(el.getAttribute('data-i18n'));if(v)el.textContent=v;});var h1=document.getElementById('hero-h1');if(h1&&tx('hero-h1'))h1.innerHTML=tx('hero-h1');var sub=document.querySelector('.hero-sub');if(sub&&tx('hero-sub'))sub.textContent=tx('hero-sub');var tabs=document.querySelectorAll('.tab-btn[data-tab]');var tabKeys=['tab-mortgage','tab-car','tab-personal','tab-student'];tabs.forEach(function(btn,i){if(tx(tabKeys[i]))btn.textContent=tx(tabKeys[i]);});
 document.querySelectorAll('.footer-links a[data-i18n]').forEach(function(a){var v=tx(a.getAttribute('data-i18n'));if(v)a.textContent=v;});
-var hs=document.getElementById('hero-sub-el');if(hs&&tx('hero-sub'))hs.textContent=tx('hero-sub');function setLabel(forAttr,key){var el=document.querySelector('label[for="'+forAttr+'"]');if(el&&tx(key))el.textContent=tx(key);}setLabel('s-amount','lbl-amount');setLabel('s-rate','lbl-rate');setLabel('s-term','lbl-term');setLabel('ci-s-principal','ci-label-principal');setLabel('ci-s-monthly','ci-label-monthly');setLabel('ci-s-rate','ci-label-rate');setLabel('ci-s-years','ci-label-years');setLabel('rf-s-balance','rf-balance');setLabel('rf-s-oldrate','rf-oldrate');setLabel('rf-s-remaining','rf-remaining');setLabel('rf-s-newrate','rf-newrate');setLabel('rf-s-costs','rf-costs');function setEl(id,key){var el=document.getElementById(id);if(el&&tx(key))el.textContent=tx(key);}setEl('res-monthly-lbl','res-monthly');setEl('res-principal-lbl','res-principal');setEl('res-interest-lbl','res-interest');setEl('res-total-lbl','res-total');setEl('res-year-lbl','res-year');var bpEl=document.getElementById('bp-label');if(bpEl&&tx('lbl-principal-pct'))bpEl.textContent=tx('lbl-principal-pct')+' ';var biEl=document.getElementById('bi-label');if(biEl&&tx('lbl-interest-pct'))biEl.textContent=tx('lbl-interest-pct')+' ';setEl('section-breakdown-h','section-breakdown');setEl('section-amort-h','section-amort');var thEls=document.querySelectorAll('#amort-table thead th');var thKeys=['amort-year','amort-start','amort-ppaid','amort-ipaid','amort-end'];thEls.forEach(function(th,i){if(tx(thKeys[i]))th.textContent=tx(thKeys[i]);});var toggleBtn=document.getElementById('toggle-rows');if(toggleBtn){toggleBtn.dataset.showAll=tx('btn-show-all');toggleBtn.dataset.showLess=tx('btn-show-less');}setEl('how-h2','section-how');setEl('compound-h2','ci-h2');setLabel('ci-s-principal','ci-label-principal');setLabel('ci-s-monthly','ci-label-monthly');setLabel('ci-s-rate','ci-label-rate');setLabel('ci-s-years','ci-label-years');setEl('ci-result-lbl','ci-result-label');setEl('ci-sub-lbl','ci-sub');setEl('ci-deposited-lbl','ci-deposited');setEl('ci-earned-lbl','ci-earned');setEl('ci-mult-lbl','ci-mult');setEl('ci-year-lbl','ci-year');setEl('ci-chart-h','ci-chart-h');setEl('rf-h2','rf-h2');setEl('rf-current-lbl','rf-current');setEl('rf-new-lbl','rf-new');setLabel('rf-s-balance','rf-balance');setLabel('rf-s-oldrate','rf-oldrate');setLabel('rf-s-remaining','rf-remaining');setLabel('rf-s-newrate','rf-newrate');setLabel('rf-s-costs','rf-costs');setEl('rf-monthly-lbl','rf-monthly');setEl('rf-old-lbl','rf-old');setEl('rf-new-pay-lbl','rf-new-pay');setEl('rf-breakeven-lbl','rf-breakeven');setEl('rf-total-lbl','rf-total');setEl('cur-h2','cur-h2');setEl('tx-cur-sub','cur-section-sub');var amtLbl=document.querySelector('label[for="cur-from"]');if(amtLbl&&tx('cur-amount-label'))amtLbl.textContent=tx('cur-amount-label');var toLbl=document.querySelector('label[for="cur-to"]');if(toLbl&&tx('cur-to-label'))toLbl.textContent=tx('cur-to-label');setEl('cur-quick-lbl','cur-quick');setEl('gold-title-el','gold-title');setEl('gold-sub-el','gold-sub');setEl('oil-title-el','oil-title');setEl('oil-sub-el','oil-sub');setEl('gold-local-lbl','gold-local-lbl');setEl('oil-local-lbl','oil-local-lbl');var faqH=document.getElementById('faq-h2');if(faqH&&tx('faq-heading'))faqH.textContent=tx('faq-heading');setEl('footer-desc-el','footer-desc');setEl('footer-disclaimer-el','footer-disclaimer');window.APP_LANG=lang;
+var hs=document.getElementById('hero-sub-el');if(hs&&tx('hero-sub'))hs.textContent=tx('hero-sub');function setLabel(forAttr,key){var el=document.querySelector('label[for="'+forAttr+'"]');if(el&&tx(key))el.textContent=tx(key);}setLabel('s-amount','lbl-amount');setLabel('s-rate','lbl-rate');setLabel('s-term','lbl-term');setLabel('ci-s-principal','ci-label-principal');setLabel('ci-s-monthly','ci-label-monthly');setLabel('ci-s-rate','ci-label-rate');setLabel('ci-s-years','ci-label-years');setLabel('rf-s-balance','rf-balance');setLabel('rf-s-oldrate','rf-oldrate');setLabel('rf-s-remaining','rf-remaining');setLabel('rf-s-newrate','rf-newrate');setLabel('rf-s-costs','rf-costs');function setEl(id,key){var el=document.getElementById(id);if(el&&tx(key))el.textContent=tx(key);}setEl('res-monthly-lbl','res-monthly');setEl('res-principal-lbl','res-principal');setEl('res-interest-lbl','res-interest');setEl('res-total-lbl','res-total');setEl('res-year-lbl','res-year');var bpEl=document.getElementById('bp-label');if(bpEl&&tx('lbl-principal-pct'))bpEl.textContent=tx('lbl-principal-pct')+' ';var biEl=document.getElementById('bi-label');if(biEl&&tx('lbl-interest-pct'))biEl.textContent=tx('lbl-interest-pct')+' ';setEl('section-breakdown-h','section-breakdown');setEl('section-amort-h','section-amort');var thEls=document.querySelectorAll('#amort-table thead th');var thKeys=['amort-year','amort-start','amort-ppaid','amort-ipaid','amort-end'];thEls.forEach(function(th,i){if(tx(thKeys[i]))th.textContent=tx(thKeys[i]);});var toggleBtn=document.getElementById('toggle-rows');if(toggleBtn){toggleBtn.dataset.showAll=tx('btn-show-all');toggleBtn.dataset.showLess=tx('btn-show-less');}setEl('how-h2','section-how');setEl('compound-h2','ci-h2');setLabel('ci-s-principal','ci-label-principal');setLabel('ci-s-monthly','ci-label-monthly');setLabel('ci-s-rate','ci-label-rate');setLabel('ci-s-years','ci-label-years');setEl('ci-result-lbl','ci-result-label');setEl('ci-sub-lbl','ci-sub');setEl('ci-deposited-lbl','ci-deposited');setEl('ci-earned-lbl','ci-earned');setEl('ci-mult-lbl','ci-mult');setEl('ci-year-lbl','ci-year');setEl('ci-chart-h','ci-chart-h');setEl('ci-helper-title','ci-helper-title');setEl('ci-helper-text','ci-helper-text');setEl('rf-h2','rf-h2');setEl('rf-desc','rf-desc');setEl('rf-current-lbl','rf-current');setEl('rf-new-lbl','rf-new');setLabel('rf-s-balance','rf-balance');setLabel('rf-s-oldrate','rf-oldrate');setLabel('rf-s-remaining','rf-remaining');setLabel('rf-s-newrate','rf-newrate');setLabel('rf-s-costs','rf-costs');setEl('rf-monthly-lbl','rf-monthly');setEl('rf-old-lbl','rf-old');setEl('rf-new-pay-lbl','rf-new-pay');setEl('rf-breakeven-lbl','rf-breakeven');setEl('rf-total-lbl','rf-total');setEl('cur-h2','cur-h2');setEl('tx-cur-sub','cur-section-sub');var amtLbl=document.querySelector('label[for="cur-from"]');if(amtLbl&&tx('cur-amount-label'))amtLbl.textContent=tx('cur-amount-label');var toLbl=document.querySelector('label[for="cur-to"]');if(toLbl&&tx('cur-to-label'))toLbl.textContent=tx('cur-to-label');setEl('cur-quick-lbl','cur-quick');setEl('gold-title-el','gold-title');setEl('gold-sub-el','gold-sub');setEl('oil-title-el','oil-title');setEl('oil-sub-el','oil-sub');setEl('gold-local-lbl','gold-local-lbl');setEl('oil-local-lbl','oil-local-lbl');var faqH=document.getElementById('faq-h2');if(faqH&&tx('faq-heading'))faqH.textContent=tx('faq-heading');setEl('footer-desc-el','footer-desc');setEl('footer-disclaimer-el','footer-disclaimer');window.APP_LANG=lang;
 /* Expose full i18n map for JS consumption */
 window._i18n_current = t;
 window._i18n_en = I18N['en'];
@@ -1420,6 +1436,67 @@ document.querySelectorAll('.footer-links a[data-panel]').forEach(function(a){
 var hashMap = {loans:'panel-loans',savings:'panel-savings',refinance:'panel-refinance',currency:'panel-currency',faq:'panel-faq',calculator:'panel-loans',compound:'panel-savings'};
 var initHash = location.hash.replace('#','');
 if(hashMap[initHash]) switchPanel(hashMap[initHash]);
+</script>
+
+<script>
+/* API timeout fallback — show error state after 12s if still loading */
+setTimeout(function(){
+  var st = document.getElementById('cur-status-text');
+  if(st && /Loading|Fetching/i.test(st.textContent)){
+    st.textContent = 'Rates unavailable — try refreshing';
+    var d = document.getElementById('cur-dot');
+    if(d) d.style.background = 'var(--border)';
+  }
+  ['gold','oil'].forEach(function(type){
+    var s = document.getElementById(type + '-status');
+    if(s && /Loading/i.test(s.textContent)){
+      s.textContent = 'Unavailable — try refreshing';
+      var d = document.getElementById(type + '-dot');
+      if(d) d.style.background = 'var(--border)';
+    }
+  });
+}, 12000);
+
+/* Calc state persistence — restore last-used values on page load */
+(function(){
+  var CALC_KEY = 'loancalc_calc_state';
+  function saveState(){
+    var a = document.getElementById('s-amount');
+    var r = document.getElementById('s-rate');
+    var t = document.getElementById('s-term');
+    if(!a || !r || !t) return;
+    try {
+      localStorage.setItem(CALC_KEY, JSON.stringify({
+        tab: window._currentTab || 'mortgage',
+        amount: a.value, rate: r.value, term: t.value,
+        ts: Date.now()
+      }));
+    } catch(e){}
+  }
+  function restoreState(){
+    try {
+      var raw = localStorage.getItem(CALC_KEY);
+      if(!raw) return;
+      var s = JSON.parse(raw);
+      if(Date.now() - s.ts > 86400000) return;
+      if(s.tab && s.tab !== 'mortgage' && window.switchTab) window.switchTab(s.tab);
+      var a = document.getElementById('s-amount');
+      var r = document.getElementById('s-rate');
+      var t = document.getElementById('s-term');
+      function inBounds(el, v){ return el && v && parseFloat(v) >= parseFloat(el.min) && parseFloat(v) <= parseFloat(el.max); }
+      if(inBounds(a, s.amount)) a.value = s.amount;
+      if(inBounds(r, s.rate))   r.value = s.rate;
+      if(inBounds(t, s.term))   t.value = s.term;
+      if(window.updateSliderFillGlobal){ [a,r,t].forEach(function(el){ if(el) window.updateSliderFillGlobal(el); }); }
+      if(a) a.dispatchEvent(new Event('input'));
+    } catch(e){}
+  }
+  ['s-amount','s-rate','s-term'].forEach(function(id){
+    var el = document.getElementById(id);
+    if(el) el.addEventListener('input', saveState);
+  });
+  setTimeout(restoreState, 50);
+})();
 </script>
 
 
