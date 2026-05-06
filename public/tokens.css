@@ -22,6 +22,7 @@
   --color-oil-border:     #639922;   /* Oil card icon border */
   --color-focus-ring:     rgba(27,63,163,0.15); /* Focus outline glow */
   --color-hero-glow:      rgba(27,63,163,0.18); /* Focus Blue at 18% — hero radial gradient */
+  --color-white:          oklch(99% 0.006 252); /* Tinted white — never pure #fff */
 
   /* ── Slider fill ──────────────────────────────────────── */
   --slider-fill:  var(--color-navy);   /* filled track segment */
