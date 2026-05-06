@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -34,232 +34,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-<style>
-:root{
-  --navy:#0A1628;--navy-mid:#162040;--navy-soft:#1B3FA3;
-  --gold:#C8973A;--gold-light:#FDF4E3;--gold-deep:#96700A;
-  --loss-red:#C0392B;
-  --bg:#F0F4FF;--card:#FFFFFF;--card2:#F8FAFF;
-  --text:#0A1628;--muted:#5B6278;--border:#D5DCF0;
-  --green:#0B7C4E;--green-light:#E9F7F0;
-  --blue-light:#EEF2FF;
-  --r:12px;--rLg:20px;--rXl:28px;
-  --shadow:0 2px 16px rgba(10,22,40,0.08);
-  --shadowMd:0 4px 32px rgba(10,22,40,0.12);
-  --ff-display:'Playfair Display',Georgia,serif;
-  --ff-body:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
-  --ff-mono:'Courier New',Courier,monospace;
-}
-*{box-sizing:border-box;margin:0;padding:0}
-input[type=number]::-webkit-inner-spin-button,input[type=number]::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
-input[type=number]{-moz-appearance:textfield}
-html{scroll-behavior:smooth;font-size:16px}
-body{font-family:var(--ff-body);background:var(--bg);color:var(--text);line-height:1.6;-webkit-font-smoothing:antialiased}
-.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.container{max-width:1100px;margin:0 auto;padding:0 20px}
-header{background:var(--navy);position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,0.06)}
-.header-inner{display:flex;align-items:center;justify-content:space-between;height:64px}
-.logo-link{display:flex;align-items:center;gap:10px;text-decoration:none}
-.logo-text{font-family:var(--ff-display);font-size:20px;font-weight:700;color:#fff;letter-spacing:-0.02em}
-.logo-text span{color:var(--gold)}
-header nav{display:flex;gap:6px}
-header nav a{color:rgba(255,255,255,0.65);text-decoration:none;font-size:13px;font-weight:400;padding:6px 12px;border-radius:6px;transition:all .15s}
-header nav a:hover{color:#fff;background:rgba(255,255,255,0.08)}
-.hero{background:var(--navy);padding:32px 0 28px;text-align:center;position:relative;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 100%,rgba(27,63,163,0.18) 0%,transparent 70%);pointer-events:none}
-.hero h1{font-family:var(--ff-display);font-size:clamp(32px,5vw,54px);font-weight:700;color:#fff;line-height:1.15;letter-spacing:-0.025em;margin-bottom:16px}
-.hero h1 em{font-style:normal;color:var(--gold)}
-.hero-sub{font-size:17px;color:rgba(255,255,255,0.65);max-width:520px;margin:0 auto 28px;font-weight:300;line-height:1.7}
-.tab-wrap{background:var(--navy);padding-bottom:0}
-.tab-nav{display:flex;justify-content:center;gap:0;padding:0 20px;max-width:700px;margin:0 auto;border-bottom:1px solid rgba(255,255,255,0.08)}
-.tab-btn{flex:1;padding:14px 8px;background:transparent;border:none;border-bottom:2px solid transparent;color:rgba(255,255,255,0.45);font-size:14px;font-weight:400;cursor:pointer;font-family:var(--ff-body);transition:all .2s;white-space:nowrap}
-.tab-btn:hover{color:rgba(255,255,255,0.75)}
-.tab-btn.active{color:#fff;border-bottom-color:rgba(255,255,255,0.92);font-weight:500}
-.calc-section{background:var(--bg);padding:48px 0 0}
-.calc-card{background:var(--card);border-radius:var(--rXl);box-shadow:var(--shadowMd);overflow:hidden;border:1px solid var(--border)}
-.calc-grid{display:grid;grid-template-columns:1fr 1fr;min-height:400px}
-@media(max-width:720px){.calc-grid{grid-template-columns:1fr}}
-/* Prevent grid cells from expanding with content */
-.calc-grid > *{min-width:0;overflow:hidden}
-.inputs-panel{padding:36px 40px;border-right:1px solid var(--border)}
-@media(max-width:720px){.inputs-panel{padding:28px 24px;border-right:none}}
-.input-group{margin-bottom:28px}
-.input-group:last-of-type{margin-bottom:0}
-.ig-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.ig-label{font-size:13px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.06em}
-.ig-val{display:flex;align-items:center;gap:2px;background:var(--card2);border:1.5px solid var(--border);border-radius:8px;padding:4px 10px;transition:border-color .15s}
-.ig-val:focus-within{border-color:var(--navy-soft)}
-.ig-sym{font-size:14px;color:var(--muted);font-weight:500}
-.ig-input{width:70px;min-width:0;border:none;background:transparent;font-size:14px;font-weight:500;color:var(--text);font-family:var(--ff-body);text-align:right;outline:none}
-.ig-unit{font-size:14px;color:var(--muted);font-weight:400}
-input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:5px;border-radius:99px;outline:none;cursor:pointer;margin-bottom:6px}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:var(--navy);border:3px solid #fff;box-shadow:0 2px 8px rgba(10,22,40,0.25);cursor:pointer;transition:transform .1s}
-input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.15)}
-input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--navy);border:3px solid #fff;cursor:pointer}
-.range-ends{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
-.helper-note{margin-top:24px;padding:12px 16px;background:var(--gold-light);border-radius:10px;border:1px solid rgba(200,151,58,0.35);font-size:12px;color:var(--gold-deep);line-height:1.5}
-.helper-note strong{display:block;margin-bottom:2px;font-size:13px;color:var(--navy)}
-.results-panel{padding:36px 40px;background:var(--navy);display:flex;flex-direction:column;gap:20px;justify-content:center;overflow:hidden;min-width:0}
-@media(max-width:720px){.results-panel{padding:28px 24px;order:-1;border-bottom:1px solid rgba(255,255,255,0.1)}}
-.monthly-card{text-align:center;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.1)}
-.monthly-label{font-size:12px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(255,255,255,0.45);margin-bottom:8px;font-weight:400}
-.monthly-amount{font-family:var(--ff-display);font-size:clamp(18px,4vw,56px);font-weight:700;color:#fff;letter-spacing:-0.03em;line-height:1.1;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;width:100%;display:block;text-align:center}
-.monthly-sub{font-size:13px;color:rgba(255,255,255,0.45);margin-top:6px}
-.results-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.res-box{background:rgba(255,255,255,0.06);border-radius:10px;padding:12px 14px;border:1px solid rgba(255,255,255,0.08)}
-.res-lbl{font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.4);margin-bottom:4px}
-.res-val{font-size:14px;font-weight:500;color:#fff;font-family:var(--ff-body);overflow:hidden;white-space:nowrap;text-overflow:ellipsis;display:block}
-.res-val.gold{color:var(--gold)}
-.breakdown-row{margin-top:4px}
-.breakdown-label{display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:6px}
-.breakdown-bar{height:6px;background:rgba(255,255,255,0.1);border-radius:99px;overflow:hidden;display:flex}
-.bar-p{height:100%;background:rgba(255,255,255,0.7);border-radius:99px 0 0 99px;transition:width .4s cubic-bezier(.4,0,.2,1)}
-.bar-i{height:100%;background:var(--gold);border-radius:0 99px 99px 0;transition:width .4s cubic-bezier(.4,0,.2,1)}
-.chart-section{padding:48px 0}
-.section-title{font-family:var(--ff-display);font-size:26px;font-weight:600;color:var(--navy);margin-bottom:6px}
-.section-sub{font-size:14px;color:var(--muted);margin-bottom:28px}
-.chart-wrap{background:var(--card);border-radius:var(--rLg);border:1px solid var(--border);box-shadow:var(--shadow);padding:32px;display:grid;grid-template-columns:280px 1fr;gap:40px;align-items:center}
-@media(max-width:720px){.chart-wrap{grid-template-columns:1fr;gap:24px}}
-.chart-canvas-wrap{position:relative;height:240px;width:240px;margin:0 auto}
-.chart-center{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;pointer-events:none}
-.chart-center-num{font-family:var(--ff-display);font-size:22px;font-weight:600;color:var(--navy)}
-.chart-center-lbl{font-size:11px;color:var(--muted);margin-top:2px}
-.chart-stats{display:flex;flex-direction:column;gap:20px}
-.chart-stat-item{display:flex;align-items:center;gap:14px}
-.stat-dot{width:12px;height:12px;border-radius:50%;flex-shrink:0}
-.stat-dot.navy{background:var(--navy)}
-.stat-dot.gold{background:var(--gold)}
-.stat-info .stat-lbl{font-size:12px;color:var(--muted)}
-.stat-info .stat-val{font-size:20px;font-weight:500;color:var(--text);font-family:var(--ff-body)}
-.stat-info .stat-pct{font-size:13px;color:var(--muted);margin-left:6px}
-.chart-divider{height:1px;background:var(--border);margin:8px 0}
-.payoff-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0}
-.po-label{font-size:13px;color:var(--muted)}
-.po-val{font-size:16px;font-weight:500;color:var(--navy)}
-.amort-section{padding:0 0 48px}
-.section-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px}
-.toggle-btn{padding:8px 18px;background:transparent;border:1.5px solid var(--border);border-radius:8px;font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;font-family:var(--ff-body);transition:all .15s}
-.toggle-btn:hover{border-color:var(--navy);color:var(--navy)}
-.table-wrap{background:var(--card);border-radius:var(--rLg);border:1px solid var(--border);box-shadow:var(--shadow);overflow:hidden}
-.table-scroll{overflow-x:auto}
-table{width:100%;border-collapse:collapse;font-size:14px}
-thead{background:var(--navy)}
-thead th{padding:14px 18px;text-align:right;font-size:11px;font-weight:500;text-transform:uppercase;letter-spacing:0.07em;color:rgba(255,255,255,0.55);white-space:nowrap}
-thead th:first-child{text-align:left}
-tbody tr{border-top:1px solid var(--border);transition:background .1s}
-tbody tr:hover{background:var(--card2)}
-tbody td{padding:12px 18px;text-align:right;color:var(--text);font-size:14px;font-family:var(--ff-body)}
-tbody td:first-child{text-align:left;font-weight:500;color:var(--navy)}
-tbody td.red{color:var(--loss-red)}
-tbody td.green{color:var(--green)}
-.how-section{background:var(--navy);padding:64px 0;color:#fff}
-.how-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:start}
-@media(max-width:720px){.how-grid{grid-template-columns:1fr;gap:32px}}
-.how-section h2{font-family:var(--ff-display);font-size:28px;font-weight:600;color:#fff;margin-bottom:16px}
-.how-section h3{font-family:var(--ff-display);font-size:19px;font-weight:600;color:#fff;margin:24px 0 10px}
-.how-section p{font-size:15px;color:rgba(255,255,255,0.65);line-height:1.75;margin-bottom:14px}
-.formula-box{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);border-radius:12px;padding:18px 22px;font-family:var(--ff-mono);font-size:14px;color:rgba(255,255,255,0.85);line-height:1.8;margin:16px 0}
-.formula-vars{display:flex;flex-direction:column;gap:6px}
-.formula-var{display:flex;gap:10px;font-size:13px}
-.formula-var strong{color:var(--gold);font-family:var(--ff-mono);min-width:16px}
-.formula-var span{color:rgba(255,255,255,0.6)}
-.tips-list{list-style:none;display:flex;flex-direction:column;gap:12px}
-.tips-list li{display:flex;gap:12px;align-items:flex-start;font-size:14px;color:rgba(255,255,255,0.65);line-height:1.6}
-.tips-list li::before{content:'→';color:var(--gold);flex-shrink:0;margin-top:2px;font-size:14px}
-.faq-section{padding:64px 0}
-.faq-section h2{font-family:var(--ff-display);font-size:28px;font-weight:600;color:var(--navy);margin-bottom:28px}
-.faq-list{display:flex;flex-direction:column;gap:2px}
-.faq-item{background:var(--card);border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:box-shadow .15s}
-.faq-item:hover{box-shadow:var(--shadow)}
-.faq-q{width:100%;padding:18px 22px;background:transparent;border:none;text-align:left;font-size:15px;font-weight:500;color:var(--navy);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:12px;font-family:var(--ff-body);line-height:1.4}
-.faq-q .chevron{width:20px;height:20px;border-radius:50%;background:var(--card2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:12px;color:var(--muted);transition:transform .2s}
-.faq-item.open .chevron{transform:rotate(180deg)}
-.faq-a{display:none;padding:0 22px 18px;font-size:14px;color:var(--muted);line-height:1.7}
-.faq-item.open .faq-a{display:block}
-footer{background:var(--navy-mid);border-top:1px solid rgba(255,255,255,0.06);padding:40px 0 32px;text-align:center}
-.footer-logo{display:flex;align-items:center;justify-content:center;gap:8px;margin-bottom:12px}
-.footer-logo-text{font-family:var(--ff-display);font-size:18px;font-weight:600;color:#fff}
-.footer-logo-text span{color:var(--gold)}
-footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-height:1.6}
-.footer-disclaimer{font-size:12px;color:rgba(255,255,255,0.25);max-width:560px;margin:16px auto 0;line-height:1.6}
-.footer-links{display:flex;justify-content:center;gap:20px;margin:16px 0}
-.footer-links a{font-size:13px;color:rgba(255,255,255,0.4);text-decoration:none;transition:color .15s}
-.footer-links a:hover{color:rgba(255,255,255,0.75)}
-@keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
-.calc-card,.chart-wrap,.table-wrap{animation:fadeUp .4s ease both}
-.settings-btn{width:auto;padding:0 12px 0 8px;gap:6px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);transition:all .15s;flex-shrink:0;height:36px}
-.settings-btn:hover{background:rgba(255,255,255,0.1);color:#fff}
-.settings-btn svg{width:16px;height:16px}
-.settings-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:999;cursor:pointer}
-.settings-overlay.open{display:block}
-.settings-drawer{position:fixed;top:0;right:-340px;width:320px;height:100vh;background:var(--navy-mid);border-left:1px solid rgba(255,255,255,0.08);z-index:1000;transition:right .25s cubic-bezier(.4,0,.2,1);overflow-y:auto;display:flex;flex-direction:column}
-.settings-drawer.open{right:0}
-.settings-head{padding:20px 24px;border-bottom:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:space-between}
-.settings-title{font-size:15px;font-weight:500;color:#fff}
-.settings-close{width:28px;height:28px;border-radius:6px;border:1px solid rgba(255,255,255,0.12);background:transparent;cursor:pointer;color:rgba(255,255,255,0.6);font-size:16px;display:flex;align-items:center;justify-content:center;transition:all .15s}
-.settings-close:hover{background:rgba(255,255,255,0.1);color:#fff}
-.settings-body{padding:24px;display:flex;flex-direction:column;gap:24px;flex:1}
-.settings-group{display:flex;flex-direction:column;gap:8px}
-.settings-label{font-size:11px;text-transform:uppercase;letter-spacing:0.08em;color:rgba(255,255,255,0.45);font-weight:500}
-.settings-select{width:100%;padding:10px 12px;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.06);color:#fff;font-size:14px;font-family:var(--ff-body);cursor:pointer;outline:none;transition:border-color .15s;-webkit-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center}
-.settings-select:focus{border-color:var(--navy-soft)}
-.settings-select option{background:#162040;color:#fff}
-.settings-note{font-size:12px;color:rgba(255,255,255,0.35);line-height:1.6}
-.settings-save{margin:0 24px 24px;padding:11px;border-radius:8px;background:var(--gold);border:none;color:var(--navy);font-size:14px;font-weight:500;cursor:pointer;font-family:var(--ff-body);transition:opacity .15s}
-.settings-save:hover{opacity:.88}
-.pref-tag{display:inline-flex;align-items:center;gap:5px;background:rgba(200,151,58,0.15);border:1px solid rgba(200,151,58,0.3);border-radius:6px;padding:4px 10px;font-size:12px;color:var(--gold);margin-top:4px}
-[dir="rtl"] .header-inner{flex-direction:row-reverse}[dir="rtl"] .settings-btn{order:-1}
-[dir="rtl"] .settings-drawer{right:auto;left:-340px;border-left:none;border-right:1px solid rgba(255,255,255,0.08)}
-[dir="rtl"] .settings-drawer.open{left:0;right:auto}
-[dir="rtl"] .ig-head{flex-direction:row-reverse}
-[dir="rtl"] #cur-swap{transform:scaleX(-1)}
-[dir="rtl"] .breakdown-label{flex-direction:row-reverse}
-[dir="rtl"] .results-grid{direction:rtl}
-[dir="rtl"] .faq-q{flex-direction:row-reverse;text-align:right}
-[dir="rtl"] .how-grid{direction:rtl}
-[dir="rtl"] thead th:first-child{text-align:right}[dir="rtl"] tbody td:first-child{text-align:right}[dir="rtl"] thead th:not(:first-child){text-align:left}[dir="rtl"] tbody td:not(:first-child){text-align:left}
-@media(max-width:520px){
-  .header-inner nav{display:none}
-  .results-grid{grid-template-columns:1fr}
-  .tab-nav{overflow-x:auto;justify-content:flex-start;padding:0 8px;scrollbar-width:none;-ms-overflow-style:none}
-  .tab-nav::-webkit-scrollbar{display:none}
-  .tab-nav .tab-btn{flex:0 0 auto;padding:14px 16px}
-}
-@media(max-width:768px){
-  .ig-input,.cur-sel,.cur-search,.settings-select,.settings-search{font-size:16px}
-}
-.en-only{}
-.tool-panel{display:none}
-.tool-panel.active{display:block}
-.tab-btn:focus-visible{outline:2px solid var(--navy-soft);outline-offset:-2px;border-radius:4px}
-.loan-seg{display:flex;border:1.5px solid var(--border);border-radius:8px;overflow:hidden;margin-bottom:28px;background:var(--card2)}
-.loan-seg .tab-btn{padding:12px 8px;border-bottom:none;border-bottom-color:transparent;color:var(--muted);font-size:12px;font-weight:500}
-.loan-seg .tab-btn:not(:last-child){border-right:1.5px solid var(--border)}
-.loan-seg .tab-btn:hover:not(.active){color:var(--text);background:var(--bg)}
-.loan-seg .tab-btn.active{background:var(--navy);color:#fff;border-bottom-color:transparent}
-.loan-seg .tab-btn:focus-visible{border-radius:0}
-[dir="rtl"] .loan-seg .tab-btn:not(:last-child){border-right:none;border-left:1.5px solid var(--border)}
-@media(prefers-reduced-motion:reduce){
-  .calc-card,.chart-wrap,.table-wrap{animation:none;opacity:1;transform:none}
-  .bar-p,.bar-i,.faq-q .chevron,.settings-drawer{transition:none}
-  *{transition-duration:.01ms!important}
-  #pref-toast{transition:none!important}
-}
-.settings-btn-label{font-size:12px;font-weight:400;color:rgba(255,255,255,0.55);letter-spacing:0.03em}
-@media(max-width:480px){.settings-btn-label{display:none}}
-.ig-clamp-note{font-size:11px;color:var(--gold);opacity:0;transition:opacity .2s;min-height:14px;margin-top:3px;padding-left:2px}
-.ig-clamp-note.visible{opacity:1}
-.cur-sel-wrap{display:flex;flex-direction:column}
-.cur-search{width:100%;padding:7px 10px;font-size:12px;border:1.5px solid var(--border);border-radius:6px 6px 0 0;border-bottom:none;background:var(--card);color:var(--text);font-family:var(--ff-body);outline:none;transition:border-color .15s}
-.cur-search::placeholder{color:var(--muted)}
-.cur-search:focus{border-color:var(--navy-soft)}
-.cur-sel-wrap select{border-top-left-radius:0!important;border-top-right-radius:0!important}
-.settings-search{width:100%;padding:8px 10px;font-size:13px;border:1px solid rgba(255,255,255,0.15);border-radius:6px;background:rgba(255,255,255,0.06);color:#fff;font-family:var(--ff-body);outline:none;transition:border-color .15s;margin-bottom:6px}
-.settings-search::placeholder{color:rgba(255,255,255,0.3)}
-.settings-search:focus{border-color:var(--navy-soft)}
-#pref-toast{position:fixed;bottom:24px;right:24px;padding:10px 18px;border-radius:8px;background:var(--navy-mid);border:1px solid rgba(200,151,58,0.35);color:var(--gold);font-size:13px;font-weight:500;font-family:var(--ff-body);box-shadow:0 4px 20px rgba(0,0,0,0.35);opacity:0;transform:translateY(8px);transition:opacity .2s,transform .2s;pointer-events:none;z-index:9999}
-#pref-toast.show{opacity:1;transform:translateY(0)}
-</style>
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 <header role="banner">
@@ -330,8 +106,8 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
 </section>
 
 <!-- TOOL BAR — same style as loan tabs -->
-<div style="background:var(--navy);position:sticky;top:64px;z-index:90">
-  <div class="tab-nav" id="tool-nav" role="tablist" aria-label="Main tools" style="max-width:900px;border-bottom:2px solid rgba(255,255,255,0.08)">
+<div class="tool-nav-wrap">
+  <div class="tab-nav" id="tool-nav" role="tablist" aria-label="Main tools">
     <button class="tab-btn active" role="tab" aria-selected="true" data-panel="panel-loans" data-i18n="nav-loans">Loans</button>
     <button class="tab-btn" role="tab" aria-selected="false" data-panel="panel-savings" data-i18n="nav-savings">Savings</button>
     <button class="tab-btn" role="tab" aria-selected="false" data-panel="panel-refinance" data-i18n="nav-refinance">Refinance</button>
@@ -436,9 +212,9 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
   </div>
 </section>
 
-<section style="padding:0 0 32px;background:var(--bg)" aria-label="About the loan calculator" class="en-only">
+<section class="panel-description en-only" aria-label="About the loan calculator">
   <div class="container">
-    <div style="max-width:780px;font-size:15px;color:var(--muted);line-height:1.8">
+    <div class="prose">
       <p id="tx-loan-desc" data-i18n="loan-desc">Use this free loan payment calculator to find your exact monthly payment for any mortgage, car loan, personal loan, or student loan. Enter your loan amount, annual interest rate, and term in years — the calculator instantly shows your monthly payment, total interest paid over the life of the loan, and a full year-by-year amortization schedule showing how your balance decreases with every payment. The formula used is the standard loan amortization equation and works identically for any currency and any country worldwide. No account or signup is required.</p>
     </div>
   </div>
@@ -477,7 +253,7 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
           <span class="po-label" data-i18n="chart-stat-total">Total amount repaid</span>
           <span class="po-val" id="c-total">—</span>
         </div>
-        <div class="payoff-row" style="padding-top:0">
+        <div class="payoff-row payoff-row--no-top">
           <span class="po-label" data-i18n="chart-stat-payoff">Loan fully paid off</span>
           <span class="po-val" id="c-year">—</span>
         </div>
@@ -587,7 +363,7 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
 </section>
 
 </div><!-- /panel-faq -->
-<div id="panel-savings" class="tool-panel"><section id="compound" style="padding:64px 0;background:var(--bg)" aria-labelledby="compound-h2">
+<div id="panel-savings" class="tool-panel"><section id="compound" class="panel-section" aria-labelledby="compound-h2">
   <div class="container">
     <h2 class="section-title" id="compound-h2">Compound interest &amp; savings growth calculator</h2>
     <p class="section-sub" id="tx-ci-sub" data-i18n="ci-section-sub">See exactly how your savings or investment grows year by year with compound interest.</p>
@@ -656,31 +432,31 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
         </div>
       </div>
     </div>
-    <div style="background:var(--card);border-radius:var(--rLg);border:1px solid var(--border);box-shadow:var(--shadow);padding:32px;margin-top:24px">
-      <h3 id="ci-chart-h" style="font-family:var(--ff-display);font-size:18px;font-weight:600;color:var(--navy);margin-bottom:6px">Year-by-year growth</h3>
-      <p style="font-size:13px;color:var(--muted);margin-bottom:20px" data-i18n="ci-chart-sub">Balance at end of each year, split between your deposits and compound growth.</p>
-      <div style="position:relative;height:280px"><canvas id="ciChart" role="img" aria-label="Bar chart showing compound interest growth year by year, split between total deposited and interest earned"></canvas></div>
+    <div class="ci-chart-wrap">
+      <h3 id="ci-chart-h" class="ci-chart-title">Year-by-year growth</h3>
+      <p class="ci-chart-sub" data-i18n="ci-chart-sub">Balance at end of each year, split between your deposits and compound growth.</p>
+      <div class="ci-chart-canvas"><canvas id="ciChart" role="img" aria-label="Bar chart showing compound interest growth year by year, split between total deposited and interest earned"></canvas></div>
     </div>
   </div>
 </section>
 
-<div style="padding:0 0 32px;background:var(--bg)" class="en-only">
+<div class="panel-description en-only">
   <div class="container">
-    <div style="max-width:780px;font-size:15px;color:var(--muted);line-height:1.8">
+    <div class="prose">
       <p id="tx-ci-desc" data-i18n="ci-desc">The compound interest calculator shows how an initial deposit grows over time when interest is earned on both the original principal and the accumulated interest. Enter a starting amount, monthly contribution, annual return rate, and investment period to see the future value of your savings or investment portfolio. The S&amp;P 500 has historically returned approximately 7% annually after inflation — use this as a realistic baseline for diversified index fund investments. The year-by-year chart clearly shows the exponential effect of compounding, particularly over 20 or 30 year periods.</p>
     </div>
   </div>
 </div>
 
 </div><!-- /panel-savings -->
-<div id="panel-refinance" class="tool-panel"><section id="refinance" style="padding:64px 0;background:var(--navy)" aria-labelledby="refi-h2">
+<div id="panel-refinance" class="tool-panel"><section id="refinance" class="panel-section--dark" aria-labelledby="refi-h2">
   <div class="container">
-    <h2 style="font-family:var(--ff-display);font-size:26px;font-weight:600;color:#fff;margin-bottom:6px" id="rf-h2">Refinance calculator — how much will you save?</h2>
-    <p id="rf-desc" style="font-size:14px;color:rgba(255,255,255,0.55);margin-bottom:28px">Enter your current loan details and the new rate you've been offered. The refinance calculator shows your monthly savings, the break-even month, and your total lifetime saving after closing costs.</p>
+    <h2 class="section-title--on-dark" id="rf-h2">Refinance calculator — how much will you save?</h2>
+    <p id="rf-desc" class="section-sub--on-dark">Enter your current loan details and the new rate you've been offered. The refinance calculator shows your monthly savings, the break-even month, and your total lifetime saving after closing costs.</p>
     <div class="calc-card">
       <div class="calc-grid">
         <div class="inputs-panel">
-          <p id="rf-current-lbl" style="font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);font-weight:500;margin-bottom:16px">Current loan</p>
+          <p id="rf-current-lbl" class="section-group-label">Current loan</p>
           <div class="input-group">
             <div class="ig-head">
               <label class="ig-label" for="rf-s-balance">Remaining balance</label>
@@ -705,8 +481,8 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
             <input type="range" id="rf-s-remaining" min="1" max="30" step="1" value="25">
             <div class="range-ends"><span>1 yr</span><span>30 yrs</span></div>
           </div>
-          <div style="border-top:1px solid var(--border);padding-top:20px;margin-top:4px">
-            <p id="rf-new-lbl" style="font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);font-weight:500;margin-bottom:16px">New loan offer</p>
+          <div class="section-group-divider">
+            <p id="rf-new-lbl" class="section-group-label">New loan offer</p>
           </div>
           <div class="input-group">
             <div class="ig-head">
@@ -737,23 +513,23 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
             <div class="res-box"><p class="res-lbl" id="rf-breakeven-lbl">Break-even</p><p class="res-val" id="rf-result-breakeven">—</p></div>
             <div class="res-box"><p class="res-lbl" id="rf-total-lbl">Total lifetime savings</p><p class="res-val" id="rf-result-total">—</p></div>
           </div>
-          <div id="rf-verdict" style="margin-top:8px;padding:12px 16px;border-radius:10px;font-size:13px;line-height:1.5;background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.75)" data-i18n="rf-verdict-init">Enter your loan details to see if refinancing makes sense.</div>
+          <div id="rf-verdict" class="rf-verdict" data-i18n="rf-verdict-init">Enter your loan details to see if refinancing makes sense.</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<div style="padding:32px 0;background:var(--navy)" class="en-only">
+<div class="panel-description--dark en-only">
   <div class="container">
-    <div style="max-width:780px;font-size:15px;color:rgba(255,255,255,0.55);line-height:1.8">
+    <div class="prose--on-dark">
       <p id="tx-rf-desc" data-i18n="rf-desc">The refinance savings calculator helps you decide whether it is worth refinancing your existing loan to a lower interest rate. Enter your current remaining loan balance, your current rate, and the new rate you have been offered, along with estimated closing costs. The calculator outputs your new monthly payment, the exact number of months until your savings exceed the closing costs (the break-even point), and the total lifetime saving over the remaining loan term. As a general rule, refinancing is worthwhile if you plan to stay in the loan longer than the break-even period and the new rate is at least 0.5% lower.</p>
     </div>
   </div>
 </div>
 
 </div><!-- /panel-refinance -->
-<div id="panel-currency" class="tool-panel"><section id="currency" style="padding:64px 0;background:var(--bg)" aria-labelledby="cur-h2">
+<div id="panel-currency" class="tool-panel"><section id="currency" class="panel-section" aria-labelledby="cur-h2">
   <div class="container">
     <h2 class="section-title" id="cur-h2">Live currency converter, gold price &amp; oil price today</h2>
     <p class="section-sub" id="tx-cur-sub">Convert between 30 major currencies with live exchange rates. Also shows the live gold price per gram, ounce and kilogram, plus the current WTI crude oil price per barrel — all converted to your local currency automatically. Rates cached hourly.</p>
@@ -795,92 +571,49 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
         </div>
       </div>
     </div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px" class="commodity-grid">
-      <div class="calc-card" style="padding:24px 28px">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
-          <div style="width:36px;height:36px;border-radius:8px;background:var(--gold-light);border:1px solid var(--gold);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">&#x1F947;</div>
+    <div class="commodity-grid">
+      <div class="calc-card commodity-card">
+        <div class="commodity-header">
+          <div class="commodity-icon commodity-icon--gold">&#x1F947;</div>
           <div>
-            <p id="gold-title-el" style="font-size:13px;font-weight:500;color:var(--navy)">Gold (XAU)</p>
-            <p id="gold-sub-el" style="font-size:11px;color:var(--muted)">Price per troy ounce</p>
+            <div class="commodity-name"><p id="gold-title-el" class="commodity-name-title">Gold (XAU)</p><p id="gold-sub-el" class="commodity-name-sub">Price per troy ounce</p></div>
           </div>
-          <div style="margin-left:auto;display:flex;align-items:center;gap:5px">
-            <span id="gold-dot" style="width:7px;height:7px;border-radius:50%;background:var(--border);display:inline-block"></span>
-            <span id="gold-status" style="font-size:11px;color:var(--muted)">Loading…</span>
-          </div>
+          <div class="commodity-status"><span id="gold-dot" class="commodity-status-dot"></span><span id="gold-status" class="commodity-status-text">Loading…</span></div>
         </div>
-        <p style="font-family:var(--ff-display);font-size:32px;font-weight:600;color:var(--navy);margin-bottom:4px" id="gold-usd">—</p>
-        <p style="font-size:13px;color:var(--muted);margin-bottom:14px" data-i18n="per-oz-usd">per oz in USD</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
-          <div style="background:var(--card2);border-radius:8px;padding:8px 10px;border:1px solid var(--border)"><p style="font-size:10px;color:var(--muted);margin-bottom:2px">1g</p><p style="font-size:13px;font-weight:500;color:var(--navy)" id="gold-gram">—</p></div>
-          <div style="background:var(--card2);border-radius:8px;padding:8px 10px;border:1px solid var(--border)"><p style="font-size:10px;color:var(--muted);margin-bottom:2px">10g</p><p style="font-size:13px;font-weight:500;color:var(--navy)" id="gold-10g">—</p></div>
-          <div style="background:var(--card2);border-radius:8px;padding:8px 10px;border:1px solid var(--border)"><p style="font-size:10px;color:var(--muted);margin-bottom:2px">1 kg</p><p style="font-size:13px;font-weight:500;color:var(--navy)" id="gold-kg">—</p></div>
+        <p class="commodity-price" id="gold-usd">—</p>
+        <p class="commodity-unit" data-i18n="per-oz-usd">per oz in USD</p>
+        <div class="commodity-weights">
+          <div class="commodity-weight-cell"><p class="commodity-weight-label">1g</p><p class="commodity-weight-value" id="gold-gram">—</p></div>
+          <div class="commodity-weight-cell"><p class="commodity-weight-label">10g</p><p class="commodity-weight-value" id="gold-10g">—</p></div>
+          <div class="commodity-weight-cell"><p class="commodity-weight-label">1 kg</p><p class="commodity-weight-value" id="gold-kg">—</p></div>
         </div>
-        <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
-          <p id="gold-local-lbl" style="font-size:11px;color:var(--muted);margin-bottom:4px">Price in your currency (<span id="gold-local-cur">—</span>)</p>
-          <p style="font-size:18px;font-weight:500;color:var(--navy)" id="gold-local">—</p>
-        </div>
+        <div class="commodity-local"><p id="gold-local-lbl" class="commodity-local-label">Price in your currency (<span id="gold-local-cur">—</span>)</p><p class="commodity-local-value" id="gold-local">—</p></div>
       </div>
-      <div class="calc-card" style="padding:24px 28px">
-        <div style="display:flex;align-items:center;gap:10px;margin-bottom:16px">
-          <div style="width:36px;height:36px;border-radius:8px;background:#EAF3DE;border:1px solid #639922;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">&#x1F6E2;&#xFE0F;</div>
+      <div class="calc-card commodity-card">
+        <div class="commodity-header">
+          <div class="commodity-icon commodity-icon--oil">&#x1F6E2;&#xFE0F;</div>
           <div>
-            <p id="oil-title-el" style="font-size:13px;font-weight:500;color:var(--navy)">Crude Oil (WTI)</p>
-            <p id="oil-sub-el" style="font-size:11px;color:var(--muted)">Price per barrel</p>
+            <div class="commodity-name"><p id="oil-title-el" class="commodity-name-title">Crude Oil (WTI)</p><p id="oil-sub-el" class="commodity-name-sub">Price per barrel</p></div>
           </div>
-          <div style="margin-left:auto;display:flex;align-items:center;gap:5px">
-            <span id="oil-dot" style="width:7px;height:7px;border-radius:50%;background:var(--border);display:inline-block"></span>
-            <span id="oil-status" style="font-size:11px;color:var(--muted)">Loading…</span>
-          </div>
+          <div class="commodity-status"><span id="oil-dot" class="commodity-status-dot"></span><span id="oil-status" class="commodity-status-text">Loading…</span></div>
         </div>
-        <p style="font-family:var(--ff-display);font-size:32px;font-weight:600;color:var(--navy);margin-bottom:4px" id="oil-usd">—</p>
-        <p style="font-size:13px;color:var(--muted);margin-bottom:14px" data-i18n="per-bbl-usd">per barrel in USD</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
-          <div style="background:var(--card2);border-radius:8px;padding:8px 10px;border:1px solid var(--border)"><p style="font-size:10px;color:var(--muted);margin-bottom:2px">5 bbls</p><p style="font-size:13px;font-weight:500;color:var(--navy)" id="oil-5">—</p></div>
-          <div style="background:var(--card2);border-radius:8px;padding:8px 10px;border:1px solid var(--border)"><p style="font-size:10px;color:var(--muted);margin-bottom:2px">10 bbls</p><p style="font-size:13px;font-weight:500;color:var(--navy)" id="oil-10">—</p></div>
-          <div style="background:var(--card2);border-radius:8px;padding:8px 10px;border:1px solid var(--border)"><p style="font-size:10px;color:var(--muted);margin-bottom:2px">100 bbls</p><p style="font-size:13px;font-weight:500;color:var(--navy)" id="oil-100">—</p></div>
+        <p class="commodity-price" id="oil-usd">—</p>
+        <p class="commodity-unit" data-i18n="per-bbl-usd">per barrel in USD</p>
+        <div class="commodity-weights">
+          <div class="commodity-weight-cell"><p class="commodity-weight-label">5 bbls</p><p class="commodity-weight-value" id="oil-5">—</p></div>
+          <div class="commodity-weight-cell"><p class="commodity-weight-label">10 bbls</p><p class="commodity-weight-value" id="oil-10">—</p></div>
+          <div class="commodity-weight-cell"><p class="commodity-weight-label">100 bbls</p><p class="commodity-weight-value" id="oil-100">—</p></div>
         </div>
-        <div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--border)">
-          <p id="oil-local-lbl" style="font-size:11px;color:var(--muted);margin-bottom:4px">Price in your currency (<span id="oil-local-cur">—</span>)</p>
-          <p style="font-size:18px;font-weight:500;color:var(--navy)" id="oil-local">—</p>
-        </div>
+        <div class="commodity-local"><p id="oil-local-lbl" class="commodity-local-label">Price in your currency (<span id="oil-local-cur">—</span>)</p><p class="commodity-local-value" id="oil-local">—</p></div>
       </div>
     </div>
-    <div style="max-width:780px;margin-top:24px;font-size:15px;color:var(--muted);line-height:1.8" class="en-only">
+    <div class="prose en-only" style="margin-top:24px">
       <p id="tx-cur-desc" data-i18n="cur-desc">The LoanCalc currency converter supports 30 major world currencies and uses live exchange rates updated every 24 hours via the Frankfurter open exchange rates API. The gold price shown is the live XAU spot price per troy ounce, converted from USD into your selected currency in real time. The oil price reflects the current WTI (West Texas Intermediate) crude oil futures price per barrel, which is the global benchmark used by traders and governments worldwide. All commodity and currency data is cached hourly in your browser — no excessive API calls, no account required, no data stored on any server.</p>
     </div>
   </div>
 </section>
 
-<style>
-.cur-body{padding:32px 36px}
-.cur-status{font-size:12px;color:var(--muted);margin-bottom:18px;display:flex;align-items:center;gap:8px}
-.cur-dot{width:8px;height:8px;border-radius:50%;background:var(--border);display:inline-block;flex-shrink:0}
-.cur-group{margin-bottom:14px}
-.cur-group-lg{margin-bottom:20px}
-.cur-label{font-size:11px;text-transform:uppercase;letter-spacing:0.07em;color:var(--muted);font-weight:500;display:block;margin-bottom:7px}
-.cur-amount-input{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:11px 14px;font-size:20px;font-weight:500;font-family:var(--ff-body);color:var(--text);background:var(--card);outline:none;transition:border-color .15s}
-.cur-selects-row{display:grid;grid-template-columns:1fr 44px 1fr;align-items:end;gap:10px;margin-bottom:14px}
-.cur-sel{border:1.5px solid var(--border);border-radius:0 0 8px 8px;padding:10px 11px;font-size:13px;font-family:var(--ff-body);color:var(--text);background:var(--card);cursor:pointer;width:100%;min-width:0}
-.cur-swap-btn{width:44px;height:44px;min-width:44px;min-height:44px;border-radius:50%;border:1.5px solid var(--border);background:var(--card);cursor:pointer;font-size:16px;color:var(--muted);display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0;margin-bottom:1px}
-.cur-result-box{width:100%;border:2px solid var(--navy-soft);border-radius:8px;padding:13px 16px;font-size:22px;font-weight:600;font-family:var(--ff-display);color:var(--navy);background:var(--blue-light);overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
-.cur-rate-row{display:flex;gap:24px;flex-wrap:wrap;padding:14px 16px;background:var(--card2);border-radius:10px;border:1px solid var(--border);font-size:13px;color:var(--muted)}
-.cur-rate-val{color:var(--text)}
-.cur-quick{margin-top:24px}
-.cur-quick-lbl{font-size:12px;font-weight:500;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:12px}
-.cur-quick-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
-.cur-swap-btn:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
-.cur-swap-btn:focus-visible{outline:none;box-shadow:0 0 0 3px rgba(27,63,163,0.15)}
-.cur-amount-input:focus-visible{border-color:var(--navy-soft);outline:none;box-shadow:0 0 0 3px rgba(27,63,163,0.15)}
-.cur-sel:focus-visible{border-color:var(--navy-soft);outline:none;box-shadow:0 0 0 3px rgba(27,63,163,0.15)}
-.cur-retry-btn{padding:3px 10px;font-size:11px;font-family:var(--ff-body);font-weight:500;color:var(--navy-soft);background:transparent;border:1.5px solid var(--border);border-radius:5px;cursor:pointer;transition:all .15s;margin-left:4px;line-height:1.4}
-.cur-retry-btn:hover{background:var(--navy-soft);color:#fff;border-color:var(--navy-soft)}
-.cur-retry-btn:focus-visible{outline:2px solid var(--navy-soft);outline-offset:2px}
-.copy-link-btn{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;background:transparent;border:1px solid rgba(255,255,255,0.2);border-radius:6px;font-size:11px;font-weight:500;color:rgba(255,255,255,0.45);cursor:pointer;font-family:var(--ff-body);transition:all .15s;letter-spacing:0.03em;align-self:flex-end;margin-top:8px}
-.copy-link-btn:hover{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.75);border-color:rgba(255,255,255,0.35)}
-.copy-link-btn:focus-visible{outline:2px solid rgba(255,255,255,0.4);outline-offset:2px}
-@media(max-width:720px){.cur-body{padding:28px 24px}}
-@media(max-width:600px){.commodity-grid{grid-template-columns:1fr!important}}
-</style>
+
 
 <footer role="contentinfo">
   <div class="container">
@@ -901,7 +634,7 @@ footer p{font-size:13px;color:rgba(255,255,255,0.4);margin-bottom:6px;line-heigh
     </div>
     <p id="footer-desc-el">Free financial calculators — loan, savings, refinance, currency. No account required.</p>
     <p class="footer-disclaimer" id="footer-disclaimer-el">LoanCalc provides estimates for informational purposes only. Results are based on the inputs you provide and assume fixed interest rates with equal monthly payments. This is not financial advice. Consult a licensed financial advisor or lender before making borrowing decisions. Actual loan terms, rates, and payments will vary based on your lender's requirements and your creditworthiness.</p>
-    <p style="margin-top:16px">© <span id="copy-year">2026</span> LoanCalc. All rights reserved.</p>
+    <p class="footer-copy">© <span id="copy-year">2026</span> LoanCalc. All rights reserved.</p>
   </div>
 </footer>
 

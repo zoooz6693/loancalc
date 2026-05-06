@@ -1,0 +1,68 @@
+/* tokens.css — LoanCalc design tokens */
+
+:root {
+  /* ── Colors ───────────────────────────────────────── */
+  --color-navy:           #0A1628;   /* Midnight Ink  — dark surfaces, authority */
+  --color-navy-mid:       #162040;   /* Deep Atlas    — settings drawer, footer */
+  --color-focus:          #1B3FA3;   /* Focus Blue    — focus rings, currency result border */
+  --color-gold:           #C8973A;   /* Data Gold     — financial metrics, active tab, CTA */
+  --color-gold-wash:      #FDF4E3;   /* Gold Wash     — helper note background */
+  --color-gold-deep:      #96700A;   /* Gold Deep     — helper note text */
+  --color-loss:           #C0392B;   /* Loss Red      — negative values */
+  --color-bg:             #F0F4FF;   /* Blueprint     — page background */
+  --color-surface:        #FFFFFF;   /* Surface       — card backgrounds */
+  --color-surface-raised: #F8FAFF;   /* Surface Raised — hover states, secondary cards */
+  --color-text:           #0A1628;   /* Primary text  — same hue as navy */
+  --color-muted:          #5B6278;   /* Slate Mist    — labels, secondary text */
+  --color-border:         #D5DCF0;   /* Grid Line     — borders, dividers */
+  --color-gain:           #0B7C4E;   /* Gain Green    — positive financial values */
+  --color-gain-wash:      #E9F7F0;   /* Gain Wash     — gain callout tint */
+  --color-blue-light:     #EEF2FF;   /* Blue Light    — currency result background */
+  --color-oil-bg:         #EAF3DE;   /* Oil card icon background */
+  --color-oil-border:     #639922;   /* Oil card icon border */
+  --color-focus-ring:     rgba(27,63,163,0.15); /* Focus outline glow */
+
+  /* ── Radius ───────────────────────────────────────── */
+  --r-xs:   6px;   /* close buttons, pref-tag, retry btn */
+  --r-sm:   8px;   /* buttons, inputs, controls */
+  --r-md:  10px;   /* res-box, faq items, rate row, verdict */
+  --r-lg:  12px;   /* formula box, settings drawer area */
+  --r-xl:  20px;   /* chart/table containers */
+  --r-2xl: 28px;   /* primary calculator card */
+
+  /* ── Shadows ──────────────────────────────────────── */
+  --shadow-ambient:  0 2px 16px rgba(10,22,40,0.08);  /* card rest state */
+  --shadow-elevated: 0 4px 32px rgba(10,22,40,0.12);  /* primary calc card, chart */
+
+  /* ── Typography ───────────────────────────────────── */
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body:    'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:    'Courier New', Courier, monospace;
+
+  /* ── Backward-compat aliases ──────────────────────── */
+  /* Kept for JS strings and any legacy inline style="" references */
+  --navy:        var(--color-navy);
+  --navy-mid:    var(--color-navy-mid);
+  --navy-soft:   var(--color-focus);
+  --gold:        var(--color-gold);
+  --gold-light:  var(--color-gold-wash);
+  --gold-deep:   var(--color-gold-deep);
+  --loss-red:    var(--color-loss);
+  --bg:          var(--color-bg);
+  --card:        var(--color-surface);
+  --card2:       var(--color-surface-raised);
+  --text:        var(--color-text);
+  --muted:       var(--color-muted);
+  --border:      var(--color-border);
+  --green:       var(--color-gain);
+  --green-light: var(--color-gain-wash);
+  --blue-light:  var(--color-blue-light);
+  --r:           var(--r-lg);
+  --rLg:         var(--r-xl);
+  --rXl:         var(--r-2xl);
+  --shadow:      var(--shadow-ambient);
+  --shadowMd:    var(--shadow-elevated);
+  --ff-display:  var(--font-display);
+  --ff-body:     var(--font-body);
+  --ff-mono:     var(--font-mono);
+}
