@@ -538,6 +538,7 @@
         <div id="cur-status" class="cur-status">
           <span id="cur-dot" class="cur-dot"></span>
           <span id="cur-status-text">Loading exchange rates…</span>
+          <button id="cur-refresh-btn" class="status-refresh-btn" aria-label="Refresh exchange rates" title="Refresh"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 2A5 5 0 1 0 11 6.5"/><polyline points="10.5 2 10.5 5 7.5 5"/></svg></button>
           <button id="cur-retry-btn" class="cur-retry-btn" style="display:none" aria-label="Retry loading exchange rates">Retry</button>
         </div>
         <div class="cur-group">
@@ -578,7 +579,7 @@
           <div>
             <div class="commodity-name"><p id="gold-title-el" class="commodity-name-title">Gold (XAU)</p><p id="gold-sub-el" class="commodity-name-sub">Price per troy ounce</p></div>
           </div>
-          <div class="commodity-status"><span id="gold-dot" class="commodity-status-dot"></span><span id="gold-status" class="commodity-status-text">Loading…</span></div>
+          <div class="commodity-status"><span id="gold-dot" class="commodity-status-dot"></span><span id="gold-status" class="commodity-status-text">Loading…</span><button id="gold-refresh-btn" class="status-refresh-btn" aria-label="Refresh gold price" title="Refresh"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 2A5 5 0 1 0 11 6.5"/><polyline points="10.5 2 10.5 5 7.5 5"/></svg></button></div>
         </div>
         <p class="commodity-price" id="gold-usd">—</p>
         <p class="commodity-unit" data-i18n="per-oz-usd">per oz in USD</p>
@@ -595,7 +596,7 @@
           <div>
             <div class="commodity-name"><p id="oil-title-el" class="commodity-name-title">Crude Oil (WTI)</p><p id="oil-sub-el" class="commodity-name-sub">Price per barrel</p></div>
           </div>
-          <div class="commodity-status"><span id="oil-dot" class="commodity-status-dot"></span><span id="oil-status" class="commodity-status-text">Loading…</span></div>
+          <div class="commodity-status"><span id="oil-dot" class="commodity-status-dot"></span><span id="oil-status" class="commodity-status-text">Loading…</span><button id="oil-refresh-btn" class="status-refresh-btn" aria-label="Refresh oil price" title="Refresh"><svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10.5 2A5 5 0 1 0 11 6.5"/><polyline points="10.5 2 10.5 5 7.5 5"/></svg></button></div>
         </div>
         <p class="commodity-price" id="oil-usd">—</p>
         <p class="commodity-unit" data-i18n="per-bbl-usd">per barrel in USD</p>
@@ -1169,38 +1170,156 @@ document.getElementById('pref-lang-tag').textContent=_initLang.toUpperCase();
 
 (function(){
 'use strict';
-var REGION_MAP=window.REGION_MAP;
 function detectLocaleCurrency(){return window.detectLocaleCurrency();}
-var rates=null,rateDate='',fromCur='USD',toCur=detectLocaleCurrency();
-var CACHE_FX='loancalc_fx',CACHE_CMD='loancalc_cmd',goldUSD=null,oilUSD=null,goldLive=false,oilLive=false;
+var rates=null,rateDate='',rateCount=0,fromCur='USD',toCur=detectLocaleCurrency();
+var CACHE_FX='loancalc_fx',goldUSD=null,oilUSD=null;
+var fetchedAt={fx:0,gold:0,oil:0};
+var isFetching={fx:false,gold:false,oil:false};
+
 function fmtUSD(n){return '$'+n.toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function fmtLocal(n,cur){if(!n)return'—';var cfg=window.CURRENCY_CONFIG&&window.CURRENCY_CONFIG[cur];var loc=cfg?cfg.loc:'en-US';return n.toLocaleString(loc,{minimumFractionDigits:2,maximumFractionDigits:2})+' '+cur;}
-function setDot(id,ok){var el=document.getElementById(id);if(el)el.style.background=ok?'#0B7C4E':'#C8973A';}
-function populateSelects(){['cur-from','cur-to'].forEach(function(id){var sel=document.getElementById(id);if(!sel)return;var currentVal=sel.value;sel.innerHTML='';window.ALL_CURRENCIES.forEach(function(cur){var opt=document.createElement('option');opt.value=cur.c;opt.textContent=cur.c+' — '+cur.n;sel.appendChild(opt);});sel.value=currentVal||(id==='cur-from'?fromCur:toCur);});}
-function setStatus(ok,msg){setDot('cur-dot',ok);var el=document.getElementById('cur-status-text');if(el)el.textContent=msg;var rb=document.getElementById('cur-retry-btn');if(rb)rb.style.display=ok?'none':'inline-block';}
 function txCur(k,v){var t=window._i18n_current;var e=window._i18n_en;var s=(t&&t[k])||(e&&e[k])||k;return v?s.replace('{date}',v):s;}
+
+/* ── dot: 'live' | 'stale' | 'loading' | 'error' ── */
+function setDot(id,state){var el=document.getElementById(id);if(!el)return;var c={live:'#0B7C4E',stale:'#C8973A',loading:'#D5DCF0',error:'#C0392B'};el.style.background=c[state]||c.loading;}
+
+function spinBtn(id){var btn=document.getElementById(id);if(!btn)return;var svg=btn.querySelector('svg');if(!svg)return;svg.style.animation='none';void svg.offsetWidth;svg.style.animation='spin-refresh .65s cubic-bezier(0.4,0,0.2,1) 1';}
+
+function getAgeText(ts){if(!ts)return null;var mins=Math.round((Date.now()-ts)/60000);if(mins<2)return'just now';if(mins<60)return mins+' min ago';var hrs=Math.floor(mins/60);return hrs+(hrs===1?' hour ago':' hours ago');}
+
+function updateAgeTexts(){
+  var now=Date.now();
+  if(fetchedAt.fx&&rates){var age=getAgeText(fetchedAt.fx);var stale=(now-fetchedAt.fx)>6*3600000;setDot('cur-dot',stale?'stale':'live');var el=document.getElementById('cur-status-text');if(el)el.textContent=(stale?'Rates from '+age:'Updated '+age)+' \xB7 '+rateCount+' currencies';}
+  if(fetchedAt.gold&&goldUSD){var age=getAgeText(fetchedAt.gold);var stale=(now-fetchedAt.gold)>3600000;setDot('gold-dot',stale?'stale':'live');var el=document.getElementById('gold-status');if(el)el.textContent=stale?'From '+age:'Updated '+age;}
+  if(fetchedAt.oil&&oilUSD){var age=getAgeText(fetchedAt.oil);var stale=(now-fetchedAt.oil)>3600000;setDot('oil-dot',stale?'stale':'live');var el=document.getElementById('oil-status');if(el)el.textContent=stale?'From '+age:'Updated '+age;}
+}
+
+function populateSelects(){['cur-from','cur-to'].forEach(function(id){var sel=document.getElementById(id);if(!sel)return;var currentVal=sel.value;sel.innerHTML='';window.ALL_CURRENCIES.forEach(function(cur){var opt=document.createElement('option');opt.value=cur.c;opt.textContent=cur.c+' — '+cur.n;sel.appendChild(opt);});sel.value=currentVal||(id==='cur-from'?fromCur:toCur);});}
+
 function convert(){if(!rates)return;var amount=parseFloat(document.getElementById('cur-amount').value)||0;fromCur=document.getElementById('cur-from').value;toCur=document.getElementById('cur-to').value;var fromRate=rates[fromCur]||null;var toRate=rates[toCur]||null;if(!fromRate||!toRate){document.getElementById('cur-result').textContent=txCur('cur-rate-unavailable');document.getElementById('cur-rate-display').textContent=txCur('cur-not-in-feed');return;}var rate=toRate/fromRate;var result=amount*rate;var toCfg=window.CURRENCY_CONFIG&&window.CURRENCY_CONFIG[toCur];var toLoc=toCfg?toCfg.loc:'en-US';document.getElementById('cur-result').textContent=result.toLocaleString(toLoc,{maximumFractionDigits:4})+' '+toCur;var _rateLoc=(window.CURRENCY_CONFIG[window.APP_CURRENCY]||{loc:'en-US'}).loc;var fmtRate=function(n){return new Intl.NumberFormat(_rateLoc,{minimumFractionDigits:6,maximumFractionDigits:6}).format(n);};document.getElementById('cur-rate-display').textContent='1 '+fromCur+' = '+fmtRate(rate)+' '+toCur;document.getElementById('cur-rate-inv').textContent='1 '+toCur+' = '+fmtRate(1/rate)+' '+fromCur;document.getElementById('cur-rate-date').textContent=rateDate||txCur('cur-today');buildQuickGrid(fromCur,toCur,rate);updateCommodityLocal();}
+
 function buildQuickGrid(from,to,rate){var usdEq=(rates['USD']||1)/(rates[from]||1);var amounts=usdEq>=3?[1,10,100]:usdEq>=0.5?[1,100,1000]:usdEq>=0.05?[10,100,1000]:usdEq>=0.005?[100,1000,10000]:usdEq>=0.0005?[1000,10000,100000]:[10000,100000,1000000];var fromCfg=window.CURRENCY_CONFIG&&window.CURRENCY_CONFIG[from];var fromLoc=fromCfg?fromCfg.loc:'en-US';var toCfg=window.CURRENCY_CONFIG&&window.CURRENCY_CONFIG[to];var toLoc=toCfg?toCfg.loc:'en-US';var grid=document.getElementById('cur-quick-grid');if(!grid)return;grid.innerHTML='';amounts.forEach(function(a){var div=document.createElement('div');div.style.cssText='background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 12px';div.innerHTML='<div style="font-size:11px;color:var(--muted)">'+a.toLocaleString(fromLoc)+' '+from+'</div><div style="font-size:13px;font-weight:500;color:var(--navy)">'+(a*rate).toLocaleString(toLoc,{maximumFractionDigits:2})+' '+to+'</div>';grid.appendChild(div);});}
+
 function updateCommodityLocal(){if(!rates)return;var localCur=toCur||detectLocaleCurrency();var usdToLocal=(rates[localCur]||1)/(rates['USD']||1);var el;el=document.getElementById('gold-local-cur');if(el)el.textContent=localCur;el=document.getElementById('oil-local-cur');if(el)el.textContent=localCur;if(goldUSD){var gG=goldUSD/31.1035;el=document.getElementById('gold-usd');if(el)el.textContent=fmtUSD(goldUSD)+' /oz';el=document.getElementById('gold-gram');if(el)el.textContent=fmtUSD(gG);el=document.getElementById('gold-10g');if(el)el.textContent=fmtUSD(gG*10);el=document.getElementById('gold-kg');if(el)el.textContent=fmtUSD(gG*1000);el=document.getElementById('gold-local');if(el)el.textContent=fmtLocal(goldUSD*usdToLocal,localCur)+' /oz';}if(oilUSD){el=document.getElementById('oil-usd');if(el)el.textContent=fmtUSD(oilUSD)+' /bbl';el=document.getElementById('oil-5');if(el)el.textContent=fmtUSD(oilUSD*5);el=document.getElementById('oil-10');if(el)el.textContent=fmtUSD(oilUSD*10);el=document.getElementById('oil-100');if(el)el.textContent=fmtUSD(oilUSD*100);el=document.getElementById('oil-local');if(el)el.textContent=fmtLocal(oilUSD*usdToLocal,localCur)+' /bbl';}}
 window.updateCommodityLocal=updateCommodityLocal;
 window._setCurrencyPref=function(newCur){toCur=newCur;var sel=document.getElementById('cur-to');if(sel)sel.value=newCur;convert();updateCommodityLocal();};
-function loadRates(){try{var cached=localStorage.getItem(CACHE_FX);if(cached){var obj=JSON.parse(cached);if((Date.now()-obj.ts)/3600000<24){rates=obj.rates;rateDate=obj.date;setStatus(true,txCur('cur-status-cached',rateDate));populateSelects();convert();return;}}}catch(e){}fetchRates();}
-function fetchRates(){setStatus(false,txCur('cur-status-fetching'));fetch('https://open.er-api.com/v6/latest/USD').then(function(r){return r.json();}).then(function(data){if(data.result!=='success')throw new Error('API error');rates=data.rates;rates['USD']=1;rateDate=data.time_last_update_utc?data.time_last_update_utc.slice(0,16):new Date().toISOString().slice(0,10);try{localStorage.setItem(CACHE_FX,JSON.stringify({rates:rates,date:rateDate,ts:Date.now()}));}catch(e){}setStatus(true,txCur('cur-status-live',rateDate));populateSelects();convert();}).catch(function(){fetch('https://api.frankfurter.app/latest?base=USD').then(function(r){return r.json();}).then(function(data){data.rates['USD']=1;rates=data.rates;rateDate=data.date;try{localStorage.setItem(CACHE_FX,JSON.stringify({rates:rates,date:rateDate,ts:Date.now()}));}catch(e){}setStatus(true,txCur('cur-status-partial',rateDate));populateSelects();convert();}).catch(function(){rates={'USD':1,'EUR':0.92,'GBP':0.79,'JPY':149.5,'CAD':1.36,'AUD':1.53,'EGP':48.9,'AED':3.67,'SAR':3.75,'CHF':0.9,'CNY':7.24,'INR':83.5,'TRY':32.1,'BRL':4.97,'MXN':17.2,'ZAR':18.8,'KWD':0.31,'QAR':3.64};rateDate='offline';setStatus(false,txCur('cur-status-offline'));populateSelects();convert();});});}
-function loadCommodities(){try{var cached=localStorage.getItem(CACHE_CMD);if(cached){var obj=JSON.parse(cached);if((Date.now()-obj.ts)/3600000<1){goldUSD=obj.gold;oilUSD=obj.oil;setDot('gold-dot',true);var gs=document.getElementById('gold-status');if(gs)gs.textContent=txCur('cmd-live',obj.date);setDot('oil-dot',true);var os=document.getElementById('oil-status');if(os)os.textContent=txCur('cmd-live',obj.date);updateCommodityLocal();return;}}}catch(e){}fetchCommodity('GC=F','gold');fetchCommodity('CL=F','oil');}
-function fetchCommodity(ticker,type){var statusEl=document.getElementById(type+'-status');if(statusEl)statusEl.textContent=txCur('cmd-fetching');fetch('/api/commodity?ticker='+encodeURIComponent(ticker)).then(function(r){return r.json();}).then(function(data){var price=data.chart.result[0].meta.regularMarketPrice;var dateTs=data.chart.result[0].meta.regularMarketTime;var dateStr=new Date(dateTs*1000).toLocaleDateString(window.APP_LANG||'en-US',{month:'short',day:'numeric'});if(type==='gold'){goldUSD=price;goldLive=true;setDot('gold-dot',true);if(statusEl)statusEl.textContent=txCur('cmd-live',dateStr);}if(type==='oil'){oilUSD=price;oilLive=true;setDot('oil-dot',true);if(statusEl)statusEl.textContent=txCur('cmd-live',dateStr);}saveCommodityCache(dateStr);updateCommodityLocal();}).catch(function(){if(type==='gold'){goldUSD=3300;setDot('gold-dot',false);if(statusEl)statusEl.textContent=txCur('cmd-approx');}if(type==='oil'){oilUSD=72;setDot('oil-dot',false);if(statusEl)statusEl.textContent=txCur('cmd-approx');}updateCommodityLocal();});}
-function saveCommodityCache(dateStr){if(!goldLive||!oilLive)return;try{localStorage.setItem(CACHE_CMD,JSON.stringify({gold:goldUSD,oil:oilUSD,date:dateStr,ts:Date.now()}));}catch(e){}}
+
+/* ── FX: three-source waterfall ── */
+function finalizeFx(r,date,quality){
+  rates=r;rateDate=date;rateCount=Object.keys(r).length;fetchedAt.fx=Date.now();isFetching.fx=false;
+  try{localStorage.setItem(CACHE_FX,JSON.stringify({rates:r,date:date,count:rateCount,ts:fetchedAt.fx}));}catch(e){}
+  var age=getAgeText(fetchedAt.fx);var sEl=document.getElementById('cur-status-text');
+  if(quality==='live'){setDot('cur-dot','live');if(sEl)sEl.textContent='Updated '+age+' \xB7 '+rateCount+' currencies';}
+  else{setDot('cur-dot','stale');if(sEl)sEl.textContent='Partial rates \xB7 '+rateCount+' currencies \xB7 ECB data';}
+  populateSelects();convert();
+}
+function fetchRates(){
+  if(isFetching.fx)return;isFetching.fx=true;spinBtn('cur-refresh-btn');
+  setDot('cur-dot','loading');var sEl=document.getElementById('cur-status-text');if(sEl)sEl.textContent=txCur('cur-status-fetching');
+  fetch('https://open.er-api.com/v6/latest/USD').then(function(r){return r.json();}).then(function(data){
+    if(data.result!=='success')throw new Error('bad result');
+    var r=data.rates;r['USD']=1;
+    finalizeFx(r,data.time_last_update_utc?data.time_last_update_utc.slice(0,16):new Date().toISOString().slice(0,10),'live');
+  }).catch(function(){
+    fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json').then(function(r){return r.json();}).then(function(data){
+      if(!data.usd)throw new Error('bad format');
+      var r={};Object.keys(data.usd).forEach(function(k){r[k.toUpperCase()]=data.usd[k];});r['USD']=1;
+      finalizeFx(r,data.date||new Date().toISOString().slice(0,10),'live');
+    }).catch(function(){
+      fetch('https://api.frankfurter.app/latest?base=USD').then(function(r){return r.json();}).then(function(data){
+        data.rates['USD']=1;finalizeFx(data.rates,data.date,'partial');
+      }).catch(function(){
+        isFetching.fx=false;
+        rates={'USD':1,'EUR':0.92,'GBP':0.79,'JPY':149.5,'CAD':1.36,'AUD':1.53,'EGP':48.9,'AED':3.67,'SAR':3.75,'CHF':0.9,'CNY':7.24,'INR':83.5,'TRY':32.1,'BRL':4.97,'MXN':17.2,'ZAR':18.8,'KWD':0.31,'QAR':3.64};
+        rateCount=Object.keys(rates).length;setDot('cur-dot','error');
+        if(sEl)sEl.textContent=txCur('cur-status-offline');populateSelects();convert();
+      });
+    });
+  });
+}
+function loadRates(){
+  try{var cached=localStorage.getItem(CACHE_FX);if(cached){var obj=JSON.parse(cached);var ageH=(Date.now()-obj.ts)/3600000;if(ageH<24){
+    rates=obj.rates;rateDate=obj.date;rateCount=obj.count||Object.keys(obj.rates).length;fetchedAt.fx=obj.ts;
+    var stale=ageH>=6;setDot('cur-dot',stale?'stale':'live');
+    var age=getAgeText(obj.ts);var el=document.getElementById('cur-status-text');
+    if(el)el.textContent=(stale?'Rates from '+age:'Updated '+age)+' \xB7 '+rateCount+' currencies';
+    populateSelects();convert();if(stale)fetchRates();return;
+  }}}catch(e){}
+  fetchRates();
+}
+
+/* ── Commodity: per-type cache, stale-while-revalidate ── */
+function loadCmdCache(type){
+  try{var c=localStorage.getItem('loancalc_cmd_'+type);if(c)return JSON.parse(c);}catch(e){}
+  try{var old=localStorage.getItem('loancalc_cmd');if(old){var o=JSON.parse(old);return{price:type==='gold'?o.gold:o.oil,ts:o.ts,date:o.date};}}catch(e){}
+  return null;
+}
+function saveCmdCache(type,price,ts,date){try{localStorage.setItem('loancalc_cmd_'+type,JSON.stringify({price:price,ts:ts,date:date}));}catch(e){}}
+function loadCommodities(){
+  var now=Date.now();
+  ['gold','oil'].forEach(function(type){
+    var c=loadCmdCache(type);
+    if(c&&c.price&&(now-c.ts)<4*3600000){
+      if(type==='gold')goldUSD=c.price;else oilUSD=c.price;
+      fetchedAt[type]=c.ts;
+      var stale=(now-c.ts)>3600000;setDot(type+'-dot',stale?'stale':'live');
+      var age=getAgeText(c.ts);var el=document.getElementById(type+'-status');
+      if(el)el.textContent=stale?'From '+age:'Updated '+age;
+      updateCommodityLocal();
+    }
+    if(!c||!c.price||(now-c.ts)>3600000)fetchCommodity(type==='gold'?'GC=F':'CL=F',type);
+  });
+}
+function fetchCommodity(ticker,type){
+  if(isFetching[type])return;isFetching[type]=true;spinBtn(type+'-refresh-btn');
+  setDot(type+'-dot','loading');var statusEl=document.getElementById(type+'-status');if(statusEl)statusEl.textContent=txCur('cmd-fetching');
+  fetch('/api/commodity?ticker='+encodeURIComponent(ticker)).then(function(r){return r.json();}).then(function(data){
+    var price=data&&data.chart&&data.chart.result&&data.chart.result[0]&&data.chart.result[0].meta&&data.chart.result[0].meta.regularMarketPrice;
+    if(!price||price<=0)throw new Error('invalid price');
+    var dateTs=data.chart.result[0].meta.regularMarketTime;
+    var dateStr=new Date(dateTs*1000).toLocaleDateString(window.APP_LANG||'en-US',{month:'short',day:'numeric'});
+    var now=Date.now();if(type==='gold')goldUSD=price;else oilUSD=price;
+    fetchedAt[type]=now;isFetching[type]=false;saveCmdCache(type,price,now,dateStr);
+    setDot(type+'-dot','live');if(statusEl)statusEl.textContent='Updated just now';updateCommodityLocal();
+  }).catch(function(){
+    isFetching[type]=false;
+    var cached=loadCmdCache(type);
+    if(cached&&cached.price){
+      if(type==='gold'&&!goldUSD)goldUSD=cached.price;if(type==='oil'&&!oilUSD)oilUSD=cached.price;
+      if(!fetchedAt[type])fetchedAt[type]=cached.ts;
+      setDot(type+'-dot','stale');var age=getAgeText(cached.ts);
+      if(statusEl)statusEl.textContent='From '+age;updateCommodityLocal();
+    }else{setDot(type+'-dot','error');if(statusEl)statusEl.textContent='Price unavailable';}
+  });
+}
+
+/* ── Event listeners ── */
 document.getElementById('cur-amount').addEventListener('input',convert);
 document.getElementById('cur-from').addEventListener('change',convert);
 document.getElementById('cur-to').addEventListener('change',function(){convert();updateCommodityLocal();});
 document.getElementById('cur-swap').addEventListener('click',function(){var tmp=document.getElementById('cur-from').value;document.getElementById('cur-from').value=document.getElementById('cur-to').value;document.getElementById('cur-to').value=tmp;convert();});
+var _rb=document.getElementById('cur-retry-btn');if(_rb)_rb.addEventListener('click',function(){fetchRates();});
+var _crf=document.getElementById('cur-refresh-btn');if(_crf)_crf.addEventListener('click',function(){fetchRates();});
+var _grf=document.getElementById('gold-refresh-btn');if(_grf)_grf.addEventListener('click',function(){fetchCommodity('GC=F','gold');});
+var _orf=document.getElementById('oil-refresh-btn');if(_orf)_orf.addEventListener('click',function(){fetchCommodity('CL=F','oil');});
+
+/* ── Age counter (every 60s) ── */
+setInterval(updateAgeTexts,60000);
+
+/* ── Background auto-refresh (every 60min) ── */
+setInterval(function(){if(!isFetching.fx)fetchRates();if(!isFetching.gold)fetchCommodity('GC=F','gold');if(!isFetching.oil)fetchCommodity('CL=F','oil');},3600000);
+
+/* ── Tab focus: refresh if stale ── */
+document.addEventListener('visibilitychange',function(){
+  if(document.hidden)return;var now=Date.now();
+  if(!fetchedAt.fx||(now-fetchedAt.fx)>6*3600000)fetchRates();
+  if(!fetchedAt.gold||(now-fetchedAt.gold)>3600000)fetchCommodity('GC=F','gold');
+  if(!fetchedAt.oil||(now-fetchedAt.oil)>3600000)fetchCommodity('CL=F','oil');
+});
+
+window._curFetchRates=fetchRates;
 loadRates();
 loadCommodities();
-window._curFetchRates=fetchRates;
-document.getElementById('cur-retry-btn').addEventListener('click',function(){
-  var rb=document.getElementById('cur-retry-btn');
-  if(rb)rb.style.display='none';
-  fetchRates();
-});
 })();
 </script>
 
