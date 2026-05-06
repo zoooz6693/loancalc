@@ -84,7 +84,7 @@
     </div>
     <div class="settings-group">
       <p class="settings-label" data-i18n="pref-currency">Preferred currency</p>
-      <input type="text" class="settings-search" id="pref-currency-search" placeholder="Search currency…" autocomplete="off">
+      <input type="text" class="settings-search" id="pref-currency-search" placeholder="Search currency…" autocomplete="off" aria-label="Search currency">
       <select class="settings-select" id="pref-currency" style="background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 12px center"></select>
       <p class="settings-note" data-i18n="pref-currency-note">Sets the default "convert to" currency and the local price shown for gold and oil.</p>
     </div>
@@ -109,25 +109,26 @@
 <!-- TOOL BAR — same style as loan tabs -->
 <div class="tool-nav-wrap">
   <div class="tab-nav" id="tool-nav" role="tablist" aria-label="Main tools">
-    <button class="tab-btn active" role="tab" aria-selected="true" data-panel="panel-loans" data-i18n="nav-loans">Loans</button>
-    <button class="tab-btn" role="tab" aria-selected="false" data-panel="panel-savings" data-i18n="nav-savings">Savings</button>
-    <button class="tab-btn" role="tab" aria-selected="false" data-panel="panel-refinance" data-i18n="nav-refinance">Refinance</button>
-    <button class="tab-btn" role="tab" aria-selected="false" data-panel="panel-currency" data-i18n="nav-currency">Currency</button>
-    <button class="tab-btn" role="tab" aria-selected="false" data-panel="panel-faq">FAQ</button>
+    <button class="tab-btn active" id="tab-loans" role="tab" aria-selected="true" aria-controls="panel-loans" data-panel="panel-loans" data-i18n="nav-loans">Loans</button>
+    <button class="tab-btn" id="tab-savings" role="tab" aria-selected="false" aria-controls="panel-savings" data-panel="panel-savings" data-i18n="nav-savings">Savings</button>
+    <button class="tab-btn" id="tab-refinance" role="tab" aria-selected="false" aria-controls="panel-refinance" data-panel="panel-refinance" data-i18n="nav-refinance">Refinance</button>
+    <button class="tab-btn" id="tab-currency" role="tab" aria-selected="false" aria-controls="panel-currency" data-panel="panel-currency" data-i18n="nav-currency">Currency</button>
+    <button class="tab-btn" id="tab-faq" role="tab" aria-selected="false" aria-controls="panel-faq" data-panel="panel-faq">FAQ</button>
   </div>
 </div>
-<div id="panel-loans" class="tool-panel active">
+<div id="panel-loans" class="tool-panel active" role="tabpanel" aria-labelledby="tab-loans">
 <section class="calc-section" id="calculator" aria-label="Loan calculator">
   <div class="container">
     <div class="calc-card">
       <div class="calc-grid">
-        <div class="inputs-panel" role="tabpanel" aria-label="Loan inputs">
+        <div class="inputs-panel">
           <div class="loan-seg" role="tablist" aria-label="Choose loan type">
-            <button class="tab-btn active" data-tab="mortgage" role="tab" aria-selected="true" data-i18n="tab-mortgage">Mortgage</button>
-            <button class="tab-btn" data-tab="car" role="tab" aria-selected="false" data-i18n="tab-car">Car Loan</button>
-            <button class="tab-btn" data-tab="personal" role="tab" aria-selected="false" data-i18n="tab-personal">Personal</button>
-            <button class="tab-btn" data-tab="student" role="tab" aria-selected="false" data-i18n="tab-student">Student</button>
+            <button class="tab-btn active" id="loan-tab-mortgage" data-tab="mortgage" role="tab" aria-selected="true" aria-controls="loan-type-content" data-i18n="tab-mortgage">Mortgage</button>
+            <button class="tab-btn" id="loan-tab-car" data-tab="car" role="tab" aria-selected="false" aria-controls="loan-type-content" data-i18n="tab-car">Car Loan</button>
+            <button class="tab-btn" id="loan-tab-personal" data-tab="personal" role="tab" aria-selected="false" aria-controls="loan-type-content" data-i18n="tab-personal">Personal</button>
+            <button class="tab-btn" id="loan-tab-student" data-tab="student" role="tab" aria-selected="false" aria-controls="loan-type-content" data-i18n="tab-student">Student</button>
           </div>
+          <div id="loan-type-content" role="tabpanel" aria-labelledby="loan-tab-mortgage">
           <div class="input-group">
             <div class="ig-head">
               <label class="ig-label" for="s-amount" id="lbl-amount-el">Loan amount</label>
@@ -168,6 +169,7 @@
             <strong id="helper-title">Typical 30-year US mortgage</strong>
             <span id="helper-text" class="tx-dynamic">Rates vary by lender and credit score. Enter your own numbers above for a personalized estimate.</span>
           </div>
+          </div><!-- /loan-type-content -->
         </div>
         <div class="results-panel" role="region" aria-label="Calculation results" aria-live="polite">
           <div class="monthly-card">
@@ -321,7 +323,7 @@
 </section>
 
 </div><!-- /panel-loans -->
-<div id="panel-faq" class="tool-panel"><section class="faq-section" id="faq" aria-labelledby="faq-h2">
+<div id="panel-faq" class="tool-panel" role="tabpanel" aria-labelledby="tab-faq"><section class="faq-section" id="faq" aria-labelledby="faq-h2">
   <div class="container">
     <h2 id="faq-h2">Frequently asked questions about loans, savings, currency and gold</h2>
     <!-- ADSENSE SLOT 3: Rectangle — replace comment with your AdSense code -->
@@ -364,7 +366,7 @@
 </section>
 
 </div><!-- /panel-faq -->
-<div id="panel-savings" class="tool-panel"><section id="compound" class="panel-section" aria-labelledby="compound-h2">
+<div id="panel-savings" class="tool-panel" role="tabpanel" aria-labelledby="tab-savings"><section id="compound" class="panel-section" aria-labelledby="compound-h2">
   <div class="container">
     <h2 class="section-title" id="compound-h2">Compound interest &amp; savings growth calculator</h2>
     <p class="section-sub" id="tx-ci-sub" data-i18n="ci-section-sub">See exactly how your savings or investment grows year by year with compound interest.</p>
@@ -450,7 +452,7 @@
 </div>
 
 </div><!-- /panel-savings -->
-<div id="panel-refinance" class="tool-panel"><section id="refinance" class="panel-section--dark" aria-labelledby="refi-h2">
+<div id="panel-refinance" class="tool-panel" role="tabpanel" aria-labelledby="tab-refinance"><section id="refinance" class="panel-section--dark" aria-labelledby="refi-h2">
   <div class="container">
     <h2 class="section-title--on-dark" id="rf-h2">Refinance calculator: how much will you save?</h2>
     <p id="rf-desc" class="section-sub--on-dark">Enter your current loan details and the new rate you've been offered. The refinance calculator shows your monthly savings, the break-even month, and your total lifetime saving after closing costs.</p>
@@ -530,7 +532,7 @@
 </div>
 
 </div><!-- /panel-refinance -->
-<div id="panel-currency" class="tool-panel"><section id="currency" class="panel-section" aria-labelledby="cur-h2">
+<div id="panel-currency" class="tool-panel" role="tabpanel" aria-labelledby="tab-currency"><section id="currency" class="panel-section" aria-labelledby="cur-h2">
   <div class="container">
     <h2 class="section-title" id="cur-h2">Live currency converter, gold price &amp; oil price today</h2>
     <p class="section-sub" id="tx-cur-sub">Convert between 30 major currencies with live exchange rates. Also shows the live gold price per gram, ounce and kilogram, plus the current WTI crude oil price per barrel, all converted to your local currency automatically. Rates cached hourly.</p>
@@ -549,17 +551,17 @@
         <div class="cur-selects-row">
           <div class="cur-sel-wrap">
             <input type="text" class="cur-search" id="cur-from-search" placeholder="Search…" autocomplete="off" aria-label="Search from currency">
-            <select id="cur-from" class="cur-sel"></select>
+            <select id="cur-from" class="cur-sel" aria-label="From currency"></select>
           </div>
           <button id="cur-swap" class="cur-swap-btn" title="Swap" aria-label="Swap currencies">⇄</button>
           <div class="cur-sel-wrap">
             <input type="text" class="cur-search" id="cur-to-search" placeholder="Search…" autocomplete="off" aria-label="Search to currency">
-            <select id="cur-to" class="cur-sel"></select>
+            <select id="cur-to" class="cur-sel" aria-label="To currency"></select>
           </div>
         </div>
         <div class="cur-group-lg">
-          <label for="cur-to" class="cur-label" data-i18n="cur-to-label">Converted to</label>
-          <div id="cur-result" class="cur-result-box" role="status" aria-live="polite" aria-atomic="true">—</div>
+          <p class="cur-label" id="cur-result-lbl" data-i18n="cur-to-label">Converted to</p>
+          <div id="cur-result" class="cur-result-box" role="status" aria-live="polite" aria-atomic="true" aria-labelledby="cur-result-lbl">—</div>
         </div>
 
         <div id="cur-rate-row" class="cur-rate-row">

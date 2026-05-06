@@ -21,6 +21,21 @@
   --color-oil-bg:         #EAF3DE;   /* Oil card icon background */
   --color-oil-border:     #639922;   /* Oil card icon border */
   --color-focus-ring:     rgba(27,63,163,0.15); /* Focus outline glow */
+  --color-hero-glow:      rgba(27,63,163,0.18); /* Focus Blue at 18% — hero radial gradient */
+
+  /* ── Slider fill ──────────────────────────────────────── */
+  --slider-fill:  var(--color-navy);   /* filled track segment */
+  --slider-track: var(--color-border); /* unfilled track segment */
+
+  /* ── Verdict colors ───────────────────────────────────── */
+  --verdict-neutral-bg:  rgba(255,255,255,0.08);
+  --verdict-neutral-fg:  rgba(255,255,255,0.75);
+  --verdict-negative-bg: rgba(194,57,48,0.15);
+  --verdict-negative-fg: #F4A7A3;
+  --verdict-warn-bg:     rgba(200,151,58,0.15);
+  --verdict-warn-fg:     #F5C475;
+  --verdict-positive-bg: rgba(11,124,78,0.2);
+  --verdict-positive-fg: #7DE0B8;
 
   /* ── Radius ───────────────────────────────────────── */
   --r-xs:   6px;   /* close buttons, pref-tag, retry btn */

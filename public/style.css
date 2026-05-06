@@ -46,7 +46,7 @@ header nav a:hover { color: #fff; background: rgba(255,255,255,0.08); }
 
 /* ── Hero ───────────────────────────────────────────── */
 .hero { background: var(--color-navy); padding: 32px 0 28px; text-align: center; position: relative; overflow: hidden; }
-.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(27,63,163,0.18) 0%, transparent 70%); pointer-events: none; }
+.hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse 80% 60% at 50% 100%, var(--color-hero-glow) 0%, transparent 70%); pointer-events: none; }
 .hero h1 { font-family: var(--font-display); font-size: clamp(32px,5vw,54px); font-weight: 700; color: #fff; line-height: 1.15; letter-spacing: -0.025em; margin-bottom: 16px; }
 .hero h1 em { font-style: normal; color: var(--color-gold); }
 .hero-sub { font-size: 17px; color: rgba(255,255,255,0.65); max-width: 520px; margin: 0 auto 28px; font-weight: 300; line-height: 1.7; }
@@ -314,7 +314,10 @@ footer p { font-size: 13px; color: rgba(255,255,255,0.4); margin-bottom: 6px; li
 .ci-chart-canvas { position: relative; height: 280px; }
 
 /* ── Refinance verdict ──────────────────────────────── */
-.rf-verdict { margin-top: 8px; padding: 12px 16px; border-radius: var(--r-md); font-size: 13px; line-height: 1.5; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.75); }
+.rf-verdict { margin-top: 8px; padding: 12px 16px; border-radius: var(--r-md); font-size: 13px; line-height: 1.5; background: var(--verdict-neutral-bg); color: var(--verdict-neutral-fg); }
+.rf-verdict--negative { background: var(--verdict-negative-bg); color: var(--verdict-negative-fg); }
+.rf-verdict--warn     { background: var(--verdict-warn-bg);     color: var(--verdict-warn-fg); }
+.rf-verdict--positive { background: var(--verdict-positive-bg); color: var(--verdict-positive-fg); }
 
 /* ── Animations ─────────────────────────────────────── */
 @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
