@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Loan, Savings &amp; Refinance Calculator + Live Rates | LoanCalc</title>
 <meta name="description" content="Free calculators for loans, mortgages, compound interest, refinancing, currency exchange, live gold and oil prices. Instant amortization schedule. No signup. Works for any country.">
 <meta name="keywords" content="loan calculator,mortgage calculator,car loan calculator,compound interest calculator,refinance calculator,currency converter,gold price today,oil price today,savings calculator,amortization schedule,free financial calculator">
@@ -33,7 +33,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="tokens.css">
 <link rel="stylesheet" href="style.css">
 </head>
@@ -91,7 +92,7 @@
       <p class="settings-label" data-i18n="pref-current">Current settings</p>
       <div id="pref-current-display">
         <span class="pref-tag" id="pref-cur-tag">USD</span>
-        <span class="pref-tag" style="margin-left:6px" id="pref-lang-tag">EN</span>
+        <span class="pref-tag" id="pref-lang-tag">EN</span>
       </div>
     </div>
   </div>
@@ -614,7 +615,7 @@
   </div>
 </section>
 
-
+</div><!-- /panel-currency -->
 
 <footer role="contentinfo">
   <div class="container">
@@ -753,12 +754,9 @@ window.fitText = function(el){
   var parent = el.parentElement;
   if(!parent) return;
   var maxW = parent.clientWidth - 20;
+  if(el.scrollWidth <= maxW) return;
   var fs = parseFloat(getComputedStyle(el).fontSize);
-  var attempts = 0;
-  while(el.scrollWidth > maxW && fs > 14 && attempts++ < 30){
-    fs -= 1;
-    el.style.fontSize = fs + 'px';
-  }
+  el.style.fontSize = Math.max(14, Math.floor(fs * maxW / el.scrollWidth)) + 'px';
 };
 
 /* ── Global range slider fill delegation ── */
@@ -784,10 +782,15 @@ setTimeout(function(){
 }, 20);}
 window.applyCurrency=applyCurrency;
 window.switchTab=switchTab;
-[sAmount,sRate,sTerm].forEach(function(el){el.addEventListener('input',update);});
+var _loanRaf=null;
+function updateRaf(){if(_loanRaf)cancelAnimationFrame(_loanRaf);_loanRaf=requestAnimationFrame(function(){_loanRaf=null;update();});}
+[sAmount,sRate,sTerm].forEach(function(el){el.addEventListener('input',updateRaf);});
 iAmount.addEventListener('input',function(){var v=parseFloat(this.value);if(!isNaN(v)&&v>=parseFloat(sAmount.min)&&v<=parseFloat(sAmount.max)){sAmount.value=v;update();}});
 iRate.addEventListener('input',function(){var v=parseFloat(this.value);if(!isNaN(v)&&v>=parseFloat(sRate.min)&&v<=parseFloat(sRate.max)){sRate.value=v;update();}});
 iTerm.addEventListener('input',function(){var v=parseInt(this.value);if(!isNaN(v)&&v>=parseInt(sTerm.min)&&v<=parseInt(sTerm.max)){sTerm.value=v;update();}});
+iAmount.addEventListener('blur',function(){var v=parseFloat(this.value);if(isNaN(v)){this.value=sAmount.value;}else{var c=Math.min(parseFloat(sAmount.max),Math.max(parseFloat(sAmount.min),v));if(c!==v){this.value=c;sAmount.value=c;update();}}});
+iRate.addEventListener('blur',function(){var v=parseFloat(this.value);if(isNaN(v)){this.value=sRate.value;}else{var c=Math.min(parseFloat(sRate.max),Math.max(parseFloat(sRate.min),v));if(c!==v){var d=Math.round(c*10)/10;this.value=d;sRate.value=d;update();}}});
+iTerm.addEventListener('blur',function(){var v=parseInt(this.value);if(isNaN(v)){this.value=sTerm.value;}else{var c=Math.min(parseInt(sTerm.max),Math.max(parseInt(sTerm.min),v));if(c!==v){this.value=c;sTerm.value=c;update();}}});
 document.querySelectorAll('.tab-btn[data-tab]').forEach(function(btn){btn.addEventListener('click',function(){switchTab(this.dataset.tab);});});
 document.getElementById('toggle-rows').addEventListener('click',function(){showAllRows=!showAllRows;renderTable(fullSchedule,showAllRows?null:5);this.setAttribute('aria-expanded',showAllRows);});
 document.querySelectorAll('.faq-q').forEach(function(btn){btn.addEventListener('click',function(){var item=this.parentElement;var isOpen=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(function(i){i.classList.remove('open');i.querySelector('.faq-q').setAttribute('aria-expanded','false');});if(!isOpen){item.classList.add('open');this.setAttribute('aria-expanded','true');}});});
@@ -1151,12 +1154,13 @@ document.querySelectorAll('input[type=range]').forEach(function(s){
   if(window.updateSliderFillGlobal) window.updateSliderFillGlobal(s);
 });}
 function populatePrefCurrencySelect(currentCur,filter){var sel=document.getElementById('pref-currency');var list=window.ALL_CURRENCIES.filter(function(cur){return !!window.CURRENCY_CONFIG[cur.c];});if(filter){var q=filter.toLowerCase();list=list.filter(function(cur){return cur.c.toLowerCase().indexOf(q)!==-1||cur.n.toLowerCase().indexOf(q)!==-1;});}sel.innerHTML='';list.forEach(function(cur){var opt=document.createElement('option');opt.value=cur.c;opt.textContent=cur.c+' — '+cur.n;if(cur.c===currentCur)opt.selected=true;sel.appendChild(opt);});if(sel.value!==currentCur&&!filter)sel.value='USD';}
-function openSettings(){var prefs=loadPrefs();document.getElementById('pref-lang').value=prefs.lang||'en';var srch=document.getElementById('pref-currency-search');if(srch)srch.value='';populatePrefCurrencySelect(prefs.currency||window._prefCurrency||'USD');document.getElementById('settings-drawer').classList.add('open');document.getElementById('settings-overlay').classList.add('open');}
+function openSettings(){var prefs=loadPrefs();document.getElementById('pref-lang').value=prefs.lang||'en';var srch=document.getElementById('pref-currency-search');if(srch)srch.value='';populatePrefCurrencySelect(prefs.currency||window._prefCurrency||'USD');document.getElementById('settings-drawer').classList.add('open');document.getElementById('settings-overlay').classList.add('open');setTimeout(function(){var closeBtn=document.getElementById('settings-close-btn');if(closeBtn)closeBtn.focus();},50);}
 function closeSettings(){document.getElementById('settings-drawer').classList.remove('open');document.getElementById('settings-overlay').classList.remove('open');}
 document.getElementById('settings-open-btn').addEventListener('click',openSettings);
-document.getElementById('settings-close-btn').addEventListener('click',closeSettings);
-document.getElementById('settings-overlay').addEventListener('click',closeSettings);
-document.getElementById('settings-save-btn').addEventListener('click',function(){var lang=document.getElementById('pref-lang').value;var currency=document.getElementById('pref-currency').value;savePrefs({lang:lang,currency:currency});window._prefCurrency=currency;applyLang(lang);if(window.applyCurrency)window.applyCurrency(currency);document.getElementById('pref-cur-tag').textContent=currency;document.getElementById('pref-lang-tag').textContent=lang.toUpperCase();closeSettings();if(window.showToast)window.showToast('Preferences saved');});
+document.getElementById('settings-close-btn').addEventListener('click',function(){closeSettings();document.getElementById('settings-open-btn').focus();});
+document.getElementById('settings-overlay').addEventListener('click',function(){closeSettings();document.getElementById('settings-open-btn').focus();});
+document.getElementById('settings-save-btn').addEventListener('click',function(){var lang=document.getElementById('pref-lang').value;var currency=document.getElementById('pref-currency').value;savePrefs({lang:lang,currency:currency});window._prefCurrency=currency;applyLang(lang);if(window.applyCurrency)window.applyCurrency(currency);document.getElementById('pref-cur-tag').textContent=currency;document.getElementById('pref-lang-tag').textContent=lang.toUpperCase();closeSettings();document.getElementById('settings-open-btn').focus();if(window.showToast)window.showToast('Preferences saved');});
+document.addEventListener('keydown',function(e){if(e.key==='Escape'&&document.getElementById('settings-drawer').classList.contains('open')){closeSettings();document.getElementById('settings-open-btn').focus();}});
 var _prefs=loadPrefs();
 var _initLang=_prefs.lang||(navigator.language&&navigator.language.split('-')[0])||'en';
 var _initCur=(_prefs.currency&&window.CURRENCY_CONFIG[_prefs.currency])?_prefs.currency:(detectLocaleCurrency()||'USD');
@@ -1181,7 +1185,7 @@ function fmtLocal(n,cur){if(!n)return'—';var cfg=window.CURRENCY_CONFIG&&windo
 function txCur(k,v){var t=window._i18n_current;var e=window._i18n_en;var s=(t&&t[k])||(e&&e[k])||k;return v?s.replace('{date}',v):s;}
 
 /* ── dot: 'live' | 'stale' | 'loading' | 'error' ── */
-function setDot(id,state){var el=document.getElementById(id);if(!el)return;var c={live:'#0B7C4E',stale:'#C8973A',loading:'#D5DCF0',error:'#C0392B'};el.style.background=c[state]||c.loading;}
+function setDot(id,state){var el=document.getElementById(id);if(!el)return;var c={live:'#0B7C4E',stale:'#C8973A',loading:'#D5DCF0',error:'#C0392B'};el.style.background=c[state]||c.loading;el.dataset.status=state||'loading';}
 
 function spinBtn(id){var btn=document.getElementById(id);if(!btn)return;var svg=btn.querySelector('svg');if(!svg)return;svg.style.animation='none';void svg.offsetWidth;svg.style.animation='spin-refresh .65s cubic-bezier(0.4,0,0.2,1) 1';}
 
@@ -1196,7 +1200,7 @@ function updateAgeTexts(){
 
 function populateSelects(){['cur-from','cur-to'].forEach(function(id){var sel=document.getElementById(id);if(!sel)return;var currentVal=sel.value;sel.innerHTML='';window.ALL_CURRENCIES.forEach(function(cur){var opt=document.createElement('option');opt.value=cur.c;opt.textContent=cur.c+' — '+cur.n;sel.appendChild(opt);});sel.value=currentVal||(id==='cur-from'?fromCur:toCur);});}
 
-function convert(){if(!rates)return;var amount=parseFloat(document.getElementById('cur-amount').value)||0;fromCur=document.getElementById('cur-from').value;toCur=document.getElementById('cur-to').value;var fromRate=rates[fromCur]||null;var toRate=rates[toCur]||null;if(!fromRate||!toRate){document.getElementById('cur-result').textContent=txCur('cur-rate-unavailable');document.getElementById('cur-rate-display').textContent=txCur('cur-not-in-feed');return;}var rate=toRate/fromRate;var result=amount*rate;var toCfg=window.CURRENCY_CONFIG&&window.CURRENCY_CONFIG[toCur];var toLoc=toCfg?toCfg.loc:'en-US';document.getElementById('cur-result').textContent=result.toLocaleString(toLoc,{maximumFractionDigits:4})+' '+toCur;var _rateLoc=(window.CURRENCY_CONFIG[window.APP_CURRENCY]||{loc:'en-US'}).loc;var fmtRate=function(n){return new Intl.NumberFormat(_rateLoc,{minimumFractionDigits:6,maximumFractionDigits:6}).format(n);};document.getElementById('cur-rate-display').textContent='1 '+fromCur+' = '+fmtRate(rate)+' '+toCur;document.getElementById('cur-rate-inv').textContent='1 '+toCur+' = '+fmtRate(1/rate)+' '+fromCur;document.getElementById('cur-rate-date').textContent=rateDate||txCur('cur-today');buildQuickGrid(fromCur,toCur,rate);updateCommodityLocal();}
+function convert(){if(!rates)return;var amount=Math.max(0,parseFloat(document.getElementById('cur-amount').value)||0);fromCur=document.getElementById('cur-from').value;toCur=document.getElementById('cur-to').value;var fromRate=rates[fromCur]||null;var toRate=rates[toCur]||null;if(!fromRate||!toRate){document.getElementById('cur-result').textContent=txCur('cur-rate-unavailable');document.getElementById('cur-rate-display').textContent=txCur('cur-not-in-feed');return;}var rate=toRate/fromRate;var result=amount*rate;var toCfg=window.CURRENCY_CONFIG&&window.CURRENCY_CONFIG[toCur];var toLoc=toCfg?toCfg.loc:'en-US';document.getElementById('cur-result').textContent=result.toLocaleString(toLoc,{maximumFractionDigits:4})+' '+toCur;var _rateLoc=(window.CURRENCY_CONFIG[window.APP_CURRENCY]||{loc:'en-US'}).loc;var fmtRate=function(n){return new Intl.NumberFormat(_rateLoc,{minimumFractionDigits:6,maximumFractionDigits:6}).format(n);};document.getElementById('cur-rate-display').textContent='1 '+fromCur+' = '+fmtRate(rate)+' '+toCur;document.getElementById('cur-rate-inv').textContent='1 '+toCur+' = '+fmtRate(1/rate)+' '+fromCur;document.getElementById('cur-rate-date').textContent=rateDate||txCur('cur-today');buildQuickGrid(fromCur,toCur,rate);updateCommodityLocal();}
 
 function buildQuickGrid(from,to,rate){var usdEq=(rates['USD']||1)/(rates[from]||1);var amounts=usdEq>=3?[1,10,100]:usdEq>=0.5?[1,100,1000]:usdEq>=0.05?[10,100,1000]:usdEq>=0.005?[100,1000,10000]:usdEq>=0.0005?[1000,10000,100000]:[10000,100000,1000000];var fromCfg=window.CURRENCY_CONFIG&&window.CURRENCY_CONFIG[from];var fromLoc=fromCfg?fromCfg.loc:'en-US';var toCfg=window.CURRENCY_CONFIG&&window.CURRENCY_CONFIG[to];var toLoc=toCfg?toCfg.loc:'en-US';var grid=document.getElementById('cur-quick-grid');if(!grid)return;grid.innerHTML='';amounts.forEach(function(a){var div=document.createElement('div');div.style.cssText='background:var(--card2);border:1px solid var(--border);border-radius:8px;padding:8px 12px';div.innerHTML='<div style="font-size:11px;color:var(--muted)">'+a.toLocaleString(fromLoc)+' '+from+'</div><div style="font-size:13px;font-weight:500;color:var(--navy)">'+(a*rate).toLocaleString(toLoc,{maximumFractionDigits:2})+' '+to+'</div>';grid.appendChild(div);});}
 
@@ -1295,6 +1299,7 @@ function fetchCommodity(ticker,type){
 
 /* ── Event listeners ── */
 document.getElementById('cur-amount').addEventListener('input',convert);
+document.getElementById('cur-amount').addEventListener('blur',function(){var v=parseFloat(this.value);if(isNaN(v)||v<0){this.value=0;convert();}});
 document.getElementById('cur-from').addEventListener('change',convert);
 document.getElementById('cur-to').addEventListener('change',function(){convert();updateCommodityLocal();});
 document.getElementById('cur-swap').addEventListener('click',function(){var tmp=document.getElementById('cur-from').value;document.getElementById('cur-from').value=document.getElementById('cur-to').value;document.getElementById('cur-to').value=tmp;convert();});
@@ -1356,22 +1361,24 @@ if(hashMap[initHash]) switchPanel(hashMap[initHash]);
 </script>
 
 <script>
-/* API timeout fallback — show error state after 12s if still loading */
+/* API timeout fallback — show error state after 12s if dot is still in loading state */
 setTimeout(function(){
-  var st = document.getElementById('cur-status-text');
-  if(st && /Loading|Fetching/i.test(st.textContent)){
-    st.textContent = 'Rates unavailable — try refreshing';
-    var d = document.getElementById('cur-dot');
-    if(d) d.style.background = '#C8973A';
+  var d = document.getElementById('cur-dot');
+  if(d && d.dataset.status === 'loading'){
+    var st = document.getElementById('cur-status-text');
+    if(st) st.textContent = 'Rates unavailable — try refreshing';
+    d.style.background = '#C8973A';
+    d.dataset.status = 'error';
     var rb = document.getElementById('cur-retry-btn');
     if(rb) rb.style.display = 'inline-block';
   }
   ['gold','oil'].forEach(function(type){
-    var s = document.getElementById(type + '-status');
-    if(s && /Loading/i.test(s.textContent)){
-      s.textContent = 'Unavailable — try refreshing';
-      var d = document.getElementById(type + '-dot');
-      if(d) d.style.background = '#C8973A';
+    var dot = document.getElementById(type + '-dot');
+    if(dot && dot.dataset.status === 'loading'){
+      var s = document.getElementById(type + '-status');
+      if(s) s.textContent = 'Unavailable — try refreshing';
+      dot.style.background = '#C8973A';
+      dot.dataset.status = 'error';
     }
   });
 }, 12000);
@@ -1480,7 +1487,8 @@ setTimeout(function(){
       var kv = part.split('=');
       if(kv.length===2) params[kv[0]] = decodeURIComponent(kv[1]);
     });
-    if(params.tab && params.tab!=='mortgage' && window.switchTab) window.switchTab(params.tab);
+    var VALID_TABS=['mortgage','car','personal','student'];
+    if(params.tab && params.tab!=='mortgage' && VALID_TABS.indexOf(params.tab)!==-1 && window.switchTab) window.switchTab(params.tab);
     function setBounded(sliderId, val){
       var s = document.getElementById(sliderId);
       if(!s||!val) return;
