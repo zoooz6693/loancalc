@@ -84,7 +84,6 @@
     </div>
     <div class="settings-group">
       <p class="settings-label" data-i18n="pref-currency">Preferred currency</p>
-      <input type="text" class="settings-search" id="pref-currency-search" placeholder="Search currency…" autocomplete="off" aria-label="Search currency">
       <select class="settings-select" id="pref-currency" style="background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='rgba(255,255,255,0.4)' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E\");background-repeat:no-repeat;background-position:right 12px center"></select>
       <p class="settings-note" data-i18n="pref-currency-note">Sets the default "convert to" currency and the local price shown for gold and oil.</p>
     </div>
@@ -549,15 +548,9 @@
           <input type="number" id="cur-amount" value="1000" min="0" max="999999999" step="1" class="cur-amount-input">
         </div>
         <div class="cur-selects-row">
-          <div class="cur-sel-wrap">
-            <input type="text" class="cur-search" id="cur-from-search" placeholder="Search…" autocomplete="off" aria-label="Search from currency">
-            <select id="cur-from" class="cur-sel" aria-label="From currency"></select>
-          </div>
+          <select id="cur-from" class="cur-sel" aria-label="From currency"></select>
           <button id="cur-swap" class="cur-swap-btn" title="Swap" aria-label="Swap currencies">⇄</button>
-          <div class="cur-sel-wrap">
-            <input type="text" class="cur-search" id="cur-to-search" placeholder="Search…" autocomplete="off" aria-label="Search to currency">
-            <select id="cur-to" class="cur-sel" aria-label="To currency"></select>
-          </div>
+          <select id="cur-to" class="cur-sel" aria-label="To currency"></select>
         </div>
         <div class="cur-group-lg">
           <p class="cur-label" id="cur-result-lbl" data-i18n="cur-to-label">Converted to</p>

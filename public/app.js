@@ -106,17 +106,6 @@ function updateSliderFill(slider){var min=parseFloat(slider.min)||0;var max=pars
 var grad=dir==='rtl'?'linear-gradient(to left,var(--slider-fill) 0%,var(--slider-fill) '+pct+'%,var(--slider-track) '+pct+'%,var(--slider-track) 100%)':'linear-gradient(to right,var(--slider-fill) 0%,var(--slider-fill) '+pct+'%,var(--slider-track) '+pct+'%,var(--slider-track) 100%)';
 slider.style.background=grad;}window.updateSliderFillGlobal=updateSliderFill;
 
-/* Auto-shrink large numbers to fit their container */
-window.fitText = function(el){
-  if(!el) return;
-  el.style.fontSize = '';
-  var parent = el.parentElement;
-  if(!parent) return;
-  var maxW = parent.clientWidth - 20;
-  if(el.scrollWidth <= maxW) return;
-  var fs = parseFloat(getComputedStyle(el).fontSize);
-  el.style.fontSize = Math.max(14, Math.floor(fs * maxW / el.scrollWidth)) + 'px';
-};
 
 /* ── Global range slider fill delegation ── */
 document.addEventListener('input', function(e){
