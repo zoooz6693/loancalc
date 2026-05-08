@@ -2824,8 +2824,11 @@ window.cssToken = function (name) {
 		var statusEl = document.getElementById(type + '-status');
 		if (statusEl) statusEl.textContent = txCur('cmd-fetching');
 
-		fetch('/api/commodity?ticker=' + encodeURIComponent(ticker))
-			.then(function (r) {
+fetch('/api/commodity?ticker=' + ticker, {
+  headers: {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+  }
+})			.then(function (r) {
 				return r.json();
 			})
 			.then(function (data) {
