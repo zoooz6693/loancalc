@@ -2822,16 +2822,19 @@ window.cssToken = function (name) {
 		setDot(type + '-dot', 'loading');
 
 		var statusEl = document.getElementById(type + '-status');
-		if (statusEl) statusEl.textContent = txCur('cmd-fetching');
+		if (statusEl) statusEl.textContent = 'Updating...';
 
-	  fetch('/api/commodity?ticker='+encodeURIComponent(ticker)).then(function(r){return r.json();}).then(function(data){
-
-				var price = data && data.chart && data.chart.result && data.chart.result[0] && data.chart.result[0].meta && data.chart.result[0].meta.regularMarketPrice;
+		fetch('/api/commodity?ticker=' + encodeURIComponent(ticker))
+			.then(function (r) {
+				return r.json();
+			})
+			.then(function (data) {
+				// Adjusted to match the new flat JSON structure
+				var price = data && data.price;
+				var dateStr = data && data.date;
 
 				if (!price || price <= 0) throw new Error('invalid price');
 
-				var dateTs = data.chart.result[0].meta.regularMarketTime;
-				var dateStr = new Date(dateTs * 1000).toLocaleDateString(window.APP_LANG || 'en-US', {month: 'short', day: 'numeric'});
 				var now = Date.now();
 
 				if (type === 'gold') goldUSD = price;
@@ -2839,13 +2842,16 @@ window.cssToken = function (name) {
 
 				fetchedAt[type] = now;
 				isFetching[type] = false;
+
+				// Save to cache using the date provided by the API
 				saveCmdCache(type, price, now, dateStr);
 				setDot(type + '-dot', 'live');
 
-				if (statusEl) statusEl.textContent = 'Updated just now';
+				if (statusEl) statusEl.textContent = 'Updated ' + dateStr;
 				updateCommodityLocal();
 			})
-			.catch(function () {
+			.catch(function (err) {
+				console.error(err);
 				isFetching[type] = false;
 				var cached = loadCmdCache(type);
 
