@@ -1,58 +1,92 @@
-/* tokens.css — LoanCalc design tokens */
+/* tokens.css — LoanCalc Mineral Luxury design tokens */
 
 :root {
-  /* ── Colors ───────────────────────────────────────── */
-  --color-navy:           #0A1628;   /* Midnight Ink  — dark surfaces, authority */
-  --color-navy-mid:       #162040;   /* Deep Atlas    — settings drawer, footer */
-  --color-focus:          #1B3FA3;   /* Focus Blue    — focus rings, currency result border */
-  --color-gold:           #C8973A;   /* Data Gold     — financial metrics, active tab, CTA */
-  --color-gold-wash:      #FDF4E3;   /* Gold Wash     — helper note background */
-  --color-gold-deep:      #96700A;   /* Gold Deep     — helper note text */
-  --color-loss:           #C0392B;   /* Loss Red      — negative values */
-  --color-bg:             #F0F4FF;   /* Blueprint     — page background */
-  --color-surface:        #FFFFFF;   /* Surface       — card backgrounds */
-  --color-surface-raised: #F8FAFF;   /* Surface Raised — hover states, secondary cards */
-  --color-text:           #0A1628;   /* Primary text  — same hue as navy */
-  --color-muted:          #5B6278;   /* Slate Mist    — labels, secondary text */
-  --color-border:         #D5DCF0;   /* Grid Line     — borders, dividers */
-  --color-gain:           #0B7C4E;   /* Gain Green    — positive financial values */
-  --color-gain-wash:      #E9F7F0;   /* Gain Wash     — gain callout tint */
-  --color-blue-light:     #EEF2FF;   /* Blue Light    — currency result background */
-  --color-oil-bg:         #EAF3DE;   /* Oil card icon background */
-  --color-oil-border:     #639922;   /* Oil card icon border */
-  --color-focus-ring:     rgba(27,63,163,0.15); /* Focus outline glow */
-  --color-hero-glow:      rgba(27,63,163,0.18); /* Focus Blue at 18% — hero radial gradient */
-  --color-white:          oklch(99% 0.006 252); /* Tinted white — never pure #fff */
+  /* ── Backgrounds ─────────────────────────────────── */
+  --forest-deep: #060c09; /* page footer bg, deepest surface */
+  --forest-base: #0b1610; /* page background */
+  --forest-mid: #111e16; /* card backgrounds */
 
-  /* ── Slider fill ──────────────────────────────────────── */
-  --slider-fill:  var(--color-navy);   /* filled track segment */
-  --slider-track: var(--color-border); /* unfilled track segment */
+  /* ── Text — 4 contrast tiers ─────────────────────── */
+  --text-high: #f5f0e8; /* headings, result values, primary content */
+  --text-body: #c8d5cc; /* body copy, subtitles */
+  --text-sub: #8fada0; /* labels, secondary UI text */
+  --text-muted: #5e7a6e; /* range ends, footer copy — de-emphasis only */
 
-  /* ── Verdict colors ───────────────────────────────────── */
-  --verdict-neutral-bg:  rgba(255,255,255,0.08);
-  --verdict-neutral-fg:  rgba(255,255,255,0.75);
-  --verdict-negative-bg: rgba(194,57,48,0.15);
-  --verdict-negative-fg: #F4A7A3;
-  --verdict-warn-bg:     rgba(200,151,58,0.15);
-  --verdict-warn-fg:     #F5C475;
-  --verdict-positive-bg: rgba(11,124,78,0.2);
-  --verdict-positive-fg: #7DE0B8;
+  /* ── Gold accent ──────────────────────────────────── */
+  --gold: #d4a040; /* structural: slider fill, bar-i, status dots */
+  --gold-warm: #edb855; /* hover / highlight states */
+  --gold-text: #e8b84c; /* gold text on dark — lighter for legibility */
+  --gold-dim: rgba(212, 160, 64, 0.14); /* active tab bg, helper note bg */
+  --gold-border: rgba(212, 160, 64, 0.28); /* card borders, section accents */
+  --gold-border-hi: rgba(212, 160, 64, 0.5); /* hover border, focused controls */
 
-  /* ── Radius ───────────────────────────────────────── */
-  --r-xs:   6px;   /* close buttons, pref-tag, retry btn */
-  --r-sm:   8px;   /* buttons, inputs, controls */
-  --r-md:  10px;   /* res-box, faq items, rate row, verdict */
-  --r-lg:  12px;   /* formula box, settings drawer area */
-  --r-xl:  20px;   /* chart/table containers */
-  --r-2xl: 28px;   /* primary calculator card */
+  /* ── Surfaces ─────────────────────────────────────── */
+  --surface: rgba(255, 255, 255, 0.055);
+  --surface-hi: rgba(255, 255, 255, 0.09);
+  --surface-input: rgba(255, 255, 255, 0.07); /* editable input field bg */
+
+  /* ── Borders ──────────────────────────────────────── */
+  --border: rgba(255, 255, 255, 0.12);
+  --border-strong: rgba(255, 255, 255, 0.18);
+
+  /* ── Semantic ─────────────────────────────────────── */
+  --gain: #6ed8a8; /* positive: savings growth, refinance saving */
+  --loss: #f09090; /* negative values */
+
+  /* ── Verdict states (refinance panel) ────────────── */
+  --verdict-positive-bg: rgba(110, 216, 168, 0.12);
+  --verdict-positive-fg: #6ed8a8;
+  --verdict-negative-bg: rgba(240, 144, 144, 0.12);
+  --verdict-negative-fg: #f09090;
+  --verdict-warn-bg: rgba(212, 160, 64, 0.12);
+  --verdict-warn-fg: #e8b84c;
+  --verdict-neutral-bg: rgba(255, 255, 255, 0.06);
+  --verdict-neutral-fg: #c8d5cc;
+
+  /* ── Breakdown bar ────────────────────────────────── */
+  --bar-principal: rgba(245, 240, 232, 0.45); /* warm-toned principal segment */
+
+  /* ── Slider ───────────────────────────────────────── */
+  --slider-fill: var(--gold);
+  --slider-track: rgba(255, 255, 255, 0.15);
+
+  /* ── Overlay ──────────────────────────────────────── */
+  --overlay-bg: rgba(0, 0, 0, 0.6);
+
+  /* ── Radius (spatial, values unchanged) ──────────── */
+  --r-xs: 6px;
+  --r-sm: 8px;
+  --r-md: 10px;
+  --r-lg: 12px;
+  --r-xl: 20px;
+  --r-2xl: 28px;
 
   /* ── Shadows ──────────────────────────────────────── */
-  --shadow-ambient:  0 2px 16px rgba(10,22,40,0.08);  /* card rest state */
-  --shadow-elevated: 0 4px 32px rgba(10,22,40,0.12);  /* primary calc card, chart */
+  --shadow-ambient: 0 2px 16px rgba(0, 0, 0, 0.3);
+  --shadow-elevated: 0 20px 60px rgba(0, 0, 0, 0.5);
+  --shadow-card: 0 0 0 1px rgba(0, 0, 0, 0.5), 0 20px 60px rgba(0, 0, 0, 0.5);
+  --shadow-toast: 0 4px 20px rgba(0, 0, 0, 0.6);
+  --shadow-thumb: 0 2px 8px rgba(0, 0, 0, 0.4);
 
-  /* ── Typography ───────────────────────────────────── */
-  --font-display: 'Playfair Display', Georgia, serif;
-  --font-body:    'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --font-mono:    'Courier New', Courier, monospace;
+  /* ── Z-index ──────────────────────────────────────── */
+  --z-overlay: 200;
+  --z-drawer: 201;
+  --z-toast: 300;
 
+  /* ── Typography — Latin default ───────────────────── */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-mono: 'IBM Plex Mono', 'Fira Code', monospace;
+
+  /* ── Legacy aliases — referenced by app.js ────────── */
+  --color-gold: var(--gold);
+  --color-navy: var(--forest-deep);
+  --color-gain: var(--gain);
+  --color-loss: var(--loss);
+  --copy-link-copied-border: rgba(110, 216, 168, 0.3);
+  /* inline-style aliases used by app.js quick-grid and chart ticks */
+  --color-surface-raised: var(--surface-hi);
+  --color-border: var(--border);
+  --color-muted: var(--text-muted);
+  --color-navy-mid: rgba(245, 240, 232, 0.18); /* CI chart deposit bars */
 }

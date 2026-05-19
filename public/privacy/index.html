@@ -1,0 +1,758 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/3817815a8470fdd77bcceafe/script.js" defer></script>
+    <meta name="google-adsense-account" content="ca-pub-2392401188548335" />
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag('consent', 'default', {analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', wait_for_update: 500});
+      document.addEventListener('cookieyes:consent', function (e) {
+        var accepted = (e.detail && e.detail.accepted) || [];
+        if (accepted.indexOf('analytics') > -1) {
+          gtag('consent', 'update', {analytics_storage: 'granted'});
+          var s = document.createElement('script');
+          s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-9RPEY1VL2X';
+          document.head.appendChild(s);
+          gtag('js', new Date());
+          gtag('config', 'G-9RPEY1VL2X');
+        }
+        if (accepted.indexOf('advertisement') > -1) {
+          gtag('consent', 'update', {ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted'});
+          var a = document.createElement('script');
+          a.async = true;
+          a.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2392401188548335';
+          a.setAttribute('crossorigin', 'anonymous');
+          document.head.appendChild(a);
+        }
+      });
+    </script>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <title>Privacy Policy | LoanCalc</title>
+    <meta name="description" content="LoanCalc privacy policy. Learn what data we collect, how we use it, and your rights under GDPR (EU) and CCPA (California)." />
+    <meta name="robots" content="index,follow" />
+    <meta property="og:image" content="https://loancalc.app/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://loancalc.app/og.png" />
+    <link rel="canonical" href="https://loancalc.app/privacy/" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&display=swap"
+      as="style"
+      onload="
+        this.onload = null;
+        this.rel = 'stylesheet';
+      "
+    />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&display=swap" rel="stylesheet" /></noscript>
+    <link rel="stylesheet" href="/tokens.css" />
+    <link rel="stylesheet" href="/style.css" />
+    <style>
+      /* Privacy page layout */
+      .priv-wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 48px 20px 80px;
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 64px;
+        align-items: start;
+      }
+      @media (max-width: 800px) {
+        .priv-wrap {
+          grid-template-columns: 1fr;
+          gap: 32px;
+        }
+      }
+
+      /* Sticky sidebar nav */
+      .priv-nav {
+        position: sticky;
+        top: 136px;
+      }
+      @media (max-width: 800px) {
+        .priv-nav {
+          position: static;
+        }
+      }
+      .priv-nav-label {
+        font-family: var(--font-body);
+        font-size: 11px;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        color: var(--color-muted);
+        margin-bottom: 12px;
+      }
+      .priv-nav ul {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+      @media (max-width: 800px) {
+        .priv-nav ul {
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 6px;
+        }
+      }
+      .priv-nav a {
+        display: block;
+        font-size: 13px;
+        font-weight: 400;
+        color: var(--color-muted);
+        text-decoration: none;
+        padding: 5px 10px;
+        border-radius: var(--r-sm);
+        transition: all 0.15s;
+      }
+      .priv-nav a:hover {
+        color: var(--color-text);
+        background: var(--color-surface-raised);
+      }
+      .priv-nav a.active {
+        color: var(--color-text);
+        font-weight: 500;
+        background: var(--color-surface-raised);
+        border-left: 1px solid var(--color-gold);
+        padding-left: 8px;
+      }
+      @media (max-width: 800px) {
+        .priv-nav a.active {
+          border-left: none;
+          border-bottom: 1px solid var(--color-gold);
+          padding-left: 10px;
+        }
+      }
+
+      /* Content */
+      .priv-content {
+        min-width: 0;
+      }
+      .priv-header {
+        margin-bottom: 40px;
+        padding-bottom: 32px;
+        border-bottom: 1px solid var(--color-border);
+      }
+      .priv-header h1 {
+        font-family: var(--font-display);
+        font-size: clamp(28px, 4vw, 40px);
+        font-weight: 700;
+        color: var(--color-text);
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        margin-bottom: 12px;
+      }
+      .priv-meta {
+        font-size: 13px;
+        color: var(--color-muted);
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .priv-meta strong {
+        color: var(--color-text);
+      }
+
+      /* Sections */
+      .priv-section {
+        margin-bottom: 48px;
+        scroll-margin-top: 144px;
+      }
+      .priv-section h2 {
+        font-family: var(--font-display);
+        font-size: 22px;
+        font-weight: 600;
+        color: var(--color-text);
+        margin-bottom: 16px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid var(--color-border);
+      }
+      .priv-section h3 {
+        font-family: var(--font-display);
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--color-text);
+        margin: 24px 0 10px;
+      }
+      .priv-section p {
+        font-size: 15px;
+        color: var(--color-text);
+        line-height: 1.75;
+        margin-bottom: 14px;
+        max-width: 65ch;
+      }
+      .priv-section p:last-child {
+        margin-bottom: 0;
+      }
+      .priv-section ul,
+      .priv-section ol {
+        font-size: 15px;
+        line-height: 1.75;
+        color: var(--color-text);
+        padding-left: 20px;
+        margin-bottom: 14px;
+        max-width: 65ch;
+      }
+      .priv-section li {
+        margin-bottom: 6px;
+      }
+      .priv-section a {
+        color: var(--color-focus);
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 2px;
+      }
+      .priv-section a:hover {
+        color: var(--color-text);
+      }
+
+      /* Cookie table */
+      .cookie-table-wrap {
+        overflow-x: auto;
+        margin: 20px 0;
+        border-radius: var(--r-lg);
+        border: 1px solid var(--color-border);
+      }
+      .cookie-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 13px;
+      }
+      .cookie-table th {
+        background: var(--color-navy);
+        color: rgba(255, 255, 255, 0.7);
+        font-family: var(--font-body);
+        font-weight: 500;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.07em;
+        padding: 10px 14px;
+        text-align: left;
+      }
+      .cookie-table th:first-child {
+        border-radius: var(--r-lg) 0 0 0;
+      }
+      .cookie-table th:last-child {
+        border-radius: 0 var(--r-lg) 0 0;
+      }
+      .cookie-table td {
+        padding: 10px 14px;
+        border-top: 1px solid var(--color-border);
+        vertical-align: top;
+        color: var(--color-text);
+        line-height: 1.5;
+      }
+      .cookie-table tr:hover td {
+        background: var(--color-surface-raised);
+      }
+      .cookie-table code {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        background: var(--color-surface-raised);
+        padding: 2px 6px;
+        border-radius: 4px;
+        border: 1px solid var(--color-border);
+      }
+      .cat-badge {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 500;
+        padding: 2px 7px;
+        border-radius: 99px;
+      }
+      .cat-necessary {
+        background: rgba(11, 124, 78, 0.12);
+        color: var(--color-gain);
+      }
+      .cat-functional {
+        background: rgba(27, 63, 163, 0.1);
+        color: var(--color-focus);
+      }
+      .cat-analytics {
+        background: var(--color-gold-surface);
+        color: var(--color-gold-text-accessible);
+      }
+      .cat-advertising {
+        background: rgba(194, 57, 48, 0.1);
+        color: var(--color-loss);
+      }
+
+      /* Rights list */
+      .rights-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 16px;
+        margin: 20px 0;
+      }
+      .right-card {
+        background: var(--color-surface);
+        border: 1px solid var(--color-border);
+        border-radius: var(--r-md);
+        padding: 16px 18px;
+      }
+      .right-card strong {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--color-text);
+        margin-bottom: 6px;
+      }
+      .right-card p {
+        font-size: 13px;
+        color: var(--color-muted);
+        line-height: 1.6;
+        margin: 0;
+        max-width: none;
+      }
+
+      /* Highlight box */
+      .priv-note {
+        background: var(--color-gold-wash);
+        border: 1px solid var(--color-gold-border-soft);
+        border-radius: var(--r-md);
+        padding: 14px 18px;
+        margin: 20px 0;
+      }
+      .priv-note p {
+        font-size: 14px;
+        color: var(--color-gold-deep);
+        max-width: none;
+        margin: 0;
+      }
+      .priv-note strong {
+        color: var(--color-gold-deep);
+      }
+
+      /* Do not sell section */
+      #do-not-sell {
+        scroll-margin-top: 144px;
+      }
+    </style>
+  </head>
+  <body>
+    <header role="banner">
+      <div class="container header-inner">
+        <a href="/" class="logo-link" aria-label="LoanCalc: Free Loan Calculator">
+          <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect width="36" height="36" rx="9" style="fill: var(--color-navy)" />
+            <line x1="10" y1="8" x2="10" y2="27" style="stroke: var(--color-gold)" stroke-width="2.5" stroke-linecap="round" />
+            <line x1="10" y1="27" x2="28" y2="27" style="stroke: var(--color-gold)" stroke-width="2.5" stroke-linecap="round" />
+            <path d="M10 22 L15 22 L15 27" style="stroke: var(--color-gold)" stroke-opacity="0.4" stroke-width="1.2" fill="none" />
+            <line x1="10" y1="12" x2="13" y2="12" style="stroke: var(--color-gold)" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round" />
+            <line x1="10" y1="17" x2="13" y2="17" style="stroke: var(--color-gold)" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round" />
+            <line x1="15" y1="27" x2="15" y2="25" style="stroke: var(--color-gold)" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round" />
+            <line x1="19" y1="27" x2="19" y2="25" style="stroke: var(--color-gold)" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round" />
+            <line x1="23" y1="27" x2="23" y2="25" style="stroke: var(--color-gold)" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round" />
+          </svg>
+          <span class="logo-text">Loan<span>Calc</span></span>
+        </a>
+        <a href="/" style="font-size: 13px; color: rgba(255, 255, 255, 0.55); text-decoration: none; transition: color 0.15s" onmouseover="this.style.color = 'rgba(255,255,255,0.85)'" onmouseout="this.style.color = 'rgba(255,255,255,0.55)'">← Back to calculators</a>
+      </div>
+    </header>
+
+    <div class="priv-wrap">
+      <!-- Sidebar nav -->
+      <aside class="priv-nav" aria-label="Privacy policy sections">
+        <p class="priv-nav-label">On this page</p>
+        <ul>
+          <li><a href="#who-we-are">Who we are</a></li>
+          <li><a href="#data-collected">Data we collect</a></li>
+          <li><a href="#how-we-use">How we use it</a></li>
+          <li><a href="#third-parties">Third parties</a></li>
+          <li><a href="#cookies">Cookies</a></li>
+          <li><a href="#manage-cookies">Manage cookies</a></li>
+          <li><a href="#gdpr-rights">Your rights (GDPR)</a></li>
+          <li><a href="#do-not-sell">Do not sell (CCPA)</a></li>
+          <li><a href="#international">International transfers</a></li>
+          <li><a href="#retention">Data retention</a></li>
+          <li><a href="#children">Children</a></li>
+          <li><a href="#changes">Policy changes</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </aside>
+
+      <!-- Main content -->
+      <main class="priv-content" id="main-content">
+        <div class="priv-header">
+          <h1>Privacy Policy</h1>
+          <div class="priv-meta">
+            <span>Last updated: <strong>May 13, 2026</strong></span>
+            <span>Applies to: <strong>loancalc.app</strong></span>
+          </div>
+        </div>
+
+        <section class="priv-section" id="who-we-are">
+          <h2>Who we are</h2>
+          <p>LoanCalc operates the website loancalc.app, a free suite of financial calculators covering loans, mortgages, savings, refinancing, currency conversion, and live commodity prices. No account or signup is required to use the site.</p>
+          <p>For the purposes of the EU General Data Protection Regulation (GDPR), LoanCalc is the data controller for personal data processed in connection with this website. For California privacy law purposes (CCPA/CPRA), LoanCalc is the business responsible for determining how your personal information is used.</p>
+        </section>
+
+        <section class="priv-section" id="data-collected">
+          <h2>Data we collect</h2>
+          <p>We collect the minimum data needed to operate the site and improve it over time. We do not collect your name, email address, or any financial figures you enter into the calculators. Calculator inputs exist only in your browser and are never sent to our servers.</p>
+
+          <h3>Data collected automatically</h3>
+          <ul>
+            <li><strong>Server logs.</strong> Our web host records standard server log data including your IP address, browser type, referring URL, pages visited, and timestamps. This is retained for up to 30 days for security and abuse prevention purposes.</li>
+            <li><strong>Analytics data.</strong> If you accept analytics cookies, Google Analytics 4 (GA4) records aggregated usage data: pages visited, session duration, country-level location (not precise), device type, and browser. GA4 anonymizes IP addresses by default. This data helps us understand which tools are used most and where to improve.</li>
+            <li><strong>Advertising data.</strong> If you accept advertising cookies, Google AdSense and Google Ad Manager record data used to show relevant ads, including your browsing behavior on this and other sites that use Google advertising services.</li>
+          </ul>
+
+          <h3>Data you provide</h3>
+          <ul>
+            <li><strong>Preferences.</strong> If you change your currency or language in the Settings panel, that preference is saved to your browser's local storage (<code>loancalc_prefs</code>). This stays in your browser; we never receive it.</li>
+            <li><strong>Consent record.</strong> Your cookie consent choices are stored in your browser by our consent management platform (CookieYes) to avoid showing you the banner on every visit.</li>
+          </ul>
+        </section>
+
+        <section class="priv-section" id="how-we-use">
+          <h2>How we use your data</h2>
+          <p>We process personal data only where we have a lawful basis to do so. The table below explains each processing activity.</p>
+
+          <div class="cookie-table-wrap">
+            <table class="cookie-table" aria-label="Data processing activities and lawful bases">
+              <thead>
+                <tr>
+                  <th>Activity</th>
+                  <th>Data used</th>
+                  <th>Lawful basis (GDPR)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Delivering the website</td>
+                  <td>IP address, server logs</td>
+                  <td>Legitimate interest (operating the service)</td>
+                </tr>
+                <tr>
+                  <td>Security and abuse prevention</td>
+                  <td>IP address, request patterns</td>
+                  <td>Legitimate interest (protecting users and infrastructure)</td>
+                </tr>
+                <tr>
+                  <td>Analytics (usage insights)</td>
+                  <td>Anonymized events via Google Analytics 4</td>
+                  <td>Consent — only after you accept analytics cookies</td>
+                </tr>
+                <tr>
+                  <td>Advertising (showing ads)</td>
+                  <td>Behavioral data via Google AdSense/Ad Manager</td>
+                  <td>Consent — only after you accept advertising cookies</td>
+                </tr>
+                <tr>
+                  <td>Saving your preferences</td>
+                  <td>Language, currency (stored locally in your browser)</td>
+                  <td>Legitimate interest (improving user experience); data never leaves your device</td>
+                </tr>
+                <tr>
+                  <td>Remembering your consent choice</td>
+                  <td>Consent record (stored locally by CookieYes)</td>
+                  <td>Legal obligation (GDPR consent recordkeeping)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>We do not use your data for automated profiling, scoring, or decisions that produce legal effects. We do not sell your personal information to data brokers or mailing list providers.</p>
+        </section>
+
+        <section class="priv-section" id="third-parties">
+          <h2>Third-party services</h2>
+          <p>We share limited data with the following third-party services. Each has its own privacy policy governing their use of that data.</p>
+
+          <h3>Google Analytics 4 (GA4)</h3>
+          <p>Provided by Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA. GA4 processes anonymized usage data for analytics purposes. Data is transferred to Google servers in the United States. Google LLC is certified under the EU-US Data Privacy Framework. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>.</p>
+          <p>GA4 is only loaded after you provide consent via the cookie banner.</p>
+
+          <h3>Google AdSense and Ad Manager</h3>
+          <p>Provided by Google LLC. AdSense and Ad Manager display advertising on this site. If you consent to advertising cookies, Google may use behavioral data from this site and other sites to show personalized ads. If you decline advertising cookies, ads may still appear but will not be personalized. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a> | <a href="https://adssettings.google.com" target="_blank" rel="noopener">Manage ad settings</a>.</p>
+          <p>AdSense is only loaded after you provide consent via the cookie banner.</p>
+
+          <h3>CookieYes (Consent Management)</h3>
+          <p>We use CookieYes to manage your cookie consent choices. CookieYes records your consent decisions in your browser and shares aggregated consent statistics with us. <a href="https://www.cookieyes.com/privacy-policy/" target="_blank" rel="noopener">CookieYes Privacy Policy</a>.</p>
+
+          <h3>Frankfurter API (Exchange Rates)</h3>
+          <p>Currency exchange rates are fetched from the Frankfurter API (api.frankfurter.app), a public financial data service. No personal data is sent in these requests — only the requested currency codes.</p>
+
+          <h3>Web hosting infrastructure</h3>
+          <p>The site is hosted on Cloudflare's infrastructure. Cloudflare processes IP addresses and request metadata as part of delivering the site. <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">Cloudflare Privacy Policy</a>.</p>
+        </section>
+
+        <section class="priv-section" id="cookies">
+          <h2>Cookies we use</h2>
+          <p>Cookies are small text files stored in your browser. We use cookies and similar local storage for the purposes listed below. You can change your preferences at any time using the cookie settings panel.</p>
+
+          <div class="cookie-table-wrap">
+            <table class="cookie-table" aria-label="Cookies and local storage used by LoanCalc">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>Provider</th>
+                  <th>Purpose</th>
+                  <th>Duration</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>cky-consent</code></td>
+                  <td><span class="cat-badge cat-necessary">Necessary</span></td>
+                  <td>CookieYes</td>
+                  <td>Records your cookie consent choices to avoid re-prompting</td>
+                  <td>1 year</td>
+                </tr>
+                <tr>
+                  <td><code>loancalc_prefs</code></td>
+                  <td><span class="cat-badge cat-functional">Functional</span></td>
+                  <td>LoanCalc</td>
+                  <td>Saves your preferred language and currency in local storage</td>
+                  <td>1 year (local storage)</td>
+                </tr>
+                <tr>
+                  <td><code>_ga</code></td>
+                  <td><span class="cat-badge cat-analytics">Analytics</span></td>
+                  <td>Google Analytics</td>
+                  <td>Distinguishes unique visitors using a randomly generated identifier</td>
+                  <td>2 years</td>
+                </tr>
+                <tr>
+                  <td><code>_ga_9RPEY1VL2X</code></td>
+                  <td><span class="cat-badge cat-analytics">Analytics</span></td>
+                  <td>Google Analytics</td>
+                  <td>Session and campaign state for GA4 measurement</td>
+                  <td>2 years</td>
+                </tr>
+                <tr>
+                  <td><code>__gads</code></td>
+                  <td><span class="cat-badge cat-advertising">Advertising</span></td>
+                  <td>Google AdSense</td>
+                  <td>Ad personalization, frequency capping, fraud prevention</td>
+                  <td>13 months</td>
+                </tr>
+                <tr>
+                  <td><code>__gpi</code></td>
+                  <td><span class="cat-badge cat-advertising">Advertising</span></td>
+                  <td>Google AdSense</td>
+                  <td>Ad serving and measurement</td>
+                  <td>13 months</td>
+                </tr>
+                <tr>
+                  <td><code>ANID</code></td>
+                  <td><span class="cat-badge cat-advertising">Advertising</span></td>
+                  <td>Google</td>
+                  <td>Tracks ad clicks and personalization for signed-in Google users</td>
+                  <td>13 months</td>
+                </tr>
+                <tr>
+                  <td><code>NID</code></td>
+                  <td><span class="cat-badge cat-advertising">Advertising</span></td>
+                  <td>Google</td>
+                  <td>Stores preferences for ad targeting for signed-out users</td>
+                  <td>6 months</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>Analytics and advertising cookies are set only after you explicitly accept them via the consent banner. Declining or withdrawing consent stops these cookies from being set and prevents GA4 and AdSense from loading.</p>
+        </section>
+
+        <section class="priv-section" id="manage-cookies">
+          <h2>Manage your cookie preferences</h2>
+          <p>You can change or withdraw your cookie consent at any time:</p>
+          <ul>
+            <li><strong>Cookie banner:</strong> The banner appears on your first visit to any LoanCalc page. Use "Manage" to set granular preferences by category.</li>
+            <li><strong>Browser settings:</strong> Most browsers allow you to block or delete cookies directly. Blocking necessary cookies may affect site functionality (such as storing your preferences).</li>
+            <li><strong>Google:</strong> Manage Google's use of your data for advertising at <a href="https://adssettings.google.com" target="_blank" rel="noopener">adssettings.google.com</a>. Opt out of GA4 tracking using the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" rel="noopener">Google Analytics Opt-out Browser Add-on</a>.</li>
+          </ul>
+        </section>
+
+        <section class="priv-section" id="gdpr-rights">
+          <h2>Your rights under GDPR (EU and EEA)</h2>
+          <p>If you are located in the European Union or European Economic Area, the General Data Protection Regulation (GDPR) gives you the following rights with respect to your personal data. These rights apply to data where LoanCalc acts as a data controller.</p>
+
+          <div class="rights-grid">
+            <div class="right-card">
+              <strong>Right of access</strong>
+              <p>Request a copy of the personal data we hold about you and information about how we process it.</p>
+            </div>
+            <div class="right-card">
+              <strong>Right to erasure</strong>
+              <p>Request that we delete your personal data where there is no compelling reason to continue processing it.</p>
+            </div>
+            <div class="right-card">
+              <strong>Right to portability</strong>
+              <p>Receive your personal data in a structured, machine-readable format and transmit it to another controller.</p>
+            </div>
+            <div class="right-card">
+              <strong>Right to rectification</strong>
+              <p>Request that we correct any inaccurate personal data we hold about you without undue delay.</p>
+            </div>
+            <div class="right-card">
+              <strong>Right to restriction</strong>
+              <p>Request that we restrict processing of your personal data in certain circumstances.</p>
+            </div>
+            <div class="right-card">
+              <strong>Right to object</strong>
+              <p>Object to processing based on legitimate interest, including for direct marketing purposes.</p>
+            </div>
+            <div class="right-card">
+              <strong>Right to withdraw consent</strong>
+              <p>Withdraw consent for analytics or advertising at any time via the cookie settings. Withdrawal does not affect prior processing.</p>
+            </div>
+            <div class="right-card">
+              <strong>Right to complain</strong>
+              <p>Lodge a complaint with your local data protection authority (DPA). Find your DPA at <a href="https://edpb.europa.eu/about-edpb/about-edpb/members_en" target="_blank" rel="noopener">edpb.europa.eu</a>.</p>
+            </div>
+          </div>
+
+          <p>To exercise any of these rights, contact us at the address in the <a href="#contact">Contact</a> section. We will respond within 30 days.</p>
+
+          <div class="priv-note">
+            <p><strong>Note on practical scope:</strong> Because LoanCalc collects minimal personal data (primarily server logs and, where consented, GA4 analytics), many of these rights may return limited results. For example, we cannot identify your analytics data because GA4 anonymizes identifiers. We can delete consent records and stop processing immediately upon request.</p>
+          </div>
+        </section>
+
+        <section class="priv-section" id="do-not-sell">
+          <h2>California privacy rights (CCPA/CPRA)</h2>
+          <p>If you are a California resident, the California Consumer Privacy Act (CCPA) and California Privacy Rights Act (CPRA) grant you specific rights regarding your personal information.</p>
+
+          <h3>Categories of personal information collected</h3>
+          <p>In the last 12 months, LoanCalc has collected the following categories of personal information:</p>
+          <ul>
+            <li><strong>Identifiers:</strong> IP addresses (via server logs, for up to 30 days).</li>
+            <li><strong>Internet or other electronic network activity:</strong> Pages visited, session duration, browser type (via Google Analytics, where consented).</li>
+            <li><strong>Geolocation data:</strong> Country-level only, inferred from IP address (not precise location).</li>
+            <li><strong>Commercial information:</strong> None. We do not process financial data you enter into the calculators.</li>
+          </ul>
+
+          <h3>Sale and sharing of personal information</h3>
+          <p>LoanCalc does not sell your personal information to data brokers or third parties for monetary consideration.</p>
+          <p>However, when you accept advertising cookies, we share your browsing data with Google AdSense/Ad Manager for the purpose of cross-context behavioral advertising. Under CCPA/CPRA, this sharing may be considered a "sale or sharing" of personal information.</p>
+
+          <h3>Your right to opt out</h3>
+          <p>You have the right to opt out of the sale or sharing of your personal information for cross-context behavioral advertising. To exercise this right, you can:</p>
+          <ul>
+            <li>Decline or withdraw advertising cookies via the <a href="#manage-cookies">cookie settings</a> on this page or via the consent banner on any LoanCalc page.</li>
+            <li>Use a browser or extension that sends the <a href="https://globalprivacycontrol.org/" target="_blank" rel="noopener">Global Privacy Control (GPC)</a> signal. LoanCalc honors GPC signals where technically feasible.</li>
+            <li>Manage your Google ad settings at <a href="https://adssettings.google.com" target="_blank" rel="noopener">adssettings.google.com</a>.</li>
+          </ul>
+
+          <h3>Additional California rights</h3>
+          <ul>
+            <li><strong>Right to know:</strong> Request disclosure of the categories and specific pieces of personal information we have collected about you in the past 12 months.</li>
+            <li><strong>Right to delete:</strong> Request deletion of personal information we have collected from you, subject to certain exceptions.</li>
+            <li><strong>Right to correct:</strong> Request correction of inaccurate personal information we maintain about you.</li>
+            <li><strong>Right to non-discrimination:</strong> We will not discriminate against you for exercising any of your CCPA rights. All LoanCalc tools remain free regardless of your privacy choices.</li>
+          </ul>
+
+          <p>To exercise California rights, contact us at the address in the <a href="#contact">Contact</a> section. We will respond within 45 days, as required by CCPA.</p>
+        </section>
+
+        <section class="priv-section" id="international">
+          <h2>International data transfers</h2>
+          <p>LoanCalc is accessible worldwide. When you use analytics or advertising cookies, your data is transferred to and processed by Google LLC on servers in the United States.</p>
+          <p>Google LLC participates in the EU-US Data Privacy Framework (DPF), which provides a legal mechanism for transferring EU personal data to the United States in compliance with GDPR. You can verify Google's DPF participation at <a href="https://www.dataprivacyframework.gov" target="_blank" rel="noopener">dataprivacyframework.gov</a>.</p>
+          <p>Server log data (IP addresses) is processed on Cloudflare infrastructure, which may route traffic through servers in multiple countries. Cloudflare is also a DPF participant.</p>
+        </section>
+
+        <section class="priv-section" id="retention">
+          <h2>Data retention</h2>
+          <ul>
+            <li><strong>Server logs:</strong> Retained for up to 30 days, then deleted.</li>
+            <li><strong>GA4 analytics data:</strong> Retained by Google for 14 months (our configured retention period). Aggregated reports may be retained indefinitely.</li>
+            <li><strong>Advertising data:</strong> Retained by Google per their data retention policies (typically 13 months for most advertising identifiers).</li>
+            <li><strong>Consent records (CookieYes):</strong> Stored in your browser for 1 year, or until you clear your cookies.</li>
+            <li><strong>Local preferences:</strong> Stored in your browser's local storage until you clear it or reset your browser data.</li>
+          </ul>
+        </section>
+
+        <section class="priv-section" id="children">
+          <h2>Children's privacy</h2>
+          <p>LoanCalc is a general-audience financial tool not directed at children. We do not knowingly collect personal information from children under 13 (or under 16 in the EU/EEA, where a higher age threshold applies for consent).</p>
+          <p>If you believe a child has provided us with personal information, contact us and we will take steps to delete it promptly.</p>
+        </section>
+
+        <section class="priv-section" id="changes">
+          <h2>Changes to this policy</h2>
+          <p>We may update this privacy policy from time to time. When we do, we will revise the "Last updated" date at the top of this page. Material changes will be communicated via a notice on the site. We encourage you to review this page periodically.</p>
+          <p>Continued use of LoanCalc after changes are posted constitutes your acceptance of the updated policy.</p>
+        </section>
+
+        <section class="priv-section" id="contact">
+          <h2>Contact</h2>
+          <p>For privacy-related requests, questions, or complaints, contact us at:</p>
+          <ul>
+            <li><strong>Website:</strong> <a href="https://loancalc.app">loancalc.app</a></li>
+            <li><strong>Privacy requests:</strong> <a href="mailto:privacy@loancalc.app">privacy@loancalc.app</a></li>
+          </ul>
+          <div class="priv-note">
+            <p><strong>Response times:</strong> GDPR requests are handled within 30 days. CCPA requests are handled within 45 days. We may extend these periods in complex cases and will notify you if an extension applies.</p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer role="contentinfo">
+      <div class="container">
+        <div class="footer-logo" aria-label="LoanCalc">
+          <svg width="28" height="28" viewBox="0 0 36 36" fill="none" aria-hidden="true">
+            <rect width="36" height="36" rx="9" fill="rgba(255,255,255,0.08)" />
+            <line x1="10" y1="8" x2="10" y2="27" style="stroke: var(--color-gold)" stroke-width="2.5" stroke-linecap="round" />
+            <line x1="10" y1="27" x2="28" y2="27" style="stroke: var(--color-gold)" stroke-width="2.5" stroke-linecap="round" />
+            <path d="M10 22 L15 22 L15 27" style="stroke: var(--color-gold)" stroke-opacity="0.4" stroke-width="1.2" fill="none" />
+            <line x1="15" y1="27" x2="15" y2="25" style="stroke: var(--color-gold)" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round" />
+            <line x1="19" y1="27" x2="19" y2="25" style="stroke: var(--color-gold)" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round" />
+            <line x1="23" y1="27" x2="23" y2="25" style="stroke: var(--color-gold)" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round" />
+          </svg>
+          <span class="footer-logo-text">Loan<span>Calc</span></span>
+        </div>
+        <nav class="footer-links" aria-label="Calculator links">
+          <a href="/mortgage-calculator/" data-i18n="footer-mortgage">Mortgage Calculator</a>
+          <a href="/loan-calculator/" data-i18n="footer-loan">Loan Calculator</a>
+          <a href="/savings-calculator/" data-i18n="footer-savings">Savings Calculator</a>
+          <a href="/refinance-calculator/" data-i18n="footer-refinance">Refinance Calculator</a>
+          <a href="/currency-converter/" data-i18n="footer-currency">Currency Converter</a>
+        </nav>
+        <nav class="footer-links footer-legal" aria-label="Legal links">
+          <a href="/privacy/" aria-current="page">Privacy Policy</a>
+          <a href="/privacy/#do-not-sell" data-i18n="footer-dnsmi">Do Not Sell or Share My Personal Information</a>
+        </nav>
+        <p id="footer-desc-el" data-i18n="footer-desc">Free financial calculators: loan, savings, refinance, currency. No account required.</p>
+        <p class="footer-disclaimer" id="footer-disclaimer-el" data-i18n="footer-disclaimer">LoanCalc provides estimates for informational purposes only. This is not financial advice. Consult a licensed financial advisor before making borrowing decisions.</p>
+        <p class="footer-copy" dir="ltr">© <span id="copy-year">2026</span> LoanCalc. <span data-i18n="footer-rights">All rights reserved.</span></p>
+      </div>
+    </footer>
+
+    <script>
+      document.getElementById('copy-year').textContent = new Date().getFullYear();
+
+      // Highlight active nav link on scroll
+      var sections = document.querySelectorAll('.priv-section[id]');
+      var navLinks = document.querySelectorAll('.priv-nav a');
+      function onScroll() {
+        var scrollY = window.scrollY + 160;
+        var current = '';
+        sections.forEach(function (s) {
+          if (s.offsetTop <= scrollY) current = s.id;
+        });
+        navLinks.forEach(function (a) {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+        });
+      }
+      window.addEventListener('scroll', onScroll, {passive: true});
+      onScroll();
+    </script>
+  </body>
+</html>
