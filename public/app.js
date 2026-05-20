@@ -2554,7 +2554,7 @@ function filterFAQ() {
 					'seo-rf-p4': 'There are two main types of mortgage refinancing:',
 					'seo-rf-p5': 'The true cost of refinancing extends beyond the stated closing costs. Common fees include:',
 					'seo-rf-p6': 'Total closing costs for a typical refinance run 2–3% of the loan amount. On a $300,000 loan, expect $6,000–$9,000 in costs unless you choose a "no-closing-cost" refinance (where costs are rolled into the rate instead).',
-					'seo-rf-p7': 'Also see: <a href="/mortgage-calculator/">Mortgage Calculator</a> — model your original mortgage or compare loan options before deciding to refinance.',
+					'seo-rf-p7': 'Also see: <a href="/loan-calculator/">Mortgage Calculator</a> — model your original mortgage or compare loan options before deciding to refinance.',
 					'seo-rf-li-1': 'Your new rate is at least 0.5–1% lower than your current rate',
 					'seo-rf-li-2': 'You plan to remain in the home longer than the break-even period',
 					'seo-rf-li-3': 'Your credit score has improved significantly since your original loan',
@@ -2885,7 +2885,7 @@ function filterFAQ() {
 					'seo-rf-p4': 'ثمة نوعان رئيسيان لإعادة تمويل الرهن العقاري:',
 					'seo-rf-p5': 'التكلفة الحقيقية لإعادة التمويل تتجاوز رسوم الإغلاق المعلنة. تشمل الرسوم الشائعة:',
 					'seo-rf-p6': 'تبلغ تكاليف الإغلاق الإجمالية لإعادة التمويل النموذجية 2–3% من مبلغ القرض. على قرض بقيمة 300,000 دولار، توقع تكاليف بين 6,000 و9,000 دولار ما لم تختر إعادة تمويل "بدون تكاليف إغلاق" (حيث تُضاف التكاليف إلى المعدل بدلاً من ذلك).',
-					'seo-rf-p7': 'انظر أيضاً: <a href="/mortgage-calculator/">آلة حاسبة الرهن العقاري</a> — نمذج رهنك العقاري الأصلي أو قارن خيارات القرض قبل اتخاذ قرار إعادة التمويل.',
+					'seo-rf-p7': 'انظر أيضاً: <a href="/loan-calculator/">آلة حاسبة الرهن العقاري</a> — نمذج رهنك العقاري الأصلي أو قارن خيارات القرض قبل اتخاذ قرار إعادة التمويل.',
 					'seo-rf-li-1': 'معدلك الجديد أقل بنسبة 0.5–1% على الأقل من معدلك الحالي',
 					'seo-rf-li-2': 'تخطط للبقاء في المنزل لفترة أطول من فترة التعادل',
 					'seo-rf-li-3': 'تحسّن تصنيفك الائتماني بشكل ملحوظ منذ قرضك الأصلي',
@@ -3225,7 +3225,7 @@ function filterFAQ() {
 					'seo-rf-p4': 'Il existe deux grands types de refinancement immobilier :',
 					'seo-rf-p5': 'Le vrai coût du refinancement va au-delà des frais de clôture annoncés. Les frais courants incluent :',
 					'seo-rf-p6': 'Les frais de clôture totaux pour un refinancement typique représentent 2 à 3 % du montant du prêt. Sur un prêt de 300 000 $, attendez-vous à 6 000–9 000 $ en frais, sauf si vous choisissez un refinancement « sans frais de clôture » (où les coûts sont intégrés dans le taux).',
-					'seo-rf-p7': 'Voir aussi : <a href="/mortgage-calculator/">Calculateur de prêt immobilier</a> — modélisez votre prêt initial ou comparez des options de prêt avant de décider de refinancer.',
+					'seo-rf-p7': 'Voir aussi : <a href="/loan-calculator/">Calculateur de prêt immobilier</a> — modélisez votre prêt initial ou comparez des options de prêt avant de décider de refinancer.',
 					'seo-rf-li-1': "Votre nouveau taux est inférieur d'au moins 0,5 à 1 % à votre taux actuel",
 					'seo-rf-li-2': 'Vous prévoyez de rester dans le logement plus longtemps que la période de point mort',
 					'seo-rf-li-3': "Votre score de crédit s'est nettement amélioré depuis votre prêt initial",
@@ -3565,7 +3565,7 @@ function filterFAQ() {
 					'seo-rf-p4': 'Hay dos tipos principales de refinanciación hipotecaria:',
 					'seo-rf-p5': 'El verdadero costo de la refinanciación va más allá de los costos de cierre declarados. Las tarifas comunes incluyen:',
 					'seo-rf-p6': 'Los costos de cierre totales de una refinanciación típica son del 2 al 3% del monto del préstamo. En un préstamo de $300,000, espere entre $6,000 y $9,000 en costos a menos que elija una refinanciación "sin costos de cierre" (donde los costos se incorporan a la tasa).',
-					'seo-rf-p7': 'Ver también: <a href="/mortgage-calculator/">Calculadora de hipotecas</a> — modele su hipoteca original o compare opciones de préstamo antes de decidir refinanciar.',
+					'seo-rf-p7': 'Ver también: <a href="/loan-calculator/">Calculadora de hipotecas</a> — modele su hipoteca original o compare opciones de préstamo antes de decidir refinanciar.',
 					'seo-rf-li-1': 'Su nueva tasa es al menos 0.5–1% más baja que su tasa actual',
 					'seo-rf-li-2': 'Planea permanecer en el hogar más tiempo que el período de equilibrio',
 					'seo-rf-li-3': 'Su puntaje crediticio ha mejorado significativamente desde su préstamo original',
@@ -3905,7 +3905,7 @@ function filterFAQ() {
 					'seo-rf-p4': 'Es gibt zwei Haupttypen der Hypothekenrefinanzierung:',
 					'seo-rf-p5': 'Die tatsächlichen Kosten einer Refinanzierung gehen über die angegebenen Abschlusskosten hinaus. Häufige Gebühren umfassen:',
 					'seo-rf-p6': 'Die gesamten Abschlusskosten für eine typische Refinanzierung betragen 2–3 % des Darlehensbetrags. Bei einem Darlehen von 300.000 $ sind Kosten von 6.000–9.000 $ zu erwarten, es sei denn, Sie wählen eine Refinanzierung ohne Abschlusskosten (bei der die Kosten stattdessen in den Zinssatz eingerechnet werden).',
-					'seo-rf-p7': 'Siehe auch: <a href="/mortgage-calculator/">Hypothekenrechner</a> — modellieren Sie Ihre ursprüngliche Hypothek oder vergleichen Sie Kreditoptionen, bevor Sie sich für eine Refinanzierung entscheiden.',
+					'seo-rf-p7': 'Siehe auch: <a href="/loan-calculator/">Hypothekenrechner</a> — modellieren Sie Ihre ursprüngliche Hypothek oder vergleichen Sie Kreditoptionen, bevor Sie sich für eine Refinanzierung entscheiden.',
 					'seo-rf-li-1': 'Ihr neuer Zinssatz ist mindestens 0,5–1 % niedriger als Ihr aktueller Zinssatz',
 					'seo-rf-li-2': 'Sie planen, länger als die Break-even-Periode im Haus zu bleiben',
 					'seo-rf-li-3': 'Ihr Kredit-Score hat sich seit Ihrem ursprünglichen Darlehen deutlich verbessert',
@@ -4245,7 +4245,7 @@ function filterFAQ() {
 					'seo-rf-p4': '房贷再融资主要有两种类型：',
 					'seo-rf-p5': '再融资的真实成本超出所列的结清费用。常见费用包括：',
 					'seo-rf-p6': '典型再融资的总结清费用为贷款金额的2–3%。对于30万美元的贷款，预计费用为6,000–9,000美元，除非您选择"零结清费用"再融资（费用计入利率中）。',
-					'seo-rf-p7': '另请参阅：<a href="/mortgage-calculator/">房贷计算器</a>——在决定再融资前，模拟您的原始房贷或比较贷款选项。',
+					'seo-rf-p7': '另请参阅：<a href="/loan-calculator/">房贷计算器</a>——在决定再融资前，模拟您的原始房贷或比较贷款选项。',
 					'seo-rf-li-1': '新利率比当前利率低至少0.5–1%',
 					'seo-rf-li-2': '计划在家中停留时间超过回本期',
 					'seo-rf-li-3': '信用评分自原始贷款以来显著提高',
@@ -4585,7 +4585,7 @@ function filterFAQ() {
 					'seo-rf-p4': 'मॉर्गेज पुनर्वित्त के दो मुख्य प्रकार हैं:',
 					'seo-rf-p5': 'पुनर्वित्त की वास्तविक लागत बताई गई समापन लागत से परे है। सामान्य शुल्कों में शामिल हैं:',
 					'seo-rf-p6': 'एक सामान्य पुनर्वित्त के लिए कुल समापन लागत ऋण राशि का 2–3% होती है। $300,000 के ऋण पर, $6,000–$9,000 की लागत की अपेक्षा करें जब तक आप "कोई समापन लागत नहीं" पुनर्वित्त नहीं चुनते (जहां लागत को दर में शामिल किया जाता है)।',
-					'seo-rf-p7': 'यह भी देखें: <a href="/mortgage-calculator/">मॉर्गेज कैलकुलेटर</a> — पुनर्वित्त का निर्णय लेने से पहले अपना मूल मॉर्गेज मॉडल करें या ऋण विकल्पों की तुलना करें।',
+					'seo-rf-p7': 'यह भी देखें: <a href="/loan-calculator/">मॉर्गेज कैलकुलेटर</a> — पुनर्वित्त का निर्णय लेने से पहले अपना मूल मॉर्गेज मॉडल करें या ऋण विकल्पों की तुलना करें।',
 					'seo-rf-li-1': 'आपकी नई दर आपकी वर्तमान दर से कम से कम 0.5–1% कम है',
 					'seo-rf-li-2': 'आप ब्रेक-ईवन अवधि से अधिक समय तक घर में रहने की योजना बनाते हैं',
 					'seo-rf-li-3': 'आपके मूल ऋण के बाद से आपका क्रेडिट स्कोर काफी सुधरा है',
@@ -4925,7 +4925,7 @@ function filterFAQ() {
 					'seo-rf-p4': 'Existem dois tipos principais de refinanciamento hipotecário:',
 					'seo-rf-p5': 'O custo real do refinanciamento vai além dos custos de fechamento declarados. As taxas comuns incluem:',
 					'seo-rf-p6': 'Os custos totais de fechamento para um refinanciamento típico são de 2–3% do valor do empréstimo. Em um empréstimo de $300.000, espere $6.000–$9.000 em custos, a menos que você escolha um refinanciamento "sem custos de fechamento" (onde os custos são incorporados à taxa).',
-					'seo-rf-p7': 'Veja também: <a href="/mortgage-calculator/">Calculadora de Hipotecas</a> — modele sua hipoteca original ou compare opções de empréstimo antes de decidir refinanciar.',
+					'seo-rf-p7': 'Veja também: <a href="/loan-calculator/">Calculadora de Hipotecas</a> — modele sua hipoteca original ou compare opções de empréstimo antes de decidir refinanciar.',
 					'seo-rf-li-1': 'Sua nova taxa é pelo menos 0,5–1% menor que sua taxa atual',
 					'seo-rf-li-2': 'Você planeja permanecer na residência por mais tempo do que o período de equilíbrio',
 					'seo-rf-li-3': 'Seu score de crédito melhorou significativamente desde seu empréstimo original',
@@ -5265,7 +5265,7 @@ function filterFAQ() {
 					'seo-rf-p4': 'İki ana mortgage refinansmanı türü vardır:',
 					'seo-rf-p5': 'Refinansmanın gerçek maliyeti belirtilen kapanış maliyetlerinin ötesine geçer. Yaygın ücretler şunlardır:',
 					'seo-rf-p6': "Tipik bir refinansman için toplam kapanış maliyetleri kredi tutarının %2–3'ünü oluşturur. 300.000 $ tutarında bir kredide, kapanış maliyetsiz refinansmansı seçmediğiniz sürece 6.000–9.000 $ maliyet bekleyin.",
-					'seo-rf-p7': 'Ayrıca bakın: <a href="/mortgage-calculator/">Mortgage Hesaplayıcısı</a> — refinansmana karar vermeden önce orijinal mortgage\'ınızı modelleyin veya kredi seçeneklerini karşılaştırın.',
+					'seo-rf-p7': 'Ayrıca bakın: <a href="/loan-calculator/">Mortgage Hesaplayıcısı</a> — refinansmana karar vermeden önce orijinal mortgage\'ınızı modelleyin veya kredi seçeneklerini karşılaştırın.',
 					'seo-rf-li-1': 'Yeni oranınız mevcut oranınızdan en az %0,5–1 daha düşük',
 					'seo-rf-li-2': 'Evde başa baş döneminden daha uzun süre kalmayı planlıyorsunuz',
 					'seo-rf-li-3': 'Orijinal kredinizden bu yana kredi puanınız önemli ölçüde iyileşti',
@@ -5605,7 +5605,7 @@ function filterFAQ() {
 					'seo-rf-p4': 'Ada dua jenis utama refinansi KPR:',
 					'seo-rf-p5': 'Biaya sebenarnya dari refinansi melampaui biaya penutupan yang dinyatakan. Biaya umum meliputi:',
 					'seo-rf-p6': 'Total biaya penutupan untuk refinansi tipikal berkisar 2–3% dari jumlah pinjaman. Untuk pinjaman $300.000, perkirakan biaya $6.000–$9.000 kecuali Anda memilih refinansi "tanpa biaya penutupan" (di mana biaya dimasukkan ke dalam suku bunga).',
-					'seo-rf-p7': 'Lihat juga: <a href="/mortgage-calculator/">Kalkulator KPR</a> — modelkan KPR asal Anda atau bandingkan opsi pinjaman sebelum memutuskan untuk refinansi.',
+					'seo-rf-p7': 'Lihat juga: <a href="/loan-calculator/">Kalkulator KPR</a> — modelkan KPR asal Anda atau bandingkan opsi pinjaman sebelum memutuskan untuk refinansi.',
 					'seo-rf-li-1': 'Suku bunga baru Anda setidaknya 0,5–1% lebih rendah dari suku bunga Anda saat ini',
 					'seo-rf-li-2': 'Anda berencana tinggal di rumah lebih lama dari periode titik impas',
 					'seo-rf-li-3': 'Skor kredit Anda telah meningkat secara signifikan sejak pinjaman awal Anda',
@@ -7459,8 +7459,8 @@ function filterFAQ() {
 	}));
 var _panelNavMap = {
 	'panel-loans': {
-		url: '/mortgage-calculator/',
-		title: 'Free Mortgage Calculator – Monthly Payment & Amortization | LoanCalc'
+		url: '/loan-calculator/',
+		title: 'Free Loan Calculator – Mortgage, Car, Personal & Student Loans | LoanCalc'
 	},
 	'panel-savings': {
 		url: '/savings-calculator/',
@@ -7471,8 +7471,8 @@ var _panelNavMap = {
 		title: 'Free Refinance Savings Calculator – Break-Even & Monthly Savings | LoanCalc'
 	},
 	'panel-currency': {
-		url: '/currency-converter/',
-		title: 'Free Live Currency Converter – 161 Currencies, Gold, Oil & Stock Prices | LoanCalc'
+		url: '/live-rates/',
+		title: 'Free Live Rates – Currency Converter, Gold, Oil & Stock Prices | LoanCalc'
 	},
 	'panel-faq': {
 		url: '/faq/',
@@ -7519,13 +7519,9 @@ var _headerFaqLink = document.querySelector('.header-faq-link');
 	}),
 	(function () {
 		var e = {
-			'/mortgage-calculator': {
-				panel: 'panel-loans',
-				loanTab: 'mortgage'
-			},
 			'/loan-calculator': {
 				panel: 'panel-loans',
-				loanTab: 'personal'
+				loanTab: 'mortgage'
 			},
 			'/savings-calculator': {
 				panel: 'panel-savings',
@@ -7535,7 +7531,7 @@ var _headerFaqLink = document.querySelector('.header-faq-link');
 				panel: 'panel-refinance',
 				loanTab: null
 			},
-			'/currency-converter': {
+			'/live-rates': {
 				panel: 'panel-currency',
 				loanTab: null
 			},
@@ -7573,10 +7569,10 @@ var hashMap = {
 		if (!a) {
 			a =
 				{
-					'/mortgage-calculator': 'panel-loans',
+					'/loan-calculator': 'panel-loans',
 					'/savings-calculator': 'panel-savings',
 					'/refinance-calculator': 'panel-refinance',
-					'/currency-converter': 'panel-currency',
+					'/live-rates': 'panel-currency',
 					'/faq': 'panel-faq'
 				}[window.location.pathname.replace(/\/$/, '')] || 'panel-loans';
 		}

@@ -34,27 +34,27 @@
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-    <title>Free Compound Interest &amp; Savings Calculator | LoanCalc</title>
-    <meta name="description" content="See exactly how your savings grow with compound interest. Enter starting amount, monthly contribution, and rate — get year-by-year growth chart. Free, no signup." />
-    <meta name="keywords" content="compound interest calculator,savings calculator,investment calculator,savings growth calculator,rule of 72,compound interest,future value calculator" />
+    <title>Free Live Rates – Currency Converter, Gold, Oil &amp; Stock Prices | LoanCalc</title>
+    <meta name="description" content="Live exchange rates for 161 currencies, gold price, WTI crude oil price, silver price, and stock prices for AAPL, MSFT, NVDA, TSLA, JPM, SPY and more. Free, no signup." />
+    <meta name="keywords" content="live rates,live exchange rates,currency converter,gold price today,silver price today,oil price today,XAU price,XAG price,WTI crude oil price,forex converter,currency exchange,gold price per gram,stock prices today,live stock prices,AAPL stock price,NVDA stock price,SPY stock price,S&P 500 ETF price" />
     <meta name="author" content="LoanCalc" />
     <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#0B1610" />
-    <link rel="canonical" href="https://loancalc.app/savings-calculator/" />
+    <link rel="canonical" href="https://loancalc.app/live-rates/" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://loancalc.app/savings-calculator/" />
-    <meta property="og:title" content="Free Compound Interest &amp; Savings Calculator | LoanCalc" />
-    <meta property="og:description" content="See exactly how your savings grow with compound interest. Year-by-year chart. Free, no signup." />
+    <meta property="og:url" content="https://loancalc.app/live-rates/" />
+    <meta property="og:title" content="Free Live Rates – Currency Converter, Gold, Oil &amp; Stock Prices | LoanCalc" />
+    <meta property="og:description" content="Live rates for 161 currencies, gold, silver, oil, and stocks (AAPL, MSFT, NVDA, SPY and more). Free, no signup." />
     <meta property="og:site_name" content="LoanCalc" />
     <meta property="og:image" content="https://loancalc.app/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Free Compound Interest &amp; Savings Calculator | LoanCalc" />
-    <meta name="twitter:description" content="Savings growth calculator with year-by-year chart. See the power of compound interest. Free, no signup." />
+    <meta name="twitter:title" content="Free Live Rates – Currency Converter, Gold, Oil &amp; Stock Prices | LoanCalc" />
+    <meta name="twitter:description" content="Live rates for 161 currencies, gold price, WTI oil price, silver price, and stock prices for AAPL, MSFT, NVDA, SPY and more. Free, no signup." />
     <meta name="twitter:image" content="https://loancalc.app/og.png" />
     <script type="application/ld+json">
-      {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Free Compound Interest & Savings Calculator", "url": "https://loancalc.app/savings-calculator/", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "description": "Calculate compound interest growth and savings future value with year-by-year chart. Free, no signup.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}
+      {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Free Live Rates", "url": "https://loancalc.app/live-rates/", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "description": "Live exchange rates for 161 currencies with gold price, silver price, WTI crude oil price, and stock prices for AAPL, MSFT, GOOGL, AMZN, META, NVDA, TSLA, JPM, BRK.B, and SPY. Free, no signup.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}
     </script>
     <script type="application/ld+json">
       {
@@ -62,7 +62,7 @@
         "@type": "BreadcrumbList",
         "itemListElement": [
           {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://loancalc.app/"},
-          {"@type": "ListItem", "position": 2, "name": "Savings Calculator", "item": "https://loancalc.app/savings-calculator/"}
+          {"@type": "ListItem", "position": 2, "name": "Live Rates", "item": "https://loancalc.app/live-rates/"}
         ]
       }
     </script>
@@ -143,9 +143,9 @@
     <div class="tool-nav-wrap">
       <nav class="tab-nav" id="tool-nav" aria-label="Main tools">
         <a href="/loan-calculator/" class="tab-btn" id="tab-loans" data-panel="panel-loans" data-i18n="nav-loans">Loans</a>
-        <a href="/savings-calculator/" class="tab-btn active" id="tab-savings" aria-current="page" data-panel="panel-savings" data-i18n="nav-savings">Savings</a>
+        <a href="/savings-calculator/" class="tab-btn" id="tab-savings" data-panel="panel-savings" data-i18n="nav-savings">Savings</a>
         <a href="/refinance-calculator/" class="tab-btn" id="tab-refinance" data-panel="panel-refinance" data-i18n="nav-refinance">Refinance</a>
-        <a href="/live-rates/" class="tab-btn" id="tab-currency" data-panel="panel-currency" data-i18n="nav-currency">Live Rates</a>
+        <a href="/live-rates/" class="tab-btn active" id="tab-currency" aria-current="page" data-panel="panel-currency" data-i18n="nav-currency">Live Rates</a>
         <a href="/faq/" class="tab-btn" id="tab-faq" data-i18n="nav-faq">FAQ</a>
       </nav>
     </div>
@@ -196,7 +196,7 @@
               <div class="results-panel" role="region" aria-label="Calculation results">
                 <div class="monthly-card">
                   <p class="monthly-label" id="res-monthly-lbl">Monthly payment</p>
-                  <p class="monthly-amount" id="result-monthly" aria-live="polite" aria-atomic="true" aria-label="Monthly payment amount">$1,896</p>
+                  <p class="monthly-amount" id="result-monthly">$1,896</p>
                   <p class="monthly-sub" id="result-loan-label">30-year fixed mortgage</p>
                 </div>
                 <div class="results-grid">
@@ -228,7 +228,7 @@
                     <div class="bar-i" id="bar-i" style="transform: scaleX(0.5)"></div>
                   </div>
                 </div>
-                <button class="copy-link-btn" id="copy-link-btn" aria-label="Copy link to this calculation">
+                <button class="copy-link-btn" id="copy-link-btn" aria-label="Copy link">
                   <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                     <path d="M6.5 9.5a3.536 3.536 0 0 0 5 0l2-2a3.536 3.536 0 0 0-5-5l-1 1" />
                     <path d="M9.5 6.5a3.536 3.536 0 0 0-5 0l-2 2a3.536 3.536 0 0 0 5 5l1-1" />
@@ -251,7 +251,7 @@
           </div>
           <div class="table-wrap">
             <div class="table-scroll">
-              <table id="amort-table" aria-label="Loan amortization schedule">
+              <table id="amort-table" aria-label="Amortization schedule">
                 <thead>
                   <tr>
                     <th scope="col">Year</th>
@@ -271,8 +271,7 @@
         <div class="container">
           <div class="how-grid">
             <div>
-              <h2 id="how-h2-l">How loan payments are calculated</h2>
-              <p>Every fixed-rate loan uses the same standard amortization formula.</p>
+              <h2 id="how-h2-l">Loan payment formula</h2>
               <div class="formula-box">M = P × [ r(1+r)ⁿ ] ÷ [ (1+r)ⁿ − 1 ]</div>
               <div class="formula-vars">
                 <div class="formula-var"><strong>M</strong><span>Monthly payment</span></div>
@@ -282,11 +281,10 @@
               </div>
             </div>
             <div>
-              <h3>How to lower your monthly payment</h3>
+              <h3>Tips</h3>
               <ul class="tips-list">
                 <li>Larger down payment reduces the principal.</li>
-                <li>Longer term spreads payments over more months.</li>
-                <li>Lower rate saves significantly over the life of the loan.</li>
+                <li>Longer term lowers monthly payment but increases total interest.</li>
               </ul>
             </div>
           </div>
@@ -298,27 +296,31 @@
     <div id="panel-faq" class="tool-panel">
       <section class="faq-section" id="faq" aria-labelledby="faq-h2">
         <div class="container">
-          <h2 id="faq-h2">Frequently asked questions about the savings calculator</h2>
+          <h2 id="faq-h2">Frequently asked questions about the currency converter</h2>
           <ul class="faq-list">
             <li class="faq-item" data-faq-panel="loans">
-              <button class="faq-q" aria-expanded="false" aria-controls="faq-a1"><span data-i18n="sub-svq1">What is compound interest and why does it matter?</span><span class="chevron" aria-hidden="true">▾</span></button>
-              <div class="faq-a" id="faq-a1" data-i18n="sub-sva1">Compound interest means you earn interest on your interest, not just your original deposit. A $10,000 deposit at 5% earns $500 in year one. In year two you earn 5% on $10,500 — an extra $25. Over 20 years this turns $10,000 into ~$26,500 without adding a cent. The more frequently interest compounds (daily vs monthly vs annually), the faster the balance grows.</div>
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-a1"><span data-i18n="faq-q8">Which currencies does the converter support?</span><span class="chevron" aria-hidden="true">▾</span></button>
+              <div class="faq-a" id="faq-a1" data-i18n="faq-a8">The LoanCalc currency converter supports 30 major world currencies including USD, EUR, GBP, JPY, EGP, AED, SAR, CAD, AUD, CHF, CNY, INR, SGD, HKD, TRY, KRW, and more. Exchange rates are sourced from the Frankfurter open exchange rates API and updated every 24 hours. The converter automatically defaults the "to" currency based on your browser's locale settings.</div>
             </li>
             <li class="faq-item" data-faq-panel="loans">
-              <button class="faq-q" aria-expanded="false" aria-controls="faq-a2"><span data-i18n="sub-svq2">Why do monthly contributions make such a big difference?</span><span class="chevron" aria-hidden="true">▾</span></button>
-              <div class="faq-a" id="faq-a2" data-i18n="sub-sva2">Each monthly contribution starts compounding immediately. $200/month at 6% for 20 years grows to ~$92,000 — but your total contributions were only $48,000. The extra $44,000 is pure compounding. Time and consistency matter more than the size of the initial deposit.</div>
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-a2"><span data-i18n="sub-curq2">How often are exchange rates updated?</span><span class="chevron" aria-hidden="true">▾</span></button>
+              <div class="faq-a" id="faq-a2" data-i18n="sub-cura2">Rates are fetched from the Frankfurter API and cached in your browser for 24 hours. The rate you see reflects the previous market close — not intraday movements. For large transfers where a fraction of a percent matters, verify the current mid-market rate with your bank or a dedicated FX service before transacting.</div>
             </li>
             <li class="faq-item" data-faq-panel="loans">
-              <button class="faq-q" aria-expanded="false" aria-controls="faq-a3"><span data-i18n="sub-svq3">What's the difference between APR and APY?</span><span class="chevron" aria-hidden="true">▾</span></button>
-              <div class="faq-a" id="faq-a3" data-i18n="sub-sva3">APR (Annual Percentage Rate) is the nominal rate before compounding within the year. APY (Annual Percentage Yield) reflects what you actually earn after compounding. A 6% APR compounded monthly gives an APY of 6.17%. Banks advertise APY for savings accounts and APR for loans. Enter whichever rate your bank states — this calculator treats it as the annual figure and compounds monthly.</div>
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-a3"><span data-i18n="sub-curq3">Why does the "to" currency pre-select automatically?</span><span class="chevron" aria-hidden="true">▾</span></button>
+              <div class="faq-a" id="faq-a3" data-i18n="sub-cura3">The converter reads your browser's locale setting (for example, en-GB or ar-SA) to guess your local currency. If it guesses wrong, change it with the dropdown — your selection isn't saved between visits.</div>
             </li>
             <li class="faq-item" data-faq-panel="loans">
-              <button class="faq-q" aria-expanded="false" aria-controls="faq-a4"><span data-i18n="faq-q3">Does this calculator work for all countries?</span><span class="chevron" aria-hidden="true">▾</span></button>
-              <div class="faq-a" id="faq-a4" data-i18n="faq-a3">Yes. Compound interest math is universal. Enter your deposit amount in any currency, your local savings rate, and your time horizon. All calculations run in your browser — no external data, no tax assumptions, no internet connection required. Results don't account for taxes on interest; check your local rules to estimate net returns.</div>
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-a4"><span data-i18n="faq-q7">How is the gold price calculated and updated?</span><span class="chevron" aria-hidden="true">▾</span></button>
+              <div class="faq-a" id="faq-a4" data-i18n="faq-a7">LoanCalc fetches the live gold spot price in USD from a financial market data source and converts it to your local currency using live exchange rates. The gold price is cached in your browser for one hour. Prices are displayed per troy ounce (the standard trading unit), per gram, and per kilogram for everyday reference.</div>
             </li>
             <li class="faq-item" data-faq-panel="loans">
-              <button class="faq-q" aria-expanded="false" aria-controls="faq-a5"><span data-i18n="faq-q5">Is LoanCalc completely free?</span><span class="chevron" aria-hidden="true">▾</span></button>
-              <div class="faq-a" id="faq-a5" data-i18n="faq-a5">Yes, completely free. No account required. No signup. No email collection. No premium features behind a paywall. The calculator and growth chart are fully accessible at no cost. LoanCalc is supported by display advertising: the calculator itself will always remain free.</div>
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-a5"><span data-i18n="faq-q9">Which stock prices does LoanCalc show?</span><span class="chevron" aria-hidden="true">▾</span></button>
+              <div class="faq-a" id="faq-a5" data-i18n="faq-a9">LoanCalc shows live prices for ten widely tracked US stocks and funds: Apple (AAPL), Microsoft (MSFT), Alphabet (GOOGL), Amazon (AMZN), Meta (META), NVIDIA (NVDA), Tesla (TSLA), JPMorgan Chase (JPM), Berkshire Hathaway B (BRK.B), and the SPDR S&amp;P 500 ETF (SPY). Prices are fetched from Yahoo Finance and updated every hour. Each chip shows the USD price, the percentage change from the previous close, and the equivalent in your local currency using live exchange rates.</div>
+            </li>
+            <li class="faq-item" data-faq-panel="loans">
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-a6"><span data-i18n="faq-q5">Is LoanCalc completely free?</span><span class="chevron" aria-hidden="true">▾</span></button>
+              <div class="faq-a" id="faq-a6" data-i18n="faq-a5">Yes, completely free. No account required. No signup. No email collection. No premium features behind a paywall. The currency converter, gold prices, and stock tracker are all fully accessible at no cost. LoanCalc is supported by display advertising: the tools will always remain free.</div>
             </li>
           </ul>
         </div>
@@ -326,7 +328,7 @@
     </div>
     <!-- /panel-faq -->
 
-    <div id="panel-savings" class="tool-panel active">
+    <div id="panel-savings" class="tool-panel">
       <section id="compound" class="panel-section" aria-labelledby="compound-h2">
         <div class="container">
           <h2 class="section-title" id="compound-h2">Compound interest &amp; savings growth calculator</h2>
@@ -366,10 +368,7 @@
                   <input type="range" id="ci-s-years" min="1" max="50" step="1" value="20" />
                   <div class="range-ends"><span id="ci-y-min-lbl">1 yr</span><span id="ci-y-max-lbl">50 yrs</span></div>
                 </div>
-                <div class="helper-note">
-                  <strong id="ci-helper-title">S&amp;P 500 historical average</strong>
-                  <span id="ci-helper-text">The US stock market has returned ~7% annually after inflation over the long term. Use 7% as a realistic baseline for diversified index funds. <a href="/#currency" style="color: inherit; text-decoration: underline; opacity: 0.75">See live SPY price →</a></span>
-                </div>
+                <div class="helper-note"><strong id="ci-helper-title">S&amp;P 500 historical average</strong><span id="ci-helper-text">~7% annually after inflation over the long term.</span></div>
               </div>
               <div class="results-panel">
                 <div class="monthly-card">
@@ -410,8 +409,7 @@
           </div>
           <div class="ci-chart-wrap">
             <h3 id="ci-chart-h" class="ci-chart-title">Year-by-year growth</h3>
-            <p class="ci-chart-sub" data-i18n="ci-chart-sub">Balance at end of each year, split between your deposits and compound growth.</p>
-            <div class="ci-chart-canvas"><canvas id="ciChart" role="img" aria-label="Bar chart showing compound interest growth year by year, split between total deposited and interest earned"></canvas></div>
+            <div class="ci-chart-canvas"><canvas id="ciChart" role="img" aria-label="Compound interest growth chart"></canvas></div>
           </div>
         </div>
       </section>
@@ -501,56 +499,62 @@
       </section>
     </div>
     <!-- /panel-refinance -->
-    <div id="panel-currency" class="tool-panel">
+
+    <div id="panel-currency" class="tool-panel active">
       <section id="currency" class="panel-section" aria-labelledby="cur-h2">
         <div class="container">
           <h2 class="section-title" id="cur-h2">Live currency converter, gold price, oil price &amp; stock prices today</h2>
-          <p class="section-sub" id="tx-cur-sub">Convert between major currencies with live exchange rates.</p>
-          <div class="live-seg" role="tablist" aria-label="Live rates view">
-            <button class="tab-btn active" data-live="currency" role="tab" aria-selected="true" aria-controls="live-panel-currency" data-i18n="lbl-tab-currency">Currency</button>
-            <button class="tab-btn" data-live="commodities" role="tab" aria-selected="false" aria-controls="live-panel-commodities" data-i18n="lbl-tab-commodities">Commodities</button>
-          </div>
-
-          <div id="live-panel-currency" class="live-panel active" role="tabpanel">
+          <p class="section-sub" id="tx-cur-sub">Convert between 161 currencies with live exchange rates. Also shows live gold price, WTI crude oil price, and stock prices for Apple, Microsoft, NVIDIA, Tesla, JPMorgan, Berkshire B, and S&amp;P 500 ETF — all updated hourly.</p>
+          <div id="live-panel-currency" class="live-panel active">
             <div class="calc-card">
               <div class="cur-body">
                 <div id="cur-status" class="cur-status">
-                  <span id="cur-dot" class="cur-dot"></span><span id="cur-status-text">Loading exchange rates…</span
-                  ><button id="cur-refresh-btn" class="status-refresh-btn" aria-label="Refresh exchange rates">
-                    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <span id="cur-dot" class="cur-dot"></span>
+                  <span id="cur-status-text">Loading exchange rates…</span>
+                  <button id="cur-refresh-btn" class="status-refresh-btn" aria-label="Refresh exchange rates" title="Refresh">
+                    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                       <path d="M10.5 2A5 5 0 1 0 11 6.5" />
                       <polyline points="10.5 2 10.5 5 7.5 5" />
-                    </svg></button
-                  ><button id="cur-retry-btn" class="cur-retry-btn" style="display: none">Retry</button>
+                    </svg>
+                  </button>
+                  <button id="cur-retry-btn" class="cur-retry-btn" style="display: none" aria-label="Retry loading exchange rates">Retry</button>
                 </div>
-                <div class="cur-group"><label for="cur-amount" class="cur-label" data-i18n="cur-amount-label">Amount</label><input type="number" id="cur-amount" value="1000" min="0" max="999999999" step="1" class="cur-amount-input" /></div>
+                <div class="cur-group">
+                  <label for="cur-amount" class="cur-label" data-i18n="cur-amount-label">Amount</label>
+                  <input type="number" id="cur-amount" value="1000" min="0" max="999999999" step="1" class="cur-amount-input" />
+                </div>
                 <div class="cur-selects-row">
-                  <select id="cur-from" class="cur-sel" aria-label="From currency"></select
-                  ><button id="cur-swap" class="cur-swap-btn" aria-label="Swap currencies">⇄</button
-                  ><select id="cur-to" class="cur-sel" aria-label="To currency"></select>
+                  <select id="cur-from" class="cur-sel" aria-label="From currency"></select>
+                  <button id="cur-swap" class="cur-swap-btn" title="Swap" aria-label="Swap currencies">⇄</button>
+                  <select id="cur-to" class="cur-sel" aria-label="To currency"></select>
                 </div>
                 <div class="cur-group-lg">
                   <p class="cur-label" id="cur-result-lbl" data-i18n="cur-to-label">Converted to</p>
-                  <div id="cur-result" class="cur-result-box" role="status" aria-live="polite">—</div>
+                  <div id="cur-result" class="cur-result-box" role="status" aria-live="polite" aria-atomic="true" aria-labelledby="cur-result-lbl">—</div>
                 </div>
                 <div id="cur-rate-row" class="cur-rate-row">
-                  <span><span data-i18n="cur-rate-lbl">Rate</span>: <strong id="cur-rate-display" class="cur-rate-val">—</strong></span
-                  ><span><span data-i18n="cur-inverse-lbl">Inverse</span>: <strong id="cur-rate-inv" class="cur-rate-val">—</strong></span
-                  ><span><span data-i18n="cur-updated-lbl">Updated</span>: <strong id="cur-rate-date" class="cur-rate-val">—</strong></span>
+                  <span><span data-i18n="cur-rate-lbl">Rate</span>: <strong id="cur-rate-display" class="cur-rate-val">—</strong></span>
+                  <span><span data-i18n="cur-inverse-lbl">Inverse</span>: <strong id="cur-rate-inv" class="cur-rate-val">—</strong></span>
+                  <span><span data-i18n="cur-updated-lbl">Updated</span>: <strong id="cur-rate-date" class="cur-rate-val">—</strong></span>
                 </div>
                 <div class="cur-quick">
-                  <p id="cur-quick-lbl" class="cur-quick-lbl">Quick reference</p>
+                  <p id="cur-quick-lbl" class="cur-quick-lbl">Quick reference: common amounts</p>
                   <div id="cur-quick-grid" class="cur-quick-grid"></div>
                 </div>
               </div>
             </div>
           </div>
 
-          <div id="live-panel-commodities" class="live-panel" role="tabpanel">
+          <div id="live-panel-commodities" class="live-panel active">
             <div class="commodity-grid">
               <div class="calc-card commodity-card commodity-card--gold">
                 <div class="commodity-header">
-                  <div class="commodity-icon commodity-icon--gold">&#x1F947;</div>
+                  <div class="commodity-icon commodity-icon--gold">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <rect x="2" y="7" width="14" height="8" rx="1.5" />
+                      <path d="M5 7V5.5C5 4.7 5.7 4 6.5 4h5c.8 0 1.5.7 1.5 1.5V7" />
+                    </svg>
+                  </div>
                   <div>
                     <div class="commodity-name">
                       <p id="gold-title-el" class="commodity-name-title">Gold (XAU/oz)</p>
@@ -559,8 +563,8 @@
                   </div>
                   <div class="commodity-status">
                     <span id="gold-dot" class="commodity-status-dot"></span><span id="gold-status" class="commodity-status-text">Loading…</span
-                    ><button id="gold-refresh-btn" class="status-refresh-btn" aria-label="Refresh gold price">
-                      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    ><button id="gold-refresh-btn" class="status-refresh-btn" aria-label="Refresh gold price" title="Refresh">
+                      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M10.5 2A5 5 0 1 0 11 6.5" />
                         <polyline points="10.5 2 10.5 5 7.5 5" />
                       </svg>
@@ -590,7 +594,9 @@
               </div>
               <div class="calc-card commodity-card commodity-card--oil">
                 <div class="commodity-header">
-                  <div class="commodity-icon commodity-icon--oil">&#x1F6E2;&#xFE0F;</div>
+                  <div class="commodity-icon commodity-icon--oil">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2.5C9 2.5 4 8.5 4 11.5a5 5 0 0 0 10 0c0-3-5-9-5-9z" /></svg>
+                  </div>
                   <div>
                     <div class="commodity-name">
                       <p id="oil-title-el" class="commodity-name-title">Crude Oil (WTI)</p>
@@ -599,8 +605,8 @@
                   </div>
                   <div class="commodity-status">
                     <span id="oil-dot" class="commodity-status-dot"></span><span id="oil-status" class="commodity-status-text">Loading…</span
-                    ><button id="oil-refresh-btn" class="status-refresh-btn" aria-label="Refresh oil price">
-                      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    ><button id="oil-refresh-btn" class="status-refresh-btn" aria-label="Refresh oil price" title="Refresh">
+                      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M10.5 2A5 5 0 1 0 11 6.5" />
                         <polyline points="10.5 2 10.5 5 7.5 5" />
                       </svg>
@@ -630,6 +636,28 @@
               </div>
             </div>
           </div>
+
+          <div id="live-panel-stocks" class="live-panel active">
+            <div class="stocks-section">
+              <div class="stocks-header">
+                <div>
+                  <span class="stocks-heading" data-i18n="lbl-stocks">Stocks</span>
+                  <span class="stocks-note">US equities · for reference</span>
+                </div>
+                <div class="commodity-status">
+                  <span id="stocks-dot" class="commodity-status-dot"></span>
+                  <span id="stocks-status" class="commodity-status-text">Loading…</span>
+                  <button id="stocks-refresh-btn" class="status-refresh-btn" aria-label="Refresh stock prices" title="Refresh">
+                    <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                      <path d="M10.5 2A5 5 0 1 0 11 6.5" />
+                      <polyline points="10.5 2 10.5 5 7.5 5" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+              <div class="stocks-ticker" id="stocks-ticker" role="list" aria-label="Stock prices"></div>
+            </div>
+          </div>
         </div>
       </section>
     </div>
@@ -637,88 +665,53 @@
 
     <section class="seo-content" aria-labelledby="seo-h2">
       <div class="container">
-        <h2 id="seo-h2" data-i18n="seo-ci-h2">Compound Interest &amp; Savings: The Complete Guide</h2>
+        <h2 id="seo-h2" data-i18n="seo-cur-h2">Currency Exchange, Gold, Oil &amp; Stock Prices: How Live Rates Work</h2>
 
-        <h3 data-i18n="seo-ci-h3-1">What is compound interest and why does it matter?</h3>
-        <p data-i18n="seo-ci-p1">Compound interest is interest calculated on both the initial principal and the accumulated interest from all previous periods. This is fundamentally different from simple interest, which is only ever calculated on the original principal. Albert Einstein is often credited with calling compound interest "the eighth wonder of the world. He who understands it, earns it; he who doesn't, pays it."</p>
-        <p data-i18n="seo-ci-p2">The reason compound interest is so powerful is exponential growth. In the early years, the effect is subtle. But over 20, 30, or 40 years, the compounding effect becomes extraordinary — the bulk of your final wealth comes not from your contributions but from interest earned on interest earned on interest.</p>
+        <h3 data-i18n="seo-cur-h3-1">How live exchange rates work</h3>
+        <p data-i18n="seo-cur-p1">Currency exchange rates are determined by the foreign exchange market (forex), the world's largest financial market with over $7 trillion in daily trading volume. The "live" rate you see on this site is the mid-market rate (also called the interbank rate or spot rate), which is the midpoint between the buying and selling prices used by banks when trading large volumes with each other.</p>
+        <p data-i18n="seo-cur-p2">The rates shown here are sourced from the Frankfurter API, which aggregates data from the European Central Bank and other financial sources. They are updated daily and cached for performance. For precise real-time rates at millisecond accuracy, institutional traders use dedicated forex platforms — but for travel planning, international transfers, and general reference, these rates are accurate within a fraction of a percent.</p>
 
-        <h3 data-i18n="seo-ci-h3-2">Daily vs monthly vs annual compounding — how it affects growth</h3>
-        <p data-i18n="seo-ci-p3">The compounding frequency determines how often interest is calculated and added to the balance. More frequent compounding means slightly higher returns:</p>
+        <h3 data-i18n="seo-cur-h3-2">What affects currency exchange rates</h3>
+        <p data-i18n="seo-cur-p3">Exchange rates are constantly shifting based on a complex mix of economic and political factors:</p>
         <ul>
-          <li data-i18n-html="seo-ci-li-1"><strong>Annual compounding:</strong> Interest added once per year. Baseline rate.</li>
-          <li data-i18n-html="seo-ci-li-2"><strong>Monthly compounding:</strong> Interest added 12 times per year. A 6% annual rate compounded monthly is equivalent to an effective annual rate of 6.168%.</li>
-          <li data-i18n-html="seo-ci-li-3"><strong>Daily compounding:</strong> Interest added 365 times per year. A 6% rate compounded daily gives an effective rate of 6.183%. Marginally better than monthly.</li>
-        </ul>
-        <p data-i18n="seo-ci-p4">For savings accounts and money market funds, monthly compounding is standard. High-yield savings accounts at online banks typically compound daily. The difference between monthly and daily compounding is small — the interest rate itself matters far more than compounding frequency.</p>
-
-        <h3 data-i18n="seo-ci-h3-3">The Rule of 72 explained</h3>
-        <p data-i18n="seo-ci-p5">The Rule of 72 is a simple mental math shortcut: divide 72 by your annual return rate to estimate how many years it takes your investment to double in value.</p>
-        <ul>
-          <li data-i18n-html="seo-ci-li-4">At 4% (high-yield savings): 72 ÷ 4 = <strong>18 years</strong> to double</li>
-          <li data-i18n-html="seo-ci-li-5">At 7% (stock market average): 72 ÷ 7 = <strong>10.3 years</strong> to double</li>
-          <li data-i18n-html="seo-ci-li-6">At 10% (aggressive growth): 72 ÷ 10 = <strong>7.2 years</strong> to double</li>
-          <li data-i18n-html="seo-ci-li-7">At 12% (venture returns): 72 ÷ 12 = <strong>6 years</strong> to double</li>
-        </ul>
-        <p data-i18n="seo-ci-p6">The rule works in reverse too: if you want your money to double in 8 years, you need a rate of at least 72 ÷ 8 = 9% per year.</p>
-
-        <h3 data-i18n="seo-ci-h3-4">The cost of waiting: starting at 25 vs 35 vs 45</h3>
-        <p data-i18n="seo-ci-p7">The single most powerful factor in savings is time. Consider investing $200 per month at a 7% annual return with no initial deposit:</p>
-
-        <div class="seo-table-wrap">
-          <table class="seo-table">
-            <thead>
-              <tr>
-                <th data-i18n="seo-ci-th-start">Start age</th>
-                <th data-i18n="seo-ci-th-end">End age</th>
-                <th data-i18n="seo-ci-th-years">Years invested</th>
-                <th data-i18n="seo-ci-th-contributed">Total contributed</th>
-                <th data-i18n="seo-ci-th-final">Final value</th>
-                <th data-i18n="seo-ci-th-interest">Interest earned</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>25</td>
-                <td>65</td>
-                <td>40 years</td>
-                <td>$96,000</td>
-                <td>$528,000</td>
-                <td>$432,000</td>
-              </tr>
-              <tr>
-                <td>35</td>
-                <td>65</td>
-                <td>30 years</td>
-                <td>$72,000</td>
-                <td>$243,000</td>
-                <td>$171,000</td>
-              </tr>
-              <tr>
-                <td>45</td>
-                <td>65</td>
-                <td>20 years</td>
-                <td>$48,000</td>
-                <td>$104,000</td>
-                <td>$56,000</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-        <p data-i18n="seo-ci-p8">Starting at 25 instead of 35 costs only $24,000 more in contributions but generates $285,000 more wealth — a 12x return on that additional $24,000. The message is clear: start early, even with small amounts.</p>
-
-        <h3 data-i18n="seo-ci-h3-5">High-yield savings accounts vs index funds: typical rates</h3>
-        <p data-i18n="seo-ci-p9">The return rate you choose in this calculator should reflect where you'll actually hold your savings:</p>
-        <ul>
-          <li data-i18n-html="seo-ci-li-8"><strong>Traditional savings account:</strong> 0.01–0.5% APY. Effectively loses value to inflation. Only suitable for emergency funds you need to access immediately.</li>
-          <li data-i18n-html="seo-ci-li-9"><strong>High-yield savings account (online banks):</strong> 4–5% APY in a high-rate environment. FDIC insured. Excellent for emergency funds and short-term goals (1–3 years).</li>
-          <li data-i18n-html="seo-ci-li-10"><strong>Money market accounts:</strong> 4–5% APY. Similar to HYSA with slightly different access terms.</li>
-          <li data-i18n-html="seo-ci-li-11"><strong>Certificates of deposit (CDs):</strong> 4–5.5% APY with 6-month to 5-year lock-up. Higher rates for longer terms.</li>
-          <li data-i18n-html="seo-ci-li-12"><strong>S&amp;P 500 index fund:</strong> ~10% average nominal return (7% after inflation) historically. Not guaranteed. Best for goals 5+ years away. Subject to market volatility.</li>
-          <li data-i18n-html="seo-ci-li-13"><strong>Total bond market fund:</strong> 3–5% historically. Lower volatility than stocks. Suitable for medium-term goals.</li>
+          <li data-i18n-html="seo-cur-li-1"><strong>Interest rate differentials:</strong> When a central bank raises interest rates, its currency typically strengthens because higher rates attract foreign capital seeking better returns. The US Federal Reserve's decisions often move global exchange rates.</li>
+          <li data-i18n-html="seo-cur-li-2"><strong>Inflation:</strong> Higher inflation erodes a currency's purchasing power over time. Countries with lower, stable inflation tend to have stronger currencies. The EUR/USD pair, for example, is closely watched for inflation differentials between the US and Eurozone.</li>
+          <li data-i18n-html="seo-cur-li-3"><strong>Trade balance:</strong> Countries that export more than they import (trade surplus) have higher demand for their currency, pushing its value up. Countries with persistent trade deficits may see currency weakness over time.</li>
+          <li data-i18n-html="seo-cur-li-4"><strong>Political stability:</strong> Political uncertainty, elections, or geopolitical conflicts can cause rapid currency moves. Safe-haven currencies like USD, CHF, and JPY often strengthen during global crises as investors seek stability.</li>
+          <li data-i18n-html="seo-cur-li-5"><strong>GDP growth:</strong> Strong economic growth increases demand for a currency as investors put capital to work in that economy.</li>
         </ul>
 
-        <p data-i18n-html="seo-ci-p10">Also see: <a href="/refinance-calculator/" data-i18n="footer-refinance">Refinance Calculator</a> — the interest you save from refinancing a mortgage can be redirected into savings.</p>
+        <h3 data-i18n="seo-cur-h3-3">Mid-market rate vs bank rate: why there's a spread</h3>
+        <p data-i18n="seo-cur-p4">The rate you see on this converter is the mid-market rate — the theoretical midpoint between buy and sell prices. When you actually exchange money through a bank, credit card, or money transfer service, you will receive a worse rate. The difference is called the spread, and it is how currency exchange businesses make their profit.</p>
+        <ul>
+          <li data-i18n-html="seo-cur-li-6"><strong>Banks and airport kiosks:</strong> Typically charge 3–10% above mid-market rate. Worst for small amounts and tourist locations.</li>
+          <li data-i18n-html="seo-cur-li-7"><strong>Credit cards:</strong> Usually charge 1–3% as a foreign transaction fee. Often the best option for purchases abroad, especially cards with no foreign transaction fee.</li>
+          <li data-i18n-html="seo-cur-li-8"><strong>Specialist transfer services (Wise, Revolut):</strong> Charge 0.3–1% above mid-market rate. Best for large international transfers.</li>
+        </ul>
+        <p data-i18n="seo-cur-p5">To calculate what you'll actually receive: take the mid-market rate and subtract the provider's spread percentage. If you see 1 USD = 0.92 EUR at mid-market and your bank charges 3%, you'll receive approximately 0.92 × (1 - 0.03) = 0.892 EUR per dollar.</p>
+
+        <h3 data-i18n="seo-cur-h3-4">Gold as a currency hedge: how XAU is priced</h3>
+        <p data-i18n="seo-cur-p6">Gold (ticker symbol XAU) is priced in US dollars per troy ounce on international markets. The troy ounce is the standard unit for precious metals and equals approximately 31.1 grams (slightly heavier than a standard avoirdupois ounce at 28.35 grams). One troy ounce = 31.1035 grams exactly.</p>
+        <p data-i18n="seo-cur-p7">Gold functions as a hedge against currency devaluation and inflation. When the US dollar weakens or inflation rises, gold prices often rise — not because gold itself changes, but because more dollars are needed to buy the same weight of gold. Gold has maintained purchasing power over centuries while individual currencies have been inflated away. The gold price on this site is sourced from market data via Yahoo Finance, cached hourly for performance.</p>
+        <p data-i18n="seo-cur-p8">Gold price movements are driven by: central bank gold reserves, US dollar strength, real interest rates (when real rates are low or negative, gold becomes more attractive), geopolitical risk, and jewelry/industrial demand.</p>
+
+        <h3 data-i18n="seo-cur-h3-5">WTI crude oil: why it's priced in USD and what moves the price</h3>
+        <p data-i18n="seo-cur-p9">West Texas Intermediate (WTI) is the primary crude oil benchmark for North America and a major global price reference. It is priced in US dollars per barrel (1 barrel = 42 US gallons = approximately 159 liters). Oil has been priced in USD since the 1970s Petrodollar agreement, creating a global demand for US dollars since all countries that import oil need dollars to pay for it.</p>
+        <p data-i18n="seo-cur-p10">Key factors that drive oil prices:</p>
+        <ul>
+          <li data-i18n-html="seo-cur-li-9"><strong>OPEC+ production decisions:</strong> The OPEC cartel and allied producers (Russia, etc.) control roughly 40% of global supply. Production cuts push prices up; increases push prices down.</li>
+          <li data-i18n-html="seo-cur-li-10"><strong>US shale production:</strong> The US became the world's largest oil producer partly due to shale technology. Higher US output competes with OPEC and can cap price increases.</li>
+          <li data-i18n-html="seo-cur-li-11"><strong>Global demand:</strong> Economic growth in China and India (massive oil consumers) is a major demand driver. Recessions reduce demand and push prices down.</li>
+          <li data-i18n-html="seo-cur-li-12"><strong>Geopolitical events:</strong> Conflicts in oil-producing regions (Middle East, Russia) create supply risk premiums that push prices higher.</li>
+          <li data-i18n-html="seo-cur-li-13"><strong>USD strength:</strong> Since oil is priced in USD, a stronger dollar makes oil more expensive for non-US buyers, dampening demand and putting downward pressure on prices.</li>
+        </ul>
+
+        <h3 data-i18n="seo-cur-h3-6">Live stock prices: top US equities updated hourly</h3>
+        <p data-i18n="seo-cur-p11">LoanCalc shows live prices for ten widely tracked US stocks and funds: Apple (AAPL), Microsoft (MSFT), Alphabet (GOOGL), Amazon (AMZN), Meta (META), NVIDIA (NVDA), Tesla (TSLA), JPMorgan Chase (JPM), Berkshire Hathaway B (BRK.B), and the SPDR S&amp;P 500 ETF Trust (SPY). Prices are fetched from Yahoo Finance and updated every hour — the same interval as the gold and oil data.</p>
+        <p data-i18n="seo-cur-p12">Each stock chip shows the current price in USD, the percentage change from the previous close (green arrow for gains, red for losses), and the equivalent price in your local currency using the live exchange rate. This makes it easy to track the value of US equity positions from anywhere in the world without switching between apps.</p>
+        <p data-i18n-html="seo-cur-p13">The S&amp;P 500 ETF (SPY) is included as a broad market benchmark: when SPY is up, the overall US market is generally rising. Individual stocks like NVDA and TSLA carry higher volatility. Use the <a href="/savings-calculator/" data-i18n="footer-savings">Savings Calculator</a> with a 7–10% annual return to model long-term S&amp;P 500 growth.</p>
+
+        <p data-i18n-html="seo-cur-p14">Also see: <a href="/savings-calculator/" data-i18n="footer-savings">Savings Calculator</a> — model how currency returns or commodity-linked investments grow over time.</p>
       </div>
     </section>
 
@@ -748,7 +741,7 @@
           <a href="/privacy/#do-not-sell" data-i18n="footer-dnsmi">Do Not Sell or Share My Personal Information</a>
         </nav>
         <p id="footer-desc-el" data-i18n="footer-desc">Free financial calculators: mortgage, loan, savings, refinance, currency. No account required.</p>
-        <p class="footer-disclaimer" id="footer-disclaimer-el" data-i18n="footer-disclaimer">LoanCalc provides estimates for informational purposes only. This is not financial advice.</p>
+        <p class="footer-disclaimer" id="footer-disclaimer-el" data-i18n="footer-disclaimer">LoanCalc provides estimates for informational purposes only. Exchange rates and commodity prices are for reference only. This is not financial advice.</p>
         <p class="footer-copy" dir="ltr">© <span id="copy-year">2026</span> LoanCalc. <span data-i18n="footer-rights">All rights reserved.</span></p>
       </div>
     </footer>

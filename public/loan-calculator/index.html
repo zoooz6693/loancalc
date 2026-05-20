@@ -34,27 +34,27 @@
 
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-    <title>Free Loan Payment Calculator – Car, Personal &amp; Student Loans | LoanCalc</title>
-    <meta name="description" content="Calculate monthly payments for any loan type: car loan, personal loan, or student loan. See total interest, amortization schedule, and APR comparison. Free, no signup." />
-    <meta name="keywords" content="loan calculator,personal loan calculator,car loan calculator,student loan calculator,monthly payment calculator,loan payment,APR calculator,loan amortization" />
+    <title>Free Loan Calculator – Mortgage, Car, Personal &amp; Student Loans | LoanCalc</title>
+    <meta name="description" content="Calculate monthly payments for any loan: mortgage, car loan, personal loan, or student loan. See total interest paid and full amortization schedule. Free, no signup." />
+    <meta name="keywords" content="loan calculator,mortgage calculator,car loan calculator,personal loan calculator,student loan calculator,monthly payment calculator,amortization schedule,home loan calculator,30 year mortgage,15 year mortgage" />
     <meta name="author" content="LoanCalc" />
     <meta name="robots" content="index,follow" />
     <meta name="theme-color" content="#0B1610" />
     <link rel="canonical" href="https://loancalc.app/loan-calculator/" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://loancalc.app/loan-calculator/" />
-    <meta property="og:title" content="Free Loan Payment Calculator – Car, Personal &amp; Student Loans | LoanCalc" />
-    <meta property="og:description" content="Calculate monthly payments for car loans, personal loans, and student loans. See total interest and amortization. Free, no signup." />
+    <meta property="og:title" content="Free Loan Calculator – Mortgage, Car, Personal &amp; Student Loans | LoanCalc" />
+    <meta property="og:description" content="Calculate monthly payments for mortgage, car loan, personal loan, or student loan. See total interest and amortization schedule. Free, no signup." />
     <meta property="og:site_name" content="LoanCalc" />
     <meta property="og:image" content="https://loancalc.app/og.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Free Loan Payment Calculator – Car, Personal &amp; Student Loans | LoanCalc" />
-    <meta name="twitter:description" content="Monthly payments for any loan type. Car, personal, student. Free, no signup." />
+    <meta name="twitter:title" content="Free Loan Calculator – Mortgage, Car, Personal &amp; Student Loans | LoanCalc" />
+    <meta name="twitter:description" content="Calculate monthly payments for mortgage, car, personal, and student loans. Full amortization schedule. Free, no signup." />
     <meta name="twitter:image" content="https://loancalc.app/og.png" />
     <script type="application/ld+json">
-      {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Free Loan Payment Calculator", "url": "https://loancalc.app/loan-calculator/", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "description": "Calculate monthly payments for car loans, personal loans, and student loans with amortization schedule. Free, no signup.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}
+      {"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "Free Loan Calculator", "url": "https://loancalc.app/loan-calculator/", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "description": "Calculate monthly payments for mortgage, car loan, personal loan, and student loan with full amortization schedule. Free, no signup.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}
     </script>
     <script type="application/ld+json">
       {
@@ -91,6 +91,7 @@
           </svg>
           <span class="logo-text">Loan<span>Calc</span></span>
         </a>
+
         <button class="settings-btn" id="settings-open-btn" aria-label="Open preferences">
           <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true">
             <circle cx="8" cy="8" r="2.5" />
@@ -105,7 +106,7 @@
     <div class="settings-drawer" id="settings-drawer" role="dialog" aria-modal="true" aria-label="Preferences">
       <div class="settings-head">
         <p class="settings-title" data-i18n="pref-title">Preferences</p>
-        <button class="settings-close" id="settings-close-btn" aria-label="Close preferences">
+        <button type="button" class="settings-close" id="settings-close-btn" aria-label="Close preferences">
           <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M2 2l10 10M12 2L2 12" /></svg>
         </button>
       </div>
@@ -124,10 +125,12 @@
             <option value="tr">Türkçe (Turkish)</option>
             <option value="id">Bahasa Indonesia</option>
           </select>
+          <p class="settings-note" data-i18n="pref-lang-note">Changes labels and number formatting throughout the site.</p>
         </div>
         <div class="settings-group">
           <label class="settings-label" for="pref-currency" data-i18n="pref-currency">Preferred currency</label>
           <select class="settings-select" id="pref-currency"></select>
+          <p class="settings-note" data-i18n="pref-currency-note">Sets the default "convert to" currency and the local price shown for gold and oil.</p>
         </div>
         <div class="settings-group">
           <p class="settings-label" data-i18n="pref-current">Current settings</p>
@@ -138,17 +141,17 @@
         </div>
       </div>
       <div class="settings-footer">
-        <button class="settings-cancel" id="settings-cancel-btn">Cancel</button>
-        <button class="settings-save" id="settings-save-btn" data-i18n="pref-save">Save preferences</button>
+        <button type="button" class="settings-cancel" id="settings-cancel-btn" data-i18n="pref-cancel">Cancel</button>
+        <button type="button" class="settings-save" id="settings-save-btn" data-i18n="pref-save">Save preferences</button>
       </div>
     </div>
 
     <div class="tool-nav-wrap">
       <nav class="tab-nav" id="tool-nav" aria-label="Main tools">
-        <a href="/mortgage-calculator/" class="tab-btn active" id="tab-loans" aria-current="page" data-panel="panel-loans" data-i18n="nav-loans">Loans</a>
+        <a href="/loan-calculator/" class="tab-btn active" id="tab-loans" aria-current="page" data-panel="panel-loans" data-i18n="nav-loans">Loans</a>
         <a href="/savings-calculator/" class="tab-btn" id="tab-savings" data-panel="panel-savings" data-i18n="nav-savings">Savings</a>
         <a href="/refinance-calculator/" class="tab-btn" id="tab-refinance" data-panel="panel-refinance" data-i18n="nav-refinance">Refinance</a>
-        <a href="/currency-converter/" class="tab-btn" id="tab-currency" data-panel="panel-currency" data-i18n="nav-currency">Live Rates</a>
+        <a href="/live-rates/" class="tab-btn" id="tab-currency" data-panel="panel-currency" data-i18n="nav-currency">Live Rates</a>
         <a href="/faq/" class="tab-btn" id="tab-faq" data-i18n="nav-faq">FAQ</a>
       </nav>
     </div>
@@ -159,42 +162,51 @@
             <div class="calc-grid">
               <div class="inputs-panel">
                 <div class="loan-seg" role="tablist" aria-label="Choose loan type">
-                  <button class="tab-btn" id="loan-tab-mortgage" data-tab="mortgage" role="tab" aria-selected="false" aria-controls="loan-type-content">Mortgage</button>
+                  <button class="tab-btn active" id="loan-tab-mortgage" data-tab="mortgage" role="tab" aria-selected="true" aria-controls="loan-type-content">Mortgage</button>
                   <button class="tab-btn" id="loan-tab-car" data-tab="car" role="tab" aria-selected="false" aria-controls="loan-type-content">Car Loan</button>
-                  <button class="tab-btn active" id="loan-tab-personal" data-tab="personal" role="tab" aria-selected="true" aria-controls="loan-type-content">Personal</button>
+                  <button class="tab-btn" id="loan-tab-personal" data-tab="personal" role="tab" aria-selected="false" aria-controls="loan-type-content">Personal</button>
                   <button class="tab-btn" id="loan-tab-student" data-tab="student" role="tab" aria-selected="false" aria-controls="loan-type-content">Student</button>
                 </div>
-                <div id="loan-type-content" role="tabpanel" aria-labelledby="loan-tab-personal">
+                <div id="loan-type-content" role="tabpanel" aria-labelledby="loan-tab-mortgage">
                   <div class="input-group">
                     <div class="ig-head">
                       <label class="ig-label" for="i-amount" id="lbl-amount-el">Loan amount</label>
-                      <div class="ig-val"><span class="ig-sym">$</span><input type="number" id="i-amount" class="ig-input" aria-label="Loan amount" min="500" max="100000" step="500" /></div>
+                      <div class="ig-val">
+                        <span class="ig-sym">$</span>
+                        <input type="number" id="i-amount" class="ig-input" aria-label="Loan amount" min="1000" max="2000000" step="1000" />
+                      </div>
                     </div>
-                    <input type="range" id="s-amount" aria-label="Adjust loan amount" min="500" max="100000" step="500" value="10000" />
-                    <div class="range-ends"><span id="amount-min-lbl">$500</span><span id="amount-max-lbl">$100,000</span></div>
+                    <input type="range" id="s-amount" aria-label="Adjust loan amount" min="1000" max="2000000" step="1000" value="300000" />
+                    <div class="range-ends"><span id="amount-min-lbl">$1,000</span><span id="amount-max-lbl">$2,000,000</span></div>
                     <div class="ig-clamp-note" id="clamp-amount" aria-live="polite"></div>
                   </div>
                   <div class="input-group">
                     <div class="ig-head">
                       <label class="ig-label" for="i-rate" id="lbl-rate-el">Annual interest rate</label>
-                      <div class="ig-val"><input type="number" id="i-rate" class="ig-input ig-input--rate" aria-label="Annual interest rate percent" min="1" max="36" step="0.1" /><span class="ig-unit">%</span></div>
+                      <div class="ig-val">
+                        <input type="number" id="i-rate" class="ig-input ig-input--rate" aria-label="Annual interest rate percent" min="0.1" max="30" step="0.1" />
+                        <span class="ig-unit">%</span>
+                      </div>
                     </div>
-                    <input type="range" id="s-rate" aria-label="Adjust interest rate" min="1" max="36" step="0.1" value="11" />
-                    <div class="range-ends"><span id="rate-min-lbl">1%</span><span id="rate-max-lbl">36%</span></div>
+                    <input type="range" id="s-rate" aria-label="Adjust interest rate" min="0.1" max="30" step="0.1" value="6.5" />
+                    <div class="range-ends"><span id="rate-min-lbl">0.1%</span><span id="rate-max-lbl">30%</span></div>
                     <div class="ig-clamp-note" id="clamp-rate" aria-live="polite"></div>
                   </div>
                   <div class="input-group">
                     <div class="ig-head">
                       <label class="ig-label" for="i-term" id="lbl-term-el">Loan term</label>
-                      <div class="ig-val"><input type="number" id="i-term" class="ig-input ig-input--years" aria-label="Loan term in years" min="1" max="7" step="1" /><span class="ig-unit" id="term-unit-lbl" data-i18n="unit-years">years</span></div>
+                      <div class="ig-val">
+                        <input type="number" id="i-term" class="ig-input ig-input--years" aria-label="Loan term in years" min="1" max="30" step="1" />
+                        <span class="ig-unit" id="term-unit-lbl" data-i18n="unit-years">years</span>
+                      </div>
                     </div>
-                    <input type="range" id="s-term" aria-label="Adjust loan term" min="1" max="7" step="1" value="3" />
-                    <div class="range-ends"><span id="term-min-lbl">1 yr</span><span id="term-max-lbl">7 yrs</span></div>
+                    <input type="range" id="s-term" aria-label="Adjust loan term" min="1" max="30" step="1" value="30" />
+                    <div class="range-ends"><span id="term-min-lbl">1 yr</span><span id="term-max-lbl">30 yrs</span></div>
                     <div class="ig-clamp-note" id="clamp-term" aria-live="polite"></div>
                   </div>
                   <div class="helper-note en-only" id="helper-note" aria-live="polite">
-                    <strong id="helper-title">Typical personal loan</strong>
-                    <span id="helper-text" class="tx-dynamic">Personal loan rates range from 6% (excellent credit) to 36% (fair credit).</span>
+                    <strong id="helper-title">Typical 30-year US mortgage</strong>
+                    <span id="helper-text" class="tx-dynamic">Rates vary by lender and credit score. Enter your own numbers above for a personalized estimate.</span>
                   </div>
                   <button class="reset-defaults-btn" id="reset-defaults-btn" type="button">Reset to defaults</button>
                 </div>
@@ -202,13 +214,13 @@
               <div class="results-panel" role="region" aria-label="Calculation results">
                 <div class="monthly-card">
                   <p class="monthly-label" id="res-monthly-lbl">Monthly payment</p>
-                  <p class="monthly-amount" id="result-monthly" aria-live="polite" aria-atomic="true" aria-label="Monthly payment amount">—</p>
-                  <p class="monthly-sub" id="result-loan-label">3-year personal loan</p>
+                  <p class="monthly-amount" id="result-monthly" aria-live="polite" aria-atomic="true" aria-label="Monthly payment amount">$1,896</p>
+                  <p class="monthly-sub" id="result-loan-label">30-year fixed mortgage</p>
                 </div>
                 <div class="results-grid">
                   <div class="res-box">
                     <p class="res-lbl" id="res-principal-lbl">Principal</p>
-                    <p class="res-val" id="result-principal">—</p>
+                    <p class="res-val" id="result-principal">$300,000</p>
                   </div>
                   <div class="res-box">
                     <p class="res-lbl" id="res-interest-lbl">Total interest</p>
@@ -250,10 +262,10 @@
       <section class="chart-section" aria-label="Payment breakdown chart">
         <div class="container">
           <h2 class="section-title" id="section-breakdown-h">Payment breakdown</h2>
-          <p class="section-sub" id="tx-breakdown-sub" data-i18n="breakdown-sub">How your total cost is split between principal and interest.</p>
+          <p class="section-sub" id="tx-breakdown-sub" data-i18n="breakdown-sub">How your total cost is split between the amount borrowed and interest paid to the lender.</p>
           <div class="chart-wrap">
             <div class="chart-canvas-wrap">
-              <canvas id="loanChart" role="img" aria-label="Donut chart showing principal versus interest"></canvas>
+              <canvas id="loanChart" role="img" aria-label="Donut chart showing proportion of principal versus total interest paid over the loan term"></canvas>
               <div class="chart-center">
                 <div class="chart-center-num" id="chart-center-pct">—</div>
                 <div class="chart-center-lbl" data-i18n="chart-center-lbl">principal</div>
@@ -276,8 +288,14 @@
                 </div>
               </div>
               <div class="chart-divider"></div>
-              <div class="payoff-row"><span class="po-label" data-i18n="chart-stat-total">Total amount repaid</span><span class="po-val" id="c-total">—</span></div>
-              <div class="payoff-row payoff-row--no-top"><span class="po-label" data-i18n="chart-stat-payoff">Loan fully paid off</span><span class="po-val" id="c-year">—</span></div>
+              <div class="payoff-row">
+                <span class="po-label" data-i18n="chart-stat-total">Total amount repaid</span>
+                <span class="po-val" id="c-total">—</span>
+              </div>
+              <div class="payoff-row payoff-row--no-top">
+                <span class="po-label" data-i18n="chart-stat-payoff">Loan fully paid off</span>
+                <span class="po-val" id="c-year">—</span>
+              </div>
             </div>
           </div>
         </div>
@@ -294,7 +312,7 @@
           </div>
           <div class="table-wrap">
             <div class="table-scroll">
-              <table id="amort-table" aria-label="Loan amortization schedule">
+              <table id="amort-table" aria-label="Loan amortization schedule showing principal and interest by year">
                 <thead>
                   <tr>
                     <th scope="col">Year</th>
@@ -316,23 +334,24 @@
           <div class="how-grid">
             <div>
               <h2 id="how-h2">How loan payments are calculated</h2>
-              <p>Every fixed-rate loan uses the standard amortization formula. Your monthly payment is fixed so that equal instalments cover both the interest accruing on the remaining balance and a portion of the principal, fully paying off the loan by the final month.</p>
-              <h3>The formula</h3>
+              <p id="tx-how-p1" data-i18n="how-p1">Every fixed-rate loan uses the same standard amortization formula. Your monthly payment is calculated so that equal instalments cover both the interest accruing on the remaining balance and a portion of the original principal, fully paying off the loan by the final month.</p>
+              <h3 data-i18n="how-formula-h">The formula</h3>
               <div class="formula-box">M = P × [ r(1+r)ⁿ ] ÷ [ (1+r)ⁿ − 1 ]</div>
               <div class="formula-vars">
-                <div class="formula-var"><strong>M</strong><span>Monthly payment</span></div>
-                <div class="formula-var"><strong>P</strong><span>Principal (the loan amount)</span></div>
-                <div class="formula-var"><strong>r</strong><span>Monthly rate (annual rate ÷ 12)</span></div>
-                <div class="formula-var"><strong>n</strong><span>Total payments (years × 12)</span></div>
+                <div class="formula-var"><strong>M</strong><span data-i18n="formula-m">Monthly payment</span></div>
+                <div class="formula-var"><strong>P</strong><span data-i18n="formula-p">Principal (the loan amount)</span></div>
+                <div class="formula-var"><strong>r</strong><span data-i18n="formula-r">Monthly rate (annual rate ÷ 12)</span></div>
+                <div class="formula-var"><strong>n</strong><span data-i18n="formula-n">Total payments (years × 12)</span></div>
               </div>
             </div>
             <div>
-              <h3>How to lower your monthly payment</h3>
+              <h3 data-i18n="how-lower-h">How to lower your monthly payment</h3>
+              <p id="tx-how-p2" data-i18n="how-p2">Three levers control your monthly payment. Adjusting any one of them immediately changes what you owe each month:</p>
               <ul class="tips-list">
-                <li>A larger down payment reduces the principal and lowers monthly payments.</li>
-                <li>A longer loan term spreads payments over more months, reducing the monthly amount but increasing total interest.</li>
-                <li>A lower rate saves significantly — even 1% difference on a $25,000 car loan saves hundreds over 5 years.</li>
-                <li>Improving your credit score before applying qualifies you for better rates.</li>
+                <li data-i18n="tip-1">A larger down payment reduces the principal directly: less borrowed means lower monthly payments and less total interest paid.</li>
+                <li data-i18n="tip-2">A longer loan term spreads payments over more months. Your monthly bill drops, but total interest paid over the life of the loan increases.</li>
+                <li data-i18n="tip-3">A lower interest rate has a compounding effect: even 0.5% difference on a $300,000 mortgage saves over $30,000 in total interest.</li>
+                <li data-i18n="tip-4">Improving your credit score before applying typically qualifies you for better rates. Check your score 3–6 months before borrowing.</li>
               </ul>
             </div>
           </div>
@@ -343,27 +362,27 @@
     <div id="panel-faq" class="tool-panel">
       <section class="faq-section" id="faq" aria-labelledby="faq-h2">
         <div class="container">
-          <h2 id="faq-h2">Frequently asked questions about the loan calculator</h2>
+          <h2 id="faq-h2">Frequently asked questions about the mortgage calculator</h2>
           <ul class="faq-list">
             <li class="faq-item" data-faq-panel="loans">
-              <button class="faq-q" aria-expanded="false" aria-controls="faq-a1"><span data-i18n="faq-q1">How is the monthly loan payment calculated?</span><span class="chevron" aria-hidden="true">▾</span></button>
-              <div class="faq-a" id="faq-a1" data-i18n="faq-a1">The standard formula is: Monthly Payment = P × [r(1+r)^n] ÷ [(1+r)^n − 1], where P is the loan principal, r is the monthly interest rate (annual rate ÷ 12), and n is the total number of monthly payments. This produces equal payments every month that fully repay the loan — including all interest — over the agreed term.</div>
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-a1"><span data-i18n="sub-mtgq1">What does the monthly payment include?</span><span class="chevron" aria-hidden="true">▾</span></button>
+              <div class="faq-a" id="faq-a1" data-i18n="sub-mtga1">This calculator shows principal and interest only. Your actual payment may also include property taxes (typically 1–2% of the home's value per year) and homeowners insurance — both vary by country and region. Add those separately to get your true monthly housing cost.</div>
             </li>
             <li class="faq-item" data-faq-panel="loans">
-              <button class="faq-q" aria-expanded="false" aria-controls="faq-a2"><span data-i18n="faq-q2">What is an amortization schedule?</span><span class="chevron" aria-hidden="true">▾</span></button>
-              <div class="faq-a" id="faq-a2" data-i18n="faq-a2">An amortization schedule shows how each payment is split between principal and interest over the loan term. Early payments are mostly interest; later payments are mostly principal. LoanCalc generates a year-by-year schedule so you can see exactly how your balance falls over time.</div>
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-a2"><span data-i18n="sub-mtgq2">Should I choose a 15-year or 30-year mortgage?</span><span class="chevron" aria-hidden="true">▾</span></button>
+              <div class="faq-a" id="faq-a2" data-i18n="sub-mtga2">A 15-year term roughly doubles the monthly payment but cuts total interest by about half. On a $300K loan at 6.5%, a 30-year term costs ~$382K in interest; a 15-year term costs ~$121K. Choose 15 years if you can comfortably afford the higher payment. Choose 30 years if you need cash-flow flexibility or plan to invest the difference.</div>
             </li>
             <li class="faq-item" data-faq-panel="loans">
-              <button class="faq-q" aria-expanded="false" aria-controls="faq-a3"><span data-i18n="sub-lnq3">What's the difference between a personal loan and a car loan?</span><span class="chevron" aria-hidden="true">▾</span></button>
-              <div class="faq-a" id="faq-a3" data-i18n="sub-lna3">Car loans are secured by the vehicle, so lenders offer lower rates — typically 5–10% — but can repossess the car if you miss payments. Personal loans are unsecured (no collateral), so rates run higher, 8–25%, but they can finance anything from debt consolidation to home improvements. Both use the same payment formula — only the rate and term differ.</div>
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-a3"><span data-i18n="sub-mtgq3">How does my down payment affect the monthly payment?</span><span class="chevron" aria-hidden="true">▾</span></button>
+              <div class="faq-a" id="faq-a3" data-i18n="sub-mtga3">A larger down payment reduces the loan principal directly, which lowers every monthly payment. In many countries a down payment below 20% triggers mortgage insurance (called PMI in the US), adding roughly 0.5–1% of the loan per year. Enter only the amount you're actually borrowing — subtract your down payment from the purchase price first.</div>
             </li>
             <li class="faq-item" data-faq-panel="loans">
-              <button class="faq-q" aria-expanded="false" aria-controls="faq-a4"><span data-i18n="faq-q4">How can I reduce the total interest I pay?</span><span class="chevron" aria-hidden="true">▾</span></button>
-              <div class="faq-a" id="faq-a4" data-i18n="faq-a4">Three strategies work: (1) Choose a shorter term — it raises the monthly payment but cuts total interest dramatically. (2) Make extra principal payments whenever possible — even small additions each month reduce the final total significantly. (3) Secure a lower rate by improving your credit score, comparing multiple lenders, or refinancing after rates drop.</div>
+              <button class="faq-q" aria-expanded="false" aria-controls="faq-a4"><span data-i18n="sub-mtgq4">How does my credit score affect my mortgage rate?</span><span class="chevron" aria-hidden="true">▾</span></button>
+              <div class="faq-a" id="faq-a4" data-i18n="sub-mtga4">Lenders price risk through the interest rate they offer: a credit score jump from 650 to 750 can lower your rate by 0.5–1.5%. On a $300K mortgage, a 1% rate reduction saves roughly $200/month and over $60K across a 30-year term. Check your credit report 3–6 months before applying — enough time to dispute errors and pay down balances.</div>
             </li>
             <li class="faq-item" data-faq-panel="loans">
               <button class="faq-q" aria-expanded="false" aria-controls="faq-a5"><span data-i18n="faq-q3">Does this calculator work for all countries?</span><span class="chevron" aria-hidden="true">▾</span></button>
-              <div class="faq-a" id="faq-a5" data-i18n="faq-a3">Yes. The loan payment formula is the same worldwide. Enter your loan amount in any currency, your local interest rate, and your loan term. All calculations run in your browser — no external data, no country-specific rules, no internet connection required.</div>
+              <div class="faq-a" id="faq-a5" data-i18n="faq-a3">Yes. The mortgage payment formula is the same worldwide. Enter your loan amount in any currency, your local interest rate, and your loan term. All calculations run in your browser — no external data, no country-specific tax rules, no internet connection required.</div>
             </li>
             <li class="faq-item" data-faq-panel="loans">
               <button class="faq-q" aria-expanded="false" aria-controls="faq-a6"><span data-i18n="faq-q5">Is LoanCalc completely free?</span><span class="chevron" aria-hidden="true">▾</span></button>
@@ -414,7 +433,10 @@
                   <input type="range" id="ci-s-years" min="1" max="50" step="1" value="20" />
                   <div class="range-ends"><span id="ci-y-min-lbl">1 yr</span><span id="ci-y-max-lbl">50 yrs</span></div>
                 </div>
-                <div class="helper-note"><strong id="ci-helper-title">S&amp;P 500 historical average</strong><span id="ci-helper-text">~7% annually after inflation over the long term.</span></div>
+                <div class="helper-note">
+                  <strong id="ci-helper-title">S&amp;P 500 historical average</strong>
+                  <span id="ci-helper-text">The US stock market has returned ~7% annually after inflation over the long term.</span>
+                </div>
               </div>
               <div class="results-panel">
                 <div class="monthly-card">
@@ -442,8 +464,8 @@
                 </div>
                 <div class="breakdown-row">
                   <div class="breakdown-label">
-                    <span><span>Deposits</span> <span id="ci-pct-d">—</span></span
-                    ><span><span>Growth</span> <span id="ci-pct-g">—</span></span>
+                    <span><span>Deposits</span> <span id="ci-pct-d">—</span></span>
+                    <span><span>Growth</span> <span id="ci-pct-g">—</span></span>
                   </div>
                   <div class="breakdown-bar">
                     <div class="bar-p" id="ci-bar-d" style="transform: scaleX(0.5)"></div>
@@ -455,6 +477,7 @@
           </div>
           <div class="ci-chart-wrap">
             <h3 id="ci-chart-h" class="ci-chart-title">Year-by-year growth</h3>
+            <p class="ci-chart-sub" data-i18n="ci-chart-sub">Balance at end of each year, split between your deposits and compound growth.</p>
             <div class="ci-chart-canvas"><canvas id="ciChart" role="img" aria-label="Bar chart showing compound interest growth year by year"></canvas></div>
           </div>
         </div>
@@ -464,8 +487,8 @@
     <div id="panel-refinance" class="tool-panel">
       <section id="refinance" class="panel-section" aria-labelledby="refi-h2">
         <div class="container">
-          <h2 class="section-title" id="rf-h2">Refinance calculator</h2>
-          <p id="rf-desc" class="section-sub">See how much you save by refinancing to a lower rate.</p>
+          <h2 class="section-title" id="rf-h2">Refinance calculator: how much will you save?</h2>
+          <p id="rf-desc" class="section-sub">Enter your current loan details and the new rate you've been offered.</p>
           <div class="calc-card">
             <div class="calc-grid">
               <div class="inputs-panel">
@@ -494,7 +517,9 @@
                   <input type="range" id="rf-s-remaining" min="1" max="30" step="1" value="25" />
                   <div class="range-ends"><span id="rf-y-min-lbl">1 yr</span><span id="rf-y-max-lbl">30 yrs</span></div>
                 </div>
-                <div class="section-group-divider"><p id="rf-new-lbl" class="section-group-label">New loan offer</p></div>
+                <div class="section-group-divider">
+                  <p id="rf-new-lbl" class="section-group-label">New loan offer</p>
+                </div>
                 <div class="input-group">
                   <div class="ig-head">
                     <label class="ig-label" for="rf-i-newrate" id="lbl-rf-newrate-el">New interest rate</label>
@@ -532,7 +557,7 @@
                     <p class="res-val" id="rf-result-breakeven">—</p>
                   </div>
                   <div class="res-box">
-                    <p class="res-lbl" id="rf-total-lbl">Total savings</p>
+                    <p class="res-lbl" id="rf-total-lbl">Total lifetime savings</p>
                     <p class="res-val" id="rf-result-total">—</p>
                   </div>
                 </div>
@@ -548,7 +573,7 @@
       <section id="currency" class="panel-section" aria-labelledby="cur-h2">
         <div class="container">
           <h2 class="section-title" id="cur-h2">Live currency converter, gold price, oil price &amp; stock prices today</h2>
-          <p class="section-sub" id="tx-cur-sub">Convert between major currencies with live exchange rates.</p>
+          <p class="section-sub" id="tx-cur-sub">Convert between major currencies with live exchange rates. Also shows live gold and oil prices in your local currency.</p>
           <div class="live-seg" role="tablist" aria-label="Live rates view">
             <button class="tab-btn active" data-live="currency" role="tab" aria-selected="true" aria-controls="live-panel-currency" data-i18n="lbl-tab-currency">Currency</button>
             <button class="tab-btn" data-live="commodities" role="tab" aria-selected="false" aria-controls="live-panel-commodities" data-i18n="lbl-tab-commodities">Commodities</button>
@@ -558,31 +583,36 @@
             <div class="calc-card">
               <div class="cur-body">
                 <div id="cur-status" class="cur-status">
-                  <span id="cur-dot" class="cur-dot"></span><span id="cur-status-text">Loading exchange rates…</span
-                  ><button id="cur-refresh-btn" class="status-refresh-btn" aria-label="Refresh exchange rates" title="Refresh">
+                  <span id="cur-dot" class="cur-dot"></span>
+                  <span id="cur-status-text">Loading exchange rates…</span>
+                  <button id="cur-refresh-btn" class="status-refresh-btn" aria-label="Refresh exchange rates" title="Refresh">
                     <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                       <path d="M10.5 2A5 5 0 1 0 11 6.5" />
                       <polyline points="10.5 2 10.5 5 7.5 5" />
-                    </svg></button
-                  ><button id="cur-retry-btn" class="cur-retry-btn" style="display: none">Retry</button>
+                    </svg>
+                  </button>
+                  <button id="cur-retry-btn" class="cur-retry-btn" style="display: none" aria-label="Retry loading exchange rates">Retry</button>
                 </div>
-                <div class="cur-group"><label for="cur-amount" class="cur-label" data-i18n="cur-amount-label">Amount</label><input type="number" id="cur-amount" value="1000" min="0" max="999999999" step="1" class="cur-amount-input" /></div>
+                <div class="cur-group">
+                  <label for="cur-amount" class="cur-label" data-i18n="cur-amount-label">Amount</label>
+                  <input type="number" id="cur-amount" value="1000" min="0" max="999999999" step="1" class="cur-amount-input" />
+                </div>
                 <div class="cur-selects-row">
-                  <select id="cur-from" class="cur-sel" aria-label="From currency"></select
-                  ><button id="cur-swap" class="cur-swap-btn" title="Swap" aria-label="Swap currencies">⇄</button
-                  ><select id="cur-to" class="cur-sel" aria-label="To currency"></select>
+                  <select id="cur-from" class="cur-sel" aria-label="From currency"></select>
+                  <button id="cur-swap" class="cur-swap-btn" title="Swap" aria-label="Swap currencies">⇄</button>
+                  <select id="cur-to" class="cur-sel" aria-label="To currency"></select>
                 </div>
                 <div class="cur-group-lg">
                   <p class="cur-label" id="cur-result-lbl" data-i18n="cur-to-label">Converted to</p>
-                  <div id="cur-result" class="cur-result-box" role="status" aria-live="polite">—</div>
+                  <div id="cur-result" class="cur-result-box" role="status" aria-live="polite" aria-atomic="true" aria-labelledby="cur-result-lbl">—</div>
                 </div>
                 <div id="cur-rate-row" class="cur-rate-row">
-                  <span><span data-i18n="cur-rate-lbl">Rate</span>: <strong id="cur-rate-display" class="cur-rate-val">—</strong></span
-                  ><span><span data-i18n="cur-inverse-lbl">Inverse</span>: <strong id="cur-rate-inv" class="cur-rate-val">—</strong></span
-                  ><span><span data-i18n="cur-updated-lbl">Updated</span>: <strong id="cur-rate-date" class="cur-rate-val">—</strong></span>
+                  <span><span data-i18n="cur-rate-lbl">Rate</span>: <strong id="cur-rate-display" class="cur-rate-val">—</strong></span>
+                  <span><span data-i18n="cur-inverse-lbl">Inverse</span>: <strong id="cur-rate-inv" class="cur-rate-val">—</strong></span>
+                  <span><span data-i18n="cur-updated-lbl">Updated</span>: <strong id="cur-rate-date" class="cur-rate-val">—</strong></span>
                 </div>
                 <div class="cur-quick">
-                  <p id="cur-quick-lbl" class="cur-quick-lbl">Quick reference</p>
+                  <p id="cur-quick-lbl" class="cur-quick-lbl">Quick reference: common amounts</p>
                   <div id="cur-quick-grid" class="cur-quick-grid"></div>
                 </div>
               </div>
@@ -602,8 +632,8 @@
                   </div>
                   <div class="commodity-status">
                     <span id="gold-dot" class="commodity-status-dot"></span><span id="gold-status" class="commodity-status-text">Loading…</span
-                    ><button id="gold-refresh-btn" class="status-refresh-btn" aria-label="Refresh gold price">
-                      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    ><button id="gold-refresh-btn" class="status-refresh-btn" aria-label="Refresh gold price" title="Refresh">
+                      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M10.5 2A5 5 0 1 0 11 6.5" />
                         <polyline points="10.5 2 10.5 5 7.5 5" />
                       </svg>
@@ -642,8 +672,8 @@
                   </div>
                   <div class="commodity-status">
                     <span id="oil-dot" class="commodity-status-dot"></span><span id="oil-status" class="commodity-status-text">Loading…</span
-                    ><button id="oil-refresh-btn" class="status-refresh-btn" aria-label="Refresh oil price">
-                      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    ><button id="oil-refresh-btn" class="status-refresh-btn" aria-label="Refresh oil price" title="Refresh">
+                      <svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M10.5 2A5 5 0 1 0 11 6.5" />
                         <polyline points="10.5 2 10.5 5 7.5 5" />
                       </svg>
@@ -680,32 +710,103 @@
 
     <section class="seo-content" aria-labelledby="seo-h2">
       <div class="container">
-        <h2 id="seo-h2">Loan Calculator: Car, Personal &amp; Student Loans Explained</h2>
+        <h2 id="seo-h2" data-i18n="seo-mort-h2">Mortgage Calculator: Everything You Need to Know</h2>
 
-        <h3>Difference between personal loan, car loan, and student loan</h3>
-        <p>While all three are installment loans calculated using the same amortization formula, they differ significantly in purpose, typical terms, and interest rates:</p>
+        <p>This calculator is for home loans and mortgages. For car loans, personal loans, or student loans, use the <a href="/loan-calculator/">Loan Calculator</a>.</p>
+
+        <h3 data-i18n="seo-mort-h3-1">What is a mortgage calculator and who should use it?</h3>
+        <p data-i18n="seo-mort-p1">A mortgage calculator is a financial tool that computes your monthly payment on a home loan based on three inputs: the loan amount (principal), the annual interest rate, and the loan term in years. Anyone considering buying a home, comparing loan offers, or trying to understand the long-term cost of borrowing should use one before signing a mortgage agreement.</p>
+        <p data-i18n="seo-mort-p2">First-time homebuyers use mortgage calculators to reality-check affordability before house hunting. Existing homeowners use them to explore refinancing scenarios or to model the impact of making extra payments. Real estate investors use them to estimate cash flow on rental properties. The calculator works identically for fixed-rate mortgages worldwide — whether you're borrowing in USD, EUR, GBP, or any other currency.</p>
+
+        <h3 data-i18n="seo-mort-h3-2">How the monthly payment formula works</h3>
+        <p data-i18n="seo-mort-p3">Every fixed-rate mortgage uses the same standard amortization formula:</p>
+        <p data-i18n-html="seo-mort-formula"><strong>M = P × [ r(1+r)ⁿ ] ÷ [ (1+r)ⁿ − 1 ]</strong></p>
+        <p data-i18n-html="seo-mort-p5">Where <strong>M</strong> is your monthly payment, <strong>P</strong> is the principal loan amount, <strong>r</strong> is the monthly interest rate (annual rate ÷ 12), and <strong>n</strong> is the total number of monthly payments (years × 12). This formula produces a fixed monthly amount that covers both the interest accruing on the remaining balance and a portion of the principal, with the ratio shifting over time. In the early years, most of each payment is interest. By the final years, most of each payment reduces the principal.</p>
+
+        <h3 data-i18n="seo-mort-h3-3">What affects your mortgage rate?</h3>
+        <p data-i18n="seo-mort-p6">Your actual mortgage rate depends on several factors lenders evaluate when approving your application:</p>
         <ul>
-          <li><strong>Personal loan:</strong> An unsecured loan for any purpose — debt consolidation, home improvement, medical bills, or major purchases. Because there's no collateral, lenders charge higher rates (typically 6–36%) based heavily on credit score. Terms are usually 2–7 years. Loan amounts range from $1,000 to $100,000 depending on the lender.</li>
-          <li><strong>Car loan:</strong> A secured loan where the vehicle serves as collateral. Lower rates than personal loans (typically 4–10% for new cars, slightly higher for used) because the lender can repossess the car if you default. Terms are usually 3–7 years. A shorter term means higher monthly payments but significantly less total interest paid.</li>
-          <li><strong>Student loan:</strong> Used to fund higher education. Federal student loans offer fixed rates set annually by Congress (4–8% depending on loan type). Private student loans vary widely. Repayment terms range from 5–25 years, and income-driven repayment plans may be available for federal loans.</li>
+          <li data-i18n-html="seo-mort-li-1"><strong>Credit score:</strong> Borrowers with scores above 760 typically receive the lowest available rates. Each 20-point drop in credit score can increase your rate by 0.1–0.5%, adding thousands in total interest over 30 years.</li>
+          <li data-i18n-html="seo-mort-li-2"><strong>Loan-to-value ratio (LTV):</strong> A lower LTV (larger down payment) signals less risk to the lender. Putting down 20% or more usually eliminates private mortgage insurance (PMI) and may qualify you for a better rate.</li>
+          <li data-i18n-html="seo-mort-li-3"><strong>Loan type:</strong> Conforming loans (within Fannie Mae/Freddie Mac limits) typically carry lower rates than jumbo loans. Government-backed loans (FHA, VA, USDA) have their own rate structures.</li>
+          <li data-i18n-html="seo-mort-li-4"><strong>Loan term:</strong> 15-year mortgages carry lower interest rates than 30-year mortgages because the lender's money is at risk for a shorter period.</li>
+          <li data-i18n-html="seo-mort-li-5"><strong>Market conditions:</strong> Mortgage rates are heavily influenced by the 10-year Treasury yield and Federal Reserve policy. When the Fed raises rates to combat inflation, mortgage rates tend to rise in tandem.</li>
         </ul>
 
-        <h3>How to compare loan offers: APR vs interest rate</h3>
-        <p>The single most important rule when comparing loan offers: always compare APR (Annual Percentage Rate), not just the stated interest rate. The interest rate is only the base borrowing cost. APR folds in all fees — origination fees, processing charges, prepaid interest — and expresses the true cost as a single annual percentage. A loan advertised at 5% interest with a 2% origination fee has a much higher APR than it appears. Use our calculator with the all-in APR as the "annual interest rate" to get an accurate monthly payment estimate.</p>
+        <h3 data-i18n="seo-mort-h3-4">15-year vs 30-year mortgage: the real tradeoff</h3>
+        <p data-i18n="seo-mort-p12">The choice between a 15-year and 30-year mortgage is fundamentally a tradeoff between monthly cash flow and total interest paid. Here's an example for a $300,000 loan:</p>
 
-        <h3>What debt-to-income ratio means for loan approval</h3>
-        <p>Debt-to-income ratio (DTI) is total monthly debt payments divided by gross monthly income, expressed as a percentage. Most lenders prefer a DTI below 36%, and many won't approve personal loans when DTI exceeds 43–50%. To calculate your DTI: add up your monthly payments (rent/mortgage, car loan, credit cards, student loans, etc.), divide by your gross monthly income, and multiply by 100. If taking on a new loan pushes your DTI too high, consider paying down existing debt first or choosing a loan with lower monthly payments.</p>
+        <div class="seo-table-wrap">
+          <table class="seo-table">
+            <thead>
+              <tr>
+                <th data-i18n="seo-mort-th-loan">Loan</th>
+                <th data-i18n="seo-mort-th-rate">Rate</th>
+                <th data-i18n="res-monthly">Monthly payment</th>
+                <th data-i18n="res-interest">Total interest</th>
+                <th data-i18n="res-total">Total cost</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>$300,000 / 30yr</td>
+                <td>6.0%</td>
+                <td>$1,799</td>
+                <td>$347,515</td>
+                <td>$647,515</td>
+              </tr>
+              <tr>
+                <td>$300,000 / 30yr</td>
+                <td>6.5%</td>
+                <td>$1,896</td>
+                <td>$382,633</td>
+                <td>$682,633</td>
+              </tr>
+              <tr>
+                <td>$300,000 / 30yr</td>
+                <td>7.0%</td>
+                <td>$1,996</td>
+                <td>$418,527</td>
+                <td>$718,527</td>
+              </tr>
+              <tr>
+                <td>$300,000 / 15yr</td>
+                <td>6.0%</td>
+                <td>$2,532</td>
+                <td>$155,683</td>
+                <td>$455,683</td>
+              </tr>
+              <tr>
+                <td>$300,000 / 15yr</td>
+                <td>6.5%</td>
+                <td>$2,614</td>
+                <td>$170,453</td>
+                <td>$470,453</td>
+              </tr>
+              <tr>
+                <td>$300,000 / 15yr</td>
+                <td>7.0%</td>
+                <td>$2,696</td>
+                <td>$185,358</td>
+                <td>$485,358</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <p data-i18n="seo-mort-p13">At 6.5%, a 30-year mortgage costs $382,633 in total interest versus $170,453 for a 15-year mortgage — a difference of over $212,000. However, the 30-year mortgage's monthly payment is $718 lower, which matters significantly if cash flow is tight or you want to invest the difference.</p>
 
-        <h3>How loan term affects total cost</h3>
-        <p>Loan term is the second-most powerful lever after interest rate. Consider a $25,000 car loan at 7%:</p>
+        <h3 data-i18n="seo-mort-h3-5">What is PMI and when does it apply?</h3>
+        <p data-i18n="seo-mort-p14">Private mortgage insurance (PMI) is required by most US lenders when your down payment is less than 20% of the home's purchase price. PMI protects the lender if you default. The typical cost is 0.5–1.5% of the loan amount per year, added to your monthly payment. On a $300,000 loan, PMI can add $125–$375 per month. Once your equity reaches 20% (either through payments or home appreciation), you can typically request PMI cancellation. Lenders must automatically cancel PMI when your loan balance reaches 78% of the original purchase price.</p>
+
+        <h3 data-i18n="seo-mort-h3-6">How to pay off your mortgage faster</h3>
         <ul>
-          <li><strong>3-year term:</strong> $772/month, $2,793 total interest</li>
-          <li><strong>5-year term:</strong> $495/month, $4,712 total interest</li>
-          <li><strong>7-year term:</strong> $375/month, $6,483 total interest</li>
+          <li data-i18n-html="seo-mort-li-6"><strong>Make one extra payment per year:</strong> On a 30-year mortgage, one additional monthly payment per year reduces the loan term by approximately 4–5 years and saves tens of thousands in interest.</li>
+          <li data-i18n-html="seo-mort-li-7"><strong>Switch to biweekly payments:</strong> Instead of 12 monthly payments, make 26 half-payments per year. This results in one extra full payment annually without you noticing a significant cash flow impact.</li>
+          <li data-i18n-html="seo-mort-li-8"><strong>Round up your payment:</strong> If your payment is $1,847, paying $1,900 or $2,000 each month directs the extra amount entirely to principal, accelerating payoff.</li>
+          <li data-i18n-html="seo-mort-li-9"><strong>Apply windfalls:</strong> Tax refunds, bonuses, or inheritances applied as lump-sum principal payments can shave years off your mortgage term.</li>
         </ul>
-        <p>Choosing 7 years over 3 years saves $397 per month but costs an extra $3,690 in interest — 2.3x more interest for 2.3x more time. The right term depends on your cash flow needs and how much total interest you're willing to pay.</p>
 
-        <p>Also see: <a href="/mortgage-calculator/">Mortgage Calculator</a> for home loan calculations, or <a href="/refinance-calculator/">Refinance Calculator</a> to model savings from a lower rate.</p>
+        <p data-i18n-html="seo-mort-p15">Also useful: <a href="/refinance-calculator/" data-i18n="footer-refinance">Refinance Calculator</a> — see if a lower rate makes sense for your current mortgage. Or explore <a href="/loan-calculator/">other loan types</a> including car loans, personal loans, and student loans.</p>
       </div>
     </section>
 
@@ -724,24 +825,25 @@
           <span class="footer-logo-text">Loan<span>Calc</span></span>
         </div>
         <nav class="footer-links" aria-label="Calculator links">
-          <a href="/mortgage-calculator/" data-i18n="footer-mortgage">Mortgage Calculator</a>
+          <a href="/loan-calculator/" data-i18n="footer-mortgage">Mortgage Calculator</a>
           <a href="/loan-calculator/" data-i18n="footer-loan">Loan Calculator</a>
           <a href="/savings-calculator/" data-i18n="footer-savings">Savings Calculator</a>
           <a href="/refinance-calculator/" data-i18n="footer-refinance">Refinance Calculator</a>
-          <a href="/currency-converter/" data-i18n="footer-currency">Currency Converter</a>
+          <a href="/live-rates/" data-i18n="footer-currency">Currency Converter</a>
         </nav>
         <nav class="footer-links footer-legal" aria-label="Legal links">
           <a href="/privacy/" data-i18n="footer-privacy">Privacy Policy</a>
           <a href="/privacy/#do-not-sell" data-i18n="footer-dnsmi">Do Not Sell or Share My Personal Information</a>
         </nav>
         <p id="footer-desc-el" data-i18n="footer-desc">Free financial calculators: mortgage, loan, savings, refinance, currency. No account required.</p>
-        <p class="footer-disclaimer" id="footer-disclaimer-el" data-i18n="footer-disclaimer">LoanCalc provides estimates for informational purposes only. This is not financial advice. Consult a licensed financial advisor before making borrowing decisions.</p>
+        <p class="footer-disclaimer" id="footer-disclaimer-el" data-i18n="footer-disclaimer">LoanCalc provides estimates for informational purposes only. Results are based on the inputs you provide and assume fixed interest rates with equal monthly payments. This is not financial advice. Consult a licensed financial advisor or lender before making borrowing decisions.</p>
         <p class="footer-copy" dir="ltr">© <span id="copy-year">2026</span> LoanCalc. <span data-i18n="footer-rights">All rights reserved.</span></p>
       </div>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js" integrity="sha512-ZwR1/gSZM3ai6vCdI+LVF1zSq/5HznD3ZSTk7kajkaj4D292NLuduDCO1c/NT8Id+jE58KYLKT7hXnbtryGmMg==" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
     <script src="/app.js" defer></script>
+
     <div id="pref-toast" role="status" aria-live="polite"></div>
   </body>
 </html>

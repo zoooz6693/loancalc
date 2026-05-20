@@ -545,6 +545,14 @@ export default {
 			}
 		}
 
+		const pathname = new URL(request.url).pathname.replace(/\/$/, '');
+		if (pathname === '/currency-converter') {
+			return Response.redirect('https://loancalc.app/live-rates/', 301);
+		}
+		if (pathname === '/mortgage-calculator') {
+			return Response.redirect('https://loancalc.app/loan-calculator/', 301);
+		}
+
 		return env.ASSETS.fetch(request);
 	}
 };
