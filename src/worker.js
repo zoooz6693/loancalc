@@ -545,6 +545,56 @@ export default {
 			}
 		}
 
+		if (url.pathname === '/api/fx-prev') {
+			const SNAPSHOT_KEY = new Request('https://cache.local/api/fx-snapshot-v1');
+			let snapshot = null;
+			try {
+				const cached = await caches.default.match(SNAPSHOT_KEY);
+				if (cached) snapshot = await cached.json();
+			} catch (_) {}
+
+			const ageHours = snapshot ? (Date.now() - snapshot.ts) / 3600000 : Infinity;
+
+			if (ageHours < 24) {
+				// Snapshot is recent enough — serve it as prev
+				return new Response(JSON.stringify({ prev: snapshot.rates }), {
+					headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Cache-Control': 'no-store' }
+				});
+			}
+
+			// Snapshot is stale or missing — fetch fresh rates and rotate
+			let freshRates = null;
+			try {
+				const r = await fetch('https://open.er-api.com/v6/latest/USD');
+				const d = await r.json();
+				if (d.result === 'success') freshRates = d.rates;
+			} catch (_) {}
+
+			if (!freshRates) {
+				try {
+					const r = await fetch('https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json');
+					const d = await r.json();
+					if (d.usd) {
+						freshRates = {};
+						Object.keys(d.usd).forEach(k => { freshRates[k.toUpperCase()] = d.usd[k]; });
+					}
+				} catch (_) {}
+			}
+
+			const prev = snapshot ? snapshot.rates : null;
+
+			if (freshRates) {
+				freshRates.USD = 1;
+				caches.default.put(SNAPSHOT_KEY, new Response(JSON.stringify({ rates: freshRates, ts: Date.now() }), {
+					headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=172800' }
+				})).catch(() => {});
+			}
+
+			return new Response(JSON.stringify({ prev }), {
+				headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*', 'Cache-Control': 'no-store' }
+			});
+		}
+
 		const pathname = new URL(request.url).pathname.replace(/\/$/, '');
 		if (pathname === '/currency-converter') {
 			return Response.redirect('https://loancalc.app/live-rates/', 301);

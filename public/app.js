@@ -7413,6 +7413,8 @@ function filterFAQ() {
 							f('cur-dot', s ? 'stale' : 'live');
 							var l = k(t.ts),
 								d = document.getElementById('cur-status-text');
+							try { var _pv2 = localStorage.getItem('loancalc_fx_prev'); if (_pv2) prevA = JSON.parse(_pv2).rates; } catch (_) {}
+							if (!prevA) { fetch('/api/fx-prev').then(function(r){ return r.json(); }).then(function(d){ if (d.prev) { prevA = d.prev; y(); } }).catch(function(){}); }
 							return (d && (d.textContent = (s ? h('lbl-rates-from') + ' ' + l : h('cur-updated-lbl') + ' ' + l) + ' · ' + r + ' ' + h('lbl-currencies')), v(), y(), void (s && A()));
 						}
 					}
@@ -7421,6 +7423,9 @@ function filterFAQ() {
 					var _pv = localStorage.getItem('loancalc_fx_prev');
 					if (_pv) prevA = JSON.parse(_pv).rates;
 				} catch (_) {}
+				if (!prevA) {
+					fetch('/api/fx-prev').then(function(r){ return r.json(); }).then(function(d){ if (d.prev) { prevA = d.prev; y(); } }).catch(function(){});
+				}
 				A();
 			})(),
 			(O = Date.now()),
