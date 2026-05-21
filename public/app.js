@@ -473,7 +473,7 @@ function filterFAQ() {
 			n = window.CURRENCY_CONFIG[a];
 		if (!n) return (window.getCurrencySym ? window.getCurrencySym() : '$') + new Intl.NumberFormat('en-US').format(Math.round(e));
 		try {
-			var parts = new Intl.NumberFormat(window._fmtLoc(n.locale), {
+			var parts = new Intl.NumberFormat('en-US', {
 				style: 'currency',
 				currency: a,
 				maximumFractionDigits: 0
@@ -671,9 +671,7 @@ function filterFAQ() {
 		}
 
 		function g(e) {
-			var a = window.CURRENCY_CONFIG[window.APP_CURRENCY],
-				n = a ? a.locale : 'en-US';
-			return new Intl.NumberFormat(window._fmtLoc(n)).format(Math.round(e));
+			return new Intl.NumberFormat('en-US').format(Math.round(e));
 		}
 
 		function h(e, a, n) {
@@ -1414,10 +1412,8 @@ function filterFAQ() {
 				d = l > 0 ? s / l : 0,
 				c = new Date().getFullYear() + i;
 			((document.getElementById('ci-result-fv').textContent = a(s)), window.fitText && window.fitText(document.getElementById('ci-result-fv')), (document.getElementById('ci-result-deposited').textContent = a(l)), (document.getElementById('ci-result-earned').textContent = a(u)));
-			var m = window.CURRENCY_CONFIG && window.CURRENCY_CONFIG[window.APP_CURRENCY],
-				p = m ? m.locale : 'en-US';
 			((document.getElementById('ci-result-mult').textContent =
-				new Intl.NumberFormat(window._fmtLoc(p), {
+				new Intl.NumberFormat('en-US', {
 					minimumFractionDigits: 2,
 					maximumFractionDigits: 2
 				}).format(d) + '×'),
@@ -6769,10 +6765,8 @@ function filterFAQ() {
 
 		function g(e, a) {
 			if (!e) return '—';
-			var n = window.CURRENCY_CONFIG && window.CURRENCY_CONFIG[a],
-				r = n ? n.locale : 'en-US';
 			return (
-				e.toLocaleString(window._fmtLoc(r), {
+				e.toLocaleString('en-US', {
 					minimumFractionDigits: 2,
 					maximumFractionDigits: 2
 				}) +
@@ -6866,13 +6860,8 @@ function filterFAQ() {
 					}) +
 					' ' +
 					i;
-				var c = (
-						window.CURRENCY_CONFIG[window.APP_CURRENCY] || {
-							locale: 'en-US'
-						}
-					).locale,
-					m = function (e) {
-						return new Intl.NumberFormat(window._fmtLoc(c), {
+				var m = function (e) {
+						return new Intl.NumberFormat('en-US', {
 							minimumFractionDigits: 6,
 							maximumFractionDigits: 6
 						}).format(e);
@@ -6883,10 +6872,6 @@ function filterFAQ() {
 					(function (e, n, r) {
 						var t = (a.USD || 1) / (a[e] || 1),
 							i = t >= 3 ? [1, 10, 100] : t >= 0.5 ? [1, 100, 1e3] : t >= 0.05 ? [10, 100, 1e3] : t >= 0.005 ? [100, 1e3, 1e4] : t >= 5e-4 ? [1e3, 1e4, 1e5] : [1e4, 1e5, 1e6],
-							o = window.CURRENCY_CONFIG && window.CURRENCY_CONFIG[e],
-							s = o ? o.locale : 'en-US',
-							l = window.CURRENCY_CONFIG && window.CURRENCY_CONFIG[n],
-							u = l ? l.locale : 'en-US',
 							d = document.getElementById('cur-quick-grid');
 						if (!d) return;
 						((d.innerHTML = ''),
@@ -6895,11 +6880,11 @@ function filterFAQ() {
 								((t.style.cssText = 'background:var(--color-surface-raised);border:1px solid var(--color-border);border-radius:8px;padding:8px 12px'),
 									(t.innerHTML =
 										'<div style="font-size:11px;color:var(--color-muted)">' +
-										a.toLocaleString(window._fmtLoc(s)) +
+										a.toLocaleString('en-US') +
 										' ' +
 										e +
 										'</div><div style="font-size:13px;font-weight:500;color:var(--color-navy)">' +
-										(a * r).toLocaleString(window._fmtLoc(u), {
+										(a * r).toLocaleString('en-US', {
 											maximumFractionDigits: 2
 										}) +
 										' ' +
@@ -7965,3 +7950,141 @@ var hashMap = {
 				}
 			})());
 	})());
+
+(function () {
+	if (window.matchMedia('(pointer: coarse)').matches) return;
+
+	var PANEL_COLORS = {
+		'panel-loans':     '#d4a040',
+		'panel-savings':   '#4ade80',
+		'panel-refinance': '#f09090',
+		'panel-currency':  '#60a5fa',
+		'panel-faq':       '#8fada0',
+	};
+
+	var BAR_COUNT = 5;
+	var BAR_MIN = 3;
+	var BAR_MAX = 18;
+	var BAR_PHASES = [0, 1.1, 2.2, 0.6, 1.8];
+	var BAR_SPEEDS = [1.0, 1.3, 0.8, 1.5, 0.9];
+	var CHART_H = 27;
+
+	var NATIVE_TAGS = { INPUT: 1, TEXTAREA: 1, SELECT: 1 };
+
+	var el = document.createElement('div');
+	el.id = 'cursor-chart';
+	el.setAttribute('aria-hidden', 'true');
+
+	var barsEl = document.createElement('div');
+	barsEl.className = 'cursor-bars';
+
+	var bars = [];
+	for (var i = 0; i < BAR_COUNT; i++) {
+		var b = document.createElement('div');
+		b.className = 'cursor-bar';
+		barsEl.appendChild(b);
+		bars.push(b);
+	}
+
+	var dot = document.createElement('div');
+	dot.className = 'cursor-dot';
+
+	el.appendChild(barsEl);
+	el.appendChild(dot);
+	document.body.appendChild(el);
+
+	var mx = 0, my = 0;
+	var visible = false, paused = false, rafRunning = false;
+	var lastMx = 0, lastMy = 0, speed = 0;
+
+	function setColor(panelId) {
+		el.style.setProperty('--chart-color', PANEL_COLORS[panelId] || '#d4a040');
+	}
+
+	function show() {
+		if (!paused && !el.classList.contains('visible')) el.classList.add('visible');
+	}
+
+	function hide() {
+		el.classList.remove('visible');
+	}
+
+	function animateBars(now) {
+		var dx = mx - lastMx, dy = my - lastMy;
+		speed += (Math.sqrt(dx * dx + dy * dy) - speed) * 0.3;
+		lastMx = mx; lastMy = my;
+		var boost = Math.min(speed * 0.4, 8);
+		for (var i = 0; i < BAR_COUNT; i++) {
+			var sine = (Math.sin(now * 0.001 * BAR_SPEEDS[i] + BAR_PHASES[i]) + 1) / 2;
+			var h = BAR_MIN + (BAR_MAX - BAR_MIN) * sine + boost;
+			bars[i].style.height = Math.min(h, BAR_MAX) + 'px';
+		}
+	}
+
+	function tick(now) {
+		el.style.transform = 'translate(' + mx + 'px,' + (my - CHART_H) + 'px)';
+		animateBars(now);
+		if (visible) {
+			requestAnimationFrame(tick);
+		} else {
+			rafRunning = false;
+		}
+	}
+
+	document.addEventListener('mousemove', function (e) {
+		mx = e.clientX;
+		my = e.clientY;
+
+		// Over scrollbar: clientX exceeds the layout width
+		var overScrollbar = e.clientX >= document.documentElement.clientWidth;
+
+		if (overScrollbar) {
+			paused = true;
+			hide();
+		} else if (paused && !NATIVE_TAGS[e.target.tagName]) {
+			paused = false;
+		}
+
+		if (!visible) {
+			visible = true;
+			if (!rafRunning) { rafRunning = true; requestAnimationFrame(tick); }
+		}
+		if (!paused) show();
+	});
+
+	document.addEventListener('mouseover', function (e) {
+		if (NATIVE_TAGS[e.target.tagName]) {
+			paused = true;
+			hide();
+		}
+	});
+
+	document.addEventListener('mouseout', function (e) {
+		if (NATIVE_TAGS[e.target.tagName]) {
+			paused = false;
+			show();
+		}
+	});
+
+	document.addEventListener('mouseleave', function () {
+		visible = false;
+		hide();
+	});
+
+	document.addEventListener('mouseenter', function () {
+		visible = true;
+		if (!rafRunning) { rafRunning = true; requestAnimationFrame(tick); }
+		if (!paused) show();
+	});
+
+	var _orig = window.switchPanel;
+	if (typeof _orig === 'function') {
+		window.switchPanel = function (panelId) {
+			_orig.call(this, panelId);
+			setColor(panelId);
+		};
+	}
+
+	var init = document.querySelector('.tool-panel.active');
+	setColor(init ? init.id : 'panel-loans');
+}());

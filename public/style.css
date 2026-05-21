@@ -44,6 +44,7 @@ body {
   background: var(--forest-base);
   color: var(--text-high);
   font-family: var(--font-mono);
+  cursor: none;
   font-size: 15px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -3371,3 +3372,45 @@ select option {
 :lang(ar) .range-ends          { font-size: 14px; }
 :lang(ar) .ig-sym,
 :lang(ar) .ig-unit             { font-size: 13px; }
+
+/* Restore native cursor on form fields */
+input, textarea, select { cursor: text; }
+
+/* Custom bar chart cursor */
+#cursor-chart {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  will-change: transform;
+  transition: opacity 0.15s;
+}
+#cursor-chart.visible { opacity: 1; }
+.cursor-bars {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 20px;
+}
+.cursor-bar {
+  width: 3px;
+  min-height: 3px;
+  background: var(--chart-color, #d4a040);
+  border-radius: 1px 1px 0 0;
+  transition: background-color 0.35s ease;
+}
+.cursor-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--chart-color, #d4a040);
+  margin-top: 3px;
+  transition: background-color 0.35s ease;
+}
+@media (pointer: coarse) {
+  #cursor-chart { display: none; }
+  body { cursor: auto; }
+  input, textarea, select { cursor: text; }
+}
