@@ -32,7 +32,18 @@ async function fetchGoldPrice() {
 		}
 	} catch (_) {}
 
-	// Source 3: Yahoo Finance v7 quote for GC=F
+	// Source 3: Stooq — gc.f is gold futures, independent of Yahoo Finance
+	try {
+		const r = await fetch('https://stooq.com/q/l/?s=gc.f&f=sd2t2ohlcvn&e=json', {headers: {'User-Agent': UA}});
+		if (r.ok) {
+			const d = await r.json();
+			const sym = d?.symbols?.[0];
+			const price = sym && parseFloat(sym.Close || 0);
+			if (typeof price === 'number' && price > 100) return price;
+		}
+	} catch (_) {}
+
+	// Source 4: Yahoo Finance v7 quote for GC=F
 	for (const host of ['query1.finance.yahoo.com', 'query2.finance.yahoo.com']) {
 		try {
 			const r = await fetch(`https://${host}/v7/finance/quote?formatted=false&symbols=GC%3DF`, {headers: {'User-Agent': UA, 'Accept': 'application/json'}});
@@ -47,7 +58,18 @@ async function fetchGoldPrice() {
 }
 
 async function fetchOilPrice() {
-	// Source 1: Yahoo Finance v7 quote for CL=F
+	// Source 1: Stooq — cl.f is WTI crude futures, independent of Yahoo Finance
+	try {
+		const r = await fetch('https://stooq.com/q/l/?s=cl.f&f=sd2t2ohlcvn&e=json', {headers: {'User-Agent': UA}});
+		if (r.ok) {
+			const d = await r.json();
+			const sym = d?.symbols?.[0];
+			const price = sym && parseFloat(sym.Close || 0);
+			if (typeof price === 'number' && price > 0) return price;
+		}
+	} catch (_) {}
+
+	// Source 2: Yahoo Finance v7 quote for CL=F
 	for (const host of ['query1.finance.yahoo.com', 'query2.finance.yahoo.com']) {
 		try {
 			const r = await fetch(`https://${host}/v7/finance/quote?formatted=false&symbols=CL%3DF`, {headers: {'User-Agent': UA, 'Accept': 'application/json'}});
@@ -58,7 +80,7 @@ async function fetchOilPrice() {
 		} catch (_) {}
 	}
 
-	// Source 2: Yahoo Finance v8 chart for CL=F
+	// Source 3: Yahoo Finance v8 chart for CL=F
 	for (const host of ['query2.finance.yahoo.com', 'query1.finance.yahoo.com']) {
 		try {
 			const r = await fetch(`https://${host}/v8/finance/chart/CL%3DF?interval=1d&range=1d`, {headers: {'User-Agent': UA}});
@@ -99,7 +121,18 @@ async function fetchSilverPrice() {
 		}
 	} catch (_) {}
 
-	// Source 3: Yahoo Finance v7 for SI=F
+	// Source 3: Stooq — si.f is silver futures, independent of Yahoo Finance
+	try {
+		const r = await fetch('https://stooq.com/q/l/?s=si.f&f=sd2t2ohlcvn&e=json', {headers: {'User-Agent': UA}});
+		if (r.ok) {
+			const d = await r.json();
+			const sym = d?.symbols?.[0];
+			const price = sym && parseFloat(sym.Close || 0);
+			if (typeof price === 'number' && price > 1) return price;
+		}
+	} catch (_) {}
+
+	// Source 4: Yahoo Finance v7 for SI=F
 	for (const host of ['query1.finance.yahoo.com', 'query2.finance.yahoo.com']) {
 		try {
 			const r = await fetch(`https://${host}/v7/finance/quote?formatted=false&symbols=SI%3DF`, {headers: {'User-Agent': UA, 'Accept': 'application/json'}});
@@ -158,96 +191,7 @@ async function getYahooFinanceCrumb() {
 async function fetchStockQuotes() {
 	const log = [];
 
-	// Source 0: Yahoo Finance with crumb (required for server-side access)
-	const session = await getYahooFinanceCrumb();
-	if (session) {
-		const {crumb, cookieStr} = session;
-		for (const host of ['query1.finance.yahoo.com', 'query2.finance.yahoo.com']) {
-			try {
-				const r = await fetch(`https://${host}/v7/finance/quote?formatted=false&symbols=${STOCK_TICKERS.join(',')}&crumb=${encodeURIComponent(crumb)}`, {
-					headers: {
-						'User-Agent': UA,
-						'Accept': 'application/json',
-						'Referer': 'https://finance.yahoo.com/',
-						'Cookie': cookieStr
-					}
-				});
-				if (!r.ok) {
-					log.push(`yfCrumb/${host}: HTTP ${r.status}`);
-					continue;
-				}
-				const d = await r.json();
-				const results = d?.quoteResponse?.result;
-				if (Array.isArray(results) && results.length > 0) {
-					return results.map(q => ({
-						ticker: q.symbol === 'BRK-B' ? 'BRK.B' : q.symbol,
-						name: STOCK_NAMES[q.symbol] || (q.shortName || q.symbol).replace(/,?\s*(Inc\.?|Corp\.?|plc\.?)$/i, ''),
-						price: q.regularMarketPrice,
-						change: q.regularMarketChangePercent
-					}));
-				}
-				log.push(`yfCrumb/${host}: empty result`);
-			} catch (e) {
-				log.push(`yfCrumb/${host}: ${e.message}`);
-			}
-		}
-	} else {
-		log.push('yfCrumb: session failed');
-	}
-
-	// Source 1: Yahoo Finance v7 multi-ticker (no crumb — legacy fallback)
-	for (const host of ['query1.finance.yahoo.com', 'query2.finance.yahoo.com']) {
-		try {
-			const r = await fetch(`https://${host}/v7/finance/quote?formatted=false&symbols=${STOCK_TICKERS.join(',')}`, {headers: {'User-Agent': UA, 'Accept': 'application/json'}});
-			if (!r.ok) {
-				log.push(`yf7/${host}: HTTP ${r.status}`);
-				continue;
-			}
-			const d = await r.json();
-			const results = d?.quoteResponse?.result;
-			if (Array.isArray(results) && results.length > 0) {
-				return results.map(q => ({
-					ticker: q.symbol === 'BRK-B' ? 'BRK.B' : q.symbol,
-					name: STOCK_NAMES[q.symbol] || (q.shortName || q.symbol).replace(/,?\s*(Inc\.?|Corp\.?|plc\.?)$/i, ''),
-					price: q.regularMarketPrice,
-					change: q.regularMarketChangePercent
-				}));
-			}
-			log.push(`yf7/${host}: empty result`);
-		} catch (e) {
-			log.push(`yf7/${host}: ${e.message}`);
-		}
-	}
-
-	// Source 2: Yahoo Finance v8 chart — one request per ticker, parallel (range=5d is valid)
-	const yf8 = await Promise.all(
-		STOCK_TICKERS.map(async ticker => {
-			for (const host of ['query1.finance.yahoo.com', 'query2.finance.yahoo.com']) {
-				try {
-					const r = await fetch(`https://${host}/v8/finance/chart/${encodeURIComponent(ticker)}?interval=1d&range=5d`, {headers: {'User-Agent': UA}});
-					if (!r.ok) continue;
-					const d = await r.json();
-					const meta = d?.chart?.result?.[0]?.meta;
-					if (!meta || typeof meta.regularMarketPrice !== 'number') continue;
-					const price = meta.regularMarketPrice;
-					const prev = meta.chartPreviousClose;
-					const change = prev ? ((price - prev) / prev) * 100 : 0;
-					return {
-						ticker: ticker === 'BRK-B' ? 'BRK.B' : ticker,
-						name: STOCK_NAMES[ticker] || meta.shortName || ticker,
-						price,
-						change
-					};
-				} catch (_) {}
-			}
-			return null;
-		})
-	);
-	const yf8Valid = yf8.filter(Boolean);
-	if (yf8Valid.length > 0) return yf8Valid;
-	log.push(`yf8: ${yf8Valid.length}/${STOCK_TICKERS.length} succeeded`);
-
-	// Source 3: Stooq — independent provider, per-ticker parallel
+	// Source 0: Stooq — independent provider, per-ticker parallel
 	const stooqResults = await Promise.all(
 		STOCK_TICKERS.map(async ticker => {
 			const s = (ticker === 'BRK-B' ? 'brk-b' : ticker.toLowerCase()) + '.us';
@@ -276,9 +220,9 @@ async function fetchStockQuotes() {
 	);
 	const stooqValid = stooqResults.filter(Boolean);
 	if (stooqValid.length > 0) return stooqValid;
-	log.push(`stooq: ${stooqValid.length}/${STOCK_TICKERS.length} succeeded`);
+	log.push(`stooq: ${stooqValid.length}/${STOCK_TICKERS.length}`);
 
-	// Source 4: NASDAQ public API — independent of Yahoo Finance
+	// Source 1: NASDAQ public API — independent of Yahoo Finance
 	const nasdaqResults = await Promise.all(
 		STOCK_TICKERS.map(async ticker => {
 			const symbol = ticker === 'BRK-B' ? 'BRK/B' : ticker;
@@ -313,7 +257,39 @@ async function fetchStockQuotes() {
 	);
 	const nasdaqValid = nasdaqResults.filter(Boolean);
 	if (nasdaqValid.length > 0) return nasdaqValid;
-	log.push(`nasdaq: ${nasdaqValid.length}/${STOCK_TICKERS.length} succeeded`);
+	log.push(`nasdaq: ${nasdaqValid.length}/${STOCK_TICKERS.length}`);
+
+	// Source 2: Yahoo Finance v7 with crumb — last resort
+	const session = await getYahooFinanceCrumb();
+	if (session) {
+		const {crumb, cookieStr} = session;
+		for (const host of ['query1.finance.yahoo.com', 'query2.finance.yahoo.com']) {
+			try {
+				const r = await fetch(`https://${host}/v7/finance/quote?formatted=false&symbols=${STOCK_TICKERS.join(',')}&crumb=${encodeURIComponent(crumb)}`, {
+					headers: {
+						'User-Agent': UA,
+						'Accept': 'application/json',
+						'Referer': 'https://finance.yahoo.com/',
+						'Cookie': cookieStr
+					}
+				});
+				if (!r.ok) { log.push(`yf/${host}: ${r.status}`); continue; }
+				const d = await r.json();
+				const results = d?.quoteResponse?.result;
+				if (Array.isArray(results) && results.length > 0) {
+					return results.map(q => ({
+						ticker: q.symbol === 'BRK-B' ? 'BRK.B' : q.symbol,
+						name: STOCK_NAMES[q.symbol] || (q.shortName || q.symbol).replace(/,?\s*(Inc\.?|Corp\.?|plc\.?)$/i, ''),
+						price: q.regularMarketPrice,
+						change: q.regularMarketChangePercent
+					}));
+				}
+				log.push(`yf/${host}: empty`);
+			} catch (e) { log.push(`yf/${host}: ${e.message}`); }
+		}
+	} else {
+		log.push('yf crumb: failed');
+	}
 
 	throw new Error(log.join(' | '));
 }
