@@ -8194,15 +8194,29 @@ var hashMap = {
 	}
 
 	function build() {
-		if (typeof window.__tcfapi === 'function') {
-			window.__tcfapi('getTCData', 2, function(tcData, success) {
-				if (success && tcData.gdprApplies === true) return;
-				buildPopup();
-			});
-		} else {
+		if (typeof window.__tcfapi !== 'function') {
 			buildPopup();
+			return;
 		}
+
+		var settled = false;
+
+		window.__tcfapi('addEventListener', 2, function(tcData, success) {
+			if (settled) return;
+			if (!success) return;
+			if (tcData.eventStatus === 'tcLoaded' || tcData.eventStatus === 'useractioncomplete') {
+				settled = true;
+				window.__tcfapi('removeEventListener', 2, function() {}, tcData.listenerId);
+				if (tcData.gdprApplies === true) return;
+				buildPopup();
+			}
+		});
+
+		// Fallback: if TCF never fires within 3s, show popup anyway
+		setTimeout(function() {
+			if (!settled) { settled = true; buildPopup(); }
+		}, 3000);
 	}
 
-	setTimeout(build, 1000);
+	setTimeout(build, 500);
 }());
