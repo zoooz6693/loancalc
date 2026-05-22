@@ -6883,7 +6883,7 @@ function filterFAQ() {
 										a.toLocaleString('en-US') +
 										' ' +
 										e +
-										'</div><div style="font-size:13px;font-weight:500;color:var(--color-navy)">' +
+										'</div><div style="font-size:13px;font-weight:500;color:var(--color-navy);white-space:nowrap">' +
 										(a * r).toLocaleString('en-US', {
 											maximumFractionDigits: 2
 										}) +
@@ -8069,4 +8069,131 @@ var hashMap = {
 
 	var init = document.querySelector('.tool-panel.active');
 	setColor(init ? init.id : 'panel-loans');
+}());
+
+
+/* ── Consent Popup ──────────────────────────────────────────── */
+(function () {
+	var KEY = 'loancalc_consent';
+	var LOGO = '<svg width="32" height="32" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="36" height="36" rx="9" fill="#1a2e1a"/><line x1="10" y1="8" x2="10" y2="27" stroke="#d4a040" stroke-width="2.5" stroke-linecap="round"/><line x1="10" y1="27" x2="28" y2="27" stroke="#d4a040" stroke-width="2.5" stroke-linecap="round"/><path d="M10 22 L15 22 L15 27" stroke="#d4a040" stroke-opacity="0.4" stroke-width="1.2" fill="none"/><line x1="10" y1="12" x2="13" y2="12" stroke="#d4a040" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round"/><line x1="10" y1="17" x2="13" y2="17" stroke="#d4a040" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round"/><line x1="15" y1="27" x2="15" y2="25" stroke="#d4a040" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round"/><line x1="19" y1="27" x2="19" y2="25" stroke="#d4a040" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round"/><line x1="23" y1="27" x2="23" y2="25" stroke="#d4a040" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round"/></svg>';
+
+	function applyConsent(analytics, ads) {
+		if (typeof gtag !== 'function') return;
+		gtag('consent', 'update', {
+			analytics_storage:  analytics ? 'granted' : 'denied',
+			ad_storage:         ads ? 'granted' : 'denied',
+			ad_user_data:       ads ? 'granted' : 'denied',
+			ad_personalization: ads ? 'granted' : 'denied'
+		});
+	}
+
+	function persist(analytics, ads) {
+		try { localStorage.setItem(KEY, JSON.stringify({a: analytics, d: ads})); } catch (_) {}
+		applyConsent(analytics, ads);
+		closePopup();
+	}
+
+	function openPopup() {
+		var ov = document.getElementById('consent-overlay');
+		if (!ov) return;
+		try {
+			var s = JSON.parse(localStorage.getItem(KEY));
+			if (s) {
+				var pa = document.getElementById('cb-pref-a');
+				var pd = document.getElementById('cb-pref-d');
+				if (pa) pa.checked = !!s.a;
+				if (pd) pd.checked = !!s.d;
+			}
+		} catch (_) {}
+		ov.classList.add('open');
+	}
+
+	function closePopup() {
+		var ov = document.getElementById('consent-overlay');
+		if (ov) ov.classList.remove('open');
+	}
+
+	function build() {
+		if (typeof window.__tcfapi !== 'undefined') return;
+
+		var hasConsent = false;
+		try {
+			var stored = JSON.parse(localStorage.getItem(KEY));
+			if (stored && typeof stored.a === 'boolean') {
+				applyConsent(stored.a, stored.d);
+				hasConsent = true;
+			}
+		} catch (_) {}
+
+		var ov = document.createElement('div');
+		ov.id = 'consent-overlay';
+		ov.innerHTML =
+			'<div id="consent-popup" role="dialog" aria-modal="true" aria-label="Cookie preferences">' +
+				'<div class="cp-head">' +
+					'<div>' + LOGO + '</div>' +
+					'<p class="cp-title">Cookie Preferences</p>' +
+					'<p class="cp-desc">We use cookies for analytics and personalised ads. ' +
+					'See our <a href="/privacy/">Privacy Policy</a>.</p>' +
+				'</div>' +
+				'<div class="cp-body">' +
+					'<div class="cp-cat">' +
+						'<div class="cp-cat-info">' +
+							'<div class="cp-cat-name">Necessary</div>' +
+							'<div class="cp-cat-desc">Essential for the site to work. Always active.</div>' +
+						'</div>' +
+						'<label class="ctoggle"><input type="checkbox" checked disabled><span class="ctoggle-track"></span></label>' +
+					'</div>' +
+					'<div class="cp-cat">' +
+						'<div class="cp-cat-info">' +
+							'<div class="cp-cat-name">Analytics</div>' +
+							'<div class="cp-cat-desc">Google Analytics 4 — helps us understand how the site is used.</div>' +
+						'</div>' +
+						'<label class="ctoggle"><input type="checkbox" id="cb-pref-a"><span class="ctoggle-track"></span></label>' +
+					'</div>' +
+					'<div class="cp-cat">' +
+						'<div class="cp-cat-info">' +
+							'<div class="cp-cat-name">Advertising</div>' +
+							'<div class="cp-cat-desc">Google AdSense — enables personalised ads based on your interests.</div>' +
+						'</div>' +
+						'<label class="ctoggle"><input type="checkbox" id="cb-pref-d"><span class="ctoggle-track"></span></label>' +
+					'</div>' +
+				'</div>' +
+				'<div class="cp-foot">' +
+					'<div class="cp-btn-row">' +
+						'<button class="cbtn cbtn-reject" id="cb-reject" style="flex:1">Reject All</button>' +
+						'<button class="cbtn cbtn-accept" id="cb-accept" style="flex:1">Accept All</button>' +
+					'</div>' +
+					'<button class="cbtn cbtn-save cbtn-full" id="cb-save">Save Preferences</button>' +
+				'</div>' +
+			'</div>';
+		document.body.appendChild(ov);
+
+		var trigger = document.createElement('button');
+		trigger.id = 'consent-trigger';
+		trigger.setAttribute('aria-label', 'Cookie preferences');
+		trigger.innerHTML = LOGO;
+		document.body.appendChild(trigger);
+
+		document.getElementById('cb-accept').onclick = function () { persist(true, true); };
+		document.getElementById('cb-reject').onclick  = function () { persist(false, false); };
+		document.getElementById('cb-save').onclick = function () {
+			persist(
+				document.getElementById('cb-pref-a').checked,
+				document.getElementById('cb-pref-d').checked
+			);
+		};
+
+		ov.addEventListener('click', function (e) {
+			if (e.target !== ov) return;
+			try {
+				var s = JSON.parse(localStorage.getItem(KEY));
+				if (s && typeof s.a === 'boolean') closePopup();
+			} catch (_) {}
+		});
+
+		trigger.onclick = openPopup;
+		if (!hasConsent) openPopup();
+	}
+
+	setTimeout(build, 300);
 }());
