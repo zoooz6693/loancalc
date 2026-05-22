@@ -8204,7 +8204,7 @@ var hashMap = {
 		window.__tcfapi('addEventListener', 2, function(tcData, success) {
 			if (settled) return;
 			if (!success) return;
-			if (tcData.eventStatus === 'tcLoaded' || tcData.eventStatus === 'useractioncomplete') {
+			if (typeof tcData.gdprApplies === 'boolean') {
 				settled = true;
 				window.__tcfapi('removeEventListener', 2, function() {}, tcData.listenerId);
 				if (tcData.gdprApplies === true) return;
