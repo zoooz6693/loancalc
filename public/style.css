@@ -3374,7 +3374,8 @@ select option {
 :lang(ar) .ig-unit             { font-size: 13px; }
 
 /* Restore native cursor on form fields */
-input, textarea, select { cursor: text; }
+input, textarea { cursor: text; }
+select { cursor: default; }
 
 /* Custom bar chart cursor */
 #cursor-chart {
@@ -3412,5 +3413,6 @@ input, textarea, select { cursor: text; }
 @media (pointer: coarse) {
   #cursor-chart { display: none; }
   body { cursor: auto; }
-  input, textarea, select { cursor: text; }
+  input, textarea { cursor: text; }
+select { cursor: default; }
 }

@@ -7969,8 +7969,6 @@ var hashMap = {
 	var BAR_SPEEDS = [1.0, 1.3, 0.8, 1.5, 0.9];
 	var CHART_H = 27;
 
-	var NATIVE_TAGS = { INPUT: 1, TEXTAREA: 1, SELECT: 1 };
-
 	var el = document.createElement('div');
 	el.id = 'cursor-chart';
 	el.setAttribute('aria-hidden', 'true');
@@ -8035,35 +8033,15 @@ var hashMap = {
 		mx = e.clientX;
 		my = e.clientY;
 
-		// Over scrollbar: clientX exceeds the layout width
 		var overScrollbar = e.clientX >= document.documentElement.clientWidth;
-
-		if (overScrollbar) {
-			paused = true;
-			hide();
-		} else if (paused && !NATIVE_TAGS[e.target.tagName]) {
-			paused = false;
-		}
+		var nativeCursor = window.getComputedStyle(e.target).cursor !== 'none';
+		paused = overScrollbar || nativeCursor;
 
 		if (!visible) {
 			visible = true;
 			if (!rafRunning) { rafRunning = true; requestAnimationFrame(tick); }
 		}
-		if (!paused) show();
-	});
-
-	document.addEventListener('mouseover', function (e) {
-		if (NATIVE_TAGS[e.target.tagName]) {
-			paused = true;
-			hide();
-		}
-	});
-
-	document.addEventListener('mouseout', function (e) {
-		if (NATIVE_TAGS[e.target.tagName]) {
-			paused = false;
-			show();
-		}
+		if (paused) hide(); else show();
 	});
 
 	document.addEventListener('mouseleave', function () {
