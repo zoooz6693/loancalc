@@ -8114,8 +8114,6 @@ var hashMap = {
 	}
 
 	function build() {
-		if (typeof window.__tcfapi !== 'undefined') return;
-
 		var hasConsent = false;
 		try {
 			var stored = JSON.parse(localStorage.getItem(KEY));
