@@ -8113,7 +8113,7 @@ var hashMap = {
 		if (ov) ov.classList.remove('open');
 	}
 
-	function build() {
+	function buildPopup() {
 		var hasConsent = false;
 		try {
 			var stored = JSON.parse(localStorage.getItem(KEY));
@@ -8193,5 +8193,16 @@ var hashMap = {
 		if (!hasConsent) openPopup();
 	}
 
-	setTimeout(build, 300);
+	function build() {
+		if (typeof window.__tcfapi === 'function') {
+			window.__tcfapi('getTCData', 2, function(tcData, success) {
+				if (success && tcData.gdprApplies === true) return;
+				buildPopup();
+			});
+		} else {
+			buildPopup();
+		}
+	}
+
+	setTimeout(build, 1000);
 }());
