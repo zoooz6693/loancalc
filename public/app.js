@@ -8044,6 +8044,10 @@ var hashMap = {
 		if (paused) hide(); else show();
 	});
 
+	window.addEventListener('scroll', function () {
+		if (paused) { paused = false; show(); }
+	}, { passive: true });
+
 	document.addEventListener('mouseleave', function () {
 		visible = false;
 		hide();

@@ -1,35 +1,17 @@
 ﻿<!doctype html>
 <html lang="en">
   <head>
-    <script id="cookieyes" type="text/javascript" src="https://cdn-cookieyes.com/client_data/3817815a8470fdd77bcceafe/script.js" defer></script>
     <meta name="google-adsense-account" content="ca-pub-2392401188548335" />
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2392401188548335" crossorigin="anonymous"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag() {
-        dataLayer.push(arguments);
-      }
-      gtag('consent', 'default', {analytics_storage: 'denied', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', wait_for_update: 500});
-      document.addEventListener('cookieyes:consent', function (e) {
-        var accepted = (e.detail && e.detail.accepted) || [];
-        if (accepted.indexOf('analytics') > -1) {
-          gtag('consent', 'update', {analytics_storage: 'granted'});
-          var s = document.createElement('script');
-          s.async = true;
-          s.src = 'https://www.googletagmanager.com/gtag/js?id=G-9RPEY1VL2X';
-          document.head.appendChild(s);
-          gtag('js', new Date());
-          gtag('config', 'G-9RPEY1VL2X');
-        }
-        if (accepted.indexOf('advertisement') > -1) {
-          gtag('consent', 'update', {ad_storage: 'granted', ad_user_data: 'granted', ad_personalization: 'granted'});
-          var a = document.createElement('script');
-          a.async = true;
-          a.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-2392401188548335';
-          a.setAttribute('crossorigin', 'anonymous');
-          document.head.appendChild(a);
-        }
-      });
+      function gtag(){dataLayer.push(arguments);}
+      gtag('consent', 'default', {analytics_storage: 'granted', ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', wait_for_update: 500});
     </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-9RPEY1VL2X"></script>
+    <script>gtag('js', new Date()); gtag('config', 'G-9RPEY1VL2X');</script>
+    <script async src="https://fundingchoicesmessages.google.com/i/pub-2392401188548335?ers=1"></script>
+    <script>(function() {function signalGooglefcPresent() {if (!window.frames['googlefcPresent']) {if (document.body) {const iframe = document.createElement('iframe'); iframe.style = 'width: 0; height: 0; border: none; z-index: -1000; left: -1000px; top: -1000px;'; iframe.style.display = 'none'; iframe.name = 'googlefcPresent'; document.body.appendChild(iframe);} else {setTimeout(signalGooglefcPresent, 0);}}}signalGooglefcPresent();})();</script>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <title>Privacy Policy | LoanCalc</title>
@@ -414,7 +396,7 @@
           <h3>Data you provide</h3>
           <ul>
             <li><strong>Preferences.</strong> If you change your currency or language in the Settings panel, that preference is saved to your browser's local storage (<code>loancalc_prefs</code>). This stays in your browser; we never receive it.</li>
-            <li><strong>Consent record.</strong> Your cookie consent choices are stored in your browser by our consent management platform (CookieYes) to avoid showing you the banner on every visit.</li>
+            <li><strong>Consent record.</strong> If you are in the EU/EEA and see a consent dialog, your choices are stored in your browser by Google Funding Choices (Google's certified consent management platform) to avoid re-prompting on every visit.</li>
           </ul>
         </section>
 
@@ -459,7 +441,7 @@
                 </tr>
                 <tr>
                   <td>Remembering your consent choice</td>
-                  <td>Consent record (stored locally by CookieYes)</td>
+                  <td>Consent record (stored locally by Google Funding Choices)</td>
                   <td>Legal obligation (GDPR consent recordkeeping)</td>
                 </tr>
               </tbody>
@@ -475,14 +457,14 @@
 
           <h3>Google Analytics 4 (GA4)</h3>
           <p>Provided by Google LLC, 1600 Amphitheatre Parkway, Mountain View, CA 94043, USA. GA4 processes anonymized usage data for analytics purposes. Data is transferred to Google servers in the United States. Google LLC is certified under the EU-US Data Privacy Framework. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>.</p>
-          <p>GA4 is only loaded after you provide consent via the cookie banner.</p>
+          <p>GA4 loads on all pages with <code>analytics_storage: 'granted'</code> by default. EU/EEA users can withdraw analytics consent via the Google consent dialog; on withdrawal, future GA4 events will be withheld.</p>
 
           <h3>Google AdSense and Ad Manager</h3>
           <p>Provided by Google LLC. AdSense and Ad Manager display advertising on this site. If you consent to advertising cookies, Google may use behavioral data from this site and other sites to show personalized ads. If you decline advertising cookies, ads may still appear but will not be personalized. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a> | <a href="https://adssettings.google.com" target="_blank" rel="noopener">Manage ad settings</a>.</p>
-          <p>AdSense is only loaded after you provide consent via the cookie banner.</p>
+          <p>AdSense loads on all pages to enable auto ads. Personalized ad serving (ad_storage, ad_user_data, ad_personalization) requires your consent and remains denied by default until granted via the Google consent dialog shown to EU/EEA users.</p>
 
-          <h3>CookieYes (Consent Management)</h3>
-          <p>We use CookieYes to manage your cookie consent choices. CookieYes records your consent decisions in your browser and shares aggregated consent statistics with us. <a href="https://www.cookieyes.com/privacy-policy/" target="_blank" rel="noopener">CookieYes Privacy Policy</a>.</p>
+          <h3>Google Funding Choices (Consent Management)</h3>
+          <p>For users in the EU/EEA, we use Google Funding Choices — Google's free, IAB TCF-certified consent management platform — to collect and record your consent choices. It is delivered automatically via the AdSense script and does not require a separate third-party tag. <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google Privacy Policy</a>.</p>
 
           <h3>Frankfurter API (Exchange Rates)</h3>
           <p>Currency exchange rates are fetched from the Frankfurter API (api.frankfurter.app), a public financial data service. No personal data is sent in these requests — only the requested currency codes.</p>
@@ -508,11 +490,11 @@
               </thead>
               <tbody>
                 <tr>
-                  <td><code>cky-consent</code></td>
+                  <td><code>FCCDCF</code>, <code>FPLC</code>, others</td>
                   <td><span class="cat-badge cat-necessary">Necessary</span></td>
-                  <td>CookieYes</td>
-                  <td>Records your cookie consent choices to avoid re-prompting</td>
-                  <td>1 year</td>
+                  <td>Google Funding Choices</td>
+                  <td>Records EU/EEA users' cookie consent choices to avoid re-prompting (set only when consent dialog is shown)</td>
+                  <td>Up to 1 year</td>
                 </tr>
                 <tr>
                   <td><code>loancalc_prefs</code></td>
@@ -675,7 +657,7 @@
             <li><strong>Server logs:</strong> Retained for up to 30 days, then deleted.</li>
             <li><strong>GA4 analytics data:</strong> Retained by Google for 14 months (our configured retention period). Aggregated reports may be retained indefinitely.</li>
             <li><strong>Advertising data:</strong> Retained by Google per their data retention policies (typically 13 months for most advertising identifiers).</li>
-            <li><strong>Consent records (CookieYes):</strong> Stored in your browser for 1 year, or until you clear your cookies.</li>
+            <li><strong>Consent records (Google Funding Choices):</strong> Stored in your browser for up to 1 year, or until you clear your cookies.</li>
             <li><strong>Local preferences:</strong> Stored in your browser's local storage until you clear it or reset your browser data.</li>
           </ul>
         </section>
