@@ -1,0 +1,16 @@
+{
+  "name": "LoanCalc – Free Financial Calculators",
+  "short_name": "LoanCalc",
+  "description": "Free loan, savings, refinance, and currency calculators. No signup required.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B1610",
+  "theme_color": "#0B1610",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "36x36",
+      "type": "image/png"
+    }
+  ]
+}

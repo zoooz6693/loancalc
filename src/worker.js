@@ -388,6 +388,28 @@ async function fetchAllLendingRates() {
 	return rates;
 }
 
+const HASHED_ASSET = /\.[0-9a-f]{8}\.(js|css)$/i;
+const CSP = "default-src 'self'; script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://fundingchoicesmessages.google.com https://cdnjs.cloudflare.com https://ep2.adtrafficquality.google https://ep1.adtrafficquality.google; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://open.er-api.com https://cdn.jsdelivr.net https://stooq.com https://api.metals.live https://query1.finance.yahoo.com https://query2.finance.yahoo.com https://finance.yahoo.com https://www.googleapis.com https://api.worldbank.org https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://analytics.google.com https://stats.g.doubleclick.net https://ep1.adtrafficquality.google https://www.google.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; object-src 'none'; base-uri 'self'";
+
+async function serveWithCaching(request, env) {
+	const url = new URL(request.url);
+	const response = await env.ASSETS.fetch(request);
+	if (!response.ok) return response;
+
+	const p = url.pathname;
+	const isHashed = HASHED_ASSET.test(p);
+	const isHTML = p.endsWith('.html') || p.endsWith('/') || !/\.[^/]+$/.test(p);
+
+	const headers = new Headers(response.headers);
+	if (isHashed) {
+		headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+	} else if (isHTML) {
+		headers.set('Cache-Control', 'no-cache');
+		headers.set('Content-Security-Policy', CSP);
+	}
+	return new Response(response.body, { status: response.status, headers });
+}
+
 export default {
 	async scheduled(event, env, ctx) {
 		ctx.waitUntil(
@@ -579,6 +601,6 @@ export default {
 			return Response.redirect('https://loancalc.app/loan-calculator/', 301);
 		}
 
-		return env.ASSETS.fetch(request);
+		return serveWithCaching(request, env);
 	}
 };
