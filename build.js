@@ -26,7 +26,7 @@ fs.writeFileSync(path.join(PUBLIC, styleHashed), styleContent);
 assetMap['style.css'] = styleHashed;
 console.log(`style.css → ${styleHashed} (${(styleContent.length / 1024).toFixed(1)} KB)`);
 
-// Minify tokens.css
+// Minify tokens.css and inline it — eliminates one render-blocking request
 const tokensResult = esbuild.buildSync({
   entryPoints: [path.join(PUBLIC, 'tokens.css')],
   bundle: false,
@@ -34,12 +34,8 @@ const tokensResult = esbuild.buildSync({
   write: false,
   loader: { '.css': 'css' },
 });
-const tokensContent = tokensResult.outputFiles[0].contents;
-const tokensHash = hashContent(tokensContent);
-const tokensHashed = `tokens.${tokensHash}.css`;
-fs.writeFileSync(path.join(PUBLIC, tokensHashed), tokensContent);
-assetMap['tokens.css'] = tokensHashed;
-console.log(`tokens.css → ${tokensHashed} (${(tokensContent.length / 1024).toFixed(1)} KB)`);
+const tokensMinified = Buffer.from(tokensResult.outputFiles[0].contents).toString('utf8');
+console.log(`tokens.css → inlined (${(tokensMinified.length / 1024).toFixed(1)} KB)`);
 
 // Hash app.js (already minified, just copy with hash)
 const appContent = fs.readFileSync(path.join(PUBLIC, 'app.js'));
@@ -73,12 +69,24 @@ for (const rel of HTML_FILES) {
   const htmlPath = path.join(PUBLIC, rel);
   if (!fs.existsSync(htmlPath)) continue;
   let html = fs.readFileSync(htmlPath, 'utf8');
+
+  // Replace asset references with hashed filenames (handles both original names and
+  // previously-hashed names from earlier builds, e.g. app.abc12345.js → app.xyz98765.js)
+  const ext = { 'style.css': 'css', 'tokens.css': 'css', 'app.js': 'js' };
   for (const [original, hashed] of Object.entries(assetMap)) {
-    // Replace bare references (href="style.css", src="app.js", href="/style.css" etc.)
-    // Use word-boundary-like replacement to avoid double-hashing
-    html = html.split('"' + original + '"').join('"' + hashed + '"');
-    html = html.split('"/' + original + '"').join('"/' + hashed + '"');
+    const fileExt = ext[original];
+    const baseName = original.replace('.' + fileExt, '');
+    // Match any prior hash: basename.XXXXXXXX.ext or original basename.ext
+    const pattern = new RegExp(`(["'/])(?:${baseName}(?:\\.[0-9a-f]{8})?\\.${fileExt})`, 'g');
+    html = html.replace(pattern, (_, quote) => quote + hashed);
   }
+
+  // Inline tokens.css: replace the <link> tag with an inline <style> block
+  html = html.replace(
+    /<link[^>]+href="[^"]*tokens[^"]*\.css"[^>]*\/?>/g,
+    `<style>${tokensMinified}</style>`
+  );
+
   fs.writeFileSync(htmlPath, html);
   console.log(`Patched ${rel}`);
 }

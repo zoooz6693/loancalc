@@ -389,7 +389,7 @@ async function fetchAllLendingRates() {
 }
 
 const HASHED_ASSET = /\.[0-9a-f]{8}\.(js|css)$/i;
-const CSP = "default-src 'self'; script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://fundingchoicesmessages.google.com https://cdnjs.cloudflare.com https://ep2.adtrafficquality.google https://ep1.adtrafficquality.google; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://open.er-api.com https://cdn.jsdelivr.net https://stooq.com https://api.metals.live https://query1.finance.yahoo.com https://query2.finance.yahoo.com https://finance.yahoo.com https://www.googleapis.com https://api.worldbank.org https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://analytics.google.com https://stats.g.doubleclick.net https://ep1.adtrafficquality.google https://www.google.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com; object-src 'none'; base-uri 'self'";
+const CSP = "default-src 'self'; script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://fundingchoicesmessages.google.com https://cdnjs.cloudflare.com https://ep2.adtrafficquality.google https://ep1.adtrafficquality.google https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://open.er-api.com https://cdn.jsdelivr.net https://stooq.com https://api.metals.live https://query1.finance.yahoo.com https://query2.finance.yahoo.com https://finance.yahoo.com https://www.googleapis.com https://api.worldbank.org https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://analytics.google.com https://stats.g.doubleclick.net https://ep1.adtrafficquality.google https://www.google.com https://fundingchoicesmessages.google.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://ep2.adtrafficquality.google https://www.google.com; object-src 'none'; base-uri 'self'";
 
 async function serveWithCaching(request, env) {
 	const url = new URL(request.url);
@@ -398,11 +398,14 @@ async function serveWithCaching(request, env) {
 
 	const p = url.pathname;
 	const isHashed = HASHED_ASSET.test(p);
+	const isLocale = p.startsWith('/locales/') && p.endsWith('.json');
 	const isHTML = p.endsWith('.html') || p.endsWith('/') || !/\.[^/]+$/.test(p);
 
 	const headers = new Headers(response.headers);
 	if (isHashed) {
 		headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+	} else if (isLocale) {
+		headers.set('Cache-Control', 'public, max-age=86400');
 	} else if (isHTML) {
 		headers.set('Cache-Control', 'no-cache');
 		headers.set('Content-Security-Policy', CSP);

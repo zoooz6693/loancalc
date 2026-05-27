@@ -72,14 +72,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
-    <link rel="preload" href="app.3b5e1e75.js" as="script" />
+    <link rel="preload" href="app.d54dc022.js" as="script" />
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" onload="this.onload=null;this.rel='stylesheet'" />
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" /></noscript>
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <link rel="apple-touch-icon" href="/favicon.png" />
     <link rel="manifest" href="/manifest.json" />
-    <link rel="stylesheet" href="tokens.20c495ae.css" />
+    <style>:root{--forest-deep: #060c09;--forest-base: #0b1610;--forest-mid: #111e16;--text-high: #f5f0e8;--text-body: #c8d5cc;--text-sub: #8fada0;--text-muted: #7a9489;--gold: #d4a040;--gold-warm: #edb855;--gold-text: #e8b84c;--gold-dim: rgba(212, 160, 64, .14);--gold-border: rgba(212, 160, 64, .28);--gold-border-hi: rgba(212, 160, 64, .5);--surface: rgba(255, 255, 255, .055);--surface-hi: rgba(255, 255, 255, .09);--surface-input: rgba(255, 255, 255, .07);--border: rgba(255, 255, 255, .12);--border-strong: rgba(255, 255, 255, .18);--gain: #6ed8a8;--loss: #f09090;--verdict-positive-bg: rgba(110, 216, 168, .12);--verdict-positive-fg: #6ed8a8;--verdict-negative-bg: rgba(240, 144, 144, .12);--verdict-negative-fg: #f09090;--verdict-warn-bg: rgba(212, 160, 64, .12);--verdict-warn-fg: #e8b84c;--verdict-neutral-bg: rgba(255, 255, 255, .06);--verdict-neutral-fg: #c8d5cc;--bar-principal: rgba(245, 240, 232, .45);--slider-fill: var(--gold);--slider-track: rgba(255, 255, 255, .15);--overlay-bg: rgba(0, 0, 0, .6);--r-xs: 6px;--r-sm: 8px;--r-md: 10px;--r-lg: 12px;--r-xl: 20px;--r-2xl: 28px;--shadow-ambient: 0 2px 16px rgba(0, 0, 0, .3);--shadow-elevated: 0 20px 60px rgba(0, 0, 0, .5);--shadow-card: 0 0 0 1px rgba(0, 0, 0, .5), 0 20px 60px rgba(0, 0, 0, .5);--shadow-toast: 0 4px 20px rgba(0, 0, 0, .6);--shadow-thumb: 0 2px 8px rgba(0, 0, 0, .4);--z-overlay: 200;--z-drawer: 201;--z-toast: 300;--font-display: "Fraunces", Georgia, serif;--font-body: "IBM Plex Sans", system-ui, sans-serif;--font-mono: "IBM Plex Mono", "Fira Code", monospace;--color-gold: var(--gold);--color-navy: var(--forest-deep);--color-gain: var(--gain);--color-loss: var(--loss);--copy-link-copied-border: rgba(110, 216, 168, .3);--color-surface-raised: var(--surface-hi);--color-border: var(--border);--color-muted: var(--text-muted);--color-navy-mid: rgba(245, 240, 232, .18)}
+</style>
     <link rel="stylesheet" href="style.3d506990.css" />
   </head>
   <body>
@@ -360,7 +361,7 @@
                       </svg>
                       <span data-i18n="btn-copy-link">Copy link</span>
                     </button>
-                    <button class="save-scenario-btn" type="button" id="save-scenario-btn" aria-label="Save current loan as Scenario A for comparison" data-i18n="btn-save-scenario">Save as Scenario A</button>
+                    <button class="save-scenario-btn" type="button" id="save-scenario-btn" data-i18n="btn-save-scenario">Save as Scenario A</button>
                   </div>
                   <div class="scenario-card" id="scenario-card" style="display: none" aria-live="polite">
                     <div class="scenario-vs-row">
@@ -441,7 +442,7 @@
                   <button class="amort-gran-btn" type="button" data-gran="monthly">Monthly</button>
                 </div>
                 <button class="toggle-btn" type="button" id="toggle-rows" aria-expanded="false" aria-controls="amort-body">Show all years</button>
-                <button class="toggle-btn export-csv-btn" type="button" id="export-csv-btn" aria-label="Download amortization schedule as CSV">
+                <button class="toggle-btn export-csv-btn" type="button" id="export-csv-btn" aria-label="Export CSV">
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M7 1v8M4 6l3 3 3-3M2 11h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" /></svg>
                   Export CSV
                 </button>
@@ -1012,7 +1013,7 @@
       </div>
     </footer>
 
-    <script src="app.3b5e1e75.js" defer></script>
+    <script src="app.d54dc022.js" defer></script>
 
     <!-- Hero i18n — translates headline + subtitle independently of app.js -->
     <script>

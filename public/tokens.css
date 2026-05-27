@@ -10,7 +10,7 @@
   --text-high: #f5f0e8; /* headings, result values, primary content */
   --text-body: #c8d5cc; /* body copy, subtitles */
   --text-sub: #8fada0; /* labels, secondary UI text */
-  --text-muted: #5e7a6e; /* range ends, footer copy — de-emphasis only */
+  --text-muted: #7a9489; /* range ends, footer copy — de-emphasis only; min 4.5:1 on darkest bg */
 
   /* ── Gold accent ──────────────────────────────────── */
   --gold: #d4a040; /* structural: slider fill, bar-i, status dots */
