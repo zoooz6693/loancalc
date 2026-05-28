@@ -411,6 +411,7 @@ async function serveWithCaching(request, env) {
 	} else if (isHTML) {
 		headers.set('Cache-Control', 'no-cache');
 		headers.set('Content-Security-Policy', CSP);
+		headers.set('Content-Type', 'text/html; charset=UTF-8');
 	}
 	return new Response(response.body, { status: response.status, headers });
 }
@@ -439,6 +440,11 @@ export default {
 
 	async fetch(request, env) {
 		const url = new URL(request.url);
+
+		if (url.hostname === 'www.loancalc.app') {
+			url.hostname = 'loancalc.app';
+			return Response.redirect(url.toString(), 301);
+		}
 
 		if (url.pathname === '/api/central-bank-rates') {
 			const cacheKey = new Request('https://cache.local/api/central-bank-rates');
