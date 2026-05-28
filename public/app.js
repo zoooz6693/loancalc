@@ -2560,14 +2560,14 @@ function filterFAQ() {
 					window.calcCI && window.calcCI());
 				var D = r('unit-yr'),
 					M = r('unit-yrs');
-				(['term-min-lbl', 'rf-new-term-min'].forEach(function (e) {
+				(['term-min-lbl', 'rf-new-term-min', 'afford-term-min-lbl'].forEach(function (e) {
 					var a = document.getElementById(e);
 					if (a && D) {
 						var n = a.textContent.match(/^(\d+)/);
 						n && (a.textContent = n[1] + ' ' + D);
 					}
 				}),
-					['term-max-lbl', 'rf-new-term-max'].forEach(function (e) {
+					['term-max-lbl', 'rf-new-term-max', 'afford-term-max-lbl'].forEach(function (e) {
 						var a = document.getElementById(e);
 						if (a && M) {
 							var n = a.textContent.match(/^(\d+)/);
