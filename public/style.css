@@ -3537,3 +3537,50 @@ select option {
   transform: scale(1.1);
   box-shadow: 0 6px 24px rgba(212,160,64,0.35);
 }
+
+/* Performance: skip offscreen rendering for below-fold sections */
+.tool-panel,
+.live-panel,
+.chart-section,
+.amort-section,
+.how-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 2000px;
+}
+
+.tool-panel.active {
+  content-visibility: visible;
+}
+
+.live-panel.active {
+  content-visibility: visible;
+}
+
+/* Accessibility: WCAG 2.5.5 — 44×44px minimum touch targets */
+button,
+[role="button"] {
+  min-height: 44px;
+}
+
+/* Compact buttons: expand via padding, not layout */
+.status-refresh-btn {
+  width: auto;
+  height: auto;
+  padding: 11px;
+}
+
+.freq-btn {
+  padding-block: 10px;
+}
+
+.amort-gran-btn {
+  padding-block: 10px;
+}
+
+.refresh-btn {
+  padding-block: 10px;
+}
+
+.scenario-clear-btn {
+  padding-block: 10px;
+}
