@@ -7,3 +7,7 @@
 
 # build output
 node_modules/
+
+# Lighthouse audit results
+lh*.json
+lh-local-*/

@@ -1,4 +1,54 @@
-﻿/* style.css — LoanCalc Mineral Luxury */
+﻿@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('/fonts/fraunces-variable.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url('/fonts/fraunces-variable-italic.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url('/fonts/ibm-plex-sans-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url('/fonts/ibm-plex-sans-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Sans';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 600;
+  src: url('/fonts/ibm-plex-sans-600.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url('/fonts/ibm-plex-mono-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 500;
+  src: url('/fonts/ibm-plex-mono-500.woff2') format('woff2');
+}
+
+/* style.css — LoanCalc Mineral Luxury */
 
 /* ── Panel visibility (app.js toggles .active) ───── */
 .tool-panel {
@@ -44,12 +94,24 @@ body {
   background: var(--forest-base);
   color: var(--text-high);
   font-family: var(--font-mono);
-  cursor: none;
+
   font-size: 15px;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   position: relative;
   min-height: 100vh;
+}
+
+/* ── Inline text links (SEO content, footnotes) ──── */
+p a:not([class]),
+li a:not([class]) {
+  color: var(--gold-text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+p a:not([class]):hover,
+li a:not([class]):hover {
+  color: var(--gold-warm);
 }
 
 /* ── Atmospheric: gold glow blob (top-right) ──────── */
@@ -3373,49 +3435,6 @@ select option {
 :lang(ar) .ig-sym,
 :lang(ar) .ig-unit             { font-size: 13px; }
 
-/* Restore native cursor on form fields */
-input, textarea { cursor: text; }
-select { cursor: default; }
-
-/* Custom bar chart cursor */
-#cursor-chart {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0;
-  will-change: transform;
-  transition: opacity 0.15s;
-}
-#cursor-chart.visible { opacity: 1; }
-.cursor-bars {
-  display: flex;
-  align-items: flex-end;
-  gap: 2px;
-  height: 20px;
-}
-.cursor-bar {
-  width: 3px;
-  min-height: 3px;
-  background: var(--chart-color, #d4a040);
-  border-radius: 1px 1px 0 0;
-  transition: background-color 0.35s ease;
-}
-.cursor-dot {
-  width: 4px;
-  height: 4px;
-  border-radius: 50%;
-  background: var(--chart-color, #d4a040);
-  margin-top: 3px;
-  transition: background-color 0.35s ease;
-}
-@media (pointer: coarse) {
-  #cursor-chart { display: none; }
-  body { cursor: auto; }
-  input, textarea { cursor: text; }
-select { cursor: default; }
-}
 
 
 /* ── Consent Popup ─────────────────────────────────────────── */

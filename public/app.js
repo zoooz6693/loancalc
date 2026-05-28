@@ -1,5 +1,35 @@
-﻿var _chartJsReady=null;function ensureChartJs(cb){if(window.Chart){cb();return;}if(_chartJsReady){_chartJsReady.push(cb);return;}_chartJsReady=[cb];var s=document.createElement('script');s.src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js';s.integrity='sha512-ZwR1/gSZM3ai6vCdI+LVF1zSq/5HznD3ZSTk7kajkaj4D292NLuduDCO1c/NT8Id+jE58KYLKT7hXnbtryGmMg==';s.crossOrigin='anonymous';s.referrerPolicy='no-referrer';s.onload=function(){_chartJsReady.forEach(function(fn){fn();});_chartJsReady=null;};document.head.appendChild(s);}
-var _loadedFontLangs={};function injectFontForLang(lang){var fontUrls={ar:'https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap',zh:'https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@400;500&display=swap',hi:'https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;500&display=swap'};var url=fontUrls[lang];if(!url||_loadedFontLangs[lang])return;_loadedFontLangs[lang]=true;var link=document.createElement('link');link.rel='stylesheet';link.href=url;document.head.appendChild(link);}
+﻿var _chartJsReady = null;
+function ensureChartJs(cb) {
+	if (window.Chart) {
+		cb();
+		return;
+	}
+	if (_chartJsReady) {
+		_chartJsReady.push(cb);
+		return;
+	}
+	_chartJsReady = [cb];
+	var s = document.createElement('script');
+	s.src = '/chart.js';
+	s.onload = function () {
+		_chartJsReady.forEach(function (fn) {
+			fn();
+		});
+		_chartJsReady = null;
+	};
+	document.head.appendChild(s);
+}
+var _loadedFontLangs = {};
+function injectFontForLang(lang) {
+	var fontUrls = {ar: 'https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=IBM+Plex+Sans+Arabic:wght@400;500;600&display=swap', zh: 'https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700&family=Noto+Sans+SC:wght@400;500&display=swap', hi: 'https://fonts.googleapis.com/css2?family=Noto+Serif+Devanagari:wght@400;500;700&family=Noto+Sans+Devanagari:wght@400;500&display=swap'};
+	var url = fontUrls[lang];
+	if (!url || _loadedFontLangs[lang]) return;
+	_loadedFontLangs[lang] = true;
+	var link = document.createElement('link');
+	link.rel = 'stylesheet';
+	link.href = url;
+	document.head.appendChild(link);
+}
 function switchPanel(e) {
 	document.querySelectorAll('.tool-panel').forEach(function (e) {
 		e.classList.remove('active');
@@ -703,14 +733,18 @@ function filterFAQ() {
 				var colHdr = (window._i18n_current && window._i18n_current[isMonthly ? 'amort-month' : 'amort-year']) || (isMonthly ? 'Month' : 'Year');
 				thFirst.textContent = colHdr;
 			}
-			var r = '', t = a || e.length, baseYear = new Date().getFullYear(), s = 0;
+			var r = '',
+				t = a || e.length,
+				baseYear = new Date().getFullYear(),
+				s = 0;
 			for (; s < Math.min(t, e.length); s++) {
-				var l = e[s], u = l.end < 1 ? ' class="green"' : '';
+				var l = e[s],
+					u = l.end < 1 ? ' class="green"' : '';
 				var label;
 				if (isMonthly) {
 					var yr = baseYear + Math.floor((l.month - 1) / 12);
 					var mo = (l.month - 1) % 12;
-					label = new Date(yr, mo).toLocaleDateString(window._i18n_locale || 'en-US', { month: 'short', year: 'numeric' });
+					label = new Date(yr, mo).toLocaleDateString(window._i18n_locale || 'en-US', {month: 'short', year: 'numeric'});
 				} else {
 					label = '' + (baseYear + l.year - 1);
 				}
@@ -722,9 +756,7 @@ function filterFAQ() {
 			if (e.length <= defaultRows) d.style.display = 'none';
 			else {
 				d.style.display = '';
-				var showAllTxt = isMonthly
-					? ((window._i18n_current && window._i18n_current['btn-show-all-months']) || 'Show all months')
-					: (d.dataset.showAll || 'Show all years');
+				var showAllTxt = isMonthly ? (window._i18n_current && window._i18n_current['btn-show-all-months']) || 'Show all months' : d.dataset.showAll || 'Show all years';
 				var showLessTxt = d.dataset.showLess || 'Show less';
 				d.textContent = i ? showLessTxt : showAllTxt;
 			}
@@ -805,7 +837,8 @@ function filterFAQ() {
 				var z = document.getElementById('res-interest-context');
 				if (z) {
 					var A = (window._i18n_current && window._i18n_current['unit-years']) || 'years';
-					z.textContent = 'over ' + y + ' ' + A + ' total';
+					var _ctxTpl = (window._i18n_current && window._i18n_current['res-interest-context']) || 'over {n} {years} total';
+					z.textContent = _ctxTpl.replace('{n}', y).replace('{years}', A);
 				}
 				document.getElementById('result-total').textContent = p(w.total);
 				var x = new Date().getFullYear() + y,
@@ -817,45 +850,71 @@ function filterFAQ() {
 					var subEl = document.getElementById('result-loan-label');
 					if (freqMode === 'biweekly' && r === 'mortgage') {
 						var pBi = w.monthly / 2;
-						var effMo = w.monthly * 13 / 12;
+						var effMo = (w.monthly * 13) / 12;
 						var rmo = v / 100 / 12;
-						var bibal = g, totalI = 0, biMonths = 0, maxM = y * 24;
+						var bibal = g,
+							totalI = 0,
+							biMonths = 0,
+							maxM = y * 24;
 						while (bibal > 0.01 && biMonths < maxM) {
-							var oint = bibal * rmo, ppart = effMo - oint;
+							var oint = bibal * rmo,
+								ppart = effMo - oint;
 							if (ppart <= 0) break;
-							totalI += oint; bibal -= ppart; biMonths++;
+							totalI += oint;
+							bibal -= ppart;
+							biMonths++;
 						}
 						var savedI = w.interest - totalI;
-						var savedYrs = Math.round((y * 12 - biMonths) / 12 * 10) / 10;
+						var savedYrs = Math.round(((y * 12 - biMonths) / 12) * 10) / 10;
 						var biLbl = (window._i18n_current && window._i18n_current['freq-biweekly']) || 'Biweekly payment';
 						var perWk = (window._i18n_current && window._i18n_current['freq-per-2wk']) || '/ 2 wks';
 						if (lbl) lbl.textContent = biLbl;
-						if (amtEl) { amtEl.textContent = p(pBi) + ' ' + perWk; window.fitText && window.fitText(amtEl); }
+						if (amtEl) {
+							amtEl.textContent = p(pBi) + ' ' + perWk;
+							window.fitText && window.fitText(amtEl);
+						}
 						if (subEl) {
 							var _biTpl = (window._i18n_current && window._i18n_current['bi-sub-template']) || 'vs {monthly} · Save {saved} · Pay off {yrs} yrs sooner';
 							var _perMoBI = (window._i18n_current && window._i18n_current['unit-mo']) || '/mo';
-							subEl.textContent = _biTpl.replace('{monthly}', p(w.monthly) + _perMoBI).replace('{saved}', p(savedI)).replace('{yrs}', savedYrs);
+							subEl.textContent = _biTpl
+								.replace('{monthly}', p(w.monthly) + _perMoBI)
+								.replace('{saved}', p(savedI))
+								.replace('{yrs}', savedYrs);
 						}
 					}
 				})();
 				(function () {
 					var extraEl = document.getElementById('extra-savings');
 					if (!extraEl) return;
-					if (r !== 'mortgage' || !sExtra) { extraEl.style.display = 'none'; return; }
+					if (r !== 'mortgage' || !sExtra) {
+						extraEl.style.display = 'none';
+						return;
+					}
 					var extraAmt = parseFloat(sExtra.value) || 0;
 					if (iExtra) iExtra.value = extraAmt;
 					b(sExtra);
-					if (extraAmt <= 0) { extraEl.style.display = 'none'; return; }
-					var rmo2 = v / 100 / 12, pMo2 = w.monthly, accel = pMo2 + extraAmt;
-					var bal3 = g, totalI2 = 0, accelMonths = 0, maxM2 = y * 24;
+					if (extraAmt <= 0) {
+						extraEl.style.display = 'none';
+						return;
+					}
+					var rmo2 = v / 100 / 12,
+						pMo2 = w.monthly,
+						accel = pMo2 + extraAmt;
+					var bal3 = g,
+						totalI2 = 0,
+						accelMonths = 0,
+						maxM2 = y * 24;
 					while (bal3 > 0.01 && accelMonths < maxM2) {
-						var int3 = bal3 * rmo2, prin3 = accel - int3;
+						var int3 = bal3 * rmo2,
+							prin3 = accel - int3;
 						if (prin3 <= 0) break;
-						totalI2 += int3; bal3 -= prin3; accelMonths++;
+						totalI2 += int3;
+						bal3 -= prin3;
+						accelMonths++;
 					}
 					var savedI2 = Math.max(0, w.interest - totalI2);
 					var savedMos = y * 12 - accelMonths;
-					var savedYrs2 = savedMos > 0 ? Math.round(savedMos / 12 * 10) / 10 : 0;
+					var savedYrs2 = savedMos > 0 ? Math.round((savedMos / 12) * 10) / 10 : 0;
 					var _exTpl = (window._i18n_current && window._i18n_current['extra-savings-html']) || 'Pay off <strong>{yrs} yrs sooner</strong> &nbsp;&middot;&nbsp; Save <strong>{saved}</strong> in interest';
 					extraEl.innerHTML = _exTpl.replace('{yrs}', savedYrs2).replace('{saved}', p(savedI2));
 					extraEl.style.display = '';
@@ -866,7 +925,7 @@ function filterFAQ() {
 				var E = document.getElementById('c-principal');
 				(E && ((E.textContent = p(g)), (document.getElementById('c-interest').textContent = p(w.interest)), (document.getElementById('c-total').textContent = p(w.total)), (document.getElementById('c-year').textContent = x), (document.getElementById('c-principal-pct').textContent = '(' + Math.round(P) + '%)'), (document.getElementById('c-interest-pct').textContent = '(' + Math.round(q) + '%)')),
 					(function (e, a) {
-						ensureChartJs(function() {
+						ensureChartJs(function () {
 							var n = document.getElementById('loanChart');
 							if (n) {
 								var r = Math.round((e / (e + a)) * 100);
@@ -915,23 +974,26 @@ function filterFAQ() {
 					(o = (function (e, a, n) {
 						for (var r = a / 100 / 12, t = 12 * n, mp = h(e, a, n).monthly, bal = e, s = [], l = 1; l <= n; l++) {
 							for (var u = 0, d = 0, c = bal, months = Math.min(12, t - 12 * (l - 1)), p2 = 0; p2 < months; p2++) {
-								var gi = bal * r, fi = mp - gi;
+								var gi = bal * r,
+									fi = mp - gi;
 								((d += gi), (u += fi), (bal -= fi) < 0.005 && (bal = 0));
 							}
-							s.push({ year: l, start: c, paidP: u, paidI: d, end: Math.max(0, bal) });
+							s.push({year: l, start: c, paidP: u, paidI: d, end: Math.max(0, bal)});
 						}
 						return s;
 					})(g, v, y)),
 					(oMonthly = (function (e, a, n) {
 						for (var r = a / 100 / 12, t = 12 * n, mp2 = h(e, a, n).monthly, bal2 = e, s2 = [], mo = 1; mo <= t; mo++) {
-							var gi2 = bal2 * r, fi2 = mp2 - gi2, st2 = bal2;
+							var gi2 = bal2 * r,
+								fi2 = mp2 - gi2,
+								st2 = bal2;
 							(bal2 -= fi2) < 0.005 && (bal2 = 0);
-							s2.push({ month: mo, start: st2, paidP: fi2, paidI: gi2, end: Math.max(0, bal2) });
+							s2.push({month: mo, start: st2, paidP: fi2, paidI: gi2, end: Math.max(0, bal2)});
 						}
 						return s2;
 					})(g, v, y)),
-					f(amortGran === 'monthly' ? oMonthly : o, i ? null : (amortGran === 'monthly' ? 24 : 5)));
-			updateScenarioCard(w.monthly, w.interest, new Date().getFullYear() + y);
+					f(amortGran === 'monthly' ? oMonthly : o, i ? null : amortGran === 'monthly' ? 24 : 5));
+				updateScenarioCard(w.monthly, w.interest, new Date().getFullYear() + y);
 			} catch (e) {
 				(console.error('Loan calc error:', e), k());
 			}
@@ -940,7 +1002,10 @@ function filterFAQ() {
 
 		function updateScenarioCard(monthly, totalInterest, payoffYear) {
 			var card = document.getElementById('scenario-card');
-			if (!card || !savedScenario) { if (card) card.style.display = 'none'; return; }
+			if (!card || !savedScenario) {
+				if (card) card.style.display = 'none';
+				return;
+			}
 			var sc = savedScenario;
 			var scAMonthly = document.getElementById('sc-a-monthly');
 			var scAInterest = document.getElementById('sc-a-interest');
@@ -948,18 +1013,36 @@ function filterFAQ() {
 			var _scPerMo = (window._i18n_current && window._i18n_current['sc-per-mo']) || '/mo';
 			var _scInt = (window._i18n_current && window._i18n_current['sc-interest-lbl']) || 'interest';
 			var _scPo = (window._i18n_current && window._i18n_current['sc-payoff-lbl']) || 'payoff';
-			if (scAMonthly) { scAMonthly.textContent = p(sc.monthly) + _scPerMo; scAMonthly.className = 'scenario-monthly'; }
-			if (scAInterest) { scAInterest.textContent = p(sc.totalInterest) + ' ' + _scInt; scAInterest.className = 'scenario-detail'; }
-			if (scAYear) { scAYear.textContent = sc.payoffYear + ' ' + _scPo; scAYear.className = 'scenario-detail'; }
+			if (scAMonthly) {
+				scAMonthly.textContent = p(sc.monthly) + _scPerMo;
+				scAMonthly.className = 'scenario-monthly';
+			}
+			if (scAInterest) {
+				scAInterest.textContent = p(sc.totalInterest) + ' ' + _scInt;
+				scAInterest.className = 'scenario-detail';
+			}
+			if (scAYear) {
+				scAYear.textContent = sc.payoffYear + ' ' + _scPo;
+				scAYear.className = 'scenario-detail';
+			}
 			var scCurMonthly = document.getElementById('sc-cur-monthly');
 			var scCurInterest = document.getElementById('sc-cur-interest');
 			var scCurYear = document.getElementById('sc-cur-year');
 			var moCls = monthly < sc.monthly ? ' sc-gain' : monthly > sc.monthly ? ' sc-loss' : '';
 			var intCls = totalInterest < sc.totalInterest ? ' sc-gain' : totalInterest > sc.totalInterest ? ' sc-loss' : '';
 			var yrCls = payoffYear < sc.payoffYear ? ' sc-gain' : payoffYear > sc.payoffYear ? ' sc-loss' : '';
-			if (scCurMonthly) { scCurMonthly.textContent = p(monthly) + _scPerMo; scCurMonthly.className = 'scenario-monthly' + moCls; }
-			if (scCurInterest) { scCurInterest.textContent = p(totalInterest) + ' ' + _scInt; scCurInterest.className = 'scenario-detail' + intCls; }
-			if (scCurYear) { scCurYear.textContent = payoffYear + ' ' + _scPo; scCurYear.className = 'scenario-detail' + yrCls; }
+			if (scCurMonthly) {
+				scCurMonthly.textContent = p(monthly) + _scPerMo;
+				scCurMonthly.className = 'scenario-monthly' + moCls;
+			}
+			if (scCurInterest) {
+				scCurInterest.textContent = p(totalInterest) + ' ' + _scInt;
+				scCurInterest.className = 'scenario-detail' + intCls;
+			}
+			if (scCurYear) {
+				scCurYear.textContent = payoffYear + ' ' + _scPo;
+				scCurYear.className = 'scenario-detail' + yrCls;
+			}
 			card.style.display = '';
 		}
 
@@ -978,19 +1061,24 @@ function filterFAQ() {
 				if (iP) iP.value = pmt;
 				if (iR) iR.value = rate.toFixed(1);
 				if (iT) iT.value = term;
-				b(sP); b(sR); b(sT);
+				b(sP);
+				b(sR);
+				b(sT);
 				var resLbl = document.getElementById('res-monthly-lbl');
 				if (resLbl) resLbl.textContent = (window._i18n_current && window._i18n_current['afford-result-label']) || 'You could borrow up to';
 				if (!pmt || !rate || !term) return;
 				var rmo = rate / 100 / 12;
 				var nm = term * 12;
-				var pv = rmo > 0 ? pmt * (1 - Math.pow(1 + rmo, -nm)) / rmo : pmt * nm;
+				var pv = rmo > 0 ? (pmt * (1 - Math.pow(1 + rmo, -nm))) / rmo : pmt * nm;
 				var totalPaid = pmt * nm;
 				var totalInterest = Math.max(0, totalPaid - pv);
 				var payoffYear = new Date().getFullYear() + term;
 				var yrs = (window._i18n_current && window._i18n_current['unit-yrs']) || 'yrs';
 				var resMonthly = document.getElementById('result-monthly');
-				if (resMonthly) { resMonthly.textContent = p(pv); window.fitText && window.fitText(resMonthly); }
+				if (resMonthly) {
+					resMonthly.textContent = p(pv);
+					window.fitText && window.fitText(resMonthly);
+				}
 				var resLoanLbl = document.getElementById('result-loan-label');
 				if (resLoanLbl) resLoanLbl.textContent = (window._i18n_current && window._i18n_current['afford-sub']) || 'affordability estimate';
 				var resPrincipal = document.getElementById('result-principal');
@@ -1011,7 +1099,9 @@ function filterFAQ() {
 				var pctI = document.getElementById('pct-i');
 				if (pctP) pctP.textContent = Math.round(P2) + '%';
 				if (pctI) pctI.textContent = Math.round(q2) + '%';
-			} catch (e2) { console.error('Afford calc error:', e2); }
+			} catch (e2) {
+				console.error('Afford calc error:', e2);
+			}
 		}
 
 		function y(e) {
@@ -1077,12 +1167,17 @@ function filterFAQ() {
 				freqEl.style.display = e === 'mortgage' ? '' : 'none';
 				if (e !== 'mortgage' && freqMode !== 'monthly') {
 					freqMode = 'monthly';
-					freqEl.querySelectorAll('.freq-btn').forEach(function (b) { b.classList.toggle('active', b.dataset.freq === 'monthly'); });
+					freqEl.querySelectorAll('.freq-btn').forEach(function (b) {
+						b.classList.toggle('active', b.dataset.freq === 'monthly');
+					});
 				}
 			}
 			var extraGrp = document.getElementById('extra-input-group');
 			if (extraGrp) extraGrp.style.display = e === 'mortgage' ? '' : 'none';
-			if (e !== 'mortgage' && sExtra) { sExtra.value = 0; if (iExtra) iExtra.value = 0; }
+			if (e !== 'mortgage' && sExtra) {
+				sExtra.value = 0;
+				if (iExtra) iExtra.value = 0;
+			}
 			v();
 		}
 		((window.updateSliderFillGlobal = b),
@@ -1138,12 +1233,17 @@ function filterFAQ() {
 				if (sExtra) {
 					var extraMax = Math.round(a.loanDefault / 200);
 					var extraStep = Math.max(10, Math.round(a.loanDefault / 4000));
-					sExtra.max = extraMax; sExtra.step = extraStep;
-					if (iExtra) { iExtra.max = extraMax; iExtra.step = extraStep; }
+					sExtra.max = extraMax;
+					sExtra.step = extraStep;
+					if (iExtra) {
+						iExtra.max = extraMax;
+						iExtra.step = extraStep;
+					}
 					var sym = a.symbol;
 					var maxLbl = document.getElementById('extra-max-lbl');
 					if (maxLbl) maxLbl.textContent = sym + new Intl.NumberFormat().format(extraMax);
-					sExtra.value = 0; if (iExtra) iExtra.value = 0;
+					sExtra.value = 0;
+					if (iExtra) iExtra.value = 0;
 					var savEl = document.getElementById('extra-savings');
 					if (savEl) savEl.style.display = 'none';
 				}
@@ -1221,11 +1321,13 @@ function filterFAQ() {
 				var e = parseInt(this.value);
 				!isNaN(e) && e >= parseInt(u.min) && e <= parseInt(u.max) && ((u.value = e), v());
 			}),
-			iExtra && iExtra.addEventListener('input', function () {
-				var e = parseFloat(this.value) || 0;
-				e = Math.max(0, Math.min(parseFloat(sExtra.max) || 2000, e));
-				sExtra.value = e; v();
-			}),
+			iExtra &&
+				iExtra.addEventListener('input', function () {
+					var e = parseFloat(this.value) || 0;
+					e = Math.max(0, Math.min(parseFloat(sExtra.max) || 2000, e));
+					sExtra.value = e;
+					v();
+				}),
 			d.addEventListener('blur', function () {
 				var e = parseFloat(this.value);
 				if (isNaN(e)) this.value = s.value;
@@ -1261,37 +1363,41 @@ function filterFAQ() {
 			document.getElementById('toggle-rows').addEventListener('click', function () {
 				i = !i;
 				var data = amortGran === 'monthly' ? oMonthly : o;
-				f(data, i ? null : (amortGran === 'monthly' ? 24 : 5));
+				f(data, i ? null : amortGran === 'monthly' ? 24 : 5);
 				this.setAttribute('aria-expanded', i);
 			}),
 			(function () {
 				var gran = document.getElementById('amort-gran-toggle');
-				gran && gran.addEventListener('click', function (ev) {
-					var btn = ev.target.closest('.amort-gran-btn');
-					if (!btn) return;
-					var g = btn.dataset.gran;
-					if (g === amortGran) return;
-					amortGran = g;
-					gran.querySelectorAll('.amort-gran-btn').forEach(function (b) {
-						b.classList.toggle('active', b.dataset.gran === g);
+				gran &&
+					gran.addEventListener('click', function (ev) {
+						var btn = ev.target.closest('.amort-gran-btn');
+						if (!btn) return;
+						var g = btn.dataset.gran;
+						if (g === amortGran) return;
+						amortGran = g;
+						gran.querySelectorAll('.amort-gran-btn').forEach(function (b) {
+							b.classList.toggle('active', b.dataset.gran === g);
+						});
+						i = false;
+						var data = amortGran === 'monthly' ? oMonthly : o;
+						f(data, amortGran === 'monthly' ? 24 : 5);
+						document.getElementById('toggle-rows') && document.getElementById('toggle-rows').setAttribute('aria-expanded', false);
 					});
-					i = false;
-					var data = amortGran === 'monthly' ? oMonthly : o;
-					f(data, amortGran === 'monthly' ? 24 : 5);
-					document.getElementById('toggle-rows') && document.getElementById('toggle-rows').setAttribute('aria-expanded', false);
-				});
 			})(),
 			(function () {
 				var ftog = document.getElementById('freq-toggle');
-				ftog && ftog.addEventListener('click', function (ev) {
-					var btn = ev.target.closest('.freq-btn');
-					if (!btn) return;
-					var f2 = btn.dataset.freq;
-					if (f2 === freqMode) return;
-					freqMode = f2;
-					ftog.querySelectorAll('.freq-btn').forEach(function (b) { b.classList.toggle('active', b.dataset.freq === f2); });
-					v();
-				});
+				ftog &&
+					ftog.addEventListener('click', function (ev) {
+						var btn = ev.target.closest('.freq-btn');
+						if (!btn) return;
+						var f2 = btn.dataset.freq;
+						if (f2 === freqMode) return;
+						freqMode = f2;
+						ftog.querySelectorAll('.freq-btn').forEach(function (b) {
+							b.classList.toggle('active', b.dataset.freq === f2);
+						});
+						v();
+					});
 			})(),
 			(function () {
 				var sAP = document.getElementById('s-afford-pmt');
@@ -1300,35 +1406,85 @@ function filterFAQ() {
 				var iAP = document.getElementById('i-afford-pmt');
 				var iAR = document.getElementById('i-afford-rate');
 				var iAT = document.getElementById('i-afford-term');
-				if (sAP) sAP.addEventListener('input', function () { if (r === 'afford') { if (iAP) iAP.value = sAP.value; b(sAP); calcAfford(); } });
-				if (sAR) sAR.addEventListener('input', function () { if (r === 'afford') { if (iAR) iAR.value = parseFloat(sAR.value).toFixed(1); b(sAR); calcAfford(); } });
-				if (sAT) sAT.addEventListener('input', function () { if (r === 'afford') { if (iAT) iAT.value = sAT.value; b(sAT); calcAfford(); } });
-				if (iAP) iAP.addEventListener('input', function () { var v2 = Math.max(100, Math.min(50000, parseFloat(iAP.value) || 0)); if (sAP) { sAP.value = v2; b(sAP); } if (r === 'afford') calcAfford(); });
-				if (iAR) iAR.addEventListener('input', function () { var v2 = Math.max(0.1, Math.min(30, parseFloat(iAR.value) || 0)); if (sAR) { sAR.value = v2; b(sAR); } if (r === 'afford') calcAfford(); });
-				if (iAT) iAT.addEventListener('input', function () { var v2 = Math.max(1, Math.min(30, parseInt(iAT.value) || 0)); if (sAT) { sAT.value = v2; b(sAT); } if (r === 'afford') calcAfford(); });
+				if (sAP)
+					sAP.addEventListener('input', function () {
+						if (r === 'afford') {
+							if (iAP) iAP.value = sAP.value;
+							b(sAP);
+							calcAfford();
+						}
+					});
+				if (sAR)
+					sAR.addEventListener('input', function () {
+						if (r === 'afford') {
+							if (iAR) iAR.value = parseFloat(sAR.value).toFixed(1);
+							b(sAR);
+							calcAfford();
+						}
+					});
+				if (sAT)
+					sAT.addEventListener('input', function () {
+						if (r === 'afford') {
+							if (iAT) iAT.value = sAT.value;
+							b(sAT);
+							calcAfford();
+						}
+					});
+				if (iAP)
+					iAP.addEventListener('input', function () {
+						var v2 = Math.max(100, Math.min(50000, parseFloat(iAP.value) || 0));
+						if (sAP) {
+							sAP.value = v2;
+							b(sAP);
+						}
+						if (r === 'afford') calcAfford();
+					});
+				if (iAR)
+					iAR.addEventListener('input', function () {
+						var v2 = Math.max(0.1, Math.min(30, parseFloat(iAR.value) || 0));
+						if (sAR) {
+							sAR.value = v2;
+							b(sAR);
+						}
+						if (r === 'afford') calcAfford();
+					});
+				if (iAT)
+					iAT.addEventListener('input', function () {
+						var v2 = Math.max(1, Math.min(30, parseInt(iAT.value) || 0));
+						if (sAT) {
+							sAT.value = v2;
+							b(sAT);
+						}
+						if (r === 'afford') calcAfford();
+					});
 			})(),
 			(function () {
 				var saveBtn = document.getElementById('save-scenario-btn');
 				var clearBtn = document.getElementById('scenario-clear-btn');
-				if (saveBtn) saveBtn.addEventListener('click', function () {
-					var sAmt = parseFloat(document.getElementById('s-amount') && document.getElementById('s-amount').value) || 0;
-					var sRate = parseFloat(document.getElementById('s-rate') && document.getElementById('s-rate').value) || 0;
-					var sTerm = parseInt(document.getElementById('s-term') && document.getElementById('s-term').value) || 0;
-					if (!sAmt || !sRate || !sTerm) return;
-					var ww = h(sAmt, sRate, sTerm);
-					var payY = new Date().getFullYear() + sTerm;
-					savedScenario = { monthly: ww.monthly, totalInterest: ww.interest, payoffYear: payY, type: r };
-					saveBtn.textContent = (window._i18n_current && window._i18n_current['btn-saved']) || 'Saved!';
-					saveBtn.classList.add('saved');
-					updateScenarioCard(ww.monthly, ww.interest, payY);
-				});
-				if (clearBtn) clearBtn.addEventListener('click', function () {
-					savedScenario = null;
-					var card = document.getElementById('scenario-card');
-					if (card) card.style.display = 'none';
-					var saveBtn2 = document.getElementById('save-scenario-btn');
-					if (saveBtn2) { saveBtn2.textContent = (window._i18n_current && window._i18n_current['btn-save-scenario']) || 'Save as Scenario A'; saveBtn2.classList.remove('saved'); }
-				});
+				if (saveBtn)
+					saveBtn.addEventListener('click', function () {
+						var sAmt = parseFloat(document.getElementById('s-amount') && document.getElementById('s-amount').value) || 0;
+						var sRate = parseFloat(document.getElementById('s-rate') && document.getElementById('s-rate').value) || 0;
+						var sTerm = parseInt(document.getElementById('s-term') && document.getElementById('s-term').value) || 0;
+						if (!sAmt || !sRate || !sTerm) return;
+						var ww = h(sAmt, sRate, sTerm);
+						var payY = new Date().getFullYear() + sTerm;
+						savedScenario = {monthly: ww.monthly, totalInterest: ww.interest, payoffYear: payY, type: r};
+						saveBtn.textContent = (window._i18n_current && window._i18n_current['btn-saved']) || 'Saved!';
+						saveBtn.classList.add('saved');
+						updateScenarioCard(ww.monthly, ww.interest, payY);
+					});
+				if (clearBtn)
+					clearBtn.addEventListener('click', function () {
+						savedScenario = null;
+						var card = document.getElementById('scenario-card');
+						if (card) card.style.display = 'none';
+						var saveBtn2 = document.getElementById('save-scenario-btn');
+						if (saveBtn2) {
+							saveBtn2.textContent = (window._i18n_current && window._i18n_current['btn-save-scenario']) || 'Save as Scenario A';
+							saveBtn2.classList.remove('saved');
+						}
+					});
 			})());
 		var A = document.getElementById('export-csv-btn');
 		(A &&
@@ -1342,7 +1498,7 @@ function filterFAQ() {
 						csvSrc.forEach(function (n) {
 							var yr = baseYr + Math.floor((n.month - 1) / 12);
 							var mo = (n.month - 1) % 12;
-							var lbl = new Date(yr, mo).toLocaleDateString('en-US', { month: 'short', year: 'numeric' });
+							var lbl = new Date(yr, mo).toLocaleDateString('en-US', {month: 'short', year: 'numeric'});
 							rows.push([lbl, n.start.toFixed(2), n.paidP.toFixed(2), n.paidI.toFixed(2), Math.max(0, n.end).toFixed(2)]);
 						});
 					} else {
@@ -1351,8 +1507,16 @@ function filterFAQ() {
 							rows.push([baseYr + n.year - 1, n.start.toFixed(2), n.paidP.toFixed(2), n.paidI.toFixed(2), Math.max(0, n.end).toFixed(2)]);
 						});
 					}
-					var csvStr = rows.map(function (e) { return e.map(function (e) { return '"' + String(e).replace(/"/g, '""') + '"'; }).join(','); }).join('\r\n'),
-						blob = new Blob([csvStr], { type: 'text/csv;charset=utf-8;' }),
+					var csvStr = rows
+							.map(function (e) {
+								return e
+									.map(function (e) {
+										return '"' + String(e).replace(/"/g, '""') + '"';
+									})
+									.join(',');
+							})
+							.join('\r\n'),
+						blob = new Blob([csvStr], {type: 'text/csv;charset=utf-8;'}),
 						url = URL.createObjectURL(blob),
 						link = document.createElement('a');
 					((link.href = url), (link.download = 'amortization-schedule.csv'), document.body.appendChild(link), link.click(), document.body.removeChild(link), URL.revokeObjectURL(url));
@@ -1451,89 +1615,91 @@ function filterFAQ() {
 					}
 					e
 						? ((e.data.labels = u), (e.data.datasets[0].label = o), (e.data.datasets[0].data = d), (e.data.datasets[1].label = s), (e.data.datasets[1].data = c), e.update('none'))
-						: ensureChartJs(function(){ e = new Chart(document.getElementById('ciChart'), {
-								type: 'bar',
-								data: {
-									labels: u,
-									datasets: [
-										{
-											label: o,
-											data: d,
-											backgroundColor: window.cssToken('--color-navy-mid'),
-											borderWidth: 0,
-											stack: 's'
-										},
-										{
-											label: s,
-											data: c,
-											backgroundColor: window.cssToken('--color-gold'),
-											borderWidth: 0,
-											stack: 's'
-										}
-									]
-								},
-								options: {
-									responsive: !0,
-									maintainAspectRatio: !1,
-									plugins: {
-										legend: {
-											display: !1
-										},
-										tooltip: {
-											callbacks: {
-												label: function (e) {
-													return e.dataset.label + ': ' + window.fmtMoney(e.raw);
-												}
+						: ensureChartJs(function () {
+								e = new Chart(document.getElementById('ciChart'), {
+									type: 'bar',
+									data: {
+										labels: u,
+										datasets: [
+											{
+												label: o,
+												data: d,
+												backgroundColor: window.cssToken('--color-navy-mid'),
+												borderWidth: 0,
+												stack: 's'
+											},
+											{
+												label: s,
+												data: c,
+												backgroundColor: window.cssToken('--color-gold'),
+												borderWidth: 0,
+												stack: 's'
 											}
-										}
+										]
 									},
-									scales: {
-										x: {
-											stacked: !0,
-											grid: {
+									options: {
+										responsive: !0,
+										maintainAspectRatio: !1,
+										plugins: {
+											legend: {
 												display: !1
 											},
-											ticks: {
-												color: window.cssToken('--color-muted'),
-												font: {
-													size: 11
-												},
-												maxRotation: 0
+											tooltip: {
+												callbacks: {
+													label: function (e) {
+														return e.dataset.label + ': ' + window.fmtMoney(e.raw);
+													}
+												}
 											}
 										},
-										y: {
-											stacked: !0,
-											grid: {
-												color: 'rgba(0,0,0,0.05)'
-											},
-											ticks: {
-												color: window.cssToken('--color-muted'),
-												font: {
-													size: 11
+										scales: {
+											x: {
+												stacked: !0,
+												grid: {
+													display: !1
 												},
-												callback: function (e) {
-													var a = window.getCurrencySym(),
-														n = window.CURRENCY_CONFIG && window.CURRENCY_CONFIG[window.APP_CURRENCY],
-														r = n ? n.localeale : 'en-US';
-													return e >= 1e6
-														? a +
-																new Intl.NumberFormat(window._fmtLoc(r), {
-																	maximumFractionDigits: 1
-																}).format(e / 1e6) +
-																'M'
-														: e >= 1e3
+												ticks: {
+													color: window.cssToken('--color-muted'),
+													font: {
+														size: 11
+													},
+													maxRotation: 0
+												}
+											},
+											y: {
+												stacked: !0,
+												grid: {
+													color: 'rgba(0,0,0,0.05)'
+												},
+												ticks: {
+													color: window.cssToken('--color-muted'),
+													font: {
+														size: 11
+													},
+													callback: function (e) {
+														var a = window.getCurrencySym(),
+															n = window.CURRENCY_CONFIG && window.CURRENCY_CONFIG[window.APP_CURRENCY],
+															r = n ? n.localeale : 'en-US';
+														return e >= 1e6
 															? a +
-																new Intl.NumberFormat(window._fmtLoc(r), {
-																	maximumFractionDigits: 0
-																}).format(e / 1e3) +
-																'k'
-															: a + e;
+																	new Intl.NumberFormat(window._fmtLoc(r), {
+																		maximumFractionDigits: 1
+																	}).format(e / 1e6) +
+																	'M'
+															: e >= 1e3
+																? a +
+																	new Intl.NumberFormat(window._fmtLoc(r), {
+																		maximumFractionDigits: 0
+																	}).format(e / 1e3) +
+																	'k'
+																: a + e;
+													}
 												}
 											}
 										}
 									}
-								}
-							}); });
+								});
+							});
 				})(n, r, t, i));
 		}
 		((window.initCIChart = function () {
@@ -2259,15 +2425,26 @@ function filterFAQ() {
 			t,
 			i,
 			o,
-			s = {en:null,ar:null,fr:null,es:null,de:null,zh:null,hi:null,pt:null,tr:null,id:null}
-var _localeCache={};
-function loadLocale(lang,cb){
-  if(_localeCache[lang]){cb(_localeCache[lang]);return;}
-  fetch('/locales/'+lang+'.json')
-    .then(function(r){return r.json();})
-    .then(function(data){_localeCache[lang]=data;s[lang]=data;cb(data);})
-    .catch(function(){cb(s.en||{});});
-};
+			s = {en: null, ar: null, fr: null, es: null, de: null, zh: null, hi: null, pt: null, tr: null, id: null};
+		var _localeCache = {};
+		function loadLocale(lang, cb) {
+			if (_localeCache[lang]) {
+				cb(_localeCache[lang]);
+				return;
+			}
+			fetch('/locales/' + lang + '.json')
+				.then(function (r) {
+					return r.json();
+				})
+				.then(function (data) {
+					_localeCache[lang] = data;
+					s[lang] = data;
+					cb(data);
+				})
+				.catch(function () {
+					cb(s.en || {});
+				});
+		}
 
 		function l() {
 			try {
@@ -2332,7 +2509,7 @@ function loadLocale(lang,cb){
 					r(f[a]) && (e.textContent = r(f[a]));
 				});
 				var b = document.getElementById('toggle-rows');
-				(b && ((b.dataset.showAll = r('btn-show-all')), (b.dataset.showLess = r('btn-show-less'))));
+				b && ((b.dataset.showAll = r('btn-show-all')), (b.dataset.showLess = r('btn-show-less')));
 				(function () {
 					var gran = document.getElementById('amort-gran-toggle');
 					if (gran) {
@@ -2409,14 +2586,27 @@ function loadLocale(lang,cb){
 						window.updateSliderFillGlobal && window.updateSliderFillGlobal(e);
 					}),
 					'function' == typeof updateAgeTexts && updateAgeTexts());
+				var _cmmax = document.getElementById('ci-m-max-lbl');
+				if (_cmmax && r('unit-mo')) _cmmax.textContent = _cmmax.textContent.replace(/\/\S+$/, r('unit-mo'));
+				var _ry = document.getElementById('result-year');
+				if (_ry && M) {
+					var _rym = _ry.textContent.match(/^(\d+)\s*\((\d+)/);
+					if (_rym) _ry.textContent = _rym[1] + ' (' + _rym[2] + ' ' + M + ')';
+				}
+				window._refreshLiveRatesStatus && window._refreshLiveRatesStatus();
 			}
 			// Load the requested locale (and en as fallback), then apply
 			if (e !== 'en') {
-				loadLocale('en', function() {
-					loadLocale(e, function() { _applyLang(e); });
+				loadLocale('en', function () {
+					window._i18n_en = s.en;
+					loadLocale(e, function () {
+						_applyLang(e);
+					});
 				});
 			} else {
-				loadLocale('en', function() { _applyLang('en'); });
+				loadLocale('en', function () {
+					_applyLang('en');
+				});
 			}
 		}
 
@@ -3155,7 +3345,7 @@ function loadLocale(lang,cb){
 						'sc-interest-lbl': 'intérêts',
 						'sc-payoff-lbl': 'remboursé',
 						'bi-sub-template': 'vs {monthly} · Économies {saved} · Soldé {yrs} ans plus tôt',
-						'extra-savings-html': 'Remboursez <strong>{yrs} ans plus tôt</strong> &nbsp;&middot;&nbsp; Économisez <strong>{saved}</strong> d\'intérêts'
+						'extra-savings-html': "Remboursez <strong>{yrs} ans plus tôt</strong> &nbsp;&middot;&nbsp; Économisez <strong>{saved}</strong> d'intérêts"
 					},
 					es: {
 						'afford-how-title': '¿Cuánto puedo pedir prestado?',
@@ -3264,7 +3454,10 @@ function loadLocale(lang,cb){
 					}
 				};
 				Object.keys(_ui).forEach(function (e) {
-					if (s[e]) { var a = _ui[e]; for (var r in a) s[e][r] = a[r]; }
+					if (s[e]) {
+						var a = _ui[e];
+						for (var r in a) s[e][r] = a[r];
+					}
 				});
 			})(),
 			document.getElementById('settings-open-btn').addEventListener('click', d));
@@ -3356,7 +3549,7 @@ function loadLocale(lang,cb){
 				cbe: !1
 			},
 			c = [],
-			m = 'localhost' === location.hostname || '127.0.0.1' === location.hostname ? 'http://localhost:8787' : '';
+			m = 'localhost' === location.hostname || '127.0.0.1' === location.hostname ? location.origin : '';
 
 		function p(e) {
 			return (
@@ -3466,11 +3659,11 @@ function loadLocale(lang,cb){
 					' ' +
 					i;
 				var m = function (e) {
-						return new Intl.NumberFormat('en-US', {
-							minimumFractionDigits: 6,
-							maximumFractionDigits: 6
-						}).format(e);
-					};
+					return new Intl.NumberFormat('en-US', {
+						minimumFractionDigits: 6,
+						maximumFractionDigits: 6
+					}).format(e);
+				};
 				((document.getElementById('cur-rate-display').textContent = '1 ' + t + ' = ' + m(s) + ' ' + i),
 					(document.getElementById('cur-rate-inv').textContent = '1 ' + i + ' = ' + m(1 / s) + ' ' + t),
 					(document.getElementById('cur-rate-date').textContent = n || h('cur-today')),
@@ -3484,11 +3677,11 @@ function loadLocale(lang,cb){
 								var t = document.createElement('div');
 								((t.style.cssText = 'background:var(--color-surface-raised);border:1px solid var(--color-border);border-radius:8px;padding:8px 12px'),
 									(t.innerHTML =
-										'<div style="font-size:11px;color:var(--color-muted)">' +
+										'<div style="font-size:11px;color:var(--text-sub)">' +
 										a.toLocaleString('en-US') +
 										' ' +
 										e +
-										'</div><div style="font-size:13px;font-weight:500;color:var(--color-navy);white-space:nowrap">' +
+										'</div><div style="font-size:13px;font-weight:500;color:var(--text-high);white-space:nowrap">' +
 										(a * r).toLocaleString('en-US', {
 											maximumFractionDigits: 2
 										}) +
@@ -3526,7 +3719,7 @@ function loadLocale(lang,cb){
 					var _exP = JSON.parse(_ex);
 					if ((Date.now() - _exP.ts) / 36e5 >= 6) {
 						prevA = _exP.rates;
-						localStorage.setItem('loancalc_fx_prev', JSON.stringify({ rates: _exP.rates, ts: _exP.ts }));
+						localStorage.setItem('loancalc_fx_prev', JSON.stringify({rates: _exP.rates, ts: _exP.ts}));
 					}
 				}
 			} catch (_) {}
@@ -3692,7 +3885,11 @@ function loadLocale(lang,cb){
 									var t = i || e();
 									S((a[t] || 1) / (a.USD || 1), t);
 								}
-							} else (f('stocks-dot', 'error'), n && (n.textContent = h('lbl-price-unavailable')));
+							} else {
+								f('stocks-dot', 'error');
+								n && (n.textContent = h('lbl-price-unavailable'));
+								setTimeout(q, 3e4);
+							}
 						}));
 			}
 		}
@@ -3946,10 +4143,16 @@ function loadLocale(lang,cb){
 				C('GC=F', 'gold');
 			});
 		var H = document.getElementById('oil-refresh-btn');
-		H && H.addEventListener('click', function () { C('CL=F', 'oil'); });
+		H &&
+			H.addEventListener('click', function () {
+				C('CL=F', 'oil');
+			});
 		var Hsi = document.getElementById('silver-refresh-btn');
-		(Hsi && Hsi.addEventListener('click', function () { C('SI=F', 'silver'); }),
-			setInterval(function () {
+		(Hsi &&
+			Hsi.addEventListener('click', function () {
+				C('SI=F', 'silver');
+			}),
+			setInterval(window._refreshLiveRatesStatus = function () {
 				var e = Date.now(),
 					n = window._i18n_current || {},
 					t = n['cur-updated-lbl'] || 'Updated',
@@ -3997,14 +4200,29 @@ function loadLocale(lang,cb){
 					if (e) {
 						var t = JSON.parse(e),
 							i = (Date.now() - t.ts) / 36e5;
-						if (i < 24) {
+						if (!m && i < 24) {
 							((a = t.rates), (n = t.date), (r = t.count || Object.keys(t.rates).length), (u.fx = t.ts));
 							var s = i >= 6;
 							f('cur-dot', s ? 'stale' : 'live');
 							var l = k(t.ts),
 								d = document.getElementById('cur-status-text');
-							try { var _pv2 = localStorage.getItem('loancalc_fx_prev'); if (_pv2) prevA = JSON.parse(_pv2).rates; } catch (_) {}
-							if (!prevA) { fetch('/api/fx-prev').then(function(r){ return r.json(); }).then(function(d){ if (d.prev) { prevA = d.prev; y(); } }).catch(function(){}); }
+							try {
+								var _pv2 = localStorage.getItem('loancalc_fx_prev');
+								if (_pv2) prevA = JSON.parse(_pv2).rates;
+							} catch (_) {}
+							if (!prevA) {
+								fetch('/api/fx-prev')
+									.then(function (r) {
+										return r.json();
+									})
+									.then(function (d) {
+										if (d.prev) {
+											prevA = d.prev;
+											y();
+										}
+									})
+									.catch(function () {});
+							}
 							return (d && (d.textContent = (s ? h('lbl-rates-from') + ' ' + l : h('cur-updated-lbl') + ' ' + l) + ' · ' + r + ' ' + h('lbl-currencies')), v(), y(), void (s && A()));
 						}
 					}
@@ -4014,7 +4232,17 @@ function loadLocale(lang,cb){
 					if (_pv) prevA = JSON.parse(_pv).rates;
 				} catch (_) {}
 				if (!prevA) {
-					fetch('/api/fx-prev').then(function(r){ return r.json(); }).then(function(d){ if (d.prev) { prevA = d.prev; y(); } }).catch(function(){});
+					fetch('/api/fx-prev')
+						.then(function (r) {
+							return r.json();
+						})
+						.then(function (d) {
+							if (d.prev) {
+								prevA = d.prev;
+								y();
+							}
+						})
+						.catch(function () {});
 				}
 				A();
 			})(),
@@ -4029,7 +4257,7 @@ function loadLocale(lang,cb){
 						t = document.getElementById(e + '-status');
 					(t && (t.textContent = n ? h('lbl-from') + ' ' + r : h('cur-updated-lbl') + ' ' + r), w());
 				}
-				(!a || !a.price || O - a.ts > 36e5) && C('gold' === e ? 'GC=F' : 'silver' === e ? 'SI=F' : 'CL=F', e);
+				(!!m || !a || !a.price || O - a.ts > 36e5) && C('gold' === e ? 'GC=F' : 'silver' === e ? 'SI=F' : 'CL=F', e);
 			}),
 			(function () {
 				var n = Date.now(),
@@ -4044,13 +4272,13 @@ function loadLocale(lang,cb){
 						S((a[s] || 1) / (a.USD || 1), s);
 					}
 				}
-				(!r || !r.data || n - r.ts > 36e5) && q();
+				(!!m || !r || !r.data || n - r.ts > 36e5) && q();
 			})(),
 			window._fetchCBERateIfEGP());
 	})(),
 	(window.switchPanel = switchPanel),
 	document.querySelectorAll('.tool-panel.active .calc-card, .tool-panel.active .chart-wrap, .tool-panel.active .table-wrap').forEach(function (e) {
-		(e.classList.add('fade-up-once'), (e.dataset.animated = '1'));
+		e.dataset.animated = '1';
 	}));
 var _panelNavMap = {
 	'panel-loans': {
@@ -4332,7 +4560,7 @@ var hashMap = {
 				((e.textContent = 'Copied!'),
 					e.classList.add('copied'),
 					setTimeout(function () {
-						(e.innerHTML = '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 9.5a3.536 3.536 0 0 0 5 0l2-2a3.536 3.536 0 0 0-5-5l-1 1"/><path d="M9.5 6.5a3.536 3.536 0 0 0-5 0l-2 2a3.536 3.536 0 0 0 5 5l1-1"/></svg><span data-i18n="btn-copy-link"> ' + ((window._i18n_current && window._i18n_current['btn-copy-link']) || 'Copy link') + '</span>', e.classList.remove('copied'));
+						((e.innerHTML = '<svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6.5 9.5a3.536 3.536 0 0 0 5 0l2-2a3.536 3.536 0 0 0-5-5l-1 1"/><path d="M9.5 6.5a3.536 3.536 0 0 0-5 0l-2 2a3.536 3.536 0 0 0 5 5l1-1"/></svg><span data-i18n="btn-copy-link"> ' + ((window._i18n_current && window._i18n_current['btn-copy-link']) || 'Copy link') + '</span>'), e.classList.remove('copied'));
 					}, 1800));
 			}
 			if (navigator.clipboard && navigator.clipboard.writeText)
@@ -4556,144 +4784,27 @@ var hashMap = {
 			})());
 	})());
 
-(function () {
-	if (window.matchMedia('(pointer: coarse)').matches) return;
-
-	var PANEL_COLORS = {
-		'panel-loans':     '#d4a040',
-		'panel-savings':   '#4ade80',
-		'panel-refinance': '#f09090',
-		'panel-currency':  '#60a5fa',
-		'panel-faq':       '#8fada0',
-	};
-
-	var BAR_COUNT = 5;
-	var BAR_MIN = 3;
-	var BAR_MAX = 18;
-	var BAR_PHASES = [0, 1.1, 2.2, 0.6, 1.8];
-	var BAR_SPEEDS = [1.0, 1.3, 0.8, 1.5, 0.9];
-	var CHART_H = 27;
-
-	var el = document.createElement('div');
-	el.id = 'cursor-chart';
-	el.setAttribute('aria-hidden', 'true');
-
-	var barsEl = document.createElement('div');
-	barsEl.className = 'cursor-bars';
-
-	var bars = [];
-	for (var i = 0; i < BAR_COUNT; i++) {
-		var b = document.createElement('div');
-		b.className = 'cursor-bar';
-		barsEl.appendChild(b);
-		bars.push(b);
-	}
-
-	var dot = document.createElement('div');
-	dot.className = 'cursor-dot';
-
-	el.appendChild(barsEl);
-	el.appendChild(dot);
-	document.body.appendChild(el);
-
-	var mx = 0, my = 0;
-	var visible = false, paused = false, rafRunning = false;
-	var lastMx = 0, lastMy = 0, speed = 0;
-
-	function setColor(panelId) {
-		el.style.setProperty('--chart-color', PANEL_COLORS[panelId] || '#d4a040');
-	}
-
-	function show() {
-		if (!paused && !el.classList.contains('visible')) el.classList.add('visible');
-	}
-
-	function hide() {
-		el.classList.remove('visible');
-	}
-
-	function animateBars(now) {
-		var dx = mx - lastMx, dy = my - lastMy;
-		speed += (Math.sqrt(dx * dx + dy * dy) - speed) * 0.3;
-		lastMx = mx; lastMy = my;
-		var boost = Math.min(speed * 0.4, 8);
-		for (var i = 0; i < BAR_COUNT; i++) {
-			var sine = (Math.sin(now * 0.001 * BAR_SPEEDS[i] + BAR_PHASES[i]) + 1) / 2;
-			var h = BAR_MIN + (BAR_MAX - BAR_MIN) * sine + boost;
-			bars[i].style.height = Math.min(h, BAR_MAX) + 'px';
-		}
-	}
-
-	function tick(now) {
-		el.style.transform = 'translate(' + mx + 'px,' + (my - CHART_H) + 'px)';
-		animateBars(now);
-		if (visible) {
-			requestAnimationFrame(tick);
-		} else {
-			rafRunning = false;
-		}
-	}
-
-	document.addEventListener('mousemove', function (e) {
-		mx = e.clientX;
-		my = e.clientY;
-
-		var overScrollbar = e.clientX >= document.documentElement.clientWidth;
-		var nativeCursor = window.getComputedStyle(e.target).cursor !== 'none';
-		paused = overScrollbar || nativeCursor;
-
-		if (!visible) {
-			visible = true;
-			if (!rafRunning) { rafRunning = true; requestAnimationFrame(tick); }
-		}
-		if (paused) hide(); else show();
-	});
-
-	window.addEventListener('scroll', function () {
-		if (paused) { paused = false; show(); }
-	}, { passive: true });
-
-	document.addEventListener('mouseleave', function () {
-		visible = false;
-		hide();
-	});
-
-	document.addEventListener('mouseenter', function () {
-		visible = true;
-		if (!rafRunning) { rafRunning = true; requestAnimationFrame(tick); }
-		if (!paused) show();
-	});
-
-	var _orig = window.switchPanel;
-	if (typeof _orig === 'function') {
-		window.switchPanel = function (panelId) {
-			_orig.call(this, panelId);
-			setColor(panelId);
-		};
-	}
-
-	var init = document.querySelector('.tool-panel.active');
-	setColor(init ? init.id : 'panel-loans');
-}());
-
 
 /* ── Consent Popup ──────────────────────────────────────────── */
 (function () {
 	var KEY = 'loancalc_consent';
-	var LOGO = '<svg width="32" height="32" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="36" height="36" rx="9" fill="#1a2e1a"/><line x1="10" y1="8" x2="10" y2="27" stroke="#d4a040" stroke-width="2.5" stroke-linecap="round"/><line x1="10" y1="27" x2="28" y2="27" stroke="#d4a040" stroke-width="2.5" stroke-linecap="round"/><path d="M10 22 L15 22 L15 27" stroke="#d4a040" stroke-opacity="0.4" stroke-width="1.2" fill="none"/><line x1="10" y1="12" x2="13" y2="12" stroke="#d4a040" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round"/><line x1="10" y1="17" x2="13" y2="17" stroke="#d4a040" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round"/><line x1="15" y1="27" x2="15" y2="25" stroke="#d4a040" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round"/><line x1="19" y1="27" x2="19" y2="25" stroke="#d4a040" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round"/><line x1="23" y1="27" x2="23" y2="25" stroke="#d4a040" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round"/></svg>';
+	var LOGO =
+		'<svg width="32" height="32" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg"><rect width="36" height="36" rx="9" fill="#1a2e1a"/><line x1="10" y1="8" x2="10" y2="27" stroke="#d4a040" stroke-width="2.5" stroke-linecap="round"/><line x1="10" y1="27" x2="28" y2="27" stroke="#d4a040" stroke-width="2.5" stroke-linecap="round"/><path d="M10 22 L15 22 L15 27" stroke="#d4a040" stroke-opacity="0.4" stroke-width="1.2" fill="none"/><line x1="10" y1="12" x2="13" y2="12" stroke="#d4a040" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round"/><line x1="10" y1="17" x2="13" y2="17" stroke="#d4a040" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round"/><line x1="15" y1="27" x2="15" y2="25" stroke="#d4a040" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round"/><line x1="19" y1="27" x2="19" y2="25" stroke="#d4a040" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round"/><line x1="23" y1="27" x2="23" y2="25" stroke="#d4a040" stroke-opacity="0.55" stroke-width="1.2" stroke-linecap="round"/></svg>';
 
 	function applyConsent(analytics, ads) {
 		if (typeof gtag !== 'function') return;
 		gtag('consent', 'update', {
-			analytics_storage:  analytics ? 'granted' : 'denied',
-			ad_storage:         ads ? 'granted' : 'denied',
-			ad_user_data:       ads ? 'granted' : 'denied',
+			analytics_storage: analytics ? 'granted' : 'denied',
+			ad_storage: ads ? 'granted' : 'denied',
+			ad_user_data: ads ? 'granted' : 'denied',
 			ad_personalization: ads ? 'granted' : 'denied'
 		});
 	}
 
 	function persist(analytics, ads) {
-		try { localStorage.setItem(KEY, JSON.stringify({a: analytics, d: ads})); } catch (_) {}
+		try {
+			localStorage.setItem(KEY, JSON.stringify({a: analytics, d: ads}));
+		} catch (_) {}
 		applyConsent(analytics, ads);
 		closePopup();
 	}
@@ -4719,71 +4830,27 @@ var hashMap = {
 	}
 
 	function buildPopup() {
-		var hasConsent = false;
+		var ov = document.getElementById('consent-overlay');
+		if (!ov) return;
 		try {
 			var stored = JSON.parse(localStorage.getItem(KEY));
 			if (stored && typeof stored.a === 'boolean') {
 				applyConsent(stored.a, stored.d);
-				hasConsent = true;
+				var pa = document.getElementById('cb-pref-a');
+				var pd = document.getElementById('cb-pref-d');
+				if (pa) pa.checked = !!stored.a;
+				if (pd) pd.checked = !!stored.d;
 			}
 		} catch (_) {}
 
-		var ov = document.createElement('div');
-		ov.id = 'consent-overlay';
-		ov.innerHTML =
-			'<div id="consent-popup" role="dialog" aria-modal="true" aria-label="Cookie preferences">' +
-				'<div class="cp-head">' +
-					'<div>' + LOGO + '</div>' +
-					'<p class="cp-title">Cookie Preferences</p>' +
-					'<p class="cp-desc">We use cookies for analytics and personalised ads. ' +
-					'See our <a href="/privacy/">Privacy Policy</a>.</p>' +
-				'</div>' +
-				'<div class="cp-body">' +
-					'<div class="cp-cat">' +
-						'<div class="cp-cat-info">' +
-							'<div class="cp-cat-name">Necessary</div>' +
-							'<div class="cp-cat-desc">Essential for the site to work. Always active.</div>' +
-						'</div>' +
-						'<label class="ctoggle"><input type="checkbox" checked disabled aria-label="Necessary cookies, always active"><span class="ctoggle-track"></span></label>' +
-					'</div>' +
-					'<div class="cp-cat">' +
-						'<div class="cp-cat-info">' +
-							'<div class="cp-cat-name">Analytics</div>' +
-							'<div class="cp-cat-desc">Google Analytics 4 — helps us understand how the site is used.</div>' +
-						'</div>' +
-						'<label class="ctoggle"><input type="checkbox" id="cb-pref-a" aria-label="Analytics cookies"><span class="ctoggle-track"></span></label>' +
-					'</div>' +
-					'<div class="cp-cat">' +
-						'<div class="cp-cat-info">' +
-							'<div class="cp-cat-name">Advertising</div>' +
-							'<div class="cp-cat-desc">Google AdSense — enables personalised ads based on your interests.</div>' +
-						'</div>' +
-						'<label class="ctoggle"><input type="checkbox" id="cb-pref-d" aria-label="Advertising cookies"><span class="ctoggle-track"></span></label>' +
-					'</div>' +
-				'</div>' +
-				'<div class="cp-foot">' +
-					'<div class="cp-btn-row">' +
-						'<button class="cbtn cbtn-reject" id="cb-reject" style="flex:1">Reject All</button>' +
-						'<button class="cbtn cbtn-accept" id="cb-accept" style="flex:1">Accept All</button>' +
-					'</div>' +
-					'<button class="cbtn cbtn-save cbtn-full" id="cb-save">Save Preferences</button>' +
-				'</div>' +
-			'</div>';
-		document.body.appendChild(ov);
-
-		var trigger = document.createElement('button');
-		trigger.id = 'consent-trigger';
-		trigger.setAttribute('aria-label', 'Cookie preferences');
-		trigger.innerHTML = LOGO;
-		document.body.appendChild(trigger);
-
-		document.getElementById('cb-accept').onclick = function () { persist(true, true); };
-		document.getElementById('cb-reject').onclick  = function () { persist(false, false); };
+		document.getElementById('cb-accept').onclick = function () {
+			persist(true, true);
+		};
+		document.getElementById('cb-reject').onclick = function () {
+			persist(false, false);
+		};
 		document.getElementById('cb-save').onclick = function () {
-			persist(
-				document.getElementById('cb-pref-a').checked,
-				document.getElementById('cb-pref-d').checked
-			);
+			persist(document.getElementById('cb-pref-a').checked, document.getElementById('cb-pref-d').checked);
 		};
 
 		ov.addEventListener('click', function (e) {
@@ -4794,8 +4861,8 @@ var hashMap = {
 			} catch (_) {}
 		});
 
-		trigger.onclick = openPopup;
-		if (!hasConsent) openPopup();
+		var trigger = document.getElementById('consent-trigger');
+		if (trigger) trigger.onclick = openPopup;
 	}
 
 	function build() {
@@ -4806,22 +4873,28 @@ var hashMap = {
 
 		var settled = false;
 
-		window.__tcfapi('addEventListener', 2, function(tcData, success) {
+		window.__tcfapi('addEventListener', 2, function (tcData, success) {
 			if (settled) return;
 			if (!success) return;
 			if (typeof tcData.gdprApplies === 'boolean') {
 				settled = true;
-				window.__tcfapi('removeEventListener', 2, function() {}, tcData.listenerId);
-				if (tcData.gdprApplies === true) return;
+				window.__tcfapi('removeEventListener', 2, function () {}, tcData.listenerId);
+				if (tcData.gdprApplies === true) {
+					closePopup();
+					return;
+				}
 				buildPopup();
 			}
 		});
 
 		// Fallback: if TCF never fires within 3s, show popup anyway
-		setTimeout(function() {
-			if (!settled) { settled = true; buildPopup(); }
+		setTimeout(function () {
+			if (!settled) {
+				settled = true;
+				buildPopup();
+			}
 		}, 3000);
 	}
 
 	setTimeout(build, 500);
-}());
+})();

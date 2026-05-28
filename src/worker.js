@@ -38,7 +38,7 @@ async function fetchGoldPrice() {
 		if (r.ok) {
 			const d = await r.json();
 			const sym = d?.symbols?.[0];
-			const price = sym && parseFloat(sym.Close || 0);
+			const price = sym && parseFloat(sym.close || sym.Close || 0);
 			if (typeof price === 'number' && price > 100) return price;
 		}
 	} catch (_) {}
@@ -64,7 +64,7 @@ async function fetchOilPrice() {
 		if (r.ok) {
 			const d = await r.json();
 			const sym = d?.symbols?.[0];
-			const price = sym && parseFloat(sym.Close || 0);
+			const price = sym && parseFloat(sym.close || sym.Close || 0);
 			if (typeof price === 'number' && price > 0) return price;
 		}
 	} catch (_) {}
@@ -127,7 +127,7 @@ async function fetchSilverPrice() {
 		if (r.ok) {
 			const d = await r.json();
 			const sym = d?.symbols?.[0];
-			const price = sym && parseFloat(sym.Close || 0);
+			const price = sym && parseFloat(sym.close || sym.Close || 0);
 			if (typeof price === 'number' && price > 1) return price;
 		}
 	} catch (_) {}
@@ -201,15 +201,15 @@ async function fetchStockQuotes() {
 				const d = await r.json();
 				const sym = d?.symbols?.[0];
 				if (!sym) return null;
-				const price = parseFloat(sym.Close || 0);
+				const price = parseFloat(sym.close || sym.Close || 0);
 				if (!price) return null;
 				// Stooq's compact format (f=sd2t2ohlcvn) has no prev-close field.
 				// Open-to-close is used here; this will differ from other sources intraday.
-				const open = parseFloat(sym.Open || price);
+				const open = parseFloat(sym.open || sym.Open || price);
 				const change = open ? ((price - open) / open) * 100 : 0;
 				return {
 					ticker: ticker === 'BRK-B' ? 'BRK.B' : ticker,
-					name: STOCK_NAMES[ticker] || sym.Name || ticker,
+					name: STOCK_NAMES[ticker] || sym.name || sym.Name || ticker,
 					price,
 					change
 				};
@@ -388,8 +388,7 @@ async function fetchAllLendingRates() {
 	return rates;
 }
 
-const HASHED_ASSET = /\.[0-9a-f]{8}\.(js|css)$/i;
-const CSP = "default-src 'self'; script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://fundingchoicesmessages.google.com https://cdnjs.cloudflare.com https://ep2.adtrafficquality.google https://ep1.adtrafficquality.google https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://open.er-api.com https://cdn.jsdelivr.net https://stooq.com https://api.metals.live https://query1.finance.yahoo.com https://query2.finance.yahoo.com https://finance.yahoo.com https://www.googleapis.com https://api.worldbank.org https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://analytics.google.com https://stats.g.doubleclick.net https://ep1.adtrafficquality.google https://www.google.com https://fundingchoicesmessages.google.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://ep2.adtrafficquality.google https://www.google.com; object-src 'none'; base-uri 'self'";
+const CSP ="default-src 'self'; script-src 'self' 'unsafe-inline' https://pagead2.googlesyndication.com https://www.googletagmanager.com https://fundingchoicesmessages.google.com https://cdnjs.cloudflare.com https://ep2.adtrafficquality.google https://ep1.adtrafficquality.google https://static.cloudflareinsights.com; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https:; connect-src 'self' https://open.er-api.com https://cdn.jsdelivr.net https://stooq.com https://api.metals.live https://query1.finance.yahoo.com https://query2.finance.yahoo.com https://finance.yahoo.com https://www.googleapis.com https://api.worldbank.org https://googleads.g.doubleclick.net https://pagead2.googlesyndication.com https://analytics.google.com https://stats.g.doubleclick.net https://ep1.adtrafficquality.google https://www.google.com https://fundingchoicesmessages.google.com https://cdnjs.cloudflare.com; frame-src https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://ep2.adtrafficquality.google https://www.google.com; object-src 'none'; base-uri 'self'";
 
 async function serveWithCaching(request, env) {
 	const url = new URL(request.url);
@@ -397,13 +396,16 @@ async function serveWithCaching(request, env) {
 	if (!response.ok) return response;
 
 	const p = url.pathname;
-	const isHashed = HASHED_ASSET.test(p);
 	const isLocale = p.startsWith('/locales/') && p.endsWith('.json');
+	const isFont = p.startsWith('/fonts/') && p.endsWith('.woff2');
+	const isAsset = /\.(js|css)$/.test(p) && !p.startsWith('/fonts/');
 	const isHTML = p.endsWith('.html') || p.endsWith('/') || !/\.[^/]+$/.test(p);
 
 	const headers = new Headers(response.headers);
-	if (isHashed) {
+	if (isFont) {
 		headers.set('Cache-Control', 'public, max-age=31536000, immutable');
+	} else if (isAsset) {
+		headers.set('Cache-Control', 'public, max-age=3600');
 	} else if (isLocale) {
 		headers.set('Cache-Control', 'public, max-age=86400');
 	} else if (isHTML) {
@@ -479,22 +481,26 @@ export default {
 
 			const type = ticker === 'GC=F' ? 'gold' : ticker === 'SI=F' ? 'silver' : 'oil';
 			const cacheKey = new Request(`https://cache.local/api/commodity?type=${type}`);
+			const fallbackKey = new Request(`https://cache.local/api/commodity-fallback?type=${type}`);
 
 			try {
 				const price = type === 'gold' ? await fetchGoldPrice() : type === 'silver' ? await fetchSilverPrice() : await fetchOilPrice();
 				const date = new Date().toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
 				const body = JSON.stringify({price, date, type});
-				const res = new Response(body, {
+				// Store 24h fallback so stale data survives across hourly cache expiry
+				caches.default.put(fallbackKey, new Response(body, {
+					headers: {'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=86400'}
+				})).catch(() => {});
+				return new Response(body, {
 					headers: {
 						'Content-Type': 'application/json',
 						'Access-Control-Allow-Origin': '*',
 						'Cache-Control': 'public, max-age=3600'
 					}
 				});
-				caches.default.put(cacheKey, res.clone()).catch(() => {});
-				return res;
 			} catch (_) {
-				const cached = await caches.default.match(cacheKey).catch(() => null);
+				const cached = await (caches.default.match(cacheKey).catch(() => null))
+					|| await (caches.default.match(fallbackKey).catch(() => null));
 				if (cached) {
 					return new Response(cached.body, {
 						status: 200,
@@ -514,21 +520,25 @@ export default {
 
 		if (url.pathname === '/api/stocks') {
 			const cacheKey = new Request('https://cache.local/api/stocks');
+			const fallbackKey = new Request('https://cache.local/api/stocks-fallback');
 			try {
 				const stocks = await fetchStockQuotes();
 				const date = new Date().toLocaleDateString('en-US', {month: 'short', day: 'numeric'});
 				const body = JSON.stringify({stocks, date});
-				const res = new Response(body, {
+				// Store 24h fallback so stale data survives across hourly cache expiry
+				caches.default.put(fallbackKey, new Response(body, {
+					headers: {'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=86400'}
+				})).catch(() => {});
+				return new Response(body, {
 					headers: {
 						'Content-Type': 'application/json',
 						'Access-Control-Allow-Origin': '*',
 						'Cache-Control': 'public, max-age=3600'
 					}
 				});
-				caches.default.put(cacheKey, res.clone()).catch(() => {});
-				return res;
 			} catch (e) {
-				const cached = await caches.default.match(cacheKey).catch(() => null);
+				const cached = await (caches.default.match(cacheKey).catch(() => null))
+					|| await (caches.default.match(fallbackKey).catch(() => null));
 				if (cached) {
 					return new Response(cached.body, {
 						status: 200,
