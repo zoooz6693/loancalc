@@ -358,5 +358,8 @@
   "hint-closingcosts": "Normalmente entre el 1 y el 5 % del importe del préstamo. El presupuesto de su prestamista es la cifra más precisa.",
   "hint-closingcosts-rf": "Rango habitual en EE.UU.: 2–5 % del importe del préstamo. Fuera de EE.UU., use el presupuesto de su prestamista o estime un 1–3 %.",
   "hint-breakeven": "El punto de equilibrio es el mes en que los ahorros acumulados por la tasa más baja superan los costos iniciales del refinanciamiento.",
-  "lbl-stocks-note": "Acciones de EE.UU. · como referencia"
+  "lbl-stocks-note": "Acciones de EE.UU. · como referencia",
+  "btn-reset": "Restablecer valores predeterminados",
+  "btn-reset-confirm": "¿Confirmar restablecimiento?",
+  "footer-faq": "Preguntas frecuentes"
 }

@@ -502,10 +502,16 @@ function filterFAQ() {
 	}),
 	(window.fmtMoney = function (e) {
 		var a = window.APP_CURRENCY,
-			n = window.CURRENCY_CONFIG[a];
-		if (!n) return (window.getCurrencySym ? window.getCurrencySym() : '$') + new Intl.NumberFormat('en-US').format(Math.round(e));
+			n = window.CURRENCY_CONFIG[a],
+			isRtl = window.APP_LANG === 'ar',
+			locale = isRtl ? window._fmtLoc('ar') : 'en-US';
+		if (!n) {
+			var sym = window.getCurrencySym ? window.getCurrencySym() : '$';
+			var num = new Intl.NumberFormat('en-US').format(Math.round(e));
+			return isRtl ? num + ' ' + sym : sym + num;
+		}
 		try {
-			var parts = new Intl.NumberFormat('en-US', {
+			var parts = new Intl.NumberFormat(locale, {
 				style: 'currency',
 				currency: a,
 				maximumFractionDigits: 0
@@ -516,7 +522,8 @@ function filterFAQ() {
 				})
 				.join('');
 		} catch (a) {
-			return n.symbol + new Intl.NumberFormat('en-US').format(Math.round(e));
+			var num = new Intl.NumberFormat('en-US').format(Math.round(e));
+			return isRtl ? num + ' ' + n.symbol : n.symbol + num;
 		}
 	}),
 	(window._fmtLoc = function (e) {
@@ -883,6 +890,7 @@ function filterFAQ() {
 						}
 					}
 				})();
+				var _dispInterest = w.interest, _dispTotal = w.total, _dispYear = x, _dispYrs = y, _dispAccelMonths = y * 12;
 				(function () {
 					var extraEl = document.getElementById('extra-savings');
 					if (!extraEl) return;
@@ -918,12 +926,27 @@ function filterFAQ() {
 					var _exTpl = (window._i18n_current && window._i18n_current['extra-savings-html']) || 'Pay off <strong>{yrs} yrs sooner</strong> &nbsp;&middot;&nbsp; Save <strong>{saved}</strong> in interest';
 					extraEl.innerHTML = _exTpl.replace('{yrs}', savedYrs2).replace('{saved}', p(savedI2));
 					extraEl.style.display = '';
+					// Feed accelerated values back into main display
+					_dispInterest = totalI2;
+					_dispTotal = g + totalI2;
+					_dispAccelMonths = accelMonths;
+					var accelYrs = Math.ceil(accelMonths / 12);
+					_dispYrs = accelYrs;
+					_dispYear = new Date().getFullYear() + accelYrs;
+					var S2 = (window._i18n_current && window._i18n_current['unit-yrs']) || 'yrs';
+					var A2 = (window._i18n_current && window._i18n_current['unit-years']) || 'years';
+					document.getElementById('result-interest').textContent = p(totalI2);
+					var z2 = document.getElementById('res-interest-context');
+					var _ctxTpl2 = (window._i18n_current && window._i18n_current['res-interest-context']) || 'over {n} {years} total';
+					if (z2) z2.textContent = _ctxTpl2.replace('{n}', accelYrs).replace('{years}', A2);
+					document.getElementById('result-total').textContent = p(g + totalI2);
+					document.getElementById('result-year').textContent = _dispYear + ' (' + accelYrs + ' ' + S2 + ')';
 				})();
-				var P = (g / w.total) * 100,
+				var P = (g / _dispTotal) * 100,
 					q = 100 - P;
 				((document.getElementById('bar-p').style.transform = 'scaleX(' + P / 100 + ')'), (document.getElementById('bar-i').style.transform = 'scaleX(' + q / 100 + ')'), (document.getElementById('pct-p').textContent = Math.round(P) + '%'), (document.getElementById('pct-i').textContent = Math.round(q) + '%'));
 				var E = document.getElementById('c-principal');
-				(E && ((E.textContent = p(g)), (document.getElementById('c-interest').textContent = p(w.interest)), (document.getElementById('c-total').textContent = p(w.total)), (document.getElementById('c-year').textContent = x), (document.getElementById('c-principal-pct').textContent = '(' + Math.round(P) + '%)'), (document.getElementById('c-interest-pct').textContent = '(' + Math.round(q) + '%)')),
+				(E && ((E.textContent = p(g)), (document.getElementById('c-interest').textContent = p(_dispInterest)), (document.getElementById('c-total').textContent = p(_dispTotal)), (document.getElementById('c-year').textContent = _dispYear), (document.getElementById('c-principal-pct').textContent = '(' + Math.round(P) + '%)'), (document.getElementById('c-interest-pct').textContent = '(' + Math.round(q) + '%)')),
 					(function (e, a) {
 						ensureChartJs(function () {
 							var n = document.getElementById('loanChart');
@@ -970,30 +993,39 @@ function filterFAQ() {
 								});
 							}
 						});
-					})(g, w.interest),
-					(o = (function (e, a, n) {
-						for (var r = a / 100 / 12, t = 12 * n, mp = h(e, a, n).monthly, bal = e, s = [], l = 1; l <= n; l++) {
-							for (var u = 0, d = 0, c = bal, months = Math.min(12, t - 12 * (l - 1)), p2 = 0; p2 < months; p2++) {
-								var gi = bal * r,
-									fi = mp - gi;
-								((d += gi), (u += fi), (bal -= fi) < 0.005 && (bal = 0));
+					})(g, _dispInterest),
+					(o = (function (e, a, n, extraAmt) {
+						var r = a / 100 / 12, t = 12 * n, mp = h(e, a, n).monthly, accelPmt = mp + (extraAmt || 0), bal = e, s = [], yr = 1;
+						while (bal > 0.005 && (yr - 1) * 12 < t + 1) {
+							var u = 0, d = 0, c = bal, months = 0;
+							while (months < 12 && bal > 0.005) {
+								var gi = bal * r, fi = Math.min(accelPmt - gi, bal);
+								if (fi <= 0) break;
+								d += gi; u += fi; bal -= fi;
+								if (bal < 0.005) bal = 0;
+								months++;
 							}
-							s.push({year: l, start: c, paidP: u, paidI: d, end: Math.max(0, bal)});
+							s.push({year: yr, start: c, paidP: u, paidI: d, end: Math.max(0, bal)});
+							yr++;
+							if (bal === 0) break;
 						}
 						return s;
-					})(g, v, y)),
-					(oMonthly = (function (e, a, n) {
-						for (var r = a / 100 / 12, t = 12 * n, mp2 = h(e, a, n).monthly, bal2 = e, s2 = [], mo = 1; mo <= t; mo++) {
-							var gi2 = bal2 * r,
-								fi2 = mp2 - gi2,
-								st2 = bal2;
-							(bal2 -= fi2) < 0.005 && (bal2 = 0);
+					})(g, v, y, _dispAccelMonths < y * 12 ? (parseFloat(sExtra && sExtra.value) || 0) : 0)),
+					(oMonthly = (function (e, a, n, extraAmt) {
+						var r = a / 100 / 12, t = 12 * n, mp2 = h(e, a, n).monthly, accelPmt2 = mp2 + (extraAmt || 0), bal2 = e, s2 = [], mo = 1;
+						while (bal2 > 0.005 && mo <= t * 2) {
+							var gi2 = bal2 * r, fi2 = Math.min(accelPmt2 - gi2, bal2), st2 = bal2;
+							if (fi2 <= 0) break;
+							bal2 -= fi2;
+							if (bal2 < 0.005) bal2 = 0;
 							s2.push({month: mo, start: st2, paidP: fi2, paidI: gi2, end: Math.max(0, bal2)});
+							mo++;
+							if (bal2 === 0) break;
 						}
 						return s2;
-					})(g, v, y)),
+					})(g, v, y, _dispAccelMonths < y * 12 ? (parseFloat(sExtra && sExtra.value) || 0) : 0)),
 					f(amortGran === 'monthly' ? oMonthly : o, i ? null : amortGran === 'monthly' ? 24 : 5));
-				updateScenarioCard(w.monthly, w.interest, new Date().getFullYear() + y);
+				updateScenarioCard(w.monthly, _dispInterest, _dispYear);
 			} catch (e) {
 				(console.error('Loan calc error:', e), k());
 			}
@@ -1357,7 +1389,11 @@ function filterFAQ() {
 			}),
 			document.querySelectorAll('.tab-btn[data-tab]').forEach(function (e) {
 				e.addEventListener('click', function () {
+					var prev = window._currentTab;
 					y(this.dataset.tab);
+					if (this.dataset.tab !== prev) {
+						try { history.replaceState(null, '', location.pathname + location.search); } catch (e2) {}
+					}
 				});
 			}),
 			document.getElementById('toggle-rows').addEventListener('click', function () {
@@ -1540,7 +1576,7 @@ function filterFAQ() {
 			x.addEventListener('click', function () {
 				if (P) (clearTimeout(S), (P = !1), (this.textContent = this.dataset.origLabel), y(r));
 				else {
-					((P = !0), (this.dataset.origLabel = this.textContent), (this.textContent = 'Confirm reset?'));
+					((P = !0), (this.dataset.origLabel = this.textContent), (this.textContent = this.dataset.confirmLabel || 'Confirm reset?'));
 					var e = this;
 					S = setTimeout(function () {
 						((P = !1), (e.textContent = e.dataset.origLabel));
@@ -2473,6 +2509,10 @@ function filterFAQ() {
 					document.querySelectorAll('[data-i18n-html]').forEach(function (e) {
 						var a = r(e.getAttribute('data-i18n-html'));
 						a && (e.innerHTML = a);
+					}),
+					document.querySelectorAll('[data-i18n-confirm]').forEach(function (e) {
+						var a = r(e.getAttribute('data-i18n-confirm'));
+						a && (e.dataset.confirmLabel = a);
 					}));
 				var i = document.getElementById('hero-h1');
 				i && r('hero-h1') && (i.innerHTML = r('hero-h1'));
@@ -2601,11 +2641,13 @@ function filterFAQ() {
 					window._i18n_en = s.en;
 					loadLocale(e, function () {
 						_applyLang(e);
+						document.documentElement.style.visibility = '';
 					});
 				});
 			} else {
 				loadLocale('en', function () {
 					_applyLang('en');
+					document.documentElement.style.visibility = '';
 				});
 			}
 		}

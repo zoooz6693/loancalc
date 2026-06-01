@@ -358,5 +358,8 @@
   "hint-closingcosts": "In der Regel 1–5 % des Kreditbetrags. Das Angebot Ihres Kreditgebers ist der genaueste Richtwert.",
   "hint-closingcosts-rf": "Üblicher US-Bereich: 2–5 % des Kreditbetrags. Außerhalb der USA verwenden Sie das Angebot Ihres Kreditgebers oder schätzen Sie 1–3 %.",
   "hint-breakeven": "Der Break-even-Punkt ist der Monat, in dem die kumulierten Einsparungen durch den niedrigeren Zinssatz die anfänglichen Refinanzierungskosten übersteigen.",
-  "lbl-stocks-note": "US-Aktien · als Referenz"
+  "lbl-stocks-note": "US-Aktien · als Referenz",
+  "btn-reset": "Standardwerte zurücksetzen",
+  "btn-reset-confirm": "Zurücksetzen bestätigen?",
+  "footer-faq": "Häufig gestellte Fragen"
 }

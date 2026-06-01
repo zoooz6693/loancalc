@@ -358,5 +358,8 @@
   "hint-closingcosts": "Généralement entre 1 et 5 % du montant du prêt. Le devis de votre prêteur est la référence la plus précise.",
   "hint-closingcosts-rf": "Fourchette habituelle aux États-Unis : 2–5 % du montant du prêt. Hors États-Unis, utilisez le devis de votre prêteur ou estimez 1–3 %.",
   "hint-breakeven": "Le seuil de rentabilité est le mois où les économies cumulées liées au taux inférieur dépassent les frais initiaux de refinancement.",
-  "lbl-stocks-note": "Actions américaines · à titre indicatif"
+  "lbl-stocks-note": "Actions américaines · à titre indicatif",
+  "btn-reset": "Réinitialiser les valeurs par défaut",
+  "btn-reset-confirm": "Confirmer la réinitialisation ?",
+  "footer-faq": "Questions fréquentes"
 }

@@ -358,5 +358,8 @@
   "hint-closingcosts": "Genellikle kredi tutarının %1–5'i. Kredi verenin teklifi en doğru rakamdır.",
   "hint-closingcosts-rf": "ABD'de tipik aralık: kredi tutarının %2–5'i. ABD dışında, kredi verenin teklifini kullanın veya %1–3 tahmin edin.",
   "hint-breakeven": "Başa baş noktası, düşük faiz oranından elde edilen kümülatif tasarrufların ön kapanış maliyetlerini aştığı aydır.",
-  "lbl-stocks-note": "ABD hisseleri · referans için"
+  "lbl-stocks-note": "ABD hisseleri · referans için",
+  "btn-reset": "Varsayılanlara sıfırla",
+  "btn-reset-confirm": "Sıfırlamayı onayla?",
+  "footer-faq": "Sık sorulan sorular"
 }

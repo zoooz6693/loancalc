@@ -364,5 +364,8 @@
   "hint-closingcosts": "Biasanya 1–5% dari jumlah pinjaman. Penawaran dari pemberi pinjaman Anda adalah angka yang paling akurat.",
   "hint-closingcosts-rf": "Kisaran umum di AS: 2–5% dari jumlah pinjaman. Di luar AS, gunakan penawaran pemberi pinjaman atau perkirakan 1–3%.",
   "hint-breakeven": "Titik impas adalah bulan ketika penghematan kumulatif dari suku bunga yang lebih rendah melebihi biaya penutupan awal Anda.",
-  "lbl-stocks-note": "Saham AS · untuk referensi"
+  "lbl-stocks-note": "Saham AS · untuk referensi",
+  "btn-reset": "Atur ulang ke default",
+  "btn-reset-confirm": "Konfirmasi reset?",
+  "footer-faq": "Pertanyaan yang sering diajukan"
 }

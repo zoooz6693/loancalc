@@ -358,5 +358,8 @@
   "hint-closingcosts": "Normalmente entre 1 e 5% do valor do empréstimo. O orçamento do seu credor é a referência mais precisa.",
   "hint-closingcosts-rf": "Faixa típica nos EUA: 2–5% do valor do empréstimo. Fora dos EUA, use o orçamento do seu credor ou estime 1–3%.",
   "hint-breakeven": "O ponto de equilíbrio é o mês em que as economias acumuladas da taxa menor superam os custos iniciais do refinanciamento.",
-  "lbl-stocks-note": "Ações dos EUA · para referência"
+  "lbl-stocks-note": "Ações dos EUA · para referência",
+  "btn-reset": "Redefinir padrões",
+  "btn-reset-confirm": "Confirmar redefinição?",
+  "footer-faq": "Perguntas frequentes"
 }

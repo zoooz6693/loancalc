@@ -395,5 +395,8 @@
   "hint-breakeven": "Break-even is the month when cumulative savings from the lower rate exceed your upfront closing costs.",
   "res-interest-context": "over {n} {years} total",
   "btn-export-csv": "Export CSV",
-  "lbl-stocks-note": "US equities · for reference"
+  "lbl-stocks-note": "US equities · for reference",
+  "btn-reset": "Reset to defaults",
+  "btn-reset-confirm": "Confirm reset?",
+  "footer-faq": "Frequently Asked Questions"
 }

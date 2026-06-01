@@ -358,5 +358,8 @@
   "hint-closingcosts": "通常为贷款金额的1–5%。您的贷款机构报价是最准确的数字。",
   "hint-closingcosts-rf": "美国通常范围：贷款金额的2–5%。在美国以外，请使用贷款机构的报价或估算1–3%。",
   "hint-breakeven": "盈亏平衡点是累计节省的利息超过前期再融资费用的月份。",
-  "lbl-stocks-note": "美股 · 仅供参考"
+  "lbl-stocks-note": "美股 · 仅供参考",
+  "btn-reset": "重置为默认值",
+  "btn-reset-confirm": "确认重置？",
+  "footer-faq": "常见问题"
 }

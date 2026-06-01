@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <script>!function(){try{var p=JSON.parse(localStorage.getItem('loancalc_prefs')||'{}');if(p.lang&&p.lang!=='en'){document.documentElement.style.visibility='hidden';setTimeout(function(){document.documentElement.style.visibility=''},800);}}catch(e){}}();</script>
     <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
     <title>Loan, Savings &amp; Refinance Calculator + Live Rates | LoanCalc</title>
     <meta name="description" content="Free calculators for loans, mortgages, compound interest, refinancing, currency exchange, live gold and oil prices. Instant amortization schedule. No signup." />
@@ -272,7 +273,7 @@
                       <span id="helper-text" class="tx-dynamic">Enter your actual loan amount, interest rate, and term above. The formula works for any currency and any country.</span>
                     </div>
                     <div class="extra-savings" id="extra-savings" style="display: none" aria-live="polite"></div>
-                    <button class="reset-defaults-btn" id="reset-defaults-btn" type="button" title="Reset loan amount, rate, and term to defaults">Reset to defaults</button>
+                    <button class="reset-defaults-btn" id="reset-defaults-btn" type="button" data-i18n="btn-reset" data-i18n-confirm="btn-reset-confirm" title="Reset loan amount, rate, and term to defaults">Reset to defaults</button>
                   </div>
                   <!-- /loan-type-content -->
                   <div id="afford-panel" role="tabpanel" aria-labelledby="loan-tab-afford" style="display: none">
@@ -596,7 +597,7 @@
                       <path d="M6.5 9.5a3.536 3.536 0 0 0 5 0l2-2a3.536 3.536 0 0 0-5-5l-1 1" />
                       <path d="M9.5 6.5a3.536 3.536 0 0 0-5 0l-2 2a3.536 3.536 0 0 0 5 5l1-1" />
                     </svg>
-                    Copy link
+                    <span data-i18n="btn-copy-link">Copy link</span>
                   </button>
                 </div>
               </div>
@@ -1001,14 +1002,6 @@
           </svg>
           <span class="footer-logo-text">Loan<span>Calc</span></span>
         </div>
-        <nav class="footer-links" aria-label="Calculator links">
-          <a href="/loan-calculator/" data-i18n="footer-mortgage">Mortgage Calculator</a>
-          <a href="/loan-calculator/" data-i18n="footer-loan">Loan Calculator</a>
-          <a href="/savings-calculator/" data-i18n="footer-savings">Savings Calculator</a>
-          <a href="/refinance-calculator/" data-i18n="footer-refinance">Refinance Calculator</a>
-          <a href="/live-rates/" data-i18n="footer-currency">Currency Converter</a>
-          <a href="#faq">Frequently Asked Questions</a>
-        </nav>
         <nav class="footer-links footer-legal" aria-label="Legal links">
           <a href="/privacy/" data-i18n="footer-privacy">Privacy Policy</a>
           <a href="/privacy/#do-not-sell" data-i18n="footer-dnsmi">Do Not Sell or Share My Personal Information</a>
