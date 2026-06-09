@@ -398,5 +398,6 @@
   "lbl-stocks-note": "US equities · for reference",
   "btn-reset": "Reset to defaults",
   "btn-reset-confirm": "Confirm reset?",
-  "footer-faq": "Frequently Asked Questions"
+  "footer-faq": "Frequently Asked Questions",
+  "footer-about": "About"
 }

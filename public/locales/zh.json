@@ -361,5 +361,6 @@
   "lbl-stocks-note": "美股 · 仅供参考",
   "btn-reset": "重置为默认值",
   "btn-reset-confirm": "确认重置？",
-  "footer-faq": "常见问题"
+  "footer-faq": "常见问题",
+  "footer-about": "关于"
 }

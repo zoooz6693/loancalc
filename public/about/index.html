@@ -227,9 +227,9 @@
           <span class="footer-logo-text">Loan<span>Calc</span></span>
         </div>
         <nav class="footer-links footer-legal" aria-label="Legal links">
-          <a href="/privacy/">Privacy Policy</a>
+          <a href="/privacy/" data-i18n="footer-privacy">Privacy Policy</a>
           <a href="/privacy/#do-not-sell" data-i18n="footer-dnsmi">Do Not Sell or Share My Personal Information</a>
-          <a href="/about/" aria-current="page">About</a>
+          <a href="/about/" aria-current="page" data-i18n="footer-about">About</a>
         </nav>
         <p id="footer-desc-el" data-i18n="footer-desc">Free financial calculators: loan, savings, refinance, currency. No account required.</p>
         <p class="footer-disclaimer" id="footer-disclaimer-el" data-i18n="footer-disclaimer">LoanCalc provides estimates for informational purposes only. This is not financial advice. Consult a licensed financial advisor before making borrowing decisions.</p>
@@ -249,6 +249,9 @@
       }
       window.addEventListener('scroll', onScroll, {passive: true});
       onScroll();
+    </script>
+    <script>
+      (function(){try{var p=JSON.parse(localStorage.getItem('loancalc_prefs')||'{}');var l=p.lang;if(!l||l==='en'){document.documentElement.style.visibility='';return;}fetch('/locales/'+l+'.json').then(function(r){return r.json();}).then(function(t){document.documentElement.setAttribute('lang',l);if(l==='ar')document.documentElement.setAttribute('dir','rtl');document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(t[k])e.textContent=t[k];});document.documentElement.style.visibility='';}).catch(function(){document.documentElement.style.visibility='';});}catch(e){document.documentElement.style.visibility='';}})();
     </script>
 
 <div id="consent-overlay">

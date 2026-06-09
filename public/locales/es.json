@@ -361,5 +361,6 @@
   "lbl-stocks-note": "Acciones de EE.UU. · como referencia",
   "btn-reset": "Restablecer valores predeterminados",
   "btn-reset-confirm": "¿Confirmar restablecimiento?",
-  "footer-faq": "Preguntas frecuentes"
+  "footer-faq": "Preguntas frecuentes",
+  "footer-about": "Acerca de"
 }
