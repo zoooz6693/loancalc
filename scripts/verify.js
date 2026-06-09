@@ -76,6 +76,7 @@ const HTML_PAGES = [
   'live-rates/index.html',
   'faq/index.html',
   'privacy/index.html',
+  'about/index.html',
   'currency-converter/index.html',
   'mortgage-calculator/index.html',
 ];
