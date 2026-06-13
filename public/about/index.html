@@ -170,6 +170,7 @@
           <li><a href="#data-sources">Data sources</a></li>
           <li><a href="#free">Free, no account</a></li>
           <li><a href="#disclaimer">Disclaimer</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
       </aside>
 
@@ -208,6 +209,11 @@
         <section class="priv-section" id="disclaimer">
           <h2>Disclaimer</h2>
           <p>LoanCalc provides estimates for informational purposes only. Results are based on the inputs you provide and standard financial formulas. This is not financial advice. Consult a licensed financial advisor before making any borrowing, saving, or investment decisions.</p>
+        </section>
+
+        <section class="priv-section" id="contact">
+          <h2>Contact</h2>
+          <p>For questions or feedback, email <a href="mailto:contact@loancalc.app">contact@loancalc.app</a>.</p>
         </section>
       </main>
     </div>
@@ -251,7 +257,7 @@
       onScroll();
     </script>
     <script>
-      (function(){try{var p=JSON.parse(localStorage.getItem('loancalc_prefs')||'{}');var l=p.lang;if(!l||l==='en'){document.documentElement.style.visibility='';return;}fetch('/locales/'+l+'.json').then(function(r){return r.json();}).then(function(t){document.documentElement.setAttribute('lang',l);if(l==='ar')document.documentElement.setAttribute('dir','rtl');document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(t[k])e.textContent=t[k];});document.documentElement.style.visibility='';}).catch(function(){document.documentElement.style.visibility='';});}catch(e){document.documentElement.style.visibility='';}})();
+      (function(){try{var p=JSON.parse(localStorage.getItem('loancalc_prefs')||'{}');var l=p.lang;if(!l||l==='en'){document.documentElement.style.visibility='';return;}fetch('/locales/'+l+'.json').then(function(r){return r.json();}).then(function(t){document.documentElement.setAttribute('lang',l);document.querySelectorAll('[data-i18n]').forEach(function(e){var k=e.getAttribute('data-i18n');if(t[k])e.textContent=t[k];});document.documentElement.style.visibility='';}).catch(function(){document.documentElement.style.visibility='';});}catch(e){document.documentElement.style.visibility='';}})();
     </script>
 
 <div id="consent-overlay">
